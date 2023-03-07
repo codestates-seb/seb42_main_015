@@ -1,7 +1,7 @@
 ---
 name: BE Issue template
 about: 백엔드 이슈 템플릿
-title: ''
+title: "[BE]"
 labels: ''
 assignees: ''
 
