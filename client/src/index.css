@@ -48,6 +48,8 @@
   font-style: normal;
 }
 @import url("https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Caveat:wght@400;500;600;700&family=Sriracha&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inria+Sans&display=swap");
+
 /*웹 폰트 규칙 
 font-family: 'Caveat', cursive;
 font-family: 'Caveat Brush', cursive;
@@ -59,7 +61,8 @@ font-family: 'Sriracha', cursive; */
   box-sizing: border-box;
 }
 ol,
-ul {
+ul,
+li {
   list-style: none;
 }
 a {
