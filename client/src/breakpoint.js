@@ -1,0 +1,2 @@
+const BREAKPOINTMOBILE = 767;
+export default BREAKPOINTMOBILE;
