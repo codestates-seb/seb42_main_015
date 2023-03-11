@@ -4,7 +4,6 @@ import com.witchdelivery.messageapp.exception.BusinessLogicException;
 import com.witchdelivery.messageapp.exception.ExceptionCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -35,7 +34,7 @@ public class MemberService {
     public Member updateMember(Member member) {
         Member findMember = checkMember(member.getMemberId());    // ofNullable() : Optional 객체가 null 값을 가지고 있어도 허용
         Optional.ofNullable(member.getEmail()).ifPresent(email -> findMember.setEmail(email));
-        Optional.ofNullable(member.getUsername()).ifPresent(username -> findMember.setUsername(username));
+        Optional.ofNullable(member.getMemberName()).ifPresent(memberName -> findMember.setMemberName(memberName));
         Optional.ofNullable(member.getPassword()).ifPresent(password -> findMember.setPassword(password));
         return memberRepository.save(findMember);
     }

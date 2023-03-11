@@ -18,7 +18,7 @@ public class Member {
     private String email;   // 이메일
 
     @Column(nullable = false)
-    private String username; // 닉네임
+    private String memberName; // 닉네임
 
     @Column(nullable = false)
     private String password;    // 패스워드
