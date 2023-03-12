@@ -6,6 +6,7 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import WriteLetter from "./pages/WriteLetter/WriteLetter";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/writeletter" element={<WriteLetter />} />
       </Routes>
       <Footer />
     </BrowserRouter>
