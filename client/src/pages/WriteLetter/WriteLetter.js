@@ -5,6 +5,7 @@ import { BiMicrophone, BiFontColor, BiLock, BiLockOpen } from "react-icons/bi";
 import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
 import { SlQuestion } from "react-icons/sl";
 import { PALETTE_V1 } from "../../style/color";
+import RoundButton from "../commons/RoundButton";
 
 function WriteLetter() {
   const { register, watch } = useForm();
@@ -61,12 +62,12 @@ function WriteLetter() {
         </W.FlexWrapper2>
         <W.ButtonWrapper>
           <SlQuestion className="question-icon" size="30" />
-          <W.RoundButton backgroundColor={PALETTE_V1.yellow_button}>
+          <RoundButton backgroundColor={PALETTE_V1.yellow_button}>
             미리보기
-          </W.RoundButton>
-          <W.RoundButton backgroundColor={PALETTE_V1.yellow_button}>
+          </RoundButton>
+          <RoundButton backgroundColor={PALETTE_V1.yellow_button}>
             편지생성
-          </W.RoundButton>
+          </RoundButton>
         </W.ButtonWrapper>
       </W.PageWrapper>
     </W.PageContainer>

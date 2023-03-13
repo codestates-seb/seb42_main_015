@@ -122,13 +122,3 @@ export const ButtonWrapper = styled(FlexRowWrapper)`
     margin-right: 10px;
   }
 `;
-export const RoundButton = styled.button`
-  background-color: ${(props) => props.backgroundColor};
-  border: 2px solid ${PALETTE_V1.text_primary};
-  border-radius: 50%;
-  min-width: 100px;
-  width: 100px;
-  height: 40px;
-  margin-right: 10px;
-  ${FONT_STYLE_V1.body.body_10_light}
-`;
