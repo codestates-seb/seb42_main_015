@@ -8,10 +8,16 @@ import java.util.List;
 @Getter
 public class PageResponseDto<T> {
     private List<T> data;
-    private PageInfo pageInfo;
+    private int page;
+    private int size;
+    private long totalElements;
+    private int totalPages;
 
-    public PageResponseDto(List<T> data, Page page) {
+    public PageResponseDto(List<T> data, Page pageInfo) {
         this.data = data;
-        this.pageInfo = new PageInfo(page.getNumber() +1, page.getSize(), page.getTotalElements(), page.getTotalPages());
+        this.page = pageInfo.getNumber() +1;
+        this.size = pageInfo.getSize();
+        this.totalPages = pageInfo.getTotalPages();
+        this.totalElements = pageInfo.getTotalElements();
     }
 }
