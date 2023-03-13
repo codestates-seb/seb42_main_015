@@ -1,14 +1,13 @@
 import styled, { css } from "styled-components";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 import { PALETTE_V1 } from "../../style/color";
-import { BiMicrophone } from "react-icons/bi";
 
 export const PageContainer = styled.div`
   background-color: ${PALETTE_V1.background};
   min-height: 95vh;
+  min-width: max-content;
   width: 100vw;
 `;
-
 export const FlexRowWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -107,6 +106,10 @@ export const ContentTextarea = styled.textarea`
   border: none;
   resize: none;
   aspect-ratio: 1/1.5;
+  ${FONT_STYLE_V1.textarea.textarea_10_light}
+  &:focus {
+    outline: none;
+  }
 `;
 export const FromWrapper = styled(FlexRowWrapper)`
   justify-content: flex-end;

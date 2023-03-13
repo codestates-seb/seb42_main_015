@@ -7,3 +7,7 @@ export const PALETTE_V1 = {
   text_primary: "#312F2B",
   yellow_button: "#FFE848",
 };
+export const PALETTE_MYPAGE = {
+  gradation_green: "#91F09B",
+  active_green: "#53C848",
+};
