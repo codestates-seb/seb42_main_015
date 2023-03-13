@@ -23,4 +23,7 @@ public class Member extends BaseTimeEntity {
 
     @Column(nullable = false)
     private String password;    // 패스워드
+
+    @Column
+    private String comment; // 한 줄 소개
 }
