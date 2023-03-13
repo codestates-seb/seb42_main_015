@@ -5,4 +5,5 @@ export const PALETTE_WRITELETTER = {
 export const PALETTE_V1 = {
   background: "#FCFBF4",
   text_primary: "#312F2B",
+  yellow_button: "#FFE848",
 };
