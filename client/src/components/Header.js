@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import BREAKPOINTMOBILE from "../breakpoint";
 import { Link } from "react-router-dom";
+import logo from "../asset/작은편지.png";
 
 const HeaderComponent = styled.header`
   align-items: center;
@@ -25,39 +26,40 @@ const HeaderContainer = styled.div`
   width: 100%;
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    margin: 0px 20px;
+    margin: 0px 30px;
   }
 
   .logo {
-    width: 166px;
-    height: 100%;
     padding: 0px 8px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     font-family: "Sriracha";
     font-size: 22px;
+    padding-bottom: 4px;
   }
 
   .logo-img {
     display: inline-block;
-    width: 150px;
+    width: 22px;
+    height: 16px;
+    margin-left: 3px;
   }
 
   #nav-container {
     display: flex;
     li {
-      padding: 6px 12px;
+      padding: 0px 20px;
     }
     a {
       line-height: 36px;
       font-size: 13px;
       color: #000000;
-      padding-right: 20px;
       font-family: "Inria Sans", sans-serif;
     }
     li:hover {
-      background: #e3e6e8;
+      border-radius: 100%;
+      background: #fde44370;
     }
   }
 `;
@@ -70,7 +72,7 @@ function Header({ isLogin }) {
           <Link to="/">
             <h1 className="logo">
               Sendy
-              <span className="logo-img"></span>
+              <img className="logo-img" src={logo} />
             </h1>
           </Link>
           {isLogin ? (
