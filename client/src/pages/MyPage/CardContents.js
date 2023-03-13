@@ -102,6 +102,7 @@ const EmailAuth = styled.div`
 `;
 
 export function CardContents2 () {
+  console.log('test')
   return (
     <Contents>
       <div className="user">
