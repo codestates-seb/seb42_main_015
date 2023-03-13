@@ -1,5 +1,6 @@
 package com.witchdelivery.messageapp.member;
 
+import com.witchdelivery.messageapp.audit.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import java.util.List;
 @Entity(name = "MEMBERS")
 @Getter
 @Setter
-public class Member implements Principal {// Auditable 상속 뺌 필요 시 추가
+public class Member extends BaseTimeEntity implements Principal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
