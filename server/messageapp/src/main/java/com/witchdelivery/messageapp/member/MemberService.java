@@ -36,6 +36,7 @@ public class MemberService {
         Optional.ofNullable(member.getEmail()).ifPresent(email -> findMember.setEmail(email));
         Optional.ofNullable(member.getMemberName()).ifPresent(memberName -> findMember.setMemberName(memberName));
         Optional.ofNullable(member.getPassword()).ifPresent(password -> findMember.setPassword(password));
+        Optional.ofNullable(member.getComment()).ifPresent(comment -> findMember.setComment(comment));
         return memberRepository.save(findMember);
     }
 

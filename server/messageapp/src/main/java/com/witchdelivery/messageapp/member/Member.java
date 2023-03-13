@@ -56,4 +56,6 @@ public class Member extends BaseTimeEntity implements Principal {
     }
 
     // TODO JPA Auditing
+    @Column
+    private String comment; // 한 줄 소개
 }
