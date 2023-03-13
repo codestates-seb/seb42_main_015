@@ -47,7 +47,7 @@ public class MemberService {
     // 사용자 검증
     public Member checkMember(long memberId) {
         Optional<Member> member = memberRepository.findById(memberId);  // orElseThrow() : Optional 객체가 null 값을 가지고 있다면 예외처리 발생
-        Member findMember = member.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));   // 404
+        Member findMember = member.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));   // 404
         return findMember;
     }
 
@@ -55,6 +55,6 @@ public class MemberService {
     public void checkEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isPresent()) // isPresent() : Optional 객체가 값을 가지고 있다면 true, 아니라면 false
-            throw new BusinessLogicException(ExceptionCode.USER_EXISTS);    // 409
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);    // 409
     }
 }
