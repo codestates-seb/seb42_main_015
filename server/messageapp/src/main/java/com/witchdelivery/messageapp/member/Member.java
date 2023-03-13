@@ -1,5 +1,6 @@
 package com.witchdelivery.messageapp.member;
 
+import com.witchdelivery.messageapp.audit.BaseTimeEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Entity(name = "MEMBERS")
 @Getter
 @Setter
-public class Member {
+public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -22,6 +23,4 @@ public class Member {
 
     @Column(nullable = false)
     private String password;    // 패스워드
-
-    // TODO JPA Auditing
 }
