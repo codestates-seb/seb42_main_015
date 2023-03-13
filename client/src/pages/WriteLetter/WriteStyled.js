@@ -1,13 +1,14 @@
 import styled, { css } from "styled-components";
-import { FONT_STYLE_WRITELETTER } from "../../style/fontStyle";
-import { PALETTE_WRITELETTER } from "../../style/color";
+import { FONT_STYLE_V1 } from "../../style/fontStyle";
+import { PALETTE_V1 } from "../../style/color";
 
 export const LetterContainer = styled.div`
-  background-color: ${PALETTE_WRITELETTER.background};
+  background-color: ${PALETTE_V1.background};
   min-height: 95vh;
 `;
 export const LetterWrapper = styled.div`
   margin: 0 50px;
+  min-width: 350px;
 `;
 export const FlexRowWrapper = styled.div`
   display: flex;
@@ -19,17 +20,18 @@ export const FlexWrapper1 = styled(FlexRowWrapper)`
 `;
 export const ToInputWrapper = styled.div`
   border: none;
-  border-bottom: 1.5px solid #005897;
+  border-bottom: 2px solid ${PALETTE_V1.text_primary};
   max-width: fit-content;
-  ${FONT_STYLE_WRITELETTER.body.body_12_light}
+  height: 2rem;
+  ${FONT_STYLE_V1.body.body_12_light}
 `;
 export const ToInput = styled.input`
   border: none;
   background-color: transparent;
-  ${FONT_STYLE_WRITELETTER.body.body_10_light}
+  ${FONT_STYLE_V1.body.body_10_light}
 `;
 export const Text = styled.div`
-  ${FONT_STYLE_WRITELETTER.body.body_12_light}
+  ${FONT_STYLE_V1.body.body_12_light}
 `;
 export const Date = styled(Text)``;
 export const SendMeWrapper = styled(FlexRowWrapper)`
@@ -50,15 +52,15 @@ export const SendMeCheckBox = styled.label.attrs({ htmlfor: "sendMe" })`
     content: "";
     width: 11px;
     height: 11px;
-    border: 1.5px solid #005897;
+    border: 1px solid ${PALETTE_V1.text_primary};
   }
   ${SendMeBtn}:checked & {
     content: "";
-    background-color: #005897;
+    background-color: ${PALETTE_V1.text_primary};
     background-image: url(../asset/icon8-done30.png);
   }
 `;
 export const SendMeLabel = styled.span`
-  color: #005897;
+  color: ${PALETTE_V1.text_primary};
 `;
 export const ContentContainer = styled.div``;
