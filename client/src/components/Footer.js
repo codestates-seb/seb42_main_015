@@ -9,8 +9,8 @@ const FooterComponent = styled.footer`
   background: #fcfbf4;
   border-top: 1px solid #312f2b;
 
-  /* background-image: url("${wrapper}");
-  background-size: cover; */
+  background-image: url("${wrapper}");
+  background-size: cover;
 
   color: #000000;
   padding: 1.2rem 1.2rem 1rem;
