@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import BREAKPOINTMOBILE from "../../breakpoint";
 import { FONT_STYLE_LOGIN } from "../../style/fontStyle";
+import email from "../../asset/mail.png";
+import pwd from "../../asset/pwd.png";
 
 export const Background = styled.div`
   height: 90vh;
@@ -15,15 +17,22 @@ export const Container = styled.div`
 `;
 export const BackgroundYellow = styled.div`
   display: flex;
+  position: relative;
   border: 1px solid black;
   background: #fff59f;
-  height: 44rem;
-  width: 61rem;
+  margin: 1rem 0rem 0rem 2rem;
+  height: 41rem;
+  width: 60em;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 20rem;
+    height: 31rem;
+  }
 `;
 export const Form = styled.div`
+  position: absolute;
   display: flex;
   width: 60rem;
-  height: 42rem;
+  height: 41rem;
   background-color: #fff;
   border: 1px solid black;
   margin-bottom: 2rem;
@@ -55,28 +64,45 @@ export const Form = styled.div`
         }
       }
       input {
-        width: 25rem;
+        width: 23rem;
         height: 2rem;
         margin-bottom: 3.3rem;
-        padding: 1.2rem;
+        padding: 0rem 3rem;
         border-top: none;
         border-left: none;
         border-right: none;
         border-bottom: 1px solid #000;
         font-size: 14px;
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: 1.5rem;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           width: 14rem;
           font-size: 11px;
           margin-bottom: 1.5rem;
         }
       }
+      .idInput {
+        background-image: url("${email}");
+        background-size: 1.4rem;
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+          background-size: 1rem;
+        }
+      }
+      .pwdInput {
+        background-image: url("${pwd}");
+        background-size: 1.5rem;
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+          background-size: 1.2rem;
+        }
+      }
       .btn {
-        width: 18rem;
+        width: 17rem;
         height: 3.2rem;
         border: 1px solid #000;
         ${FONT_STYLE_LOGIN.button.button_13_light}
         background: #fff06c;
-        margin-top: 3rem;
+        margin-top: 2.7rem;
         padding-top: 0.5rem;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           width: 14rem;
@@ -123,7 +149,7 @@ export const Form = styled.div`
   }
 
   .formRight {
-    flex-grow: 2;
+    flex-grow: 1;
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       display: none;
     }
