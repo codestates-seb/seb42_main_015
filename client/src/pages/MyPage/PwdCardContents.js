@@ -4,7 +4,7 @@ import {BsEnvelopeAt} from 'react-icons/bs';
 import styled from "styled-components";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 
-export function CardContents() {
+export function PwdCardContents() {
   return (
     <Contents>
       <div className="user">
