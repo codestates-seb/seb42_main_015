@@ -49,6 +49,12 @@
 }
 @import url("https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Caveat:wght@400;500;600;700&family=Sriracha&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inria+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+
+/* 로그인, 회원가입 버튼 폰트 -> font-family: 'IBM Plex Sans Thai Looped', sans-serif; */
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@500&display=swap");
+/* 로그인,회원가입 Welcome 폰트 -> font-family: 'Raleway', sans-serif; */
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap");
 
 /*웹 폰트 규칙 
 font-family: 'Caveat', cursive;
@@ -59,7 +65,6 @@ font-family: 'Sriracha', cursive; */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* background: #fde44370; */
 }
 ol,
 ul,
