@@ -53,8 +53,4 @@ public class Member extends BaseTime implements Principal{
         ROLE_USER,
         ROLE_ADMIN
     }
-
-    // TODO JPA Auditing
-    @Column
-    private String comment; // 한 줄 소개
 }
