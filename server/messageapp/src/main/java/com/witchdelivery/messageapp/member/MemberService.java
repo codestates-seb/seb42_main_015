@@ -27,13 +27,9 @@ public class MemberService {
     }
 
     public Member createMember(Member member) {
-<<<<<<< Updated upstream
         verifiedExistedEmail(member.getEmail());    // 이메일 검증
         verifiedExistedName(member.getMemberName());    // 닉네임 검증
 
-=======
-        checkEmail(member.getEmail());  // 이메일 검증
->>>>>>> Stashed changes
         String encryptedPassword = passwordEncoder.encode(member.getPassword()); // PasswordEncoder를 이용해 패스워드 암호화
         member.setPassword(encryptedPassword); // 암호화된 패스워드를 password필드에 재할당
 
@@ -41,15 +37,8 @@ public class MemberService {
         List<String> roles = authorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
 
-<<<<<<< Updated upstream
 //        publisher.publishEvent(new MemberRegistrationApplicationEvent(saveMember)); // 없어도 될 듯...?
         return memberRepository.save(member);
-=======
-        Member saveMember = memberRepository.save(member);
-
-//        publisher.publishEvent(new MemberRegistrationApplicationEvent(saveMember)); // 없어도 될 듯...?
-        return saveMember;
->>>>>>> Stashed changes
     }
 
     public Member findMember(Long memberId) {
