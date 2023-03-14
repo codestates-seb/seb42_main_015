@@ -3,6 +3,10 @@ import BREAKPOINTMOBILE from "../../breakpoint";
 import { FONT_STYLE_LOGIN } from "../../style/fontStyle";
 import email from "../../asset/mail.png";
 import pwd from "../../asset/pwd.png";
+import user1 from "../../asset/user1.png";
+import user2 from "../../asset/user2.png";
+import img1 from "../../asset/강지.png";
+import img2 from "../../asset/반듯한고양이.png";
 
 export const Background = styled.div`
   height: 90vh;
@@ -269,6 +273,13 @@ export const SignForm = styled.div`
           width: 14rem;
           font-size: 11px;
           margin-bottom: 1.5rem;
+        }
+      }
+      .userInput {
+        background-image: url("${user2}");
+        background-size: 1.4rem;
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+          background-size: 1rem;
         }
       }
       .idInput {
