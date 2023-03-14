@@ -60,7 +60,7 @@ export const FONT_STYLE_LOGIN = {
   title: {
     title_40_medium: css`
       font-family: "Sriracha";
-      font-size: 4rem;
+      font-size: 4.2rem;
       -webkit-text-stroke: 1px #000;
       color: ${PALETTE_LOGIN.loginText};
     `,
@@ -79,6 +79,10 @@ export const FONT_STYLE_LOGIN = {
       font-family: "IBM Plex Sans Thai Looped", sans-serif;
       font-size: 0.9rem;
       color: ${PALETTE_LOGIN.subText};
+    `,
+    body_10_light: css`
+      font-family: "Raleway", sans-serif;
+      font-size: 1rem;
     `,
   },
   button: {

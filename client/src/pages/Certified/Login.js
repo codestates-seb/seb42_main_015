@@ -1,8 +1,14 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import * as L from "./LoginFormStyled";
 import Google from "../../asset/구글.png";
 import Kakao from "../../asset/카카오.png";
+import img1 from "../../asset/해바라기.png";
+import img2 from "../../asset/하늘.png";
+<<<<<<< Updated upstream
 import * as L from "./LoginFormStyled";
+=======
+>>>>>>> Stashed changes
 
 function Login() {
   //handleSubmit을 가져옵니다.
@@ -14,8 +20,8 @@ function Login() {
   return (
     <>
       <L.Background>
-        <L.BackgroundYellow>
-          <L.Container>
+        <L.Container>
+          <L.BackgroundYellow>
             <L.Form onSubmit={handleSubmit(onValid, onInvalid)}>
               <li className="formLeft">
                 <ul className="login-form">
@@ -31,7 +37,6 @@ function Login() {
                     placeholder="Password"
                   />
                   <input className="btn" type="submit" value="Log in" />
-
                   <div className="sub-form ">
                     <Link to="/">
                       <li>forget Password</li>
@@ -44,17 +49,44 @@ function Login() {
                     <div className="oauth-head">Log in With</div>
                     <div className="oauth">
                       <img src={Google} alt="Googole" />
-                      <img src={Kakao} alt="Googole" />
+                      <img src={Kakao} alt="Kakao" />
                     </div>
                   </div>
                 </ul>
               </li>
               <li className="formRight">
                 <ui className="welcome">welcome!</ui>
+                <div className="imgWrapper">
+                  <div className="section1">
+                    <img src={img1} alt="Sunflower"></img>
+                    <span className="box">sunflower</span>
+                  </div>
+                  <div className="section2">
+                    <img src={img2} alt="Sky"></img>
+                    <span className="box">cloud</span>
+                  </div>
+                </div>
+                <div className="oauth-form">
+                  <div className="oauth-head">Log in With</div>
+                  <div className="oauth">
+                    <img src={Google} alt="Googole" />
+                    <img src={Kakao} alt="Kakao" />
+                  </div>
+                </div>
               </li>
+              <div className="imgWrapper">
+                <div className="section1">
+                  <img src={img1} alt="sunflower" />
+                  <span className="box">sunflower</span>
+                </div>
+                <div className="section2">
+                  <img src={img2} alt="cloud" />
+                  <span className="box">cloud</span>
+                </div>
+              </div>
             </L.Form>
-          </L.Container>
-        </L.BackgroundYellow>
+          </L.BackgroundYellow>
+        </L.Container>
       </L.Background>
     </>
   );
