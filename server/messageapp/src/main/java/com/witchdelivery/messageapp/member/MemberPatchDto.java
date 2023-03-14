@@ -10,5 +10,4 @@ public class MemberPatchDto {
     private String email;   // 이메일
     private String memberName; // 닉네임
     private String password;    // 패스워드
-    private String comment; // 한 줄 소개
 }

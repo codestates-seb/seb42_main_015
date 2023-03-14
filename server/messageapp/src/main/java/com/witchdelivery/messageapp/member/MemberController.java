@@ -28,16 +28,16 @@ public class MemberController {
     }
 
     @GetMapping("/{member-id}")
-    public ResponseEntity getMember() {
-        return null;
+    public ResponseEntity getMember(@PathVariable("member-id") Long memberId) {
+        Member member = memberService.findMember(memberId);
+        return new ResponseEntity<>(memberMapper.memberToMemberResponseDto(member), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity getMembers(@Positive @RequestParam(required = false, defaultValue = "1") int page,
                                      @Positive @RequestParam(required = false, defaultValue = "50") int size) {
-        Page<Member> pageMembers = memberService.findMembers(page -1,size);
-        List<Member> members = pageMembers.getContent();
-        return new ResponseEntity<>(new PageResponseDto<>(memberMapper.membersToMemberResponseDtos(members), pageMembers), HttpStatus.OK);
+        Page<Member> members = memberService.findMembers(page -1, size);
+        return new ResponseEntity<>(new PageResponseDto<>(memberMapper.membersToMemberResponseDtos(members.getContent()), members), HttpStatus.OK);
     }
 
     @PatchMapping("/edit/{member-id}")
