@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class MemberPatchDto {
     private Long memberId;    // 사용자 고유번호
-    private String email;   // 이메일
     private String memberName; // 닉네임
     private String password;    // 패스워드
 }
