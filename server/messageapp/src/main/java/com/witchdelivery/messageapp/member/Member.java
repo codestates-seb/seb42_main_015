@@ -1,6 +1,6 @@
 package com.witchdelivery.messageapp.member;
 
-import com.witchdelivery.messageapp.audit.BaseTimeEntity;
+import com.witchdelivery.messageapp.audit.BaseTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity(name = "MEMBERS")
 @Getter
 @Setter
-public class Member extends BaseTimeEntity {
+public class Member extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -21,9 +21,5 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private String memberName; // 닉네임
 
-    @Column(nullable = false)
     private String password;    // 패스워드
-
-    @Column
-    private String comment; // 한 줄 소개
 }
