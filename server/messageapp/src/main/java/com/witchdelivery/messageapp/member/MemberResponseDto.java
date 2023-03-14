@@ -12,5 +12,4 @@ public class MemberResponseDto {
     private String email;   // 이메일
     private String memberName; // 닉네임
     private LocalDateTime createdAt;    // 생성 시간
-    private String comment; // 한 줄 소개
 }
