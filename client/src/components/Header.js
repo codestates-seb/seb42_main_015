@@ -10,7 +10,7 @@ const HeaderComponent = styled.header`
   background: #fcfbf4;
   border-bottom: 1px solid #312f2b;
   display: flex;
-  height: 45px;
+  height: 80px;
   position: sticky;
   z-index: 999;
 `;
@@ -33,7 +33,7 @@ const HeaderContainer = styled.div`
     align-items: center;
     justify-content: center;
     font-family: "Sriracha";
-    font-size: 1.7rem;
+    font-size: 2.5rem;
     padding-bottom: 4px;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
@@ -53,15 +53,14 @@ const HeaderContainer = styled.div`
     li {
       padding: 0px 20px;
     }
-
     .postImg {
-      width: 23px;
-      padding-top: 8px;
+      width: 35px;
+      padding-top: 2px;
     }
   }
   a {
     line-height: 36px;
-    font-size: 1rem;
+    font-size: 1.3rem;
     color: #000000;
     font-family: "Inria Sans", sans-serif;
 

@@ -6,7 +6,6 @@ export const PageContainer = styled.div`
   background-color: ${PALETTE_V1.background};
   min-height: 95vh;
   min-width: max-content;
-  width: 100vw;
 `;
 export const FlexRowWrapper = styled.div`
   display: flex;
@@ -29,6 +28,7 @@ export const LetterBox = styled(FlexColunmWrapper)`
   border: 2px solid #000000;
   padding: 0.5rem 1rem 0.5rem 1rem;
   min-width: 400px;
+  max-width: 680px;
 `;
 export const FlexWrapper1 = styled(FlexRowWrapper)`
   justify-content: space-between;

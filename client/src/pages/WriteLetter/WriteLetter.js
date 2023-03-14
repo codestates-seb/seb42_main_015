@@ -6,15 +6,11 @@ import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
 import { SlQuestion } from "react-icons/sl";
 import { PALETTE_V1 } from "../../style/color";
 import RoundButton from "../commons/RoundButton";
+import LetterContent from "./LetterContent";
 
 function WriteLetter() {
   const { register, watch } = useForm();
   const [useLock, setUseLock] = useState(false);
-
-  const weekday = ["일", "월", "화", "수", "목", "금", "토"];
-  const currentDate = `${new Date().getFullYear()}.${new Date().getMonth()}.${new Date().getDate()} ${
-    weekday[new Date().getDay()]
-  }`;
 
   return (
     <W.PageContainer>
@@ -33,29 +29,9 @@ function WriteLetter() {
             <MdArrowBackIos className="arrow-backward-icon" size="30" />
           </W.ThemeIcon>
           <W.LetterWrapper>
-            <W.LetterBox>
-              <W.FlexWrapper1>
-                <W.NameInputWrapper>
-                  To
-                  <W.NameInput></W.NameInput>
-                </W.NameInputWrapper>
-                <W.Date>{currentDate}</W.Date>
-              </W.FlexWrapper1>
-              <W.SendMeWrapper>
-                <W.SendMeBtn></W.SendMeBtn>
-                <W.SendMeCheckBox></W.SendMeCheckBox>
-                <W.SendMeLabel>나에게보내기</W.SendMeLabel>
-              </W.SendMeWrapper>
-              <W.ContentTextarea></W.ContentTextarea>
-              <W.FromWrapper>
-                <W.NameInputWrapper>
-                  From
-                  <W.NameInput></W.NameInput>
-                </W.NameInputWrapper>
-              </W.FromWrapper>
-            </W.LetterBox>
+            <LetterContent />
             <W.TextCount>0/7000</W.TextCount>
-          </W.LetterWrapper>{" "}
+          </W.LetterWrapper>
           <W.ThemeIcon>
             <MdArrowForwardIos className="arrow-forward-icon" size="30" />
           </W.ThemeIcon>
