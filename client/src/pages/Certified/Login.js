@@ -5,10 +5,6 @@ import Google from "../../asset/구글.png";
 import Kakao from "../../asset/카카오.png";
 import img1 from "../../asset/해바라기.png";
 import img2 from "../../asset/하늘.png";
-<<<<<<< Updated upstream
-import * as L from "./LoginFormStyled";
-=======
->>>>>>> Stashed changes
 
 function Login() {
   //handleSubmit을 가져옵니다.
@@ -74,16 +70,6 @@ function Login() {
                   </div>
                 </div>
               </li>
-              <div className="imgWrapper">
-                <div className="section1">
-                  <img src={img1} alt="sunflower" />
-                  <span className="box">sunflower</span>
-                </div>
-                <div className="section2">
-                  <img src={img2} alt="cloud" />
-                  <span className="box">cloud</span>
-                </div>
-              </div>
             </L.Form>
           </L.BackgroundYellow>
         </L.Container>
