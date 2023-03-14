@@ -3,6 +3,7 @@ package com.witchdelivery.messageapp.member;
 import com.witchdelivery.messageapp.auth.utils.CustomAuthorityUtils;
 import com.witchdelivery.messageapp.exception.BusinessLogicException;
 import com.witchdelivery.messageapp.exception.ExceptionCode;
+import com.witchdelivery.messageapp.utils.CustomBeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,16 +15,18 @@ import java.util.Optional;
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
-//    private final ApplicationEventPublisher publisher; // 이게 뭐지??
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
+    private final CustomBeanUtils<Member> beanUtils;
 
     public MemberService(MemberRepository memberRepository,
                          PasswordEncoder passwordEncoder,
-                         CustomAuthorityUtils authorityUtils) {
+                         CustomAuthorityUtils authorityUtils,
+                         CustomBeanUtils<Member> beanUtils) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
+        this.beanUtils = beanUtils;
     }
 
     public Member createMember(Member member) {
@@ -37,7 +40,6 @@ public class MemberService {
         List<String> roles = authorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
 
-//        publisher.publishEvent(new MemberRegistrationApplicationEvent(saveMember)); // 없어도 될 듯...?
         return memberRepository.save(member);
     }
 
@@ -51,10 +53,9 @@ public class MemberService {
     }
 
     public Member updateMember(Member member) {
-        Member findMember = findVerifiedMember(member.getMemberId());    // ofNullable() : Optional 객체가 null 값을 가지고 있어도 허용
-        Optional.ofNullable(member.getEmail()).ifPresent(email -> findMember.setEmail(email));
-        Optional.ofNullable(member.getMemberName()).ifPresent(memberName -> findMember.setMemberName(memberName));
-        Optional.ofNullable(member.getPassword()).ifPresent(password -> findMember.setPassword(password));
+        Member findMember = findVerifiedMember(member.getMemberId());
+        verifiedExistedName(member.getMemberName());    // 닉네임 검증
+        Member updatedMember = beanUtils.copyNonNullProperties(member, findMember);
         return memberRepository.save(findMember);
     }
 

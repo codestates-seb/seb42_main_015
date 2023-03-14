@@ -1,6 +1,6 @@
 package com.witchdelivery.messageapp.member;
 
-import com.witchdelivery.messageapp.audit.BaseTimeEntity;
+import com.witchdelivery.messageapp.audit.BaseTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +14,7 @@ import java.util.List;
 @Entity(name = "MEMBERS")
 @Getter
 @Setter
-public class Member extends BaseTimeEntity implements Principal {
+public class Member extends BaseTime implements Principal{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -26,7 +26,6 @@ public class Member extends BaseTimeEntity implements Principal {
     @Column(nullable = false)
     private String memberName; // 닉네임
 
-    @Column(nullable = false)
     private String password;    // 패스워드
 
     // User의 권한 정보 테이블과 매핑되는 정보
