@@ -16,3 +16,7 @@ export const PALETTE_LOGIN = {
   loginText: "#fff250",
   subText: "#505050;",
 };
+
+export const PALETTE_MAIN = {
+  background: ["#FFFBD3", '#FFFEFA'],
+};
