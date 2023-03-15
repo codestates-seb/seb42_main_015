@@ -29,7 +29,9 @@ export const FlexWrapper2 = styled(FlexRowWrapper)`
 export const PageWrapper = styled(FlexColunmWrapper)`
   padding: 70px 50px 0 50px;
 `;
-export const LetterWrapper = styled.div``;
+export const LetterWrapper = styled.div`
+  max-height: 1154px;
+`;
 export const LetterBox = styled(FlexColunmWrapper)`
   aspect-ratio: 3/5;
   justify-content: space-between;
@@ -72,7 +74,9 @@ export const NameInputWrapper = styled.div`
   ${FONT_STYLE_V1.body.body_12_light}
   border: none;
   border-bottom: 2px solid ${PALETTE_V1.text_primary};
-  max-width: fit-content;
+  max-width: 250px;
+  min-width: 250px;
+  width: 250px;
   height: 2rem;
 `;
 export const NameInput = styled.input`
@@ -147,7 +151,6 @@ export const ButtonWrapper = styled(FlexRowWrapper)`
     z-index: 110;
   }
 `;
-export const ExplainationContainer = styled.div``;
 export const ExplainationWrapper = styled.div``;
 export const ExplainationBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
@@ -195,8 +198,10 @@ export const BallonTop = styled.div`
     width: 240px;
   }
   &#ballon3 {
+    padding-top: 21px;
     top: 5px;
     left: -30px;
+    width: 240px;
   }
 `;
 export const BallonBottom1 = styled.div`
@@ -213,22 +218,21 @@ export const BallonBottom1 = styled.div`
   max-width: 100%;
   &#ballon4 {
     max-width: 280px;
-    bottom: 150px;
-    right: -750px;
+    bottom: 60px;
+    right: -710px;
   }
   &#ballon6 {
-    padding: 30px 20px;
+    padding: 40px 15px;
     padding-bottom: 43px;
-    top: -95px;
+    top: -110px;
     left: -40px;
   }
   &#ballon7 {
-    padding: 20px 30px;
-    padding-top: 30px;
-    min-height: 79px;
+    padding: 10px 10px 41px;
+    padding-top: 35px;
     top: -110px;
     right: 30px;
-    max-width: 300px;
+    max-width: 280px;
   }
 `;
 export const BallonBottom2 = styled.div`
@@ -245,7 +249,10 @@ export const BallonBottom2 = styled.div`
   max-width: 100%;
   &#ballon5 {
     max-width: 280px;
-    bottom: 212px;
-    right: -460px;
+    bottom: 60px;
+    right: -140px;
   }
+`;
+export const ButtonContainer = styled.div`
+  max-height: 218px;
 `;
