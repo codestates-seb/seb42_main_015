@@ -13,6 +13,7 @@ export const Container = styled.div`
   padding: 3rem 2rem;
   overflow: hidden;
 `;
+
 export const BackgroundYellow = styled.div`
   display: flex;
   position: relative;
