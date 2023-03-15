@@ -55,7 +55,7 @@ public class MemberService {
     public Member updateMember(Member member) {
         Member findMember = findVerifiedMember(member.getMemberId());
         verifiedExistedName(member.getMemberName());    // 닉네임 검증
-        Member updatedMember = beanUtils.copyNonNullProperties(member, findMember);
+        beanUtils.copyNonNullProperties(member, findMember);
         return memberRepository.save(findMember);
     }
 
