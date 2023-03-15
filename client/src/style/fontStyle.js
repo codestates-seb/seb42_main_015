@@ -96,3 +96,22 @@ export const FONT_STYLE_LOGIN = {
     `,
   },
 };
+
+export const FONT_STYLE_LOGOUT = {
+  title_20_medium: css`
+    font-family: "Caveat", cursive;
+    font-size: 2rem;
+  `,
+  title_15_medium: css`
+    font-family: "Caveat", cursive;
+    font-size: 1.5rem;
+  `,
+  title_14_medium: css`
+    font-family: "B612", sans-serif;
+    font-size: 1.4rem;
+  `,
+  title_9_medium: css`
+    font-family: "B612", sans-serif;
+    font-size: 0.9rem;
+  `,
+};

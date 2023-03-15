@@ -5,6 +5,7 @@ import Ballon1 from "../../asset/ballon1.png";
 import Ballon2 from "../../asset/ballon2.png";
 import Ballon3 from "../../asset/ballon3.png";
 import Ballon4 from "../../asset/ballon4.png";
+
 export const PageContainer = styled.div`
   background-color: ${PALETTE_V1.background};
   min-width: max-content;

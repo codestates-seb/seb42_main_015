@@ -1,20 +1,16 @@
 import styled from "styled-components";
 import BREAKPOINTMOBILE from "../../breakpoint";
-import { FONT_STYLE_LOGIN } from "../../style/fontStyle";
+import { FONT_STYLE_LOGIN, FONT_STYLE_LOGOUT } from "../../style/fontStyle";
 import email from "../../asset/mail.png";
 import pwd from "../../asset/pwd.png";
 import user1 from "../../asset/user1.png";
 
-export const Background = styled.div`
-  height: 90vh;
-  background-color: #fcfbf4;
-  overflow: hidden;
-`;
 export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  min-height: 90vh;
+  padding-bottom: 3rem;
 `;
 export const BackgroundYellow = styled.div`
   display: flex;
@@ -22,7 +18,7 @@ export const BackgroundYellow = styled.div`
   border: 1px solid black;
   background: #fff59f;
   margin: 1rem 0rem 0rem 2rem;
-  width: 60em;
+  width: 60rem;
   height: ${(props) => (props.theme === "login" ? "40rem" : "41rem")};
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 20rem;
@@ -117,16 +113,13 @@ export const LogForm = styled.div`
         ${FONT_STYLE_LOGIN.button.button_13_light}
         background: #fff06c;
         margin-top: ${(props) => (props.theme === "login" ? "2.7rem" : "1rem")};
-        padding-top: 0.5rem;
         cursor: pointer;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           width: 14rem;
           height: 2.2rem;
           font-size: 12px;
           margin-top: 1.4rem;
-          margin-bottom: 0.4rem;
-          padding-top: ${(props) =>
-            props.theme === "login" ? "0.5rem" : "0.2rem"};
+          margin-bottom: 0.6rem;
         }
       }
       .sub-form {
@@ -234,6 +227,99 @@ export const LogForm = styled.div`
           margin: 1rem 1rem 4rem;
           cursor: pointer;
         }
+      }
+    }
+  }
+`;
+
+export const LogoutForm = styled.div`
+  display: flex;
+  min-height: 80vh;
+  width: 90vw;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 50rem;
+  }
+  .Left {
+    justify-content: flex-end;
+    display: flex;
+    flex-grow: 2;
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      flex-grow: 1;
+      justify-content: flex-start;
+    }
+    img {
+      margin-top: 10rem;
+      width: 16rem;
+      height: 16rem;
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        width: 12rem;
+        height: 12rem;
+      }
+    }
+  }
+
+  .Middle {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      flex-grow: 2;
+    }
+    img {
+      margin-top: 18rem;
+      align-items: center;
+      width: 28rem;
+      height: 28rem;
+      transform: rotate(20deg);
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        margin-top: 22rem;
+        width: 20rem;
+        height: 20rem;
+      }
+    }
+    .text {
+      margin-top: 2rem;
+      justify-content: center;
+      ${FONT_STYLE_LOGOUT.title_20_medium}
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        ${FONT_STYLE_LOGOUT.title_15_medium}
+      }
+    }
+    button {
+      justify-content: center;
+      border: 1px solid black;
+      background-color: #fcfbf4;
+      ${FONT_STYLE_LOGOUT.title_14_medium}
+      margin-top: 3rem;
+      padding: 2px;
+      width: 15rem;
+      height: 4.2rem;
+      cursor: pointer;
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        margin-top: 2rem;
+        width: 10rem;
+        height: 3rem;
+        ${FONT_STYLE_LOGOUT.title_9_medium}
+      }
+    }
+  }
+
+  .Right {
+    justify-content: flex-start;
+    display: flex;
+    flex-grow: 2;
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      flex-grow: 1;
+      justify-content: flex-end;
+    }
+    img {
+      margin-top: 45rem;
+      width: 16rem;
+      height: 16rem;
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        width: 12rem;
+        height: 12rem;
       }
     }
   }
