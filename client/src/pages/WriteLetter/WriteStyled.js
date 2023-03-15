@@ -147,9 +147,9 @@ export const ButtonWrapper = styled(FlexRowWrapper)`
     z-index: 110;
   }
 `;
-export const ExplanationContainer = styled.div``;
-export const ExplanationWrapper = styled.div``;
-export const ExplanationBackground = styled.div`
+export const ExplainationContainer = styled.div``;
+export const ExplainationWrapper = styled.div``;
+export const ExplainationBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0;
@@ -188,11 +188,11 @@ export const BallonTop = styled.div`
   max-height: 100%;
   max-width: 300px;
   &#ballon2 {
-    /* position: absolute; */
-    padding-top: 10px;
-    top: 200px;
+    padding-top: 20px;
+    padding-left: 30px;
+    top: 0px;
     left: -30px;
-    /* width: 240px; */
+    width: 240px;
   }
   &#ballon3 {
     top: 5px;
@@ -218,18 +218,22 @@ export const BallonBottom1 = styled.div`
   }
   &#ballon6 {
     padding: 30px 20px;
-    padding-bottom: 40px;
+    padding-bottom: 43px;
     top: -95px;
     left: -40px;
   }
   &#ballon7 {
-    bottom: -225px;
-    right: 320px;
+    padding: 20px 30px;
+    padding-top: 30px;
+    min-height: 79px;
+    top: -110px;
+    right: 30px;
+    max-width: 300px;
   }
 `;
 export const BallonBottom2 = styled.div`
   ${FONT_STYLE_V1.body.body_10_light};
-  position: absolute;
+  position: relative;
   z-index: 200;
   padding: 20px 30px;
   padding-bottom: 25px;
@@ -240,7 +244,8 @@ export const BallonBottom2 = styled.div`
   max-height: 100%;
   max-width: 100%;
   &#ballon5 {
-    bottom: -350px;
-    right: 300px;
+    max-width: 280px;
+    bottom: 212px;
+    right: -460px;
   }
 `;
