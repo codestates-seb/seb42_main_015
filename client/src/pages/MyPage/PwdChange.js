@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { CardContents, CardContents2 } from "./CardContents";
+import { CardContents, CardContents2 } from "./PwdCardContents";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
 function PwdChange() {

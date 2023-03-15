@@ -11,3 +11,8 @@ export const PALETTE_MYPAGE = {
   gradation_green: "#91F09B",
   active_green: "#53C848",
 };
+export const PALETTE_LOGIN = {
+  background: "#fff59f",
+  loginText: "#fff250",
+  subText: "#505050;",
+};
