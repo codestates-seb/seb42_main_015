@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { PALETTE_MYPAGE, PALETTE_V1 } from "../style/color";
-import { FONT_STYLE_V1 } from "../style/fontStyle";
+import { PALETTE_MYPAGE, PALETTE_V1 } from "../../style/color";
+import { FONT_STYLE_V1 } from "../../style/fontStyle";
 
 export const MyPageContainer = styled.div``;
 export const FlexWrapper1 = styled.div`
