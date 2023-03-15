@@ -84,7 +84,7 @@ function Header({ isLogin }) {
           {isLogin ? (
             <div id="nav-container">
               <li>
-                <Link to="/">Write</Link>
+                <Link to="/writeletter">Write</Link>
               </li>
               <li>
                 <Link to="/">
@@ -95,7 +95,7 @@ function Header({ isLogin }) {
                 <Link to="/mypage">mypage</Link>
               </li>
               <li>
-                <Link to="/">Logout</Link>
+                <Link to="/completeLogout">Logout</Link>
               </li>
             </div>
           ) : (

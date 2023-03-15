@@ -94,9 +94,13 @@ export const FONT_STYLE_LOGIN = {
       -webkit-text-stroke: 1px #000;
       color: ${PALETTE_LOGIN.loginText};
     `,
-    title_20_medium: css`
+    title_25_medium: css`
       font-family: "Raleway", sans-serif;
-      font-size: 2rem;
+      font-size: 2.5rem;
+    `,
+    title_22_medium: css`
+      font-family: "Raleway", sans-serif;
+      font-size: 2.2rem;
     `,
   },
   body: {
@@ -121,4 +125,23 @@ export const FONT_STYLE_LOGIN = {
       font-size: 1.3rem;
     `,
   },
+};
+
+export const FONT_STYLE_LOGOUT = {
+  title_20_medium: css`
+    font-family: "Caveat", cursive;
+    font-size: 2rem;
+  `,
+  title_15_medium: css`
+    font-family: "Caveat", cursive;
+    font-size: 1.5rem;
+  `,
+  title_14_medium: css`
+    font-family: "B612", sans-serif;
+    font-size: 1.4rem;
+  `,
+  title_9_medium: css`
+    font-family: "B612", sans-serif;
+    font-size: 0.9rem;
+  `,
 };

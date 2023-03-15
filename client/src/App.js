@@ -4,13 +4,14 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SignUp from "./pages/Certified/SignUp";
 import Login from "./pages/Certified/Login";
+import CompleteLogout from "./pages/Certified/CompleteLogout";
 import Main from "./pages/Main/Main";
-import MyPage from "./pages/MyPage";
+import MyPage from "./pages/MyPage/MyPage";
 import WriteLetter from "./pages/WriteLetter/WriteLetter";
 import Trash from "./pages/MyPage/TrashList";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   return (
     <BrowserRouter>
@@ -22,6 +23,7 @@ function App() {
         <Route path="/trash" element={<Trash />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/writeletter" element={<WriteLetter />} />
+        <Route path="/completeLogout" element={<CompleteLogout />} />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -5,7 +5,7 @@ export const PALETTE_WRITELETTER = {
 export const PALETTE_V1 = {
   background: "#FCFBF4",
   text_primary: "#312F2B",
-  yellow_button: "#FFE848",
+  yellow_button: "#FFFB95",
 };
 export const PALETTE_MYPAGE = {
   gradation_green: "#91F09B",
