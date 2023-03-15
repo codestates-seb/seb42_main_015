@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as W from "./WriteStyled";
 
 function LetterContent() {
@@ -6,7 +6,14 @@ function LetterContent() {
   const currentDate = `${new Date().getFullYear()}.${new Date().getMonth()}.${new Date().getDate()} ${
     weekday[new Date().getDay()]
   }`;
+  const [checked, setChecked] = useState(false);
+  const handleCheckBox = () => {
+    setChecked(!checked);
+  };
 
+  useEffect(() => {
+    console.log(checked);
+  }, [checked]);
   return (
     <W.LetterBox>
       <W.FlexWrapper1>
@@ -17,8 +24,9 @@ function LetterContent() {
         <W.Date>{currentDate}</W.Date>
       </W.FlexWrapper1>
       <W.SendMeWrapper>
-        <W.SendMeBtn></W.SendMeBtn>
-        <W.SendMeCheckBox></W.SendMeCheckBox>
+        <W.SendMeCheckBox
+          checked={checked}
+          onClick={handleCheckBox}></W.SendMeCheckBox>
         <W.SendMeLabel>나에게보내기</W.SendMeLabel>
       </W.SendMeWrapper>
       <W.ContentTextarea></W.ContentTextarea>

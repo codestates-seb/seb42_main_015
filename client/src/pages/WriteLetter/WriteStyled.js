@@ -6,6 +6,8 @@ export const PageContainer = styled.div`
   background-color: ${PALETTE_V1.background};
   min-height: 95vh;
   min-width: max-content;
+  display: flex;
+  justify-content: center;
 `;
 export const FlexRowWrapper = styled.div`
   display: flex;
@@ -14,20 +16,22 @@ export const FlexRowWrapper = styled.div`
 export const FlexColunmWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: fit-content;
 `;
-export const FlexWrapper2 = styled(FlexRowWrapper)``;
+export const FlexWrapper2 = styled(FlexRowWrapper)`
+  justify-content: center;
+`;
 export const PageWrapper = styled(FlexColunmWrapper)`
   padding: 70px 50px 0 50px;
 `;
-export const LetterWrapper = styled.div`
-  width: 100%;
-`;
+export const LetterWrapper = styled.div``;
 export const LetterBox = styled(FlexColunmWrapper)`
   aspect-ratio: 3/5;
+  justify-content: space-between;
   background-color: #ffffff;
   border: 2px solid #000000;
-  padding: 0.5rem 1rem 0.5rem 1rem;
-  min-width: 400px;
+  padding: 0.8rem 1.5rem 0.8rem 1.5rem;
+  min-width: 680px;
   max-width: 680px;
 `;
 export const FlexWrapper1 = styled(FlexRowWrapper)`
@@ -43,6 +47,10 @@ export const IconWrapper = styled.div`
   .lock-icon {
     color: ${PALETTE_V1.text_primary};
     margin-bottom: 20px;
+  }
+  .active {
+    background-color: green;
+    border-radius: 50%;
   }
 `;
 export const ThemeIcon = styled.div`
@@ -75,13 +83,7 @@ export const SendMeWrapper = styled(FlexRowWrapper)`
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 `;
-export const SendMeBtn = styled.input.attrs({
-  type: "checkbox",
-  id: "sendMe",
-})`
-  appearance: none;
-`;
-export const SendMeCheckBox = styled.label.attrs({ htmlfor: "sendMe" })`
+export const SendMeCheckBox = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -90,11 +92,17 @@ export const SendMeCheckBox = styled.label.attrs({ htmlfor: "sendMe" })`
     width: 11px;
     height: 11px;
     border: 1px solid ${PALETTE_V1.text_primary};
-  }
-  ${SendMeBtn}:checked & {
-    content: "";
-    background-color: ${PALETTE_V1.text_primary};
-    background-image: url(../asset/icon8-done30.png);
+    ${(props) => {
+      props.checked
+        ? css`
+             {
+              /* background-color: ${PALETTE_V1.text_primary}; */
+              background-color: red;
+              background-image: url(../asset/icon8-done30.png);
+            }
+          `
+        : css``;
+    }}
   }
 `;
 export const SendMeLabel = styled.span`
@@ -119,7 +127,8 @@ export const TextCount = styled.div``;
 export const ButtonWrapper = styled(FlexRowWrapper)`
   align-items: center;
   justify-content: flex-end;
-  min-width: 570px;
+  padding-top: 20px;
+  padding-bottom: 30px;
   .question-icon {
     color: ${PALETTE_V1.text_primary};
     margin-right: 10px;

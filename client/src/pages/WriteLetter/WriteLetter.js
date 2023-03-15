@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import * as W from "./WriteStyled";
 import { useForm } from "react-hook-form";
 import { BiMicrophone, BiFontColor, BiLock, BiLockOpen } from "react-icons/bi";
@@ -7,6 +7,9 @@ import { SlQuestion } from "react-icons/sl";
 import { PALETTE_V1 } from "../../style/color";
 import RoundButton from "../commons/RoundButton";
 import LetterContent from "./LetterContent";
+import axiosCall from "../../util/axiosCall";
+import clovaApi from "./clovaApi";
+import AudioRecord from "./AudioRecord";
 
 function WriteLetter() {
   const { register, watch } = useForm();
@@ -17,6 +20,7 @@ function WriteLetter() {
       <W.PageWrapper>
         <W.FlexWrapper2>
           <W.IconWrapper>
+            <AudioRecord />
             <BiMicrophone className="microphone-icon" size="30" />
             <BiFontColor className="font-icon" size="30" />
             {useLock ? (
