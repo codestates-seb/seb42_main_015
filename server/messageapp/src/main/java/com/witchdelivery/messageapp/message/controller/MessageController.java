@@ -1,6 +1,5 @@
 package com.witchdelivery.messageapp.message.controller;
 
-
 import com.witchdelivery.messageapp.member.MemberService;
 import com.witchdelivery.messageapp.message.dto.MessagePostDto;
 import com.witchdelivery.messageapp.message.entity.Message;
@@ -14,12 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
 
-
 @RestController
 @RequestMapping("/sendy/messages")
 public class MessageController {
-
-
     private final MessageService messageService;
     private final MessageMapper messageMapper;
     private final MemberService memberService;
@@ -33,19 +29,15 @@ public class MessageController {
     @PostMapping("/send")
     public ResponseEntity postMessage(@RequestBody MessagePostDto messagePostDto) {
         Message message = messageMapper.messagePostDtoToMessage(messagePostDto);
-
         messageService.createMessage(message);
-
-        return new ResponseEntity<>(messageMapper.messageToMessageResponseDto(message), HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("{message-id}")
-    public ResponseEntity getMessage(@PathVariable("message-id") long messageId) {
+    @GetMapping("/{message-id}")
+    public ResponseEntity getMessage(@PathVariable("message-id") Long messageId) {
         Message message = messageService.findMessage(messageId);
-
         return new ResponseEntity<>(messageMapper.messageToMessageResponseDto(message), HttpStatus.OK);
     }
-
 
     @GetMapping
     public ResponseEntity getAllMessages(@Positive @RequestParam(required = false, defaultValue = "1") int page,
