@@ -6,7 +6,7 @@ import SignUp from "./pages/Certified/SignUp";
 import Login from "./pages/Certified/Login";
 import CompleteLogout from "./pages/Certified/CompleteLogout";
 import Main from "./pages/Main";
-import MyPage from "./pages/MyPage";
+import MyPage from "./pages/MyPage/MyPage";
 import WriteLetter from "./pages/WriteLetter/WriteLetter";
 import Trash from "./pages/MyPage/TrashList";
 
