@@ -23,6 +23,36 @@ export const FONT_STYLE_V1 = {
       font-size: 1.4rem;
       color: ${PALETTE_V1.text_primary};
     `,
+    title_20_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 2rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    title_30_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 3rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    title_20_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 2rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    title_40_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 4rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    title_20_thin: css`
+      font-family: "Pretendard-Thin";
+      font-size: 2rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    title_40_thin: css`
+      font-family: "Pretendard-Thin";
+      font-size: 4rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
   },
   body: {
     body_8_light: css`
@@ -40,11 +70,11 @@ export const FONT_STYLE_V1 = {
       font-size: 1.2rem;
       color: ${PALETTE_V1.text_primary};
     `,
-    title_30_regular: css`
-      font-family: "Sriracha", cursive;
-      font-size: 3rem;
-      color: #ffffff;
-    `,
+    body_15_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 1.5rem;
+    color: ${PALETTE_V1.text_primary};
+  `,
   },
   textarea: {
     textarea_10_light: css`
@@ -95,4 +125,23 @@ export const FONT_STYLE_LOGIN = {
       font-size: 1.3rem;
     `,
   },
+};
+
+export const FONT_STYLE_LOGOUT = {
+  title_20_medium: css`
+    font-family: "Caveat", cursive;
+    font-size: 2rem;
+  `,
+  title_15_medium: css`
+    font-family: "Caveat", cursive;
+    font-size: 1.5rem;
+  `,
+  title_14_medium: css`
+    font-family: "B612", sans-serif;
+    font-size: 1.4rem;
+  `,
+  title_9_medium: css`
+    font-family: "B612", sans-serif;
+    font-size: 0.9rem;
+  `,
 };
