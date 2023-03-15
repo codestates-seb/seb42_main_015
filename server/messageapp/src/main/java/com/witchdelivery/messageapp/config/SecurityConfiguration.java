@@ -1,6 +1,8 @@
 package com.witchdelivery.messageapp.config;
 
 import com.witchdelivery.messageapp.auth.filter.JwtAuthenticationFilter;
+import com.witchdelivery.messageapp.auth.handler.MemberAuthenticationFailureHandler;
+import com.witchdelivery.messageapp.auth.handler.MemberAuthenticationSuccessHandler;
 import com.witchdelivery.messageapp.auth.jwt.JwtTokenizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -67,8 +69,9 @@ public class SecurityConfiguration {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class); // AuthenticationManager의 객체를 얻음
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);  // JwtAuthenticationFilter객체 생성 & DI
-            jwtAuthenticationFilter.setFilterProcessesUrl("/sendy/auth/login"); // login URL 추후 수정
-
+            jwtAuthenticationFilter.setFilterProcessesUrl("/sendy/auth/login"); // login URL
+            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler()); // 핸들러 등록
+            jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler()); // 핸들러 등록
             // JwtAuthenticationFilter를 Spring Security Filter Chain에 추가
             builder.addFilter(jwtAuthenticationFilter);
         }
