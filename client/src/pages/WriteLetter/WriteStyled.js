@@ -9,8 +9,8 @@ import Ballon4 from "../../asset/ballon4.png";
 export const PageContainer = styled.div`
   background-color: ${PALETTE_V1.background};
   min-width: max-content;
-  min-height: 100vh;
   width: 100vw;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
 `;

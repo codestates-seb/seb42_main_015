@@ -84,7 +84,7 @@ function Header({ isLogin }) {
           {isLogin ? (
             <div id="nav-container">
               <li>
-                <Link to="/">Write</Link>
+                <Link to="/writeletter">Write</Link>
               </li>
               <li>
                 <Link to="/">
