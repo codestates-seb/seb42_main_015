@@ -10,30 +10,30 @@ import LetterContent from "./LetterContent";
 import axiosCall from "../../util/axiosCall";
 import clovaApi from "./clovaApi";
 import AudioRecord from "./AudioRecord";
+import SquareButton from "../commons/SquareButton";
+import Explanation from "./Explanation";
 
 function WriteLetter() {
   const { register, watch } = useForm();
-  const [useLock, setUseLock] = useState(false);
-
+  const [openExplanation, setOpenExplanation] = useState(false);
+  const handleOpenExplanation = () => {
+    setOpenExplanation(!openExplanation);
+  };
   return (
     <W.PageContainer>
+      {openExplanation ? <Explanation /> : <></>}
       <W.PageWrapper>
         <W.FlexWrapper2>
           <W.IconWrapper>
             <AudioRecord />
             <BiMicrophone className="microphone-icon" size="30" />
             <BiFontColor className="font-icon" size="30" />
-            {useLock ? (
-              <BiLock className="lock-icon" size="30" />
-            ) : (
-              <BiLockOpen className="lockopen-icon" size="30" />
-            )}
           </W.IconWrapper>
           <W.ThemeIcon>
             <MdArrowBackIos className="arrow-backward-icon" size="30" />
           </W.ThemeIcon>
           <W.LetterWrapper>
-            <LetterContent />
+            <LetterContent openExplaination={openExplanation} />
             <W.TextCount>0/7000</W.TextCount>
           </W.LetterWrapper>
           <W.ThemeIcon>
@@ -41,13 +41,23 @@ function WriteLetter() {
           </W.ThemeIcon>
         </W.FlexWrapper2>
         <W.ButtonWrapper>
-          <SlQuestion className="question-icon" size="30" />
-          <RoundButton backgroundColor={PALETTE_V1.yellow_button}>
+          <SlQuestion
+            onClick={handleOpenExplanation}
+            className="question-icon"
+            size="30"
+          />
+          {/* <RoundButton backgroundColor={PALETTE_V1.yellow_button}>
             미리보기
           </RoundButton>
           <RoundButton backgroundColor={PALETTE_V1.yellow_button}>
             편지생성
-          </RoundButton>
+          </RoundButton> */}
+          <SquareButton backgroundColor={PALETTE_V1.yellow_button}>
+            미리보기
+          </SquareButton>
+          <SquareButton backgroundColor={PALETTE_V1.yellow_button}>
+            편지생성
+          </SquareButton>
         </W.ButtonWrapper>
       </W.PageWrapper>
     </W.PageContainer>
