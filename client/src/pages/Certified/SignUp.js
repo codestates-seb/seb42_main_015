@@ -1,16 +1,11 @@
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-import * as L from "./FormStyled";
-=======
-import * as L from "./LoginFormStyled";
->>>>>>> 97f0e6e368738357cef7b72f5719fe1e82eba6a8
+import * as S from "./FormStyled";
 import Google from "../../asset/구글.png";
 import Kakao from "../../asset/카카오.png";
-import img1 from "../../asset/해바라기.png";
-import img2 from "../../asset/하늘.png";
 
-function Login() {
+function SignUp() {
   //handleSubmit을 가져옵니다.
   const { register, watch, handleSubmit } = useForm();
   //"제출"을 했을 때 무슨일이 일어나는지 확인해봅시다.
@@ -19,17 +14,19 @@ function Login() {
 
   return (
     <>
-      <L.Background>
-        <L.Container>
-          <L.BackgroundYellow />
-<<<<<<< HEAD
-          <L.LogForm onSubmit={handleSubmit(onValid, onInvalid)}>
-=======
-          <L.Form onSubmit={handleSubmit(onValid, onInvalid)}>
->>>>>>> 97f0e6e368738357cef7b72f5719fe1e82eba6a8
+      <S.Background>
+        <S.Container>
+          <S.S_BackgroundYellow />
+          <S.SignForm onSubmit={handleSubmit(onValid, onInvalid)}>
             <li className="formLeft">
               <ul className="login-form">
-                <li className="loginText">Log in</li>
+                <li className="loginText">Sign up</li>
+                <input
+                  className="userInput"
+                  {...register("user")}
+                  type="text"
+                  placeholder="user Nickname"
+                />
                 <input
                   className="idInput"
                   {...register("id")}
@@ -42,17 +39,20 @@ function Login() {
                   type="password"
                   placeholder="Password"
                 />
-                <input className="btn" type="submit" value="Log in" />
+                <input
+                  className="pwdInput"
+                  {...register("password")}
+                  type="password"
+                  placeholder="Confirm Password"
+                />
+                <input className="btn" type="submit" value="Sign up" />
                 <div className="sub-form ">
-                  <Link to="/">
-                    <li>forget Password</li>
-                  </Link>
-                  <Link to="/signup">
-                    <li>sign up</li>
+                  <Link to="/login">
+                    <li>Log in</li>
                   </Link>
                 </div>
                 <div className="oauth-form">
-                  <div className="oauth-head">Log in With</div>
+                  <div className="oauth-head">Sign up With</div>
                   <div className="oauth">
                     <img src={Google} alt="Googole" />
                     <img src={Kakao} alt="Kakao" />
@@ -62,33 +62,19 @@ function Login() {
             </li>
             <li className="formRight">
               <ui className="welcome">welcome!</ui>
-              <div className="imgWrapper">
-                <div className="section1">
-                  <img src={img1} alt="Sunflower"></img>
-                  <span className="box">sunflower</span>
-                </div>
-                <div className="section2">
-                  <img src={img2} alt="Sky"></img>
-                  <span className="box">cloud</span>
-                </div>
-              </div>
               <div className="oauth-form">
-                <div className="oauth-head">Log in With</div>
+                <div className="oauth-head">Sign up With</div>
                 <div className="oauth">
                   <img src={Google} alt="Googole" />
                   <img src={Kakao} alt="Kakao" />
                 </div>
               </div>
             </li>
-<<<<<<< HEAD
-          </L.LogForm>
-=======
-          </L.Form>
->>>>>>> 97f0e6e368738357cef7b72f5719fe1e82eba6a8
-        </L.Container>
-      </L.Background>
+          </S.SignForm>
+        </S.Container>
+      </S.Background>
     </>
   );
 }
 
-export default Login;
+export default SignUp;
