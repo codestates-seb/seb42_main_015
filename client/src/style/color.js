@@ -19,5 +19,4 @@ export const PALETTE_LOGIN = {
 
 export const PALETTE_MAIN = {
   background: ["#FFFBD3", '#FFFEFA'],
-  
 };
