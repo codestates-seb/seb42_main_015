@@ -9,9 +9,11 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 90vh;
-  padding-bottom: 3rem;
+  min-height: 87vh;
+  padding: 3rem 2rem;
+  overflow: hidden;
 `;
+
 export const BackgroundYellow = styled.div`
   display: flex;
   position: relative;
@@ -248,10 +250,11 @@ export const LogoutForm = styled.div`
       justify-content: flex-start;
     }
     img {
-      margin-top: 10rem;
+      margin-top: 8rem;
       width: 16rem;
       height: 16rem;
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        margin-top: 9rem;
         width: 12rem;
         height: 12rem;
       }
@@ -267,7 +270,7 @@ export const LogoutForm = styled.div`
       flex-grow: 2;
     }
     img {
-      margin-top: 18rem;
+      margin-top: 13rem;
       align-items: center;
       width: 28rem;
       height: 28rem;
@@ -314,10 +317,11 @@ export const LogoutForm = styled.div`
       justify-content: flex-end;
     }
     img {
-      margin-top: 45rem;
+      margin-top: 43rem;
       width: 16rem;
       height: 16rem;
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        margin-top: 45rem;
         width: 12rem;
         height: 12rem;
       }
