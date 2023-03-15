@@ -10,7 +10,7 @@ function Login() {
     <>
       <L.Container>
         <L.BackgroundYellow theme="login" />
-        <L.LogForm theme="login" onSubmit={handleSubmit(onValid, onInvalid)}>
+        <L.LogForm theme="login">
           <li className="formLeft">
             <ul className="login-form">
               <li className="loginText">Log in</li>
