@@ -2,8 +2,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import * as S from "./FormStyled";
-import Google from "../../asset/구글.png";
-import Kakao from "../../asset/카카오.png";
 
 function SignUp() {
   //handleSubmit을 가져옵니다.
@@ -16,8 +14,8 @@ function SignUp() {
     <>
       <S.Background>
         <S.Container>
-          <S.S_BackgroundYellow />
-          <S.SignForm onSubmit={handleSubmit(onValid, onInvalid)}>
+          <S.BackgroundYellow theme="signup" />
+          <S.LogForm theme="signup" onSubmit={handleSubmit(onValid, onInvalid)}>
             <li className="formLeft">
               <ul className="login-form">
                 <li className="loginText">Sign up</li>
@@ -54,23 +52,26 @@ function SignUp() {
                 <div className="oauth-form">
                   <div className="oauth-head">Sign up With</div>
                   <div className="oauth">
-                    <img src={Google} alt="Googole" />
-                    <img src={Kakao} alt="Kakao" />
+                    <img src={require("../../asset/구글.png")} alt="Googole" />
+                    <img src={require("../../asset/카카오.png")} alt="Kakao" />
                   </div>
                 </div>
               </ul>
             </li>
             <li className="formRight">
               <ui className="welcome">welcome!</ui>
+              <div className="imgWrapper">
+                <img src={require("../../asset/CatDog.png")} alt="CatandDog" />
+              </div>
               <div className="oauth-form">
-                <div className="oauth-head">Sign up With</div>
+                <div className="oauth-head">Log in With</div>
                 <div className="oauth">
-                  <img src={Google} alt="Googole" />
-                  <img src={Kakao} alt="Kakao" />
+                  <img src={require("../../asset/구글.png")} alt="Googole" />
+                  <img src={require("../../asset/카카오.png")} alt="Kakao" />
                 </div>
               </div>
             </li>
-          </S.SignForm>
+          </S.LogForm>
         </S.Container>
       </S.Background>
     </>
