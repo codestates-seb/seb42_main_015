@@ -1,38 +1,45 @@
 import styled from "styled-components";
 import BREAKPOINTMOBILE from "../../breakpoint";
 import { FONT_STYLE_LOGIN } from "../../style/fontStyle";
+import email from "../../asset/mail.png";
+import pwd from "../../asset/pwd.png";
 
 export const Background = styled.div`
   height: 90vh;
   background-color: #fcfbf4;
   overflow: hidden;
 `;
-export const BackgroundYellow = styled.div`
-  /* border: 1px solid black;
-  /* background: #fff59f;
-  height: 40vh; */
-`;
-
 export const Container = styled.div`
-  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 80vh;
 `;
-
+export const BackgroundYellow = styled.div`
+  display: flex;
+  position: relative;
+  border: 1px solid black;
+  background: #fff59f;
+  margin: 1rem 0rem 0rem 2rem;
+  height: 41rem;
+  width: 60em;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 20rem;
+    height: 31rem;
+  }
+`;
 export const Form = styled.div`
-  overflow: hidden;
-  width: 62rem;
-  height: 42rem;
+  position: absolute;
+  display: flex;
+  width: 60rem;
+  height: 41rem;
   background-color: #fff;
   border: 1px solid black;
-  display: flex;
   margin-bottom: 2rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 20rem;
     height: 32rem;
   }
-
   .formLeft {
     flex-grow: 1;
     border-right: 1px solid #000;
@@ -56,30 +63,46 @@ export const Form = styled.div`
           margin-bottom: 2.2rem;
         }
       }
-
       input {
-        width: 26.5rem;
+        width: 23rem;
         height: 2rem;
         margin-bottom: 3.3rem;
-        padding: 1.2rem;
+        padding: 0rem 3rem;
         border-top: none;
         border-left: none;
         border-right: none;
         border-bottom: 1px solid #000;
         font-size: 14px;
+        background-repeat: no-repeat;
+        background-position: left;
+        background-size: 1.5rem;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           width: 14rem;
           font-size: 11px;
           margin-bottom: 1.5rem;
         }
       }
+      .idInput {
+        background-image: url("${email}");
+        background-size: 1.4rem;
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+          background-size: 1rem;
+        }
+      }
+      .pwdInput {
+        background-image: url("${pwd}");
+        background-size: 1.5rem;
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+          background-size: 1.2rem;
+        }
+      }
       .btn {
-        width: 18rem;
+        width: 17rem;
         height: 3.2rem;
         border: 1px solid #000;
         ${FONT_STYLE_LOGIN.button.button_13_light}
         background: #fff06c;
-        margin-top: 3rem;
+        margin-top: 2.7rem;
         padding-top: 0.5rem;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           width: 14rem;
@@ -126,7 +149,7 @@ export const Form = styled.div`
   }
 
   .formRight {
-    flex-grow: 5;
+    flex-grow: 1;
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       display: none;
     }
@@ -135,7 +158,61 @@ export const Form = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-top: 3rem;
+      margin: 3rem 0 2.5rem;
+    }
+    .imgWrapper {
+      display: flex;
+      flex-direction: column;
+      ${FONT_STYLE_LOGIN.body.body_10_light};
+
+      .section1 {
+        padding: 0rem 5rem;
+        display: flex;
+        flex-direction: row;
+        img {
+          width: 9.2rem;
+        }
+        .box {
+          border: 1px solid black;
+          padding: 3px 25px;
+          height: 1.5rem;
+          margin: 4rem -1.3rem;
+          background: #fff;
+        }
+      }
+      .section2 {
+        display: flex;
+        flex-direction: row;
+        img {
+          width: 9.2rem;
+          margin-left: 15rem;
+        }
+        .box {
+          border: 1px solid black;
+          padding: 1px 40px;
+          height: 1.5rem;
+          margin: 3.7rem 4rem 0rem -14rem;
+          background: #fff;
+        }
+      }
+    }
+    .oauth-form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .oauth-head {
+        padding: 60px 20px 5px;
+        ${FONT_STYLE_LOGIN.body.body_8_light}
+      }
+      .oauth {
+        justify-content: space-around;
+        img {
+          width: 3.2rem;
+          margin: 1rem 1rem 4rem;
+          cursor: pointer;
+        }
+      }
     }
   }
 `;
