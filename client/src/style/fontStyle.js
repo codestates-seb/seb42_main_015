@@ -64,9 +64,13 @@ export const FONT_STYLE_LOGIN = {
       -webkit-text-stroke: 1px #000;
       color: ${PALETTE_LOGIN.loginText};
     `,
-    title_20_medium: css`
+    title_25_medium: css`
       font-family: "Raleway", sans-serif;
-      font-size: 2rem;
+      font-size: 2.5rem;
+    `,
+    title_22_medium: css`
+      font-family: "Raleway", sans-serif;
+      font-size: 2.2rem;
     `,
   },
   body: {
