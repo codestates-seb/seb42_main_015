@@ -10,6 +10,7 @@ export const PageContainer = styled.div`
   background-color: ${PALETTE_V1.background};
   min-width: max-content;
   width: 100vw;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
 `;
@@ -45,6 +46,8 @@ export const FlexWrapper1 = styled(FlexRowWrapper)`
 export const IconWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  max-width: min-content;
+  max-width: 57px;
   .microphone-icon,
   .font-icon {
     color: ${PALETTE_V1.text_primary};
@@ -86,6 +89,7 @@ export const Text = styled.div`
 `;
 export const Date = styled(Text)``;
 export const SendMeWrapper = styled(FlexRowWrapper)`
+  align-items: center;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 `;
@@ -111,9 +115,10 @@ export const SendMeCheckBox = styled.div`
     }}
   }
 `;
-export const SendMeLabel = styled.span`
+export const SendMeLabel = styled.div`
   color: ${PALETTE_V1.text_primary};
   vertical-align: middle;
+  max-height: 21px;
 `;
 export const ContentContainer = styled.div``;
 export const ContentTextarea = styled.textarea`
@@ -142,9 +147,9 @@ export const ButtonWrapper = styled(FlexRowWrapper)`
     z-index: 110;
   }
 `;
-export const ExplanationContainer = styled.div``;
-export const ExplanationWrapper = styled.div``;
-export const ExplanationBackground = styled.div`
+export const ExplainationContainer = styled.div``;
+export const ExplainationWrapper = styled.div``;
+export const ExplainationBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0;
@@ -172,28 +177,31 @@ export const BallonLeft = styled.div`
 `;
 export const BallonTop = styled.div`
   ${FONT_STYLE_V1.body.body_10_light};
-  position: absolute;
+  position: relative;
   z-index: 200;
   padding: 20px 20px;
-  padding-left: 30px;
+  padding-top: 30px;
   background-image: url(${Ballon2});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top;
   max-height: 100%;
-  max-width: 100%;
+  max-width: 300px;
   &#ballon2 {
-    top: 260px;
-    left: 150px;
+    padding-top: 20px;
+    padding-left: 30px;
+    top: 0px;
+    left: -30px;
+    width: 240px;
   }
   &#ballon3 {
-    bottom: -400px;
-    left: 280px;
+    top: 5px;
+    left: -30px;
   }
 `;
 export const BallonBottom1 = styled.div`
   ${FONT_STYLE_V1.body.body_10_light};
-  position: absolute;
+  position: relative;
   z-index: 200;
   padding: 20px 20px;
   padding-bottom: 25px;
@@ -204,21 +212,28 @@ export const BallonBottom1 = styled.div`
   max-height: 100%;
   max-width: 100%;
   &#ballon4 {
-    bottom: -350px;
-    right: 10px;
+    max-width: 280px;
+    bottom: 150px;
+    right: -750px;
   }
   &#ballon6 {
-    top: 115px;
-    left: 325px;
+    padding: 30px 20px;
+    padding-bottom: 43px;
+    top: -95px;
+    left: -40px;
   }
   &#ballon7 {
-    bottom: -225px;
-    right: 320px;
+    padding: 20px 30px;
+    padding-top: 30px;
+    min-height: 79px;
+    top: -110px;
+    right: 30px;
+    max-width: 300px;
   }
 `;
 export const BallonBottom2 = styled.div`
   ${FONT_STYLE_V1.body.body_10_light};
-  position: absolute;
+  position: relative;
   z-index: 200;
   padding: 20px 30px;
   padding-bottom: 25px;
@@ -229,7 +244,8 @@ export const BallonBottom2 = styled.div`
   max-height: 100%;
   max-width: 100%;
   &#ballon5 {
-    bottom: -350px;
-    right: 300px;
+    max-width: 280px;
+    bottom: 212px;
+    right: -460px;
   }
 `;
