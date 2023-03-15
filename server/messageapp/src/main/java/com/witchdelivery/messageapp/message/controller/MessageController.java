@@ -26,7 +26,7 @@ public class MessageController {
         this.memberService = memberService;
     }
 
-    @PostMapping("/send")
+    @PostMapping("/write")
     public ResponseEntity postMessage(@RequestBody MessagePostDto messagePostDto) {
         Message message = messageMapper.messagePostDtoToMessage(messagePostDto);
         messageService.createMessage(message);
