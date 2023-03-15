@@ -1,10 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
 import * as L from "./FormStyled";
-=======
-import * as L from "./LoginFormStyled";
->>>>>>> 97f0e6e368738357cef7b72f5719fe1e82eba6a8
 import Google from "../../asset/구글.png";
 import Kakao from "../../asset/카카오.png";
 import img1 from "../../asset/해바라기.png";
@@ -22,11 +18,7 @@ function Login() {
       <L.Background>
         <L.Container>
           <L.BackgroundYellow />
-<<<<<<< HEAD
           <L.LogForm onSubmit={handleSubmit(onValid, onInvalid)}>
-=======
-          <L.Form onSubmit={handleSubmit(onValid, onInvalid)}>
->>>>>>> 97f0e6e368738357cef7b72f5719fe1e82eba6a8
             <li className="formLeft">
               <ul className="login-form">
                 <li className="loginText">Log in</li>
@@ -80,11 +72,7 @@ function Login() {
                 </div>
               </div>
             </li>
-<<<<<<< HEAD
           </L.LogForm>
-=======
-          </L.Form>
->>>>>>> 97f0e6e368738357cef7b72f5719fe1e82eba6a8
         </L.Container>
       </L.Background>
     </>
