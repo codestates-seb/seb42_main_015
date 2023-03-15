@@ -5,7 +5,5 @@ import lombok.Getter;
 @Getter
 public class MessagePostDto {
     private String content;
-    private String password;
-
-
+    private Long password;
 }

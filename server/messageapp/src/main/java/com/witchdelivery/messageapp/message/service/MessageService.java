@@ -33,7 +33,6 @@ public class MessageService {
 
     public Message findVerifiedMessage(Long messageId) {
         Optional<Message> optionalMessage = messageRepository.findById(messageId);
-        Message findMessage = optionalMessage.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MESSAGE_NOT_FOUND));
-        return findMessage;
+        return optionalMessage.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MESSAGE_NOT_FOUND));
     }
 }
