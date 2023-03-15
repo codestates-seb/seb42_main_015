@@ -44,6 +44,13 @@ function LetterContent({ openExplaination }) {
       <W.FromWrapper>
         <W.NameInputWrapper>
           From
+          {openExplaination ? (
+            <W.BallonBottom1 id="ballon7">
+              편지를 보내는 사람 이름을 적습니다.
+            </W.BallonBottom1>
+          ) : (
+            <></>
+          )}
           <W.NameInput></W.NameInput>
         </W.NameInputWrapper>
       </W.FromWrapper>

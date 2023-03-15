@@ -55,6 +55,10 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped&display=swap");
 /* 로그인,회원가입 Welcome 폰트 -> font-family: 'Raleway', sans-serif; */
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap");
+/* 다음에 또 만나요  font-family: 'Caveat', cursive; */
+@import url("https://fonts.googleapis.com/css2?family=Caveat&display=swap");
+/* Main page font-family: 'B612', sans-serif; */
+@import url("https://fonts.googleapis.com/css2?family=B612&display=swap");
 
 /*웹 폰트 규칙 
 font-family: 'Caveat', cursive;
@@ -80,4 +84,7 @@ a:visited {
 }
 a:active {
   background: none;
+}
+body {
+  background-color: #fcfbf4;
 }
