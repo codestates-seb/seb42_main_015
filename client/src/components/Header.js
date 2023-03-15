@@ -10,7 +10,7 @@ const HeaderComponent = styled.header`
   background: #fcfbf4;
   border-bottom: 1px solid #312f2b;
   display: flex;
-  height: 80px;
+  height: 60px;
   position: sticky;
   z-index: 999;
 `;
@@ -33,7 +33,7 @@ const HeaderContainer = styled.div`
     align-items: center;
     justify-content: center;
     font-family: "Sriracha";
-    font-size: 2.5rem;
+    font-size: 2.1rem;
     padding-bottom: 4px;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
@@ -60,7 +60,7 @@ const HeaderContainer = styled.div`
   }
   a {
     line-height: 36px;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: #000000;
     font-family: "Inria Sans", sans-serif;
 
@@ -95,7 +95,7 @@ function Header({ isLogin }) {
                 <Link to="/mypage">mypage</Link>
               </li>
               <li>
-                <Link to="/">Logout</Link>
+                <Link to="/completeLogout">Logout</Link>
               </li>
             </div>
           ) : (
