@@ -6,10 +6,7 @@ export const PALETTE_V1 = {
   background: "#FCFBF4",
   text_primary: "#312F2B",
   yellow_button: "#FFFB95",
-};
-export const PALETTE_MYPAGE = {
-  gradation_green: "#91F09B",
-  active_green: "#53C848",
+  yellow_primary: "#fff59f",
 };
 export const PALETTE_LOGIN = {
   background: "#fff59f",
@@ -18,5 +15,5 @@ export const PALETTE_LOGIN = {
 };
 
 export const PALETTE_MAIN = {
-  background: ["#FFFBD3", '#FFFEFA'],
+  background: ["#FFFBD3", "#FFFEFA"],
 };
