@@ -12,6 +12,8 @@ const FooterComponent = styled.footer`
   width: 100vw;
   margin: 0;
   display: flex;
+  position: absolute;
+  bottom: 0;
 
   .menuContainer {
     .logo {

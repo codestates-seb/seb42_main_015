@@ -24,7 +24,7 @@ export const BackgroundYellow = styled.div`
   height: ${(props) => (props.theme === "login" ? "40rem" : "41rem")};
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 20rem;
-    height: ${(props) => (props.theme === "login" ? "31rem" : "36rem")};
+    height: ${(props) => (props.theme === "login" ? "31rem" : "37rem")};
   }
 `;
 
@@ -38,7 +38,7 @@ export const LogForm = styled.form`
   margin-bottom: 2rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 20rem;
-    height: ${(props) => (props.theme === "login" ? "32rem" : "37rem")};
+    height: ${(props) => (props.theme === "login" ? "32rem" : "38rem")};
   }
   .formLeft {
     flex-grow: 1;
@@ -58,20 +58,18 @@ export const LogForm = styled.form`
       .loginText {
         ${FONT_STYLE_LOGIN.title.title_40_medium}
         margin: ${(props) =>
-          props.theme === "login" ? "1.3rem 0px 3.4rem" : "1.3rem 0px 3rem"};
+          props.theme === "login" ? "1.7rem 0px 1rem" : "1rem 0px 0px"};
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           font-size: 2.5rem;
           margin: ${(props) =>
-            props.theme === "login"
-              ? "1.5rem 0rem 2.2rem"
-              : "0.8rem 0rem 2rem"};
+            props.theme === "login" ? "1.5rem 0rem 1.5rem" : "0.8rem 0 0"};
         }
       }
       input {
         width: 23rem;
         height: 2.3rem;
-        margin-bottom: ${(props) =>
-          props.theme === "login" ? "3.3rem" : "2.5rem"};
+        margin-top: ${(props) => (props.theme === "login" ? "3rem" : "2rem")};
+        margin-bottom: 0.5rem;
         padding: 0rem 3rem;
         border-top: none;
         border-left: none;
@@ -84,7 +82,8 @@ export const LogForm = styled.form`
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           width: 14rem;
           font-size: 11px;
-          margin-bottom: 1.5rem;
+          margin-top: 1.2rem;
+          margin-bottom: 0.5rem;
         }
       }
       .userInput {
@@ -94,7 +93,7 @@ export const LogForm = styled.form`
           background-size: 1rem;
         }
       }
-      .idInput {
+      .emailInput {
         background-image: url("${email}");
         background-size: 1.4rem;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
@@ -108,13 +107,23 @@ export const LogForm = styled.form`
           background-size: 1.2rem;
         }
       }
+      p {
+        color: red;
+        margin-bottom: -1rem;
+        font-size: 14px;
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+          font-size: 11px;
+          margin-bottom: 3px;
+        }
+      }
+
       .btn {
         width: 17rem;
         height: 3.2rem;
         border: 1px solid #000;
         ${FONT_STYLE_LOGIN.button.button_13_light}
         background: #fff06c;
-        margin-top: ${(props) => (props.theme === "login" ? "2.7rem" : "1rem")};
+        margin-top: ${(props) => (props.theme === "login" ? "5rem" : "3.5rem")};
         cursor: pointer;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           width: 14rem;
@@ -145,7 +154,7 @@ export const LogForm = styled.form`
         display: flex;
         .oauth-head {
           padding: ${(props) =>
-            props.theme === "login" ? "50px 20px 13px" : "45px 20px 13px"};
+            props.theme === "login" ? "50px 20px 13px" : "35px 20px 13px"};
 
           ${FONT_STYLE_LOGIN.body.body_8_light}
         }
