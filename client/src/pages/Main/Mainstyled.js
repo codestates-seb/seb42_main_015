@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { PALETTE_MAIN } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 
@@ -43,9 +43,14 @@ export const Column4 = styled.div`
 
 export const Column5 = styled.div`
   background-color: ${PALETTE_MAIN.background[0]};
+  width: 100vw;
   height: 100vh;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const LeftImgBox = styled.div`
@@ -138,7 +143,7 @@ export const Title = styled.div`
   .high-light {
     width: 30px;
     height: 20px;
-    background-color: #FFCB12;
+    background-color: #ffcb12;
     opacity: 0.5;
     position: absolute;
     bottom: 5px;
@@ -203,28 +208,64 @@ export const Imgbox = styled.div`
 `;
 
 export const Last = styled.div`
-  height: 80vh;
-  position: relative;
+  display: flex;
+  justify-content: center;
 `;
 
-export const LastImgBox = styled.div`
-  .sendy-top {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+export const FakeLast = styled.div`
+  min-height: 370px;
+  /* position: relative; */
+  /* background-color: aquamarine; */
+`;
+
+const flowAnimation = keyframes`
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translateX(0);
   }
-  .sendy-bottom {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+  100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translateX(-100%);
   }
+`;
+
+export const SendyTop = styled.div`
+  width: 100vw;
+  height: 70px;
+  border-bottom: 1px solid black;
+  overflow: hidden;
+  position: relative;
+  img {
+    max-height: 55px;
+  }
+`;
+
+export const SendyBottom = styled.div`
+  width: 100vw;
+  height: 70px;
+  border-top: 1px solid black;
+  overflow: hidden;
+  position: relative;
+  img {
+    max-height: 55px;
+  }
+`;
+
+export const Track = styled.div`
+  height: 100%;
+	overflow: hidden;
+	padding: 0.5rem 0;
+	position: absolute;
+`;
+
+export const TrackImg = styled.span`
+  animation: ${flowAnimation} 5s linear infinite;
+  align-items: center;
+  display: inline-flex;
+  /* will-change: transform; */
 `;
 
 export const LastTextBox = styled.div`
-  width: 100vw;
-  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -242,3 +283,40 @@ export const LastTitle = styled.div`
   line-height: 1.5;
 `;
 
+export const Footer = styled.footer`
+  width: 100vw;
+  height: 300px;
+  background: #ffe49d;
+  border-top: 1px solid #312f2b;
+  color: #000;
+  padding: 1.8rem 6rem 3rem;
+  margin: 0;
+  display: flex;
+  position: absolute;
+  bottom: 0px;
+
+  .menuContainer {
+    .logo {
+      display: flex;
+      font-family: "Sriracha";
+      font-size: 2.4rem;
+      margin-bottom: 12px;
+    }
+    .logo-img {
+      display: inline-block;
+      width: 25px;
+      height: 20px;
+      margin: 12px 0 0 6px;
+    }
+    .imfomation {
+      font-family: "Pretendard-Light";
+      display: flex;
+      flex-direction: column;
+      font-size: 0.9rem;
+      margin-top: 20px;
+      li {
+        padding: 5px 0;
+      }
+    }
+  }
+`;
