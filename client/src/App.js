@@ -9,9 +9,10 @@ import Main from "./pages/Main/Main";
 import MyPage from "./pages/MyPage/MyPage";
 import WriteLetter from "./pages/WriteLetter/WriteLetter";
 import Trash from "./pages/MyPage/TrashList";
+import LetterBox from "./pages/LetterBox/LetterBox";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
 
   return (
     <BrowserRouter>
@@ -24,6 +25,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/writeletter" element={<WriteLetter />} />
         <Route path="/completeLogout" element={<CompleteLogout />} />
+        <Route path="/letterbox" element={<LetterBox />} />
       </Routes>
       <Footer />
     </BrowserRouter>
