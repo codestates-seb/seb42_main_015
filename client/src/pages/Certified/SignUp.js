@@ -58,7 +58,7 @@ function SignUp() {
             </ul>
           </li>
           <li className="formRight">
-            <ui className="welcome">welcome!</ui>
+            <div className="welcome">welcome!</div>
             <div className="imgWrapper">
               <img src={require("../../asset/CatDog.png")} alt="CatandDog" />
             </div>
