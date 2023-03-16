@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from "react";
-import clovaApi from "./clovaApi";
 
 const AudioRecord = () => {
   const [stream, setStream] = useState();
@@ -69,7 +68,6 @@ const AudioRecord = () => {
       type: "audio",
     });
     console.log(sound); // File 정보 출력
-    clovaApi(sound);
   }, [audioUrl]);
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as W from "./WriteStyled";
 import { useForm } from "react-hook-form";
 import { BiMicrophone, BiFontColor, BiLock, BiLockOpen } from "react-icons/bi";
@@ -7,23 +7,25 @@ import { SlQuestion } from "react-icons/sl";
 import { PALETTE_V1 } from "../../style/color";
 import LetterContent from "./LetterContent";
 import axiosCall from "../../util/axiosCall";
-import clovaApi from "./clovaApi";
 import AudioRecord from "./AudioRecord";
 import SquareButton from "../commons/SquareButton";
 
 function WriteLetter() {
   const { register, watch } = useForm();
   const [openExplaination, setOpenExplaination] = useState(false);
+  const [sendMe, setSendMe] = useState(false);
+
   const handleOpenExplanation = () => {
     setOpenExplaination(!openExplaination);
   };
+
   return (
     <W.PageContainer>
       {openExplaination ? <W.ExplainationBackground /> : <></>}
       <W.PageWrapper>
         <W.FlexWrapper2>
           <W.IconWrapper>
-            <AudioRecord />
+            {/* <AudioRecord /> */}
             <BiMicrophone className="microphone-icon" size="30" />
             <W.BallonWrapper>
               <BiFontColor className="font-icon" size="30" />
@@ -40,7 +42,11 @@ function WriteLetter() {
             <MdArrowBackIos className="arrow-backward-icon" size="30" />
           </W.ThemeIcon>
           <W.LetterWrapper>
-            <LetterContent openExplaination={openExplaination} />
+            <LetterContent
+              openExplaination={openExplaination}
+              sendMe={sendMe}
+              setSendMe={setSendMe}
+            />
             <W.BallonWrapper>
               <W.TextCount>0/7000</W.TextCount>
               {openExplaination ? (

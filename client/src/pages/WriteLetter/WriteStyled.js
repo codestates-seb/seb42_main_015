@@ -95,6 +95,7 @@ export const Date = styled(Text)``;
 export const SendMeWrapper = styled(FlexRowWrapper)`
   align-items: center;
   padding-bottom: 0.5rem;
+  padding-top: 20px;
 `;
 export const SendMeCheckBox = styled.div`
   cursor: pointer;
@@ -105,23 +106,17 @@ export const SendMeCheckBox = styled.div`
     width: 11px;
     height: 11px;
     border: 1px solid ${PALETTE_V1.text_primary};
-    ${(props) => {
-      props.checked
-        ? css`
-             {
-              /* background-color: ${PALETTE_V1.text_primary}; */
-              background-color: red;
-              background-image: url(../asset/icon8-done30.png);
-            }
-          `
-        : css``;
-    }}
+  }
+  &.active::before {
+    content: "";
+    background-color: rgb(255, 228, 157);
   }
 `;
 export const SendMeLabel = styled.div`
   color: ${PALETTE_V1.text_primary};
   vertical-align: middle;
   max-height: 21px;
+  padding-left: 5px;
 `;
 export const ContentContainer = styled.div``;
 export const ContentTextarea = styled.textarea`
@@ -251,6 +246,12 @@ export const BallonBottom2 = styled.div`
 `;
 export const BallonWrapper = styled.div`
   position: relative;
+  #check-icon {
+    position: absolute;
+    top: -10px;
+    left: -3px;
+    color: ${PALETTE_V1.text_primary};
+  }
 `;
 export const ButtonContainer = styled.div`
   max-height: 218px;
