@@ -71,10 +71,10 @@ export const FONT_STYLE_V1 = {
       color: ${PALETTE_V1.text_primary};
     `,
     body_15_light: css`
-    font-family: "Pretendard-Light";
-    font-size: 1.5rem;
-    color: ${PALETTE_V1.text_primary};
-  `,
+      font-family: "Pretendard-Light";
+      font-size: 1.5rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
   },
   textarea: {
     textarea_10_light: css`
@@ -143,5 +143,13 @@ export const FONT_STYLE_LOGOUT = {
   title_9_medium: css`
     font-family: "B612", sans-serif;
     font-size: 0.9rem;
+  `,
+};
+
+export const FONT_STYLE_READ = {
+  title_20_medium: css`
+    /* font-family: "Pretendard-Thin"; */
+    font-family: "Pretendard-Light";
+    font-size: 2rem;
   `,
 };

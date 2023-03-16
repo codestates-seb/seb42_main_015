@@ -21,7 +21,7 @@ import * as S from "./FormStyled";
   ? register : form의 유효성을 확인하는 메서드
   ? handleSubmit : form을 제출하는 함수
   ? watch : 입력폼에 적힌 값을 확인 하는 옵션
-    e.target.value와 동일하다
+    - e.target.value와 동일하다
   ? formState : form의 현재 상태를 담고 있다.
     - 중복 제출 방지 : isSubmitting (초기값 : false)
       formState에 isSubmitting 속성을 부여하면 -> form이 현재 제출중인 상태인지 아닌지를 알 수 있다.
