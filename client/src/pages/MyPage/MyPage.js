@@ -11,7 +11,6 @@ function MyPage() {
     changeCurrentPage("MyPage");
   }, []);
 
-
   return (
     <M.MyPageContainer>
       <M.FlexWrapper1>

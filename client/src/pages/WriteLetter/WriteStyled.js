@@ -5,6 +5,7 @@ import Ballon1 from "../../asset/ballon1.png";
 import Ballon2 from "../../asset/ballon2.png";
 import Ballon3 from "../../asset/ballon3.png";
 import Ballon4 from "../../asset/ballon4.png";
+import Ballon5 from "../../asset/ballon5.png";
 
 export const PageContainer = styled.div`
   background-color: ${PALETTE_V1.background};
@@ -144,6 +145,11 @@ export const ButtonWrapper = styled(FlexRowWrapper)`
     margin-right: 10px;
     z-index: 110;
   }
+  &#sendMeModalButton {
+    justify-content: center;
+    padding-bottom: 0px;
+    padding-top: 30px;
+  }
 `;
 export const ExplainationWrapper = styled.div``;
 export const ExplainationBackground = styled.div`
@@ -157,7 +163,7 @@ export const ExplainationBackground = styled.div`
 `;
 export const BallonLeft = styled.div`
   ${FONT_STYLE_V1.body.body_10_light};
-  position: relative;
+  position: absolute;
   z-index: 200;
   padding: 15px 20px;
   padding-left: 50px;
@@ -165,11 +171,11 @@ export const BallonLeft = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  min-width: 250px;
-  max-height: 100%;
+  min-width: 300px;
   max-width: 100%;
   &#ballon1 {
-    left: 10px;
+    top: -15px;
+    left: 110px;
   }
 `;
 export const BallonTop = styled.div`
@@ -185,9 +191,13 @@ export const BallonTop = styled.div`
   background-position: top;
   max-width: 300px;
   &#ballon2 {
+    background-image: url(${Ballon5});
+    height: 110px;
+    padding-top: 82px;
+    padding-left: 50px;
     top: 35px;
-    left: -30px;
-    width: 240px;
+    left: -50px;
+    width: 300px;
   }
   &#ballon3 {
     top: 20px;
@@ -214,15 +224,15 @@ export const BallonBottom1 = styled.div`
   }
   &#ballon6 {
     padding: 40px 15px;
-    padding-bottom: 43px;
-    top: -110px;
+    padding-bottom: 25px;
+    top: -93px;
     left: -40px;
   }
   &#ballon7 {
-    padding: 10px 10px 41px;
-    padding-top: 35px;
-    top: -110px;
-    right: 30px;
+    padding: 10px 20px 28px;
+    padding-top: 25px;
+    top: -80px;
+    right: 10px;
     max-width: 280px;
   }
 `;
@@ -255,4 +265,41 @@ export const BallonWrapper = styled.div`
 `;
 export const ButtonContainer = styled.div`
   max-height: 218px;
+`;
+export const ModalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px;
+  height: 90%;
+`;
+export const ModalTitle = styled.div`
+  ${FONT_STYLE_V1.title.title_14_medium}
+  padding-top: 5px;
+  padding-bottom: 30px;
+`;
+export const TimeBoxWrapper = styled.div`
+  ${FONT_STYLE_V1.body.body_12_light}
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 30px;
+`;
+export const DateBox = styled.div`
+  border: 2px solid ${PALETTE_V1.text_primary};
+  padding: 3px 5px;
+  margin-right: 10px;
+`;
+export const TimeBox = styled.select`
+  ${FONT_STYLE_V1.body.body_12_light}
+  border: 2px solid ${PALETTE_V1.text_primary};
+  border-radius: 0;
+  margin-right: 10px;
+  padding: 3px 5px;
+  &.select {
+    border-radius: 0;
+  }
+`;
+export const TimeOption = styled.option``;
+export const ReservationText = styled.div`
+  ${FONT_STYLE_V1.body.body_9_light}
 `;
