@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { PALETTE_MAIN } from "../../style/color";
-import { FONT_STYLE_V1 } from "../../style/fontStyle";
+import { FONT_STYLE_V1, FONT_STYLE_LOGO } from "../../style/fontStyle";
 
 export const MainWrap = styled.div``;
 
@@ -253,9 +253,9 @@ export const SendyBottom = styled.div`
 
 export const Track = styled.div`
   height: 100%;
-	overflow: hidden;
-	padding: 0.5rem 0;
-	position: absolute;
+  overflow: hidden;
+  padding: 0.5rem 0;
+  position: absolute;
 `;
 
 export const TrackImg = styled.span`
@@ -288,35 +288,34 @@ export const Footer = styled.footer`
   height: 300px;
   background: #ffe49d;
   border-top: 1px solid #312f2b;
-  color: #000;
-  padding: 1.8rem 6rem 3rem;
-  margin: 0;
+  padding: 0 6rem 3rem;
   display: flex;
   position: absolute;
   bottom: 0px;
+`;
 
-  .menuContainer {
-    .logo {
-      display: flex;
-      font-family: "Sriracha";
-      font-size: 2.4rem;
-      margin-bottom: 12px;
-    }
-    .logo-img {
-      display: inline-block;
-      width: 25px;
-      height: 20px;
-      margin: 12px 0 0 6px;
-    }
-    .imfomation {
-      font-family: "Pretendard-Light";
-      display: flex;
-      flex-direction: column;
-      font-size: 0.9rem;
-      margin-top: 20px;
-      li {
-        padding: 5px 0;
-      }
-    }
-  }
+export const FooterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const Logo = styled.div`
+  display: flex;
+  ${FONT_STYLE_LOGO.title.title_25_medium};
+  position: relative;
+  img {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: 110px;
+  } 
+`;
+
+export const Info = styled.ul`
+  ${FONT_STYLE_V1.body.body_8_light}
+  display: flex;
+  flex-direction: column;
+  line-height: 2;
+  margin-top: 2.2rem;
 `;
