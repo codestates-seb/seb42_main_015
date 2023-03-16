@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as M from "./MyPageStyled";
 import { BiEditAlt } from "react-icons/bi";
 import GNB from "./GNB";
+import useStore from "../../store/store";
 
 function MyPage() {
+  const { isLogin, setIsLogin, currentPage, changeCurrentPage } = useStore(
+    (state) => state
+  );
+  useEffect(() => {
+    changeCurrentPage("MyPage");
+  }, []);
+
+  useEffect(() => {
+    console.log(currentPage);
+  }, [currentPage]);
+
   return (
     <M.MyPageContainer>
       <M.FlexWrapper1>
