@@ -9,6 +9,8 @@ import LetterContent from "./LetterContent";
 import axiosCall from "../../util/axiosCall";
 import AudioRecord from "./AudioRecord";
 import SquareButton from "../commons/SquareButton";
+import SendMeModal from "./SendMeModal";
+import Modal from "../commons/Modal";
 
 function WriteLetter() {
   const { register, watch } = useForm();
@@ -21,7 +23,15 @@ function WriteLetter() {
 
   return (
     <W.PageContainer>
-      {openExplaination ? <W.ExplainationBackground /> : <></>}
+      {openExplaination || sendMe ? <W.ExplainationBackground /> : <></>}
+      {sendMe ? (
+        <Modal
+          ContainerHeight={"320px"}
+          children={<SendMeModal sendMe={sendMe} setSendMe={setSendMe} />}
+        />
+      ) : (
+        <></>
+      )}
       <W.PageWrapper>
         <W.FlexWrapper2>
           <W.IconWrapper>

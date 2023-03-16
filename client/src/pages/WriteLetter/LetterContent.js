@@ -13,8 +13,11 @@ function LetterContent({ openExplaination, sendMe, setSendMe }) {
   return (
     <W.LetterBox>
       <W.FlexWrapper1>
-        <W.NameInputWrapper>
-          To
+        <W.BallonWrapper>
+          <W.NameInputWrapper>
+            To
+            <W.NameInput></W.NameInput>
+          </W.NameInputWrapper>
           {openExplaination ? (
             <W.BallonBottom1 id="ballon6">
               편지를 받을 사람 이름을 적습니다.
@@ -22,8 +25,7 @@ function LetterContent({ openExplaination, sendMe, setSendMe }) {
           ) : (
             <></>
           )}
-          <W.NameInput></W.NameInput>
-        </W.NameInputWrapper>
+        </W.BallonWrapper>
         <W.Date>{currentDate}</W.Date>
       </W.FlexWrapper1>
       <W.SendMeWrapper>
@@ -37,20 +39,24 @@ function LetterContent({ openExplaination, sendMe, setSendMe }) {
             <></>
           )}
         </W.BallonWrapper>
-
-        <W.SendMeLabel>나에게보내기</W.SendMeLabel>
-        {openExplaination ? (
-          <W.BallonLeft id="ballon1">
-            나에게 편지를 작성할 수 있습니다.
-          </W.BallonLeft>
-        ) : (
-          <></>
-        )}
+        <W.BallonWrapper>
+          <W.SendMeLabel>나에게보내기</W.SendMeLabel>
+          {openExplaination ? (
+            <W.BallonLeft id="ballon1">
+              나에게 편지를 작성할 수 있습니다.
+            </W.BallonLeft>
+          ) : (
+            <></>
+          )}
+        </W.BallonWrapper>
       </W.SendMeWrapper>
       <W.ContentTextarea></W.ContentTextarea>
       <W.FromWrapper>
-        <W.NameInputWrapper>
-          From
+        <W.BallonWrapper>
+          <W.NameInputWrapper>
+            From
+            <W.NameInput></W.NameInput>
+          </W.NameInputWrapper>
           {openExplaination ? (
             <W.BallonBottom1 id="ballon7">
               편지를 보내는 사람 이름을 적습니다.
@@ -58,8 +64,7 @@ function LetterContent({ openExplaination, sendMe, setSendMe }) {
           ) : (
             <></>
           )}
-          <W.NameInput></W.NameInput>
-        </W.NameInputWrapper>
+        </W.BallonWrapper>
       </W.FromWrapper>
     </W.LetterBox>
   );
