@@ -95,6 +95,7 @@ export const Date = styled(Text)``;
 export const SendMeWrapper = styled(FlexRowWrapper)`
   align-items: center;
   padding-bottom: 0.5rem;
+  padding-top: 20px;
 `;
 export const SendMeCheckBox = styled.div`
   cursor: pointer;
@@ -105,23 +106,17 @@ export const SendMeCheckBox = styled.div`
     width: 11px;
     height: 11px;
     border: 1px solid ${PALETTE_V1.text_primary};
-    ${(props) => {
-      props.checked
-        ? css`
-             {
-              /* background-color: ${PALETTE_V1.text_primary}; */
-              background-color: red;
-              background-image: url(../asset/icon8-done30.png);
-            }
-          `
-        : css``;
-    }}
+  }
+  &.active::before {
+    content: "";
+    background-color: rgb(255, 228, 157);
   }
 `;
 export const SendMeLabel = styled.div`
   color: ${PALETTE_V1.text_primary};
   vertical-align: middle;
   max-height: 21px;
+  padding-left: 5px;
 `;
 export const ContentContainer = styled.div``;
 export const ContentTextarea = styled.textarea`
@@ -179,33 +174,30 @@ export const BallonLeft = styled.div`
 `;
 export const BallonTop = styled.div`
   ${FONT_STYLE_V1.body.body_10_light};
-  position: relative;
+  position: absolute;
   z-index: 200;
   padding: 20px 20px;
-  padding-top: 30px;
+  padding-top: 22px;
+  padding-left: 30px;
   background-image: url(${Ballon2});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top;
-  max-height: 100%;
   max-width: 300px;
   &#ballon2 {
-    padding-top: 20px;
-    padding-left: 30px;
-    top: 0px;
+    top: 35px;
     left: -30px;
     width: 240px;
   }
   &#ballon3 {
-    padding-top: 21px;
-    top: 5px;
+    top: 20px;
     left: -30px;
     width: 240px;
   }
 `;
 export const BallonBottom1 = styled.div`
   ${FONT_STYLE_V1.body.body_10_light};
-  position: relative;
+  position: absolute;
   z-index: 200;
   padding: 20px 20px;
   padding-bottom: 25px;
@@ -213,12 +205,12 @@ export const BallonBottom1 = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
-  max-height: 100%;
   max-width: 100%;
+  min-width: 280px;
   &#ballon4 {
     max-width: 280px;
-    bottom: 60px;
-    right: -710px;
+    bottom: 50px;
+    right: -170px;
   }
   &#ballon6 {
     padding: 40px 15px;
@@ -236,7 +228,7 @@ export const BallonBottom1 = styled.div`
 `;
 export const BallonBottom2 = styled.div`
   ${FONT_STYLE_V1.body.body_10_light};
-  position: relative;
+  position: absolute;
   z-index: 200;
   padding: 20px 30px;
   padding-bottom: 25px;
@@ -244,12 +236,21 @@ export const BallonBottom2 = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
-  max-height: 100%;
   max-width: 100%;
+  min-width: 280px;
   &#ballon5 {
     max-width: 280px;
-    bottom: 60px;
-    right: -140px;
+    bottom: 50px;
+    right: 20px;
+  }
+`;
+export const BallonWrapper = styled.div`
+  position: relative;
+  #check-icon {
+    position: absolute;
+    top: -10px;
+    left: -3px;
+    color: ${PALETTE_V1.text_primary};
   }
 `;
 export const ButtonContainer = styled.div`
