@@ -43,19 +43,19 @@ const Footer = () => {
   return (
     <>
       <FooterComponent>
-        <li className="menuContainer">
-          <ul>
-            <div className="logo">
-              Sendy
-              <img className="logo-img" src={logo} />
-            </div>
-          </ul>
-          <div className="imfomation">
-            <li>© 2023 Witch`s delivery service All rights reserved.</li>
-            <li>이진주 최지윤 김유림 심효은 윤선진 이시온</li>
-            <li>문의 abcd19234@gmail.com</li>
+        <div className="menuContainer">
+          <div className="logo">
+            Sendy
+            <img className="logo-img" src={logo} />
           </div>
-        </li>
+          <div className="imfomation">
+            <ul>
+              <li>© 2023 Witch`s delivery service All rights reserved.</li>
+              <li>이진주 최지윤 김유림 심효은 윤선진 이시온</li>
+              <li>문의 abcd19234@gmail.com</li>
+            </ul>
+          </div>
+        </div>
       </FooterComponent>
     </>
   );

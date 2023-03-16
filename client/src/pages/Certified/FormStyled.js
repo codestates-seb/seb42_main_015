@@ -28,7 +28,7 @@ export const BackgroundYellow = styled.div`
   }
 `;
 
-export const LogForm = styled.div`
+export const LogForm = styled.form`
   position: absolute;
   display: flex;
   width: 60rem;
@@ -69,7 +69,7 @@ export const LogForm = styled.div`
       }
       input {
         width: 23rem;
-        height: 2rem;
+        height: 2.3rem;
         margin-bottom: ${(props) =>
           props.theme === "login" ? "3.3rem" : "2.5rem"};
         padding: 0rem 3rem;

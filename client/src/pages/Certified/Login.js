@@ -5,15 +5,18 @@ import * as L from "./FormStyled";
 function Login() {
   //handleSubmit을 가져옵니다.
   const { register, watch, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
     <>
       <L.Container>
         <L.BackgroundYellow theme="login" />
-        <L.LogForm theme="login">
-          <li className="formLeft">
-            <ul className="login-form">
-              <li className="loginText">Log in</li>
+        <L.LogForm theme="login" onSubmit={handleSubmit(onSubmit)}>
+          <div className="formLeft">
+            <div className="login-form">
+              <div className="loginText">Log in</div>
               <input
                 className="idInput"
                 {...register("id")}
@@ -42,10 +45,10 @@ function Login() {
                   <img src={require("../../asset/카카오.png")} alt="Kakao" />
                 </div>
               </div>
-            </ul>
-          </li>
-          <li className="formRight">
-            <ui className="welcome">welcome!</ui>
+            </div>
+          </div>
+          <div className="formRight">
+            <div className="welcome">welcome!</div>
             <div className="imgWrapper">
               <div className="section1">
                 <img
@@ -66,7 +69,7 @@ function Login() {
                 <img src={require("../../asset/카카오.png")} alt="Kakao" />
               </div>
             </div>
-          </li>
+          </div>
         </L.LogForm>
       </L.Container>
     </>
