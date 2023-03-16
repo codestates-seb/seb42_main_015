@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import * as W from "./WriteStyled";
+import { HiOutlineCheck } from "react-icons/hi";
 
-function LetterContent({ openExplaination }) {
+function LetterContent({ openExplaination, sendMe, setSendMe }) {
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
   const currentDate = `${new Date().getFullYear()}.${new Date().getMonth()}.${new Date().getDate()} ${
     weekday[new Date().getDay()]
   }`;
-  const [checked, setChecked] = useState(false);
-  const handleCheckBox = () => {
-    setChecked(!checked);
+  const handleSendMe = () => {
+    setSendMe(!sendMe);
   };
-
   return (
     <W.LetterBox>
       <W.FlexWrapper1>
@@ -28,9 +27,17 @@ function LetterContent({ openExplaination }) {
         <W.Date>{currentDate}</W.Date>
       </W.FlexWrapper1>
       <W.SendMeWrapper>
-        <W.SendMeCheckBox
-          checked={checked}
-          onClick={handleCheckBox}></W.SendMeCheckBox>
+        <W.BallonWrapper>
+          <W.SendMeCheckBox
+            className={sendMe ? "active" : ""}
+            onClick={handleSendMe}></W.SendMeCheckBox>
+          {sendMe ? (
+            <HiOutlineCheck id="check-icon" size="25" onClick={handleSendMe} />
+          ) : (
+            <></>
+          )}
+        </W.BallonWrapper>
+
         <W.SendMeLabel>나에게보내기</W.SendMeLabel>
         {openExplaination ? (
           <W.BallonLeft id="ballon1">
