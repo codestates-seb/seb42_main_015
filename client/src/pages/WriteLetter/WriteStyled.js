@@ -179,33 +179,30 @@ export const BallonLeft = styled.div`
 `;
 export const BallonTop = styled.div`
   ${FONT_STYLE_V1.body.body_10_light};
-  position: relative;
+  position: absolute;
   z-index: 200;
   padding: 20px 20px;
-  padding-top: 30px;
+  padding-top: 22px;
+  padding-left: 30px;
   background-image: url(${Ballon2});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top;
-  max-height: 100%;
   max-width: 300px;
   &#ballon2 {
-    padding-top: 20px;
-    padding-left: 30px;
-    top: 0px;
+    top: 35px;
     left: -30px;
     width: 240px;
   }
   &#ballon3 {
-    padding-top: 21px;
-    top: 5px;
+    top: 20px;
     left: -30px;
     width: 240px;
   }
 `;
 export const BallonBottom1 = styled.div`
   ${FONT_STYLE_V1.body.body_10_light};
-  position: relative;
+  position: absolute;
   z-index: 200;
   padding: 20px 20px;
   padding-bottom: 25px;
@@ -213,12 +210,12 @@ export const BallonBottom1 = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
-  max-height: 100%;
   max-width: 100%;
+  min-width: 280px;
   &#ballon4 {
     max-width: 280px;
-    bottom: 60px;
-    right: -710px;
+    bottom: 50px;
+    right: -170px;
   }
   &#ballon6 {
     padding: 40px 15px;
@@ -236,7 +233,7 @@ export const BallonBottom1 = styled.div`
 `;
 export const BallonBottom2 = styled.div`
   ${FONT_STYLE_V1.body.body_10_light};
-  position: relative;
+  position: absolute;
   z-index: 200;
   padding: 20px 30px;
   padding-bottom: 25px;
@@ -244,13 +241,16 @@ export const BallonBottom2 = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom;
-  max-height: 100%;
   max-width: 100%;
+  min-width: 280px;
   &#ballon5 {
     max-width: 280px;
-    bottom: 60px;
-    right: -140px;
+    bottom: 50px;
+    right: 20px;
   }
+`;
+export const BallonWrapper = styled.div`
+  position: relative;
 `;
 export const ButtonContainer = styled.div`
   max-height: 218px;
