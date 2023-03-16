@@ -7,6 +7,9 @@ export const PALETTE_V1 = {
   text_primary: "#312F2B",
   yellow_button: "#FFFB95",
   yellow_primary: "#fff59f",
+  red_modal_button: "#FF4545",
+  yellow_modal_button: "#FFCB12",
+  green_modal_button: "#88E116",
 };
 export const PALETTE_LOGIN = {
   background: "#fff59f",
