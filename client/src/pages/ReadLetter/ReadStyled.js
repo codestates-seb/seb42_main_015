@@ -25,26 +25,30 @@ export const SWrapper = styled.div`
 export const CheckContainer = styled.div`
   display: flex;
   background: #d7e5df;
-  padding: 2rem 2rem;
+  padding: 5rem 5rem;
   width: 50vw;
   height: 30vh;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  align-content: space-around;
+  justify-content: space-around;
+  justify-content: space-evenly;
   div {
+    display: flex;
     ${FONT_STYLE_READ.title_20_medium}
   }
   input {
+    display: flex;
     width: 23rem;
     height: 2.3rem;
-    background-image: url("${pwd}");
     background-size: 1.5rem;
     padding: 0rem 3rem;
     border-top: none;
     border-left: none;
     border-right: none;
     border-bottom: 1px solid #000;
+    background-image: url("${pwd}");
+    background-color: initial;
     background-repeat: no-repeat;
     background-position: left;
     background-size: 1.5rem;
@@ -55,11 +59,11 @@ export const CheckContainer = styled.div`
   button {
     display: flex;
     justify-content: center;
+    align-items: center;
     border: 1px solid black;
     background-color: #fcfbf4;
     font-family: "B612", sans-serif;
     font-size: 0.8rem;
-    margin-top: 3rem;
     width: 7rem;
     height: 2.1rem;
     cursor: pointer;
