@@ -5,18 +5,18 @@ import * as L from "./FormStyled";
 function Login() {
   //handleSubmit을 가져옵니다.
   const { register, watch, handleSubmit } = useForm();
-  //"제출"을 했을 때 무슨일이 일어나는지 확인해봅시다.
-  const onValid = (data) => console.log(data, "onvalid");
-  const onInvalid = (data) => console.log(data, "onInvalid");
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
     <>
       <L.Container>
         <L.BackgroundYellow theme="login" />
-        <L.LogForm theme="login" onSubmit={handleSubmit(onValid, onInvalid)}>
-          <li className="formLeft">
-            <ul className="login-form">
-              <li className="loginText">Log in</li>
+        <L.LogForm theme="login" onSubmit={handleSubmit(onSubmit)}>
+          <div className="formLeft">
+            <div className="login-form">
+              <div className="loginText">Log in</div>
               <input
                 className="idInput"
                 {...register("id")}
@@ -45,10 +45,10 @@ function Login() {
                   <img src={require("../../asset/카카오.png")} alt="Kakao" />
                 </div>
               </div>
-            </ul>
-          </li>
-          <li className="formRight">
-            <ui className="welcome">welcome!</ui>
+            </div>
+          </div>
+          <div className="formRight">
+            <div className="welcome">welcome!</div>
             <div className="imgWrapper">
               <div className="section1">
                 <img
@@ -69,7 +69,7 @@ function Login() {
                 <img src={require("../../asset/카카오.png")} alt="Kakao" />
               </div>
             </div>
-          </li>
+          </div>
         </L.LogForm>
       </L.Container>
     </>
