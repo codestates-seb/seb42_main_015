@@ -6,6 +6,7 @@ import useStore from "../../store/store";
 
 function MyPage() {
   const { currentPage, changeCurrentPage } = useStore((state) => state);
+
   useEffect(() => {
     changeCurrentPage("MyPage");
   }, []);
