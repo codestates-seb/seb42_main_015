@@ -94,7 +94,6 @@ export const Text = styled.div`
 export const Date = styled(Text)``;
 export const SendMeWrapper = styled(FlexRowWrapper)`
   align-items: center;
-  padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 `;
 export const SendMeCheckBox = styled.div`
@@ -129,7 +128,7 @@ export const ContentTextarea = styled.textarea`
   background-color: transparent;
   border: none;
   resize: none;
-  aspect-ratio: 1/1.5;
+  aspect-ratio: 1/1.6;
   ${FONT_STYLE_V1.textarea.textarea_10_light}
   &:focus {
     outline: none;

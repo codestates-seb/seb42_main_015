@@ -25,14 +25,16 @@ function WriteLetter() {
           <W.IconWrapper>
             <AudioRecord />
             <BiMicrophone className="microphone-icon" size="30" />
-            <BiFontColor className="font-icon" size="30" />
-            {openExplaination ? (
-              <W.BallonTop id="ballon2">
-                글씨체를 변경할 수 있습니다.
-              </W.BallonTop>
-            ) : (
-              <></>
-            )}
+            <div style={{ position: "relative" }}>
+              <BiFontColor className="font-icon" size="30" />
+              {openExplaination ? (
+                <div style={{ position: "absolute", top: 20 }}>
+                  글씨체를 변경할 수 있습니다.
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
           </W.IconWrapper>
           <W.ThemeIcon>
             <MdArrowBackIos className="arrow-backward-icon" size="30" />
