@@ -75,10 +75,10 @@ export const LogForm = styled.form`
         border-left: none;
         border-right: none;
         border-bottom: 1px solid #000;
-        font-size: 14px;
         background-repeat: no-repeat;
         background-position: left;
         background-size: 1.5rem;
+        font-size: 14px;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           width: 14rem;
           font-size: 11px;
