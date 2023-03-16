@@ -60,6 +60,11 @@ export const FONT_STYLE_V1 = {
       font-size: 0.8rem;
       color: ${PALETTE_V1.text_primary};
     `,
+    body_9_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 0.9rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
     body_10_light: css`
       font-family: "Pretendard-Light";
       font-size: 1rem;
@@ -71,10 +76,10 @@ export const FONT_STYLE_V1 = {
       color: ${PALETTE_V1.text_primary};
     `,
     body_15_light: css`
-    font-family: "Pretendard-Light";
-    font-size: 1.5rem;
-    color: ${PALETTE_V1.text_primary};
-  `,
+      font-family: "Pretendard-Light";
+      font-size: 1.5rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
   },
   textarea: {
     textarea_10_light: css`
