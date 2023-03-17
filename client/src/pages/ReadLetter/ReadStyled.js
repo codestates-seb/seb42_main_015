@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
   min-height: 87vh;
   padding: 3rem 2rem;
   overflow: hidden;
+  padding-bottom: 300px;
 `;
 
 export const SWrapper = styled.div`
