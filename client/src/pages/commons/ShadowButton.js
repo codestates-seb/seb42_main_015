@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 
+const StyledContainer = styled.div`
+  position: relative;
+`;
 const StyledButton = styled.button`
   ${FONT_STYLE_V1.body.body_10_light}
   background-color: ${(props) => props.backgroundColor};
@@ -30,10 +33,10 @@ const StyledShadow = styled.div`
 `;
 function ShadowButton({ children, ...rest }) {
   return (
-    <>
+    <StyledContainer>
       <StyledButton {...rest}>{children}</StyledButton>
       <StyledShadow />
-    </>
+    </StyledContainer>
   );
 }
 
