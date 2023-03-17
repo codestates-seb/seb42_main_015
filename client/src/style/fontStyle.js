@@ -150,6 +150,6 @@ export const FONT_STYLE_READ = {
   title_20_medium: css`
     /* font-family: "Pretendard-Thin"; */
     font-family: "Pretendard-Light";
-    font-size: 2rem;
+    font-size: 1.7rem;
   `,
 };

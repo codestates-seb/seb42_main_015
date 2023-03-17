@@ -10,6 +10,7 @@ import MyPage from "./pages/MyPage/MyPage";
 import WriteLetter from "./pages/WriteLetter/WriteLetter";
 import Trash from "./pages/MyPage/TrashList";
 import ReadLetter from "./pages/ReadLetter/ReadLetter";
+import LetterBox from "./pages/LetterBox/LetterBox";
 
 function App() {
   const [isLogin, setIsLogin] = useState(true);
@@ -26,6 +27,7 @@ function App() {
         <Route path="/writeletter" element={<WriteLetter />} />
         <Route path="/completeLogout" element={<CompleteLogout />} />
         <Route path="/readletter" element={<ReadLetter />} />
+        <Route path="/letterbox" element={<LetterBox />} />
       </Routes>
       <Footer />
     </BrowserRouter>
