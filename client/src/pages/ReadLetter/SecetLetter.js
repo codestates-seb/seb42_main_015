@@ -8,12 +8,10 @@ const ReadLetter = ({ enterPassword, setEnterPassword }) => {
   const formShema = yup.object({
     password: yup
       .string()
-      .required("영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요.")
-      .min(8, "최소 8자리 이상 입력해주세요.")
-      .max(16, "최대 16자까지 가능합니다.")
+      .required("숫자로 이루어진 비밀번호 4자리를 입력해주세요.")
       .matches(
-        /^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
-        "영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요."
+        /^(?=.*?[0-9]).{4}$/,
+        "숫자로 이루어진 비밀번호 4자리를 입력해주세요."
       ),
   });
 
@@ -26,6 +24,7 @@ const ReadLetter = ({ enterPassword, setEnterPassword }) => {
   const onSubmit = (data) => {
     alert("비밀번호가 일치합니다! 어떤 편지가 왔을까요?");
     setEnterPassword(!enterPassword);
+    //! 추후 비밀번호가 맞는지 검증절차 필요
   };
 
   return (

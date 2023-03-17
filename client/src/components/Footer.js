@@ -3,7 +3,6 @@ import styled from "styled-components";
 import logo from "../asset/작은편지.png";
 
 const FooterComponent = styled.footer`
-  width: 100vw;
   height: max-content;
   background: #ffe49d;
   border-top: 1px solid #312f2b;
