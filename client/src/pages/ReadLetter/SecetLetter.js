@@ -23,6 +23,7 @@ const ReadLetter = ({ enterPassword, setEnterPassword }) => {
 
   const onSubmit = (data) => {
     alert("비밀번호가 일치합니다! 어떤 편지가 왔을까요?");
+    setEnterPassword(!enterPassword);
     //! 추후 비밀번호가 맞는지 검증절차 필요
   };
 

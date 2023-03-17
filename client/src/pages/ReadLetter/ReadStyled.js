@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import BREAKPOINTMOBILE from "../../breakpoint";
-import { FONT_STYLE_READ } from "../../style/fontStyle";
-import { PALETTE_V1 } from "../../style/color";
+import { FONT_STYLE_READ, FONT_STYLE_LOGIN } from "../../style/fontStyle";
 import pwd from "../../asset/pwd.png";
+import email from "../../asset/mail.png";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
   padding: 3rem 2rem;
   overflow: hidden;
   padding-bottom: 70px;
+  /* background: orange; */
 
   .ReadContainer {
     display: flex;
@@ -102,7 +103,7 @@ export const EnterSeret = styled.div`
   justify-content: center;
   width: 12rem;
   padding: 0.5rem 0.7rem 0.5rem 1.5rem;
-  border: 1px solid #838383;
+  border: 1px solid #000000;
   ${FONT_STYLE_READ.body_8_Medium}
   margin-bottom: 2rem;
   margin: 0 0 2rem 30.5rem;
@@ -128,7 +129,7 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   aspect-ratio: 3/5;
   background-color: #ffffff;
   flex-direction: column;
-  border: 1px solid #000000;
+  border: 2px solid #000000;
   padding: 2.5rem 3rem 2.5rem 3rem;
   min-width: 680px;
   max-width: 680px;
@@ -162,30 +163,9 @@ export const Letterpaper = styled(FlexColunmWrapper)`
 export const Buttons = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   height: 10rem;
-  padding: 0rem 0rem 2rem 28rem;
-
-  .button {
-    background: ${PALETTE_V1.yellow_primary};
-    border: 1px solid ${PALETTE_V1.text_primary};
-    ${FONT_STYLE_READ.btn_7_light}
-    padding: 0.5rem 1rem;
-    min-width: 100px;
-    height: 30px;
-    cursor: pointer;
-    position: relative;
-  }
-
-  .close {
-    background: rgb(209, 209, 209);
-    border: 1px solid ${PALETTE_V1.text_primary};
-    ${FONT_STYLE_READ.btn_7_light}
-    padding: 0.5rem 1rem;
-    min-width: 100px;
-    height: 30px;
-    cursor: pointer;
-  }
+  padding: 0rem 0rem 2rem 27rem;
 `;
 
 export const LetterEx = `이 노래는 it's about you baby
@@ -240,4 +220,77 @@ No, I can never let him go
 널 알기 전까지는 나 의미 없었어 전부 다
 내 맘이 끝이 없는 걸 I know, I know
 He's the one that's living in my system baby
+`;
+
+export const ModalWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px 20px 20px;
+  height: 90%;
+
+  .loginText {
+    ${FONT_STYLE_LOGIN.title.title_40_medium}
+    margin:1rem 0px 1rem;
+    font-size: 3rem;
+  }
+  .oauth {
+    justify-content: space-around;
+    margin-bottom: 0.7rem;
+    img {
+      width: 2rem;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+  }
+  form {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    input {
+      width: 16rem;
+      height: 2.3rem;
+      margin: 1rem 0 0;
+      padding: 0rem 2rem;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: 1px solid #000;
+      background-repeat: no-repeat;
+      background-position: left;
+      font-size: 11px;
+      margin-bottom: 0.7rem;
+    }
+    .emailInput {
+      background-image: url("${email}");
+      background-size: 1.2rem;
+    }
+    .pwdInput {
+      background-image: url("${pwd}");
+      background-size: 1.3rem;
+    }
+    .btn {
+      width: 10rem;
+      height: 2.5rem;
+      border: 1px solid #000;
+      ${FONT_STYLE_LOGIN.button.button_13_light}
+      font-size: 13px;
+      background: #fff06c;
+      margin: 1.5rem 0;
+    }
+    p {
+      color: red;
+      font-size: 10px;
+    }
+  }
+  .sub-form {
+    display: flex;
+    ${FONT_STYLE_LOGIN.body.body_9_light}
+    font-size: 0.6rem;
+  }
+  li {
+    padding: 0 10px;
+  }
 `;
