@@ -33,11 +33,10 @@ public class MemberService {
         verifiedExistedEmail(member.getEmail());    // 이메일 검증
         verifiedExistedName(member.getMemberName());    // 닉네임 검증
 
-        String encryptedPassword = passwordEncoder.encode(member.getPassword()); // PasswordEncoder를 이용해 패스워드 암호화
-        member.setPassword(encryptedPassword); // 암호화된 패스워드를 password필드에 재할당
+        String encryptedPassword = passwordEncoder.encode(member.getPassword()); // 패스워드 암호화
+        member.setPassword(encryptedPassword); // 암호화된 패스워드를 password 필드에 재할당
 
-        // Role을 DB에 저장
-        List<String> roles = authorityUtils.createRoles(member.getEmail());
+        List<String> roles = authorityUtils.createRoles(member.getEmail()); // 사용자 권한
         member.setRoles(roles);
 
         return memberRepository.save(member);
@@ -67,8 +66,7 @@ public class MemberService {
     // 사용자 검증
     public Member findVerifiedMember(long memberId) {
         Optional<Member> member = memberRepository.findById(memberId);  // orElseThrow() : Optional 객체가 null 값을 가지고 있다면 예외처리 발생
-        Member findMember = member.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));   // 404
-        return findMember;
+        return member.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));   // 404
     }
 
     // 이메일 검증
