@@ -21,15 +21,18 @@ function App() {
       <Header isLogin={isLogin} />
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/trash" element={<Trash />} />
+        <Route path="letterbox" element={<LetterBox />} />
         <Route element={<Layout displayFooter={displayFooter} />}>
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/trash" element={<Trash />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/writeletter" element={<WriteLetter />} />
           <Route path="/completeLogout" element={<CompleteLogout />} />
-          <Route path="/readletter" element={<ReadLetter />} />
-          <Route path="letterbox" element={<LetterBox />} />
+          <Route
+            path="/readletter"
+            element={<ReadLetter isLogin={isLogin} />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TrashItem from "./TrashItem";
+import GNB from "./GNB";
 import * as M from "./TrashStyled";
 import { AiOutlineCheck } from "react-icons/ai";
 
@@ -8,11 +9,12 @@ function TrashList() {
 
   return (
     <M.TrashWrap>
-      <M.GNBWrap>
+      {/* <M.GNBWrap>
         <M.GNBMenu>내 정보</M.GNBMenu>
         <M.GNBMenu>비밀번호 수정</M.GNBMenu>
         <M.GNBMenuOn>휴지통</M.GNBMenuOn>
-      </M.GNBWrap>
+      </M.GNBWrap> */}
+      <GNB />
       <M.TrashContainer>
         <M.TrashTable>
           <M.TrashTableMenu>
