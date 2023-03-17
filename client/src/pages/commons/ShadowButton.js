@@ -1,0 +1,40 @@
+import React from "react";
+import styled from "styled-components";
+import { PALETTE_V1 } from "../../style/color";
+import { FONT_STYLE_V1 } from "../../style/fontStyle";
+
+const StyledButton = styled.button`
+  ${FONT_STYLE_V1.body.body_10_light}
+  background-color: ${(props) => props.backgroundColor};
+  border: 2px solid ${PALETTE_V1.text_primary};
+  min-width: 100px;
+  width: 100px;
+  height: 40px;
+  margin-right: 10px;
+  z-index: 80;
+  position: relative;
+  &:hover {
+    transform: translate(2px, 2px);
+    transition: transform 0.2s linear;
+  }
+`;
+const StyledShadow = styled.div`
+  background-color: ${PALETTE_V1.text_primary};
+  min-width: 100px;
+  width: 100px;
+  height: 40px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 50;
+`;
+function ShadowButton({ children, ...rest }) {
+  return (
+    <>
+      <StyledButton {...rest}>{children}</StyledButton>
+      <StyledShadow />
+    </>
+  );
+}
+
+export default ShadowButton;
