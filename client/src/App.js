@@ -11,15 +11,21 @@ import WriteLetter from "./pages/WriteLetter/WriteLetter";
 import Trash from "./pages/MyPage/TrashList";
 import ReadLetter from "./pages/ReadLetter/ReadLetter";
 import LetterBox from "./pages/LetterBox/LetterBox";
+<<<<<<< HEAD
+=======
+import Layout from "./components/Layout";
+>>>>>>> b55161733221b596abcbb1a8194b7a1659d50e7c
 
 function App() {
   const [isLogin, setIsLogin] = useState(true);
+  const displayFooter = true;
 
   return (
     <BrowserRouter>
       <Header isLogin={isLogin} />
       <Routes>
         <Route path="/" element={<Main />} />
+<<<<<<< HEAD
         <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/trash" element={<Trash />} />
@@ -28,8 +34,19 @@ function App() {
         <Route path="/completeLogout" element={<CompleteLogout />} />
         <Route path="/readletter" element={<ReadLetter />} />
         <Route path="/letterbox" element={<LetterBox />} />
+=======
+        <Route element={<Layout displayFooter={displayFooter} />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/trash" element={<Trash />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/writeletter" element={<WriteLetter />} />
+          <Route path="/completeLogout" element={<CompleteLogout />} />
+          <Route path="/readletter" element={<ReadLetter />} />
+          <Route path="letterbox" element={<LetterBox />} />
+        </Route>
+>>>>>>> b55161733221b596abcbb1a8194b7a1659d50e7c
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }
