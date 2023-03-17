@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import * as W from "./WriteStyled";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowDown } from "react-icons/md";
 import RoundButton from "../commons/RoundButton";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 function SendMeModal({ sendMe, setSendMe }) {
-  const [selectedDate, setSelectedDate] = useState({
-    Date: null,
-    hour: null,
-    minutes: null,
+  const formShema = yup.object({
+    hour: yup.date(),
   });
+  const {
+    register,
+    watch,
+    formState: { isSubmitting, errors },
+  } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
   const currentYear = new Date().getFullYear();
   const currentMonth = ("00" + (new Date().getMonth() + 1)).slice(-2);
   const currentDay = ("00" + new Date().getDay()).slice(-2);
@@ -27,6 +33,8 @@ function SendMeModal({ sendMe, setSendMe }) {
     while (i < minutesArr.length - 1) {
       if (minutesArr[i] >= currentMinutes) {
         return minutesArr[i];
+      } else if (currentMinutes >= 45) {
+        return 0;
       }
       i++;
     }
@@ -38,23 +46,10 @@ function SendMeModal({ sendMe, setSendMe }) {
     }
     return currentHour;
   };
-  let afterCloseHour = findCloseHour();
+  const afterCloseHour = findCloseHour();
 
   const handleCloseModal = () => {
     setSendMe(false);
-  };
-
-  const handleChangeTime = (e) => {
-    switch (e.target.name) {
-      case "hour":
-        setSelectedDate({ ...selectedDate, hour: e.target.value });
-        break;
-      case "minutes":
-        setSelectedDate({ ...selectedDate, minutes: e.target.value });
-        break;
-      default:
-        break;
-    }
   };
 
   return (
@@ -63,22 +58,29 @@ function SendMeModal({ sendMe, setSendMe }) {
       <W.TimeBoxWrapper>
         <W.DateBox>
           {`${currentYear}.${currentMonth}.${currentDay}`}
-          <MdOutlineKeyboardArrowDown />
+          <MdKeyboardArrowDown id="arrow-down-icon" size="25" />
         </W.DateBox>
-        <W.TimeBox name="hour" onClick={handleChangeTime}>
+        <W.TimeBox
+          name="hour"
+          value={`${afterCloseHour}시`}
+          {...register("hour")}>
           {hourArr.map((el) => {
             if (el === afterCloseHour) {
               return (
                 <W.TimeOption
-                  selected
+                  value={`${el}시`}
                   key={`hour${el}`}>{`${el}시`}</W.TimeOption>
               );
             }
-            return <W.TimeOption key={`hour${el}`}>{`${el}시`}</W.TimeOption>;
+            return (
+              <W.TimeOption
+                value={`${el}시`}
+                key={`hour${el}`}>{`${el}시`}</W.TimeOption>
+            );
           })}
         </W.TimeBox>
 
-        <W.TimeBox name="minutes" onClick={handleChangeTime}>
+        <W.TimeBox name="minutes" {...register("minutes")}>
           {minutesArr.map((el, idx) => {
             if (el === afterCloseMinutes) {
               return (

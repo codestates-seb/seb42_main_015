@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as W from "./WriteStyled";
-import { useForm } from "react-hook-form";
 import { BiMicrophone, BiFontColor, BiLock, BiLockOpen } from "react-icons/bi";
 import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
 import { SlQuestion } from "react-icons/sl";
@@ -11,14 +10,19 @@ import AudioRecord from "./AudioRecord";
 import SquareButton from "../commons/SquareButton";
 import SendMeModal from "./SendMeModal";
 import Modal from "../commons/Modal";
+import FontMenu from "./FontMenu";
+import ShadowButton from "../commons/ShadowButton";
 
 function WriteLetter() {
-  const { register, watch } = useForm();
   const [openExplaination, setOpenExplaination] = useState(false);
   const [sendMe, setSendMe] = useState(false);
+  const [openFont, setOpenFont] = useState(false);
 
   const handleOpenExplanation = () => {
     setOpenExplaination(!openExplaination);
+  };
+  const handleOpenFont = () => {
+    setOpenFont(!openFont);
   };
 
   return (
@@ -26,7 +30,7 @@ function WriteLetter() {
       {openExplaination || sendMe ? <W.ExplainationBackground /> : <></>}
       {sendMe ? (
         <Modal
-          ContainerHeight={"320px"}
+          ContainerHeight={"350px"}
           children={<SendMeModal sendMe={sendMe} setSendMe={setSendMe} />}
         />
       ) : (
@@ -38,7 +42,12 @@ function WriteLetter() {
             {/* <AudioRecord /> */}
             <BiMicrophone className="microphone-icon" size="30" />
             <W.BallonWrapper>
-              <BiFontColor className="font-icon" size="30" />
+              <BiFontColor
+                onClick={handleOpenFont}
+                className="font-icon"
+                size="30"
+              />
+              {openFont ? <FontMenu /> : <></>}
               {openExplaination ? (
                 <W.BallonTop id="ballon2">
                   글씨체를 변경할 수 있습니다.
@@ -79,7 +88,7 @@ function WriteLetter() {
               className="question-icon"
               size="30"
             />
-            <W.BallonWrapper>
+            <W.BallonWrapper className="button">
               {openExplaination ? (
                 <W.BallonBottom2 id="ballon5">
                   작성한 편지를 미리 볼 수 있습니다.
@@ -87,11 +96,11 @@ function WriteLetter() {
               ) : (
                 <></>
               )}
-              <SquareButton backgroundColor={PALETTE_V1.yellow_button}>
+              <ShadowButton backgroundColor={PALETTE_V1.yellow_button}>
                 미리보기
-              </SquareButton>
+              </ShadowButton>
             </W.BallonWrapper>
-            <W.BallonWrapper>
+            <W.BallonWrapper className="button">
               {openExplaination ? (
                 <W.BallonBottom1 id="ballon4">
                   작성을 마무리하고 편지를 생성합니다.
@@ -99,9 +108,9 @@ function WriteLetter() {
               ) : (
                 <></>
               )}
-              <SquareButton backgroundColor={PALETTE_V1.yellow_button}>
+              <ShadowButton backgroundColor={PALETTE_V1.yellow_button}>
                 편지생성
-              </SquareButton>
+              </ShadowButton>
             </W.BallonWrapper>
           </W.ButtonWrapper>
         </W.ButtonContainer>

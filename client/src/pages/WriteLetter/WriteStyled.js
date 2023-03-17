@@ -10,10 +10,10 @@ import Ballon5 from "../../asset/ballon5.png";
 export const PageContainer = styled.div`
   background-color: ${PALETTE_V1.background};
   min-width: max-content;
-  width: 100vw;
   min-height: 100vh;
   display: flex;
   justify-content: center;
+  overflow-x: auto;
 `;
 export const FlexRowWrapper = styled.div`
   display: flex;
@@ -73,7 +73,8 @@ export const ThemeIcon = styled.div`
 `;
 export const NameInputWrapper = styled.div`
   ${FONT_STYLE_V1.body.body_12_light}
-  border: none;
+  display: flex;
+  flex-direction: row;
   border-bottom: 2px solid ${PALETTE_V1.text_primary};
   max-width: 250px;
   min-width: 250px;
@@ -125,7 +126,7 @@ export const ContentTextarea = styled.textarea`
   border: none;
   resize: none;
   aspect-ratio: 1/1.6;
-  ${FONT_STYLE_V1.textarea.textarea_10_light}
+  ${FONT_STYLE_V1.content.content_10_light}
   &:focus {
     outline: none;
   }
@@ -147,7 +148,7 @@ export const ButtonWrapper = styled(FlexRowWrapper)`
   }
   &#sendMeModalButton {
     justify-content: center;
-    padding-bottom: 0px;
+    padding-bottom: 10px;
     padding-top: 30px;
   }
 `;
@@ -262,6 +263,9 @@ export const BallonWrapper = styled.div`
     left: -3px;
     color: ${PALETTE_V1.text_primary};
   }
+  &.button {
+    padding-left: 20px;
+  }
 `;
 export const ButtonContainer = styled.div`
   max-height: 218px;
@@ -288,6 +292,12 @@ export const DateBox = styled.div`
   border: 2px solid ${PALETTE_V1.text_primary};
   padding: 3px 5px;
   margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  #arrow-down-icon {
+    padding-left: 5px;
+  }
 `;
 export const TimeBox = styled.select`
   ${FONT_STYLE_V1.body.body_12_light}
@@ -303,3 +313,13 @@ export const TimeOption = styled.option``;
 export const ReservationText = styled.div`
   ${FONT_STYLE_V1.body.body_9_light}
 `;
+export const ErrorMessage = styled.p`
+  ${FONT_STYLE_V1.body.body_9_light}
+  padding-top: 2px;
+  color: grey;
+`;
+export const FontContainer = styled.ul`
+  background-color: white;
+  border: 2px solid ${PALETTE_V1.text_primary};
+`;
+export const FontEl = styled.li``;
