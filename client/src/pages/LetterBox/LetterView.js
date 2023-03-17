@@ -6,6 +6,8 @@ function LetterView() {
   return (
     <L.ListWrap>
       <LetterList />
+      <LetterList />
+      <LetterList />
     </L.ListWrap>
   )
 }
