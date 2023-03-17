@@ -10,7 +10,7 @@ const HeaderComponent = styled.header`
   background: #fcfbf4;
   border-bottom: 1px solid #312f2b;
   display: flex;
-  width: 100vw;
+  width: 100%;
   height: 60px;
   position: sticky;
   z-index: 999;
