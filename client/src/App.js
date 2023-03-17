@@ -11,7 +11,10 @@ import Trash from "./pages/MyPage/TrashList";
 import ReadLetter from "./pages/ReadLetter/ReadLetter";
 import LetterBox from "./pages/LetterBox/LetterBox";
 import Layout from "./components/Layout";
+<<<<<<< HEAD
+=======
 // ! 공백
+>>>>>>> b243a074333e49fac48297c6b9bea300051baa96
 function App() {
   const [isLogin, setIsLogin] = useState(true);
   const displayFooter = true;
