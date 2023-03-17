@@ -10,24 +10,29 @@ import MyPage from "./pages/MyPage/MyPage";
 import WriteLetter from "./pages/WriteLetter/WriteLetter";
 import Trash from "./pages/MyPage/TrashList";
 import ReadLetter from "./pages/ReadLetter/ReadLetter";
+import LetterBox from "./pages/LetterBox/LetterBox";
+import Layout from "./components/Layout";
 
 function App() {
   const [isLogin, setIsLogin] = useState(true);
+  const displayFooter = true;
 
   return (
     <BrowserRouter>
       <Header isLogin={isLogin} />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/mypage" element={<MyPage />} />
-        <Route path="/trash" element={<Trash />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/writeletter" element={<WriteLetter />} />
-        <Route path="/completeLogout" element={<CompleteLogout />} />
-        <Route path="/readletter" element={<ReadLetter />} />
+        <Route element={<Layout displayFooter={displayFooter} />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/trash" element={<Trash />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/writeletter" element={<WriteLetter />} />
+          <Route path="/completeLogout" element={<CompleteLogout />} />
+          <Route path="/readletter" element={<ReadLetter />} />
+          <Route path="letterbox" element={<LetterBox />} />
+        </Route>
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }
