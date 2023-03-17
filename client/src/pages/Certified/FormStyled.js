@@ -12,6 +12,7 @@ export const Container = styled.div`
   min-height: 87vh;
   padding: 3rem 2rem;
   overflow: hidden;
+  padding-bottom: 300px;
 `;
 
 export const BackgroundYellow = styled.div`

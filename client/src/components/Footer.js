@@ -9,10 +9,10 @@ const FooterComponent = styled.footer`
   border-top: 1px solid #312f2b;
   color: #000;
   padding: 1.8rem 6rem 3rem;
-  width: 100vw;
   margin: 0;
   display: flex;
-  position: absolute;
+  /* position: absolute; */
+  position: relative;
   bottom: 0;
 
   .menuContainer {
