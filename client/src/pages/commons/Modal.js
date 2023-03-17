@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
 const ModalBack = styled.div`
@@ -45,11 +45,41 @@ const Circle = styled.div`
 `;
 
 function Modal(props) {
+  //모달 열리면 뒤에 배경 스크롤 못하게 막음
+  useEffect(() => {
+    document.body.style.cssText = `
+    position: fixed;
+    top: -${window.scrollY}px;
+    overflow-y: scroll;
+    width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    };
+  }, []);
+
+  //모달 열렸는지, 닫혔는지
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const el = useRef();
+  //모달 영역 밖 클릭시 모달 닫기
+  const handleCloseModal = ({ target }) => {
+    if (isModalOpen && !el.current.contains(target)) setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("click", handleCloseModal);
+    return () => {
+      window.removeEventListener("click", handleCloseModal);
+    };
+  });
+
   return (
-    <ModalBack>
+    <ModalBack ref={el}>
       <ModalContainer
         ContainerHeight={props.ContainerHeight}
-        ContainerWidth={props.ContainerWidth}>
+        ContainerWidth={props.ContainerWidth}
+      >
         <ModalHeader>
           <CircleWrapper>
             <Circle backgroundColor={PALETTE_V1.red_modal_button} />

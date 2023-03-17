@@ -67,7 +67,7 @@ const LoginModal = () => {
           />
         </form>
         <div className="sub-form">
-          <Link to="/">
+          <Link to="/setpwd">
             <li>forget Password</li>
           </Link>
           <Link to="/signup">
