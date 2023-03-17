@@ -16,7 +16,10 @@ const ReadLetter = () => {
           <div>오픈</div>
         </R.SWrapper>
       ) : (
-        <SecretLetter />
+        <SecretLetter
+          enterPassword={enterPassword}
+          setEnterPassword={setEnterPassword}
+        />
       )}
     </>
   );
