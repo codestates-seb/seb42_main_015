@@ -148,8 +148,23 @@ export const FONT_STYLE_LOGOUT = {
 
 export const FONT_STYLE_READ = {
   title_20_medium: css`
-    /* font-family: "Pretendard-Thin"; */
     font-family: "Pretendard-Light";
     font-size: 1.7rem;
+  `,
+  body_9_light: css`
+    font-family: "Pretendard-Medium";
+    font-size: 0.9rem;
+  `,
+  body_8_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 0.8rem;
+  `,
+  btn_8_light: css`
+    font-family: "B612", sans-serif;
+    font-size: 0.8rem;
+  `,
+  btn_7_light: css`
+    font-family: "B612", sans-serif;
+    font-size: 0.7rem;
   `,
 };

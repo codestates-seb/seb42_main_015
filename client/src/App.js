@@ -12,7 +12,6 @@ import Trash from "./pages/MyPage/TrashList";
 import ReadLetter from "./pages/ReadLetter/ReadLetter";
 import LetterBox from "./pages/LetterBox/LetterBox";
 import Layout from "./components/Layout";
-
 function App() {
   const [isLogin, setIsLogin] = useState(true);
   const displayFooter = true;
