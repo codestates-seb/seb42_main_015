@@ -2,17 +2,19 @@ import styled from "styled-components";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 
 export const LetterBoxWrap = styled.div`
-  width: 100vw;
+  width: 100%;
   min-height: 90vh;
+  
 `;
 
 export const FilterContainer = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 40px;
   border-bottom: 1px solid black;
   display: flex;
   flex-direction: row;
 `;
+
 export const SearchContainer = styled.div`
   flex-grow: 5;
   display: flex;
@@ -113,4 +115,73 @@ export const DropdownItem = styled.li`
   &:hover {
     font-weight: bold;
   }
+`;
+
+// 우편함 리스트
+export const ViewWrap = styled.div`
+  width: 100%;
+`;
+
+export const Gradient = styled.div`
+  width: 1000px;
+  height: 1000px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 246, 164, 1) 0%,
+    rgba(255, 246, 164, 0) 50%
+  );
+  position: fixed;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+`;
+
+export const ListWrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ListContainer = styled.div`
+  width: 100%;
+  margin-top: 5rem;
+`;
+
+export const ListDateContainer = styled.div`
+  width: 200px;
+`;
+
+export const ListDate = styled.div`
+  text-align: right;
+  margin-bottom: 0.5rem;
+  ${FONT_STYLE_V1.body.body_15_light}
+`;
+
+export const ListBar = styled.div`
+  width: 200px;
+  border-bottom: 1px solid black;
+`;
+
+export const ItemWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+`;
+
+export const ItemContainer = styled.div`
+  width: 81vw;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* align-content: flex-start; */
+`;
+
+export const ItemBox = styled.div`
+  width: 200px;
+  height: 300px;
+  background-color: white;
+  border: 1px solid black;
+  margin-left: 3rem;
+  margin-bottom: 3rem;
 `;

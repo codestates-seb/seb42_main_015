@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as L from "./LetterBoxStyled";
+import LetterView from "./LetterView";
 import { GrSearch } from "react-icons/gr";
 import { AiOutlineCalendar } from "react-icons/ai";
 import {
@@ -21,42 +22,42 @@ function LetterBox() {
 
   const handleMonthLUp = () => {
     if (+monthL > 0 && +monthL < 12) {
-      setMonthL(+monthL+1);
+      setMonthL(+monthL + 1);
     }
   };
   const handleMonthLDown = () => {
     if (+monthL > 1 && +monthL < 13) {
-      setMonthL(+monthL-1);
+      setMonthL(+monthL - 1);
     }
   };
   const handleYearLUp = () => {
     if (yearL >= 2023) {
-      setYearL(yearL+1);
+      setYearL(yearL + 1);
     }
   };
   const handleYearLDown = () => {
     if (yearL > 2023) {
-      setYearL(yearL-1);
+      setYearL(yearL - 1);
     }
   };
   const handleMonthRUp = () => {
     if (+monthR > 0 && +monthR < 12) {
-      setMonthR(+monthR+1);
+      setMonthR(+monthR + 1);
     }
   };
   const handleMonthRDown = () => {
     if (+monthR > 1 && +monthR < 13) {
-      setMonthR(+monthR-1);
+      setMonthR(+monthR - 1);
     }
   };
   const handleYearRUp = () => {
     if (yearR >= 2023) {
-      setYearR(yearR+1);
+      setYearR(yearR + 1);
     }
   };
   const handleYearRDown = () => {
     if (yearR > 2023) {
-      setYearR(yearR-1);
+      setYearR(yearR - 1);
     }
   };
 
@@ -119,6 +120,10 @@ function LetterBox() {
           )}
         </L.DropdownContainer>
       </L.FilterContainer>
+      <L.ViewWrap>
+        <LetterView />
+        <L.Gradient />
+      </L.ViewWrap>
     </L.LetterBoxWrap>
   );
 }
