@@ -33,10 +33,14 @@ function GNB() {
         className={currentPage === "MyPage" ? "active" : ""}>
         내정보
       </M.GNBMenu>
-      <M.GNBMenu>비밀번호 수정</M.GNBMenu>
       <M.GNBMenu
         onClick={handleClick}
-        className={currentPage === "trash" ? "active" : ""}>
+        className={currentPage === "PwdChange" ? "active" : ""}>
+        비밀번호 수정
+      </M.GNBMenu>
+      <M.GNBMenu
+        onClick={handleClick}
+        className={currentPage === "Trash" ? "active" : ""}>
         휴지통
       </M.GNBMenu>
     </M.GNBWrapper>
