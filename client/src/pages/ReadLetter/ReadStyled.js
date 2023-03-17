@@ -127,9 +127,9 @@ export const FlexColunmWrapper = styled.div`
 export const Letterpaper = styled(FlexColunmWrapper)`
   aspect-ratio: 3/5;
   background-color: #ffffff;
-  align-content: space-evenly;
+  flex-direction: column;
   border: 1px solid #000000;
-  padding: 2.5rem 3.5rem 2.5rem 3.5rem;
+  padding: 2.5rem 3rem 2.5rem 3rem;
   min-width: 680px;
   max-width: 680px;
 
@@ -138,13 +138,8 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     justify-content: space-between;
     flex-direction: row;
     margin-bottom: 1rem;
-
-    .to {
-      ${FONT_STYLE_READ.body_9_Medium}
-    }
-    .date {
-      ${FONT_STYLE_READ.body_8_light}
-    }
+    padding: 1rem 2rem 1rem 1rem;
+    ${FONT_STYLE_READ.body_9_Medium}
   }
 
   .content {
@@ -157,10 +152,10 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   }
 
   .from {
-    padding: 2rem 0 1rem;
     display: flex;
     ${FONT_STYLE_READ.body_9_Medium};
     justify-content: flex-end;
+    padding: 1rem 2rem 1rem 1rem;
   }
 `;
 
@@ -171,7 +166,7 @@ export const Buttons = styled.div`
   height: 10rem;
   padding: 0rem 0rem 2rem 28rem;
 
-  button {
+  .button {
     background: ${PALETTE_V1.yellow_primary};
     border: 1px solid ${PALETTE_V1.text_primary};
     ${FONT_STYLE_READ.btn_7_light}
@@ -179,6 +174,7 @@ export const Buttons = styled.div`
     min-width: 100px;
     height: 30px;
     cursor: pointer;
+    position: relative;
   }
 
   .close {

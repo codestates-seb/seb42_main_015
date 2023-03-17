@@ -28,7 +28,10 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/writeletter" element={<WriteLetter />} />
           <Route path="/completeLogout" element={<CompleteLogout />} />
-          <Route path="/readletter" element={<ReadLetter />} />
+          <Route
+            path="/readletter"
+            element={<ReadLetter isLogin={isLogin} />}
+          />
           <Route path="letterbox" element={<LetterBox />} />
         </Route>
       </Routes>
