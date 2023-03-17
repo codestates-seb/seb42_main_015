@@ -1,18 +1,17 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL} # jdbc:mysql://localhost:3306/witchdelivery-db
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: ${datasource}
+    username: root
+    password:
   jpa:
     show-sql: true
-    properties.hibernate.format_sql: true  # SQL pretty print
     database-platform: org.hibernate.dialect.MySQL8Dialect
-    database : mysql
-    hibernate.ddl-auto : create
+    database: mysql
+    hibernate.ddl-auto: create
 mail:
   address:
-    admin: admin@gmail.com # 회원 등록시, 특정 이메일 주소에 관리자 권한을 부여할 수 있는지를 결정하기 위해 사용
+    admin: admin@gmail.com  # 관리자 권한
 jwt:
   key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30
