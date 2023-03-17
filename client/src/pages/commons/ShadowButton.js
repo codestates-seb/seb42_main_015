@@ -16,6 +16,8 @@ const StyledButton = styled.button`
   margin-right: 10px;
   z-index: 80;
   position: relative;
+  pointer-events: ${(props) => (props.state === "block" ? "none" : "auto")};
+
   &:active {
     transform: translate(3px, 3px);
     transition: transform 0s linear;

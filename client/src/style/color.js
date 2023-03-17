@@ -10,6 +10,7 @@ export const PALETTE_V1 = {
   red_modal_button: "#FF4545",
   yellow_modal_button: "#FFCB12",
   green_modal_button: "#88E116",
+  aready_keep_button: "#d3d3d3",
 };
 export const PALETTE_LOGIN = {
   background: "#fff59f",

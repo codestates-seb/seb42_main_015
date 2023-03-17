@@ -13,7 +13,7 @@ import SetPwd from "./pages/Certified/SetPwd";
 import Layout from "./components/Layout";
 // ! 공백
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const displayFooter = true;
   // ! 공백
   return (
@@ -33,6 +33,7 @@ function App() {
             path="/readletter"
             element={<ReadLetter isLogin={isLogin} />}
           />
+          <Route path="letterbox" element={<LetterBox />} />
         </Route>
       </Routes>
     </BrowserRouter>

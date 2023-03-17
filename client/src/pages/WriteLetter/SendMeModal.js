@@ -63,19 +63,22 @@ function SendMeModal({ sendMe, setSendMe }) {
         <W.TimeBox
           name="hour"
           value={`${afterCloseHour}시`}
-          {...register("hour")}>
+          {...register("hour")}
+        >
           {hourArr.map((el) => {
             if (el === afterCloseHour) {
               return (
                 <W.TimeOption
                   value={`${el}시`}
-                  key={`hour${el}`}>{`${el}시`}</W.TimeOption>
+                  key={`hour${el}`}
+                >{`${el}시`}</W.TimeOption>
               );
             }
             return (
               <W.TimeOption
                 value={`${el}시`}
-                key={`hour${el}`}>{`${el}시`}</W.TimeOption>
+                key={`hour${el}`}
+              >{`${el}시`}</W.TimeOption>
             );
           })}
         </W.TimeBox>
@@ -86,7 +89,8 @@ function SendMeModal({ sendMe, setSendMe }) {
               return (
                 <W.TimeOption
                   selected
-                  key={`minutes${idx}`}>{`${el}분`}</W.TimeOption>
+                  key={`minutes${idx}`}
+                >{`${el}분`}</W.TimeOption>
               );
             }
             return (
