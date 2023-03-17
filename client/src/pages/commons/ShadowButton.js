@@ -13,7 +13,7 @@ const StyledButton = styled.button`
   margin-right: 10px;
   z-index: 80;
   position: relative;
-  &:hover {
+  &.clicked {
     transform: translate(2px, 2px);
     transition: transform 0.2s linear;
   }
