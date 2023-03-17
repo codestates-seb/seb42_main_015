@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
-import java.util.List;
 
 @RestController
 @RequestMapping("/sendy/users")
@@ -35,7 +34,7 @@ public class MemberController {
 
     @GetMapping
     public ResponseEntity getMembers(@Positive @RequestParam(required = false, defaultValue = "1") int page,
-                                     @Positive @RequestParam(required = false, defaultValue = "50") int size) {
+                                     @Positive @RequestParam(required = false, defaultValue = "20") int size) {
         Page<Member> members = memberService.findMembers(page -1, size);
         return new ResponseEntity<>(new PageResponseDto<>(memberMapper.membersToMemberResponseDtos(members.getContent()), members), HttpStatus.OK);
     }
