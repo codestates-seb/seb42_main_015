@@ -64,7 +64,27 @@
 font-family: 'Caveat', cursive;
 font-family: 'Caveat Brush', cursive;
 font-family: 'Sriracha', cursive; */
-
+@font-face {
+  font-family: "DOSSaemmul";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/DOSSaemmul.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GangwonEdu_Light";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff")
+    format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GangwonEdu_Bold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff")
+    format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
 * {
   margin: 0;
   padding: 0;
