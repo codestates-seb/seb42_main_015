@@ -5,6 +5,7 @@ import RoundButton from "../commons/RoundButton";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import DateSelectBox from "../commons/DateSelectBox";
 
 function SendMeModal({ sendMe, setSendMe }) {
   const formShema = yup.object({
@@ -15,11 +16,13 @@ function SendMeModal({ sendMe, setSendMe }) {
     watch,
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
+
   const currentYear = new Date().getFullYear();
   const currentMonth = ("00" + (new Date().getMonth() + 1)).slice(-2);
   const currentDay = ("00" + new Date().getDay()).slice(-2);
   const currentHour = new Date().getHours();
   const currentMinutes = new Date().getMinutes();
+
   let hourArr = [];
   let makeHourArr = () => {
     for (let i = 0; i < 24; i++) {
@@ -27,6 +30,7 @@ function SendMeModal({ sendMe, setSendMe }) {
     }
   };
   makeHourArr();
+
   const minutesArr = [0, 15, 30, 45];
   const findCloseMinutes = (currentMinutes) => {
     let i = 0;
@@ -40,6 +44,7 @@ function SendMeModal({ sendMe, setSendMe }) {
     }
   };
   const afterCloseMinutes = findCloseMinutes(currentMinutes);
+
   const findCloseHour = () => {
     if (afterCloseMinutes === 0) {
       return currentHour + 1;
@@ -52,14 +57,30 @@ function SendMeModal({ sendMe, setSendMe }) {
     setSendMe(false);
   };
 
+  const [openDateSelect, setOpenDateSelect] = useState(false);
+  const handleOpenDateSelect = () => {
+    setOpenDateSelect(!openDateSelect);
+  };
   return (
     <W.ModalWrapper>
       <W.ModalTitle>예약시간</W.ModalTitle>
       <W.TimeBoxWrapper>
-        <W.DateBox>
-          {`${currentYear}.${currentMonth}.${currentDay}`}
-          <MdKeyboardArrowDown id="arrow-down-icon" size="25" />
-        </W.DateBox>
+        <W.BallonWrapper>
+          <W.DateBox onClick={handleOpenDateSelect}>
+            {`${currentYear}.${currentMonth}.${currentDay}`}
+            <MdKeyboardArrowDown id="arrow-down-icon" size="25" />
+          </W.DateBox>
+          {openDateSelect ? (
+            <DateSelectBox
+              backgroundColor="#FFFFFF"
+              top="42px"
+              right="-153px"
+            />
+          ) : (
+            <></>
+          )}
+        </W.BallonWrapper>
+
         <W.TimeBox
           name="hour"
           value={`${afterCloseHour}시`}

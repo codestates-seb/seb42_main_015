@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 
 export const LetterBoxWrap = styled.div`
@@ -40,8 +41,10 @@ export const PeriodBox = styled.div`
   height: 118px;
   border: 1px solid black;
   position: absolute;
-  top: 39px;
-  right: -1px;
+  top: ${(props) => props.top || "39px"};
+  right: ${(props) => props.right || "-1px"};
+  background-color: ${(props) =>
+    props.backgroundColor || PALETTE_V1.background};
 `;
 
 export const Line = styled.div`

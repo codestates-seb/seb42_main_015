@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { FONT_STYLE_V1 } from "../../style/fontStyle";
+import { FONT_STYLE_CONTENT, FONT_STYLE_V1 } from "../../style/fontStyle";
 import { PALETTE_V1 } from "../../style/color";
 import Ballon1 from "../../asset/ballon1.png";
 import Ballon2 from "../../asset/ballon2.png";
@@ -50,14 +50,14 @@ export const IconWrapper = styled.div`
   display: flex;
   flex-direction: column;
   max-width: min-content;
-  max-width: 57px;
   .microphone-icon,
   .font-icon {
     color: ${PALETTE_V1.text_primary};
     margin-bottom: 20px;
+    padding: 10px;
   }
-  .active {
-    background-color: green;
+  .active-icon {
+    background-color: ${PALETTE_V1.yellow_modal_button};
     border-radius: 50%;
   }
 `;
@@ -126,7 +126,21 @@ export const ContentTextarea = styled.textarea`
   border: none;
   resize: none;
   aspect-ratio: 1/1.6;
-  ${FONT_STYLE_V1.content.content_10_light}
+  ${(props) => {
+    switch (props.font) {
+      case "프리텐다드":
+        return FONT_STYLE_V1.content.content_10_light;
+        break;
+      case "도스샘물":
+        return FONT_STYLE_CONTENT.pixel_10;
+        break;
+      case "강원교육모두체":
+        return FONT_STYLE_CONTENT.gangwonedu_10_bold;
+        break;
+      default:
+        break;
+    }
+  }}
   &:focus {
     outline: none;
   }
@@ -319,7 +333,24 @@ export const ErrorMessage = styled.p`
   color: grey;
 `;
 export const FontContainer = styled.ul`
+  position: absolute;
   background-color: white;
   border: 2px solid ${PALETTE_V1.text_primary};
+  width: 120px;
+  top: 40px;
 `;
-export const FontEl = styled.li``;
+export const FontEl = styled.li`
+  ${(props) => props.font};
+  padding: 5px;
+  &.zero-padding {
+    padding: 0px;
+    padding-left: 5px;
+  }
+  &:hover {
+    background-color: ${PALETTE_V1.yellow_button};
+  }
+  &.active {
+    background-color: ${PALETTE_V1.yellow_modal_button};
+    border-radius: 0;
+  }
+`;
