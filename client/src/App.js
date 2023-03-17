@@ -11,28 +11,28 @@ import Trash from "./pages/MyPage/TrashList";
 import ReadLetter from "./pages/ReadLetter/ReadLetter";
 import LetterBox from "./pages/LetterBox/LetterBox";
 import Layout from "./components/Layout";
-<<<<<<< HEAD
-=======
 // ! 공백
->>>>>>> b243a074333e49fac48297c6b9bea300051baa96
 function App() {
   const [isLogin, setIsLogin] = useState(true);
   const displayFooter = true;
-// ! 공백
+  // ! 공백
   return (
     <BrowserRouter>
       <Header isLogin={isLogin} />
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/trash" element={<Trash />} />
+        <Route path="letterbox" element={<LetterBox />} />
         <Route element={<Layout displayFooter={displayFooter} />}>
           <Route path="/login" element={<Login />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/trash" element={<Trash />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/writeletter" element={<WriteLetter />} />
           <Route path="/completeLogout" element={<CompleteLogout />} />
-          <Route path="/readletter" element={<ReadLetter />} />
-          <Route path="letterbox" element={<LetterBox />} />
+          <Route
+            path="/readletter"
+            element={<ReadLetter isLogin={isLogin} />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
