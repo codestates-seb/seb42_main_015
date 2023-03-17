@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
 import SignUp from "./pages/Certified/SignUp";
 import Login from "./pages/Certified/Login";
 import CompleteLogout from "./pages/Certified/CompleteLogout";
@@ -12,10 +11,11 @@ import Trash from "./pages/MyPage/TrashList";
 import ReadLetter from "./pages/ReadLetter/ReadLetter";
 import LetterBox from "./pages/LetterBox/LetterBox";
 import Layout from "./components/Layout";
+// ! 공백
 function App() {
   const [isLogin, setIsLogin] = useState(true);
   const displayFooter = true;
-
+// ! 공백
   return (
     <BrowserRouter>
       <Header isLogin={isLogin} />
@@ -35,5 +35,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
+// ! 공백
 export default App;
