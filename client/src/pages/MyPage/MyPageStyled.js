@@ -20,12 +20,14 @@ export const GNBWrapper = styled.div`
 `;
 export const GNBMenu = styled.div`
   ${FONT_STYLE_V1.title.title_12_medium}
-  border: 1px solid ${PALETTE_V1.text_primary};
+  border: 2px solid ${PALETTE_V1.text_primary};
+  border-top: none;
   background-color: #ffffff;
   padding: 0.3rem 0.4rem;
   height: 37px;
   width: 135px;
   text-align: center;
+  cursor: pointer;
   &.active {
     background-color: ${PALETTE_V1.yellow_primary};
     padding-top: 1rem;

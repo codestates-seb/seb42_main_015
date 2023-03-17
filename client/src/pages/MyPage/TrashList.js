@@ -18,8 +18,7 @@ function TrashList() {
           <M.TrashTableMenu>
             <M.CheckBox
               className="select-all"
-              onClick={() => setChecked(!checked)}
-            >
+              onClick={() => setChecked(!checked)}>
               {checked ? <AiOutlineCheck /> : false}
             </M.CheckBox>
             <M.ButtonBox>
