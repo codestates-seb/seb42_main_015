@@ -13,9 +13,9 @@ const StyledButton = styled.button`
   margin-right: 10px;
   z-index: 80;
   position: relative;
-  &.clicked {
-    transform: translate(2px, 2px);
-    transition: transform 0.2s linear;
+  &:active {
+    transform: translate(3px, 3px);
+    transition: transform 0s linear;
   }
 `;
 const StyledShadow = styled.div`
