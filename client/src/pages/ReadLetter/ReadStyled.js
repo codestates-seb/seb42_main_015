@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import BREAKPOINTMOBILE from "../../breakpoint";
-import { FONT_STYLE_READ, FONT_STYLE_LOGOUT } from "../../style/fontStyle";
+import { FONT_STYLE_READ } from "../../style/fontStyle";
+import { PALETTE_V1 } from "../../style/color";
 import pwd from "../../asset/pwd.png";
 
 export const Wrapper = styled.div`
@@ -10,7 +11,12 @@ export const Wrapper = styled.div`
   min-height: 87vh;
   padding: 3rem 2rem;
   overflow: hidden;
-  padding-bottom: 300px;
+  padding-bottom: 70px;
+
+  .ReadContainer {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const SWrapper = styled.div`
@@ -20,12 +26,12 @@ export const SWrapper = styled.div`
   min-height: 87vh;
   padding: 3rem 2rem;
   overflow: hidden;
+  padding-bottom: 300px;
 `;
 
 export const Secretform = styled.form`
-  /* background: #fffb95; */
   display: flex;
-  margin-top: -5rem;
+  /* margin-top: -5rem; */
   padding: 5rem 5rem;
   width: 50vw;
   height: 40vh;
@@ -71,8 +77,7 @@ export const Secretform = styled.form`
     height: 2.1rem;
     border: 1px solid #838383;
     background-color: #fcfbf4;
-    font-family: "B612", sans-serif;
-    font-size: 0.8rem;
+    ${FONT_STYLE_READ.btn_8_light}
     margin-left: 70%;
     cursor: pointer;
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
@@ -83,10 +88,66 @@ export const Secretform = styled.form`
     }
   }
   p {
-        color: red;
-        margin: -2rem 0 1rem;
-        font-size: 14px;
-        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          font-size: 11px;
-        }
+    color: red;
+    margin: -2rem 0 1rem;
+    font-size: 14px;
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      font-size: 11px;
+    }
+  }
+`;
+
+export const EnterSeret = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 12rem;
+  padding: 0.5rem 0.7rem 0.5rem 1.5rem;
+  border: 1px solid #838383;
+  ${FONT_STYLE_READ.body_9_light}
+  margin-bottom: 2rem;
+  margin: 0 0 2rem 30.5rem;
+
+  input {
+    ${FONT_STYLE_READ.body_8_light}
+    border: none;
+    background-color: initial;
+    margin-left: 20px;
+    padding: 0 5px;
+    width: 4rem;
+    letter-spacing: 6px;
+  }
+`;
+
+export const FlexColunmWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+`;
+
+export const Letterpaper = styled(FlexColunmWrapper)`
+  aspect-ratio: 3/5;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  padding: 2.5rem 3.5rem 2.5rem 3.5rem;
+  min-width: 680px;
+  max-width: 680px;
+`;
+
+export const Buttons = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 10rem;
+  padding: 0rem 0rem 2rem 19rem;
+
+  button {
+    background: ${PALETTE_V1.yellow_primary};
+    border: 1px solid ${PALETTE_V1.text_primary};
+    ${FONT_STYLE_READ.btn_7_light}
+    padding: 0.5rem 1rem;
+    min-width: 100px;
+    height: 30px;
+    cursor: pointer;
+  }
 `;

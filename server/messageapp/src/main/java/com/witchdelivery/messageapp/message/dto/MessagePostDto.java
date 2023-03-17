@@ -6,4 +6,5 @@ import lombok.Getter;
 public class MessagePostDto {
     private String content;
     private Long password;
+    private boolean bookMark;
 }
