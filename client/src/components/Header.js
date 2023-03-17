@@ -87,7 +87,7 @@ function Header({ isLogin }) {
                 <Link to="/writeletter">Write</Link>
               </li>
               <li>
-                <Link to="/">
+                <Link to="/letterbox">
                   <img className="postImg" src={postbox} />
                 </Link>
               </li>
