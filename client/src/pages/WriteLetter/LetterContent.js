@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import * as W from "./WriteStyled";
 import { HiOutlineCheck } from "react-icons/hi";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import useStore from "../../store/store";
 
 function LetterContent({ openExplaination, sendMe, setSendMe }) {
+  const { contentFont, changeContentFont } = useStore((state) => state);
   const formShema = yup.object({
     receiverName: yup
       .string()
@@ -34,6 +36,10 @@ function LetterContent({ openExplaination, sendMe, setSendMe }) {
   const handleSendMe = () => {
     setSendMe(!sendMe);
   };
+  const textarea = useRef();
+  useEffect(() => {
+    textarea.current.focus();
+  }, []);
 
   return (
     <W.LetterBox>
@@ -83,8 +89,10 @@ function LetterContent({ openExplaination, sendMe, setSendMe }) {
         </W.BallonWrapper>
       </W.SendMeWrapper>
       <W.ContentTextarea
+        font={contentFont}
         name="content"
-        {...register("content")}></W.ContentTextarea>
+        {...register("content")}
+        ref={textarea}></W.ContentTextarea>
       <W.FromWrapper>
         <W.BallonWrapper>
           <W.NameInputWrapper>
