@@ -76,8 +76,8 @@ export const FONT_STYLE_V1 = {
       color: ${PALETTE_V1.text_primary};
     `,
   },
-  textarea: {
-    textarea_10_light: css`
+  content: {
+    content_10_light: css`
       font-family: "Pretendard-Light";
       font-size: 1rem;
       color: ${PALETTE_V1.text_primary};
@@ -164,6 +164,10 @@ export const FONT_STYLE_READ = {
     font-family: "Pretendard-Light";
     font-size: 1rem;
     text-align: justify;
+  `,
+  body_8_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 0.8rem;
   `,
   btn_8_light: css`
     font-family: "B612", sans-serif;

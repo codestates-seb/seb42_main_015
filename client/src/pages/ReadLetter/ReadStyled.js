@@ -103,7 +103,7 @@ export const EnterSeret = styled.div`
   width: 12rem;
   padding: 0.5rem 0.7rem 0.5rem 1.5rem;
   border: 1px solid #838383;
-  ${FONT_STYLE_READ.body_8_light}
+  ${FONT_STYLE_READ.body_8_Medium}
   margin-bottom: 2rem;
   margin: 0 0 2rem 30.5rem;
 
@@ -127,7 +127,6 @@ export const FlexColunmWrapper = styled.div`
 export const Letterpaper = styled(FlexColunmWrapper)`
   aspect-ratio: 3/5;
   background-color: #ffffff;
-  flex-direction: column;
   align-content: space-evenly;
   border: 1px solid #000000;
   padding: 2.5rem 3.5rem 2.5rem 3.5rem;
