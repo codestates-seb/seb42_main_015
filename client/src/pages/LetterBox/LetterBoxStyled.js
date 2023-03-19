@@ -3,12 +3,13 @@ import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 
 export const LetterBoxWrap = styled.div`
-  width: 100vw;
+  width: 100%;
   min-height: 90vh;
+  
 `;
 
 export const FilterContainer = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 40px;
   border-bottom: 1px solid black;
   display: flex;
@@ -121,8 +122,7 @@ export const DropdownItem = styled.li`
 
 // 우편함 리스트
 export const ViewWrap = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
 `;
 
 export const Gradient = styled.div`
@@ -141,15 +141,13 @@ export const Gradient = styled.div`
 `;
 
 export const ListWrap = styled.div`
-  /* width: 100vw;
-  height: 100vh; */
+  width: 100%;
   display: flex;
   flex-direction: column;
-  /* background-color: aliceblue; */
 `;
 
 export const ListContainer = styled.div`
-  width: 100vw;
+  width: 100%;
   margin-top: 5rem;
 `;
 
@@ -176,7 +174,6 @@ export const ItemWrap = styled.div`
 
 export const ItemContainer = styled.div`
   width: 81vw;
-  height: 100vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

@@ -11,6 +11,7 @@ export const PALETTE_V1 = {
   yellow_modal_button: "#FFCB12",
   orange_dark: "#F09F40",
   green_modal_button: "#88E116",
+  aready_keep_button: "#d3d3d3",
 };
 export const PALETTE_LOGIN = {
   background: "#fff59f",

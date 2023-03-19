@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { CardContents, CardContents2 } from "./PwdCardContents";
+import { PwdCardContents } from "./PwdCardContents";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
-function PwdChange() {
+function SetPwd() {
   return (
     <PwdChangeWrap>
       <Gradient>
@@ -14,8 +14,7 @@ function PwdChange() {
         </Gnb>
         <Container>
           <Card>
-            <CardContents />
-            {/* <CardContents2 /> */}
+            <PwdCardContents />
             <div className="contents-next">
               <AiOutlineArrowRight className="next" />
             </div>
@@ -26,7 +25,7 @@ function PwdChange() {
   );
 }
 
-export default PwdChange;
+export default SetPwd;
 
 const PwdChangeWrap = styled.div`
   height: 90vh;

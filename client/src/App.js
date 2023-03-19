@@ -7,13 +7,13 @@ import CompleteLogout from "./pages/Certified/CompleteLogout";
 import Main from "./pages/Main/Main";
 import MyPage from "./pages/MyPage/MyPage";
 import WriteLetter from "./pages/WriteLetter/WriteLetter";
-import Trash from "./pages/MyPage/TrashList";
 import ReadLetter from "./pages/ReadLetter/ReadLetter";
 import LetterBox from "./pages/LetterBox/LetterBox";
+import SetPwd from "./pages/Certified/SetPwd";
 import Layout from "./components/Layout";
 // ! 공백
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const displayFooter = true;
   // ! 공백
   return (
@@ -21,10 +21,10 @@ function App() {
       <Header isLogin={isLogin} />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/trash" element={<Trash />} />
         <Route path="letterbox" element={<LetterBox />} />
         <Route element={<Layout displayFooter={displayFooter} />}>
           <Route path="/login" element={<Login />} />
+          <Route path="/setpwd" element={<SetPwd />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/writeletter" element={<WriteLetter />} />
@@ -33,6 +33,7 @@ function App() {
             path="/readletter"
             element={<ReadLetter isLogin={isLogin} />}
           />
+          <Route path="letterbox" element={<LetterBox />} />
         </Route>
       </Routes>
     </BrowserRouter>
