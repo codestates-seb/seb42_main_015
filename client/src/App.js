@@ -25,6 +25,7 @@ function App() {
         <Route element={<Layout displayFooter={displayFooter} />}>
           <Route path="/login" element={<Login />} />
           <Route path="/setpwd" element={<SetPwd />} />
+          <Route path="/setpwd/:page" element={<SetPwd />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/writeletter" element={<WriteLetter />} />

@@ -1,81 +1,80 @@
-import React from "react";
-import styled from "styled-components";
-import { PwdCardContents } from "./PwdCardContents";
-import { AiOutlineArrowRight } from "react-icons/ai";
+import React, { useState } from "react";
+import * as C from "./SetPwdStyled";
+import { AiOutlineArrowRight, AiOutlineEnter } from "react-icons/ai";
+import { BsEnvelopeAt } from "react-icons/bs";
+import { useNavigate, useParams } from "react-router-dom";
 
 function SetPwd() {
+  const navigate = useNavigate();
+  const [next, setNext] = useState(2);
+  const { page } = useParams();
+  const handleNext = () => {
+    setNext(next + 1);
+    navigate(`/setpwd/${next}`);
+  };
+
   return (
-    <PwdChangeWrap>
-      <Gradient>
-        <Gnb>
-          <div>내정보</div>
-          <div className="on">비밀번호 수정</div>
-          <div>휴지통</div>
-        </Gnb>
-        <Container>
-          <Card>
-            <PwdCardContents />
-            <div className="contents-next">
-              <AiOutlineArrowRight className="next" />
-            </div>
-          </Card>
-        </Container>
-      </Gradient>
-    </PwdChangeWrap>
+    <C.SetPwdWrap>
+      <C.CardBox />
+      <C.SetPwdContainer>
+        <C.LeftBox>
+          {page === undefined && (
+            <C.Text>
+              비밀번호 변경을 위해 <br /> 이메일 인증이 필요합니다.
+            </C.Text>
+          )}
+          {page === "2" && (
+            <C.Text>
+              이메일로 전송된 <br /> 인증번호를 입력해주세요.
+            </C.Text>
+          )}
+          {page === "3" && <C.Text>변경할 비밀번호를 설정해주세요.</C.Text>}
+        </C.LeftBox>
+        <C.RightBox>
+          <C.SetPwdTitle>Password</C.SetPwdTitle>
+          {page === undefined && (
+            <C.InputWrap>
+              <C.EmailLabel>Email</C.EmailLabel>
+              <C.EmailInputBox>
+                <BsEnvelopeAt />
+                <C.EmailInput type="email" placeholder="email address" />
+                <AiOutlineEnter />
+              </C.EmailInputBox>
+            </C.InputWrap>
+          )}
+          {page === "2" && (
+            <C.InputWrap>
+              <C.AuthLabel>번호를 차례대로 입력해주세요.</C.AuthLabel>
+              <C.AuthInputBox>
+                <C.AuthInput />
+                <C.AuthInput />
+                <C.AuthInput />
+                <C.AuthInput />
+                <C.AuthInput />
+              </C.AuthInputBox>
+            </C.InputWrap>
+          )}
+          {page === "3" && (
+            <C.InputWrap>
+              <C.SetPwdLabel>Password</C.SetPwdLabel>
+              <C.SetPwdBox>
+                <C.SetPwdInput />
+              </C.SetPwdBox>
+              <C.SetPwdLabel>Password Confirm</C.SetPwdLabel>
+              <C.SetPwdBox>
+                <C.SetPwdInput />
+              </C.SetPwdBox>
+              <C.ButtonBox>
+                <C.Button>확인</C.Button>
+              </C.ButtonBox>
+            </C.InputWrap>
+          )}
+          {(page === undefined || page === "2") && <AiOutlineArrowRight className="next" onClick={handleNext} />}
+          
+        </C.RightBox>
+      </C.SetPwdContainer>
+    </C.SetPwdWrap>
   );
 }
 
 export default SetPwd;
-
-const PwdChangeWrap = styled.div`
-  height: 90vh;
-  background-color: #fcfbf4;
-  overflow: hidden;
-`;
-const Gradient = styled.div`
-  height: 300px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 155, 99, 1) 0%,
-    rgba(255, 155, 99, 0) 100%
-  );
-`;
-const Gnb = styled.div`
-  display: flex;
-  /* border: 1px solid; */
-  padding: 1rem;
-  margin: 0 5rem;
-  div {
-    padding: 1rem;
-    margin-right: 3rem;
-  }
-  .on {
-    background-color: #ff843f;
-    border-radius: 50%;
-  }
-`;
-const Container = styled.div`
-  height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const Card = styled.div`
-  overflow: hidden;
-  width: 60vw;
-  height: 61vh;
-  background-color: #fff;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
-  .contents-next {
-    flex-grow: 1;
-    width: 100%;
-    text-align: right;
-    .next {
-      font-size: 2rem;
-      margin-right: 1rem;
-    }
-  }
-`;
