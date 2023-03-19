@@ -1,12 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import * as W from "./WriteStyled";
 import { HiOutlineCheck } from "react-icons/hi";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import useStore from "../../store/store";
 
-function LetterContent({ openExplaination, sendMe, setSendMe }) {
-  const formShema = yup.object({
+function LetterContent({
+  openExplaination,
+  openSendMe,
+  setOpenSendMe,
+  sendMeChecked,
+  setSendMeChecked,
+  setContentLength,
+}) {
+  const { contentFont, changeContentFont } = useStore((state) => state);
+  const formSchema = yup.object({
     receiverName: yup
       .string()
       .required("1 ~ 15자를 입력해주세요.")
@@ -26,15 +35,25 @@ function LetterContent({ openExplaination, sendMe, setSendMe }) {
     register,
     watch,
     formState: { isSubmitting, errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
   const currentDate = `${new Date().getFullYear()}.${new Date().getMonth()}.${new Date().getDate()} ${
     weekday[new Date().getDay()]
   }`;
-  const handleSendMe = () => {
-    setSendMe(!sendMe);
-  };
 
+  const textarea = useRef();
+
+  useEffect(() => {
+    textarea.current.focus();
+  }, []);
+
+  const handleSendMe = () => {
+    setOpenSendMe(!openSendMe);
+    setSendMeChecked(true);
+  };
+  const handleContentLength = (e) => {
+    setContentLength(e.target.value.length);
+  };
   return (
     <W.LetterBox>
       <W.FlexWrapper1>
@@ -63,9 +82,9 @@ function LetterContent({ openExplaination, sendMe, setSendMe }) {
       <W.SendMeWrapper>
         <W.BallonWrapper>
           <W.SendMeCheckBox
-            className={sendMe ? "active" : ""}
+            className={sendMeChecked ? "active" : ""}
             onClick={handleSendMe}></W.SendMeCheckBox>
-          {sendMe ? (
+          {sendMeChecked ? (
             <HiOutlineCheck id="check-icon" size="25" onClick={handleSendMe} />
           ) : (
             <></>
@@ -83,8 +102,11 @@ function LetterContent({ openExplaination, sendMe, setSendMe }) {
         </W.BallonWrapper>
       </W.SendMeWrapper>
       <W.ContentTextarea
+        font={contentFont}
         name="content"
-        {...register("content")}></W.ContentTextarea>
+        onInput={handleContentLength}
+        {...register("content")}
+        ref={textarea}></W.ContentTextarea>
       <W.FromWrapper>
         <W.BallonWrapper>
           <W.NameInputWrapper>

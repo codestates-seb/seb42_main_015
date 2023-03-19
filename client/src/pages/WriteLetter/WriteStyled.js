@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { FONT_STYLE_V1 } from "../../style/fontStyle";
+import { FONT_STYLE_CONTENT, FONT_STYLE_V1 } from "../../style/fontStyle";
 import { PALETTE_V1 } from "../../style/color";
 import Ballon1 from "../../asset/ballon1.png";
 import Ballon2 from "../../asset/ballon2.png";
@@ -13,7 +13,7 @@ export const PageContainer = styled.div`
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  overflow-x: auto;
+  overflow-x: none;
 `;
 export const FlexRowWrapper = styled.div`
   display: flex;
@@ -50,14 +50,14 @@ export const IconWrapper = styled.div`
   display: flex;
   flex-direction: column;
   max-width: min-content;
-  max-width: 57px;
   .microphone-icon,
   .font-icon {
     color: ${PALETTE_V1.text_primary};
     margin-bottom: 20px;
+    padding: 10px;
   }
-  .active {
-    background-color: green;
+  .active-icon {
+    background-color: ${PALETTE_V1.yellow_modal_button};
     border-radius: 50%;
   }
 `;
@@ -86,6 +86,7 @@ export const NameInput = styled.input`
   border: none;
   background-color: transparent;
   margin-left: 5px;
+  margin-bottom: 6px;
   &:focus {
     outline: none;
   }
@@ -126,7 +127,18 @@ export const ContentTextarea = styled.textarea`
   border: none;
   resize: none;
   aspect-ratio: 1/1.6;
-  ${FONT_STYLE_V1.content.content_10_light}
+  ${(props) => {
+    switch (props.font) {
+      case "프리텐다드":
+        return FONT_STYLE_V1.content.content_10_light;
+      case "도스샘물":
+        return FONT_STYLE_CONTENT.pixel_10;
+      case "강원교육모두체":
+        return FONT_STYLE_CONTENT.gangwonedu_10_bold;
+      default:
+        break;
+    }
+  }}
   &:focus {
     outline: none;
   }
@@ -196,8 +208,8 @@ export const BallonTop = styled.div`
     height: 110px;
     padding-top: 82px;
     padding-left: 50px;
-    top: 35px;
-    left: -50px;
+    top: 45px;
+    left: -45px;
     width: 300px;
   }
   &#ballon3 {
@@ -287,6 +299,57 @@ export const TimeBoxWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   padding-bottom: 30px;
+  .custom-input {
+    background-color: #ffffff;
+    ${FONT_STYLE_V1.body.body_12_light}
+    border: 2px solid ${PALETTE_V1.text_primary};
+    border-radius: 0;
+    margin-right: 10px;
+    padding: 3px 8px;
+    height: 34.176px;
+    display: flex;
+    align-items: center;
+    #calendar-icon {
+      margin-left: 10px;
+    }
+  }
+  .react-datepicker {
+    border-radius: 0px;
+    border: 2px solid ${PALETTE_V1.text_primary};
+  }
+  .react-datepicker__triangle {
+    &::before {
+      content: none !important;
+    }
+    &::after {
+      content: none !important;
+    }
+  }
+  .react-datepicker__header {
+    border-bottom: 2px solid ${PALETTE_V1.text_primary};
+    .react-datepicker__current-month {
+      ${FONT_STYLE_V1.body.body_10_light}
+    }
+    .react-datepicker__day-name {
+      ${FONT_STYLE_V1.body.body_8_light}
+    }
+  }
+  .react-datepicker__month {
+    ${FONT_STYLE_V1.body.body_8_light}
+    .react-datepicker__day--selected,
+    .react-datepicker__day--keyboard-selected {
+      background-color: ${PALETTE_V1.yellow_primary};
+      color: ${PALETTE_V1.orange_dark};
+    }
+  }
+  .react-datepicker__input-time-container {
+    .react-datepicker-time__caption {
+      ${FONT_STYLE_V1.body.body_9_light}
+    }
+  }
+  .react-datepicker-time__input {
+    ${FONT_STYLE_V1.body.body_8_light}
+  }
 `;
 export const DateBox = styled.div`
   border: 2px solid ${PALETTE_V1.text_primary};
@@ -319,7 +382,24 @@ export const ErrorMessage = styled.p`
   color: grey;
 `;
 export const FontContainer = styled.ul`
+  position: absolute;
   background-color: white;
   border: 2px solid ${PALETTE_V1.text_primary};
+  width: 120px;
+  top: 40px;
 `;
-export const FontEl = styled.li``;
+export const FontEl = styled.li`
+  ${(props) => props.font};
+  padding: 5px;
+  &.zero-padding {
+    padding: 0px;
+    padding-left: 5px;
+  }
+  &:hover {
+    background-color: ${PALETTE_V1.yellow_button};
+  }
+  &.active {
+    background-color: ${PALETTE_V1.yellow_modal_button};
+    border-radius: 0;
+  }
+`;

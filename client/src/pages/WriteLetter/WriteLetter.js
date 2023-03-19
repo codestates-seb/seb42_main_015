@@ -5,9 +5,6 @@ import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
 import { SlQuestion } from "react-icons/sl";
 import { PALETTE_V1 } from "../../style/color";
 import LetterContent from "./LetterContent";
-import axiosCall from "../../util/axiosCall";
-import AudioRecord from "./AudioRecord";
-import SquareButton from "../commons/SquareButton";
 import SendMeModal from "./SendMeModal";
 import Modal from "../commons/Modal";
 import FontMenu from "./FontMenu";
@@ -15,23 +12,47 @@ import ShadowButton from "../commons/ShadowButton";
 
 function WriteLetter() {
   const [openExplaination, setOpenExplaination] = useState(false);
-  const [sendMe, setSendMe] = useState(false);
-  const [openFont, setOpenFont] = useState(false);
-
+  const [sendMeChecked, setSendMeChecked] = useState(false);
+  const [openSendMe, setOpenSendMe] = useState(false);
+  const [activeIcon, setActiveIcon] = useState("");
+  const [startDate, setStartDate] = useState(
+    new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate() + 1
+    )
+  );
+  const [contentLength, setContentLength] = useState(0);
   const handleOpenExplanation = () => {
     setOpenExplaination(!openExplaination);
   };
-  const handleOpenFont = () => {
-    setOpenFont(!openFont);
+  const handleActiveIcon = (e) => {
+    if (e.target.id === activeIcon) {
+      setActiveIcon("");
+    } else {
+      setActiveIcon(e.target.id);
+    }
   };
 
+  useEffect(() => {
+    // console.log(activeIcon); // 클릭 시 active 에러
+  }, [activeIcon]);
   return (
     <W.PageContainer>
-      {openExplaination || sendMe ? <W.ExplainationBackground /> : <></>}
-      {sendMe ? (
+      {openExplaination || openSendMe ? <W.ExplainationBackground /> : <></>}
+      {openSendMe ? (
         <Modal
           ContainerHeight={"350px"}
-          children={<SendMeModal sendMe={sendMe} setSendMe={setSendMe} />}
+          children={
+            <SendMeModal
+              startDate={startDate}
+              setStartDate={setStartDate}
+              openSendMe={openSendMe}
+              setOpenSendMe={setOpenSendMe}
+              sendMeChecked={sendMeChecked}
+              setSendMeChecked={setSendMeChecked}
+            />
+          }
         />
       ) : (
         <></>
@@ -39,15 +60,28 @@ function WriteLetter() {
       <W.PageWrapper>
         <W.FlexWrapper2>
           <W.IconWrapper>
-            {/* <AudioRecord /> */}
-            <BiMicrophone className="microphone-icon" size="30" />
+            <BiMicrophone
+              onClick={handleActiveIcon}
+              className={
+                activeIcon === "음성인식"
+                  ? "active-icon microphone-icon"
+                  : "microphone-icon"
+              }
+              size="50"
+              id="음성인식"
+            />
             <W.BallonWrapper>
               <BiFontColor
-                onClick={handleOpenFont}
-                className="font-icon"
-                size="30"
+                onClick={handleActiveIcon}
+                className={
+                  activeIcon === "폰트변경"
+                    ? "active-icon font-icon"
+                    : "font-icon"
+                }
+                size="50"
+                id="폰트변경"
               />
-              {openFont ? <FontMenu /> : <></>}
+              {activeIcon === "폰트변경" ? <FontMenu /> : <></>}
               {openExplaination ? (
                 <W.BallonTop id="ballon2">
                   글씨체를 변경할 수 있습니다.
@@ -62,12 +96,15 @@ function WriteLetter() {
           </W.ThemeIcon>
           <W.LetterWrapper>
             <LetterContent
+              sendMeChecked={sendMeChecked}
+              setSendMeChecked={setSendMeChecked}
               openExplaination={openExplaination}
-              sendMe={sendMe}
-              setSendMe={setSendMe}
+              openSendMe={openSendMe}
+              setOpenSendMe={setOpenSendMe}
+              setContentLength={setContentLength}
             />
             <W.BallonWrapper>
-              <W.TextCount>0/7000</W.TextCount>
+              <W.TextCount>{contentLength}/7000</W.TextCount>
               {openExplaination ? (
                 <W.BallonTop id="ballon3">
                   글자 수를 확인할 수 있습니다.

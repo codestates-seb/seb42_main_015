@@ -189,3 +189,27 @@ export const FONT_STYLE_LOGO = {
     `,
   },
 };
+
+export const FONT_STYLE_CONTENT = {
+  pixel_10: css`
+    font-family: "DOSSaemmul";
+    font-size: 1rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
+  `,
+  gangwonedu_10_light: css`
+    font-family: "GangwonEdu_Light";
+    font-size: 1rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
+  `,
+  gangwonedu_10_bold: css`
+    font-family: "GangwonEdu_Bold";
+    font-size: 1rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
+  `,
+};
