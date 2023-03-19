@@ -12,9 +12,17 @@ import ShadowButton from "../commons/ShadowButton";
 
 function WriteLetter() {
   const [openExplaination, setOpenExplaination] = useState(false);
-  const [sendMe, setSendMe] = useState(false);
+  const [sendMeChecked, setSendMeChecked] = useState(false);
+  const [openSendMe, setOpenSendMe] = useState(false);
   const [activeIcon, setActiveIcon] = useState("");
-
+  const [startDate, setStartDate] = useState(
+    new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate() + 1
+    )
+  );
+  const [contentLength, setContentLength] = useState(0);
   const handleOpenExplanation = () => {
     setOpenExplaination(!openExplaination);
   };
@@ -27,15 +35,24 @@ function WriteLetter() {
   };
 
   useEffect(() => {
-    console.log(activeIcon); // 클릭 시 active 에러
+    // console.log(activeIcon); // 클릭 시 active 에러
   }, [activeIcon]);
   return (
     <W.PageContainer>
-      {openExplaination || sendMe ? <W.ExplainationBackground /> : <></>}
-      {sendMe ? (
+      {openExplaination || openSendMe ? <W.ExplainationBackground /> : <></>}
+      {openSendMe ? (
         <Modal
           ContainerHeight={"350px"}
-          children={<SendMeModal sendMe={sendMe} setSendMe={setSendMe} />}
+          children={
+            <SendMeModal
+              startDate={startDate}
+              setStartDate={setStartDate}
+              openSendMe={openSendMe}
+              setOpenSendMe={setOpenSendMe}
+              sendMeChecked={sendMeChecked}
+              setSendMeChecked={setSendMeChecked}
+            />
+          }
         />
       ) : (
         <></>
@@ -79,12 +96,15 @@ function WriteLetter() {
           </W.ThemeIcon>
           <W.LetterWrapper>
             <LetterContent
+              sendMeChecked={sendMeChecked}
+              setSendMeChecked={setSendMeChecked}
               openExplaination={openExplaination}
-              sendMe={sendMe}
-              setSendMe={setSendMe}
+              openSendMe={openSendMe}
+              setOpenSendMe={setOpenSendMe}
+              setContentLength={setContentLength}
             />
             <W.BallonWrapper>
-              <W.TextCount>0/7000</W.TextCount>
+              <W.TextCount>{contentLength}/7000</W.TextCount>
               {openExplaination ? (
                 <W.BallonTop id="ballon3">
                   글자 수를 확인할 수 있습니다.
