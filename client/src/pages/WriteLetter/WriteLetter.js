@@ -33,7 +33,6 @@ function WriteLetter() {
     finalTranscript,
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
-
   const handleOpenExplanation = () => {
     setOpenExplaination(!openExplaination);
   };

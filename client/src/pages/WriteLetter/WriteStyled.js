@@ -403,3 +403,52 @@ export const FontEl = styled.li`
     border-radius: 0;
   }
 `;
+export const BallonWrapper = styled.div`
+  position: relative;
+  #check-icon {
+    position: absolute;
+    top: -10px;
+    left: -3px;
+    color: ${PALETTE_V1.text_primary};
+  }
+`;
+export const ButtonContainer = styled.div`
+  max-height: 218px;
+`;
+export const ModalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px;
+  height: 90%;
+`;
+export const ModalTitle = styled.div`
+  ${FONT_STYLE_V1.title.title_14_medium}
+  padding-top: 5px;
+  padding-bottom: 30px;
+`;
+export const TimeBoxWrapper = styled.div`
+  ${FONT_STYLE_V1.body.body_12_light}
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 30px;
+`;
+export const DateBox = styled.div`
+  border: 2px solid ${PALETTE_V1.text_primary};
+  padding: 3px 5px;
+  margin-right: 10px;
+`;
+export const TimeBox = styled.select`
+  ${FONT_STYLE_V1.body.body_12_light}
+  border: 2px solid ${PALETTE_V1.text_primary};
+  border-radius: 0;
+  margin-right: 10px;
+  padding: 3px 5px;
+  &.select {
+    border-radius: 0;
+  }
+`;
+export const TimeOption = styled.option``;
+export const ReservationText = styled.div`
+  ${FONT_STYLE_V1.body.body_9_light}
+`;
