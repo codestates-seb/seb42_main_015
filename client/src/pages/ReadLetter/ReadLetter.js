@@ -1,12 +1,14 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import * as R from "./ReadStyled";
 import { PALETTE_V1 } from "../../style/color";
+import domtoimage from "dom-to-image";
+import { saveAs } from "file-saver";
 import SecretLetter from "./SecetLetter";
 import ShadowButton from "../commons/ShadowButton";
 import Modal from "../commons/Modal";
 import LoginModal from "./LoginModal";
-import domtoimage from "dom-to-image";
-import { saveAs } from "file-saver";
+import { AiOutlineSound, AiTwotoneSound } from "react-icons/ai";
+import { getSpeech } from "./GetSpeech";
 
 const ReadLetter = ({ isLogin }) => {
   //비밀번호 쳤는지 안쳤는지
@@ -29,15 +31,39 @@ const ReadLetter = ({ isLogin }) => {
     });
   };
 
+  //! 음성 tts api
+  // const [voiceValue, voiceSetValue] = useState(`${R.LetterEx}`);
+  const [voiceValue, voiceSetValue] = useState("안녕");
+  const [activeIcon, setActiveIcon] = useState("");
+  console.log(voiceValue);
+
+  const handleSpeechButton = () => {
+    getSpeech(voiceValue);
+    setActiveIcon(activeIcon);
+  };
+
+  //음성 변환 목소리 preload
+  useEffect(() => {
+    window.speechSynthesis.getVoices();
+  }, []);
+
   return (
     <>
       {isLogin || enterPassword ? (
         <R.Wrapper>
           <div className="ReadContainer">
-            <R.EnterSeret>
-              비밀번호
-              <input placeholder="****" />
-            </R.EnterSeret>
+            <div className="top-sub">
+              <AiOutlineSound
+                size="45"
+                onClick={handleSpeechButton}
+                className="speech-icon"
+                // className={activeIcon ? "active-speech-icon" : "speech-icon"}
+              />
+              <R.EnterSeret>
+                비밀번호
+                <input placeholder="****" />
+              </R.EnterSeret>
+            </div>
             <R.Letterpaper ref={LetterRef}>
               <div className="top">
                 <div className="to">To. 김햄찌</div>
@@ -134,7 +160,7 @@ export default ReadLetter;
 
 ! 3/20 오늘 할일
   1. 보관완료 상태가 되면 ->  왼쪽 되돌아가기 버튼 -> 우편함으로 이동 "/letterbox"
-  2 편지 읽어주는 기능 추가
+  2. 음성 APi -> 편지 읽어주는 기능 추가
   3. 로그인 모달 밖 영역 누르면 모달 닫기
 
 ! 로그인 / 비로그인 시 로직

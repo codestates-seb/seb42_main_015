@@ -9,7 +9,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 87vh;
+  min-height: 85vh;
   padding: 3rem 2rem;
   overflow: hidden;
   padding-bottom: 70px;
@@ -17,7 +17,8 @@ export const Container = styled.div`
 
 export const BackgroundYellow = styled.div`
   display: flex;
-  position: relative;
+  /* position: relative; */
+  position: absolute;
   border: 1px solid black;
   background: #fff59f;
   margin: 1rem 0rem 0rem 2rem;

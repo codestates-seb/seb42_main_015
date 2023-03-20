@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import BREAKPOINTMOBILE from "../../breakpoint";
 import { FONT_STYLE_READ, FONT_STYLE_LOGIN } from "../../style/fontStyle";
+import { PALETTE_V1 } from "../../style/color";
+
 import pwd from "../../asset/pwd.png";
 import email from "../../asset/mail.png";
 
@@ -12,11 +14,40 @@ export const Wrapper = styled.div`
   padding: 3rem 2rem;
   overflow: hidden;
   padding-bottom: 70px;
-  /* background: orange; */
 
   .ReadContainer {
     display: flex;
+    align-items: center;
+    background: orange;
     flex-direction: column;
+    .top-sub {
+      display: flex;
+      justify-content: space-evenly;
+      margin: 0 0 0 25rem;
+      /* background: orange; */
+
+      .speech-icon {
+        cursor: pointer;
+        border-radius: 50%;
+        padding: 10px;
+        background-color: ${PALETTE_V1.yellow_modal_button};
+
+        &::after {
+          background-color: ${PALETTE_V1.yellow_modal_button};
+        }
+
+        &:hover {
+          background-color: ${PALETTE_V1.yellow_modal_button};
+        }
+      }
+      .active-speech-icon {
+        margin-top: 3px;
+        cursor: pointer;
+        background-color: ${PALETTE_V1.yellow_modal_button};
+        border-radius: 50%;
+        /* padding: 5px 5px; */
+      }
+    }
   }
 `;
 
@@ -103,10 +134,11 @@ export const EnterSeret = styled.div`
   justify-content: center;
   width: 12rem;
   padding: 0.5rem 0.7rem 0.5rem 1.5rem;
-  border: 1px solid #000000;
+  margin-top: 10px;
+  border: 2px solid #000000;
   ${FONT_STYLE_READ.body_8_Medium}
-  margin-bottom: 2rem;
-  margin: 0 0 2rem 30.5rem;
+  /* margin-bottom: 2rem; */
+  margin : 0 0 2rem 2rem;
 
   input {
     ${FONT_STYLE_READ.body_8_light}

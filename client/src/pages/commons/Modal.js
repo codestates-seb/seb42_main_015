@@ -74,9 +74,12 @@ function Modal(props) {
     };
   });
 
+  console.log(el);
+
   return (
-    <ModalBack ref={el}>
+    <ModalBack>
       <ModalContainer
+        ref={el}
         ContainerHeight={props.ContainerHeight}
         ContainerWidth={props.ContainerWidth}
       >
