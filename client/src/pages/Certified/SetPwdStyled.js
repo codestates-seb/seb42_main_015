@@ -3,7 +3,7 @@ import { FONT_STYLE_LOGIN, FONT_STYLE_V1 } from "../../style/fontStyle";
 
 export const SetPwdWrap = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 85vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,8 +12,8 @@ export const SetPwdWrap = styled.div`
 `;
 
 export const CardBox = styled.div`
-  width: 900px;
-  height: 500px;
+  width: 60rem;
+  height: 40rem;
   background-color: #fff59f;
   border: 1px solid black;
   position: absolute;
@@ -22,8 +22,8 @@ export const CardBox = styled.div`
 `;
 
 export const SetPwdContainer = styled.div`
-  width: 900px;
-  height: 500px;
+  width: 60rem;
+  height: 40rem;
   background-color: #fff;
   border: 1px solid black;
   margin-right: 1.5rem;
@@ -32,8 +32,8 @@ export const SetPwdContainer = styled.div`
 `;
 
 export const LeftBox = styled.div`
-  width: 400px;
-  height: 500px;
+  width: 25rem;
+  height: 40rem;
   /* background-color: #ddd; */
   display: flex;
   justify-content: center;
@@ -45,8 +45,8 @@ export const LeftBox = styled.div`
 export const Text = styled.div``;
 
 export const RightBox = styled.div`
-  width: 500px;
-  height: 500px;
+  width: 35rem;
+  height: 40rem;
   /* background-color: #ccc; */
   display: flex;
   flex-direction: column;
@@ -63,7 +63,8 @@ export const RightBox = styled.div`
 export const SetPwdTitle = styled.div`
   ${FONT_STYLE_LOGIN.title.title_40_medium}
   color: white;
-  margin-top: 3rem;
+  margin-top: 5rem;
+  margin-bottom: 2rem;
 `;
 
 export const InputWrap = styled.div`
@@ -72,17 +73,24 @@ export const InputWrap = styled.div`
   flex-direction: column;
   padding: 0 5rem;
 `;
+export const ErrorMsg = styled.div`
+  ${FONT_STYLE_V1.body.body_8_light}
+  color: red;
+  text-align: center;
+`
 
 export const EmailLabel = styled.label`
   margin-top: 3rem;
 `;
 
-export const EmailInputBox = styled.div`
+export const EmailInputForm = styled.form`
   border-bottom: 1px solid black;
   margin-top: 1.5rem;
+  margin-bottom: 1rem;
   display: flex;
   padding-bottom: 0.5rem;
 `;
+
 export const EmailInput = styled.input`
   flex-grow: 2;
   background-color: transparent;
@@ -129,7 +137,8 @@ export const SetPwdInput = styled.input`
   outline: none;
   border: none;
   flex-grow: 2;
-  margin-top: 0.5rem;
+  margin-top: 1.7rem;
+  font-size: 1.2rem;
 `;
 
 export const ButtonBox = styled.div`

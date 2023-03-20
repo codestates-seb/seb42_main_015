@@ -3,6 +3,9 @@ import * as C from "./SetPwdStyled";
 import { AiOutlineArrowRight, AiOutlineEnter } from "react-icons/ai";
 import { BsEnvelopeAt } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 function SetPwd() {
   const navigate = useNavigate();
@@ -11,6 +14,37 @@ function SetPwd() {
   const handleNext = () => {
     setNext(next + 1);
     navigate(`/setpwd/${next}`);
+  };
+
+  const formSchma = yup.object({
+    email: yup
+      .string()
+      .required("이메일을 입력해주세요")
+      .email("이메일 형식이 아닙니다."),
+
+    password: yup
+      .string()
+      .required("영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요.")
+      .min(8, "최소 8자리 이상 입력해주세요.")
+      .max(16, "최대 16자까지 가능합니다.")
+      .matches(
+        /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,16}$/,
+        "영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요."
+      ),
+    passwordConfirm: yup
+      .string()
+      .oneOf([yup.ref("password")], "비밀번호가 일치하지 않습니다."),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm({ mode: "onChange", resolver: yupResolver(formSchma) });
+
+  const onSubmit = (data) => {
+    alert(JSON.stringify(data));
+    console.log(data);
   };
 
   return (
@@ -35,11 +69,17 @@ function SetPwd() {
           {page === undefined && (
             <C.InputWrap>
               <C.EmailLabel>Email</C.EmailLabel>
-              <C.EmailInputBox>
+              <C.EmailInputForm onSubmit={handleSubmit(onSubmit)}>
                 <BsEnvelopeAt />
-                <C.EmailInput type="email" placeholder="email address" />
+                <C.EmailInput
+                  type="email"
+                  name="email"
+                  placeholder="email address"
+                  {...register("email")}
+                />
                 <AiOutlineEnter />
-              </C.EmailInputBox>
+              </C.EmailInputForm>
+              {errors.email && <C.ErrorMsg>{errors.email.message}</C.ErrorMsg>}
             </C.InputWrap>
           )}
           {page === "2" && (
@@ -58,19 +98,32 @@ function SetPwd() {
             <C.InputWrap>
               <C.SetPwdLabel>Password</C.SetPwdLabel>
               <C.SetPwdBox>
-                <C.SetPwdInput />
+                <C.SetPwdInput
+                  name="password"
+                  type="password"
+                  {...register("password")}
+                />
               </C.SetPwdBox>
+              {errors.password && <C.ErrorMsg>{errors.password.message}</C.ErrorMsg>}
               <C.SetPwdLabel>Password Confirm</C.SetPwdLabel>
               <C.SetPwdBox>
-                <C.SetPwdInput />
+                <C.SetPwdInput
+                  type="password"
+                  name="passwordConfirm"
+                  {...register("passwordConfirm")}
+                />
               </C.SetPwdBox>
+              {errors.passwordConfirm && (
+                <C.ErrorMsg>{errors.passwordConfirm.message}</C.ErrorMsg>
+              )}
               <C.ButtonBox>
                 <C.Button>확인</C.Button>
               </C.ButtonBox>
             </C.InputWrap>
           )}
-          {(page === undefined || page === "2") && <AiOutlineArrowRight className="next" onClick={handleNext} />}
-          
+          {(page === undefined || page === "2") && (
+            <AiOutlineArrowRight className="next" onClick={handleNext} />
+          )}
         </C.RightBox>
       </C.SetPwdContainer>
     </C.SetPwdWrap>
