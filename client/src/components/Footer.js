@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import BREAKPOINTMOBILE from "../breakpoint";
 import logo from "../asset/작은편지.png";
+import { Link } from "react-router-dom";
 
 const FooterComponent = styled.footer`
   height: max-content;
@@ -55,10 +56,12 @@ const Footer = () => {
     <>
       <FooterComponent>
         <div className="menuContainer">
+          <Link to='/'>
           <div className="logo">
             Sendy
             <img className="logo-img" src={logo} />
           </div>
+          </Link>
           <div className="imfomation">
             <ul>
               <li>© 2023 Witch`s delivery service All rights reserved.</li>
