@@ -12,7 +12,10 @@ function LetterContent({
   setOpenSendMe,
   sendMeChecked,
   setSendMeChecked,
+  startDate,
   setContentLength,
+  finalTranscript,
+  resetTranscript,
 }) {
   const { contentFont, changeContentFont } = useStore((state) => state);
   const formSchema = yup.object({
@@ -46,6 +49,11 @@ function LetterContent({
   useEffect(() => {
     textarea.current.focus();
   }, []);
+
+  useEffect(() => {
+    textarea.current.value += " " + finalTranscript;
+    resetTranscript();
+  }, [finalTranscript]); //listening일 때로 바꾸기
 
   const handleSendMe = () => {
     setOpenSendMe(!openSendMe);
@@ -100,6 +108,11 @@ function LetterContent({
             <></>
           )}
         </W.BallonWrapper>
+        {sendMeChecked ? (
+          <span>{`${startDate.getFullYear()}/${startDate.getMonth()}/${startDate.getDate()} ${startDate.getHours()}:${startDate.getMinutes()}`}</span>
+        ) : (
+          <></>
+        )}
       </W.SendMeWrapper>
       <W.ContentTextarea
         font={contentFont}
