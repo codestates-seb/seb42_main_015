@@ -6,6 +6,14 @@ import Ballon2 from "../../asset/ballon2.png";
 import Ballon3 from "../../asset/ballon3.png";
 import Ballon4 from "../../asset/ballon4.png";
 import Ballon5 from "../../asset/ballon5.png";
+import 군대 from "../../asset/letterTheme/군대-theme.png";
+import 냥냥편지 from "../../asset/letterTheme/냥냥편지-theme.png";
+import 리본 from "../../asset/letterTheme/리본-theme.png";
+import 수박 from "../../asset/letterTheme/수박-theme.png";
+import 알록달록 from "../../asset/letterTheme/알록달록-theme.png";
+import 젖소 from "../../asset/letterTheme/젖소-theme.png";
+import 체리 from "../../asset/letterTheme/체리-theme.png";
+import 클로버 from "../../asset/letterTheme/클로버-theme.png";
 
 export const PageContainer = styled.div`
   background-color: ${PALETTE_V1.background};
@@ -28,7 +36,7 @@ export const FlexWrapper2 = styled(FlexRowWrapper)`
   justify-content: center;
 `;
 export const PageWrapper = styled(FlexColunmWrapper)`
-  padding: 70px 50px 0 50px;
+  padding: 70px 30px 0 30px;
 `;
 export const LetterWrapper = styled.div`
   max-height: 1154px;
@@ -41,6 +49,14 @@ export const LetterBox = styled(FlexColunmWrapper)`
   padding: 2.5rem 3.5rem 2.5rem 3.5rem;
   min-width: 680px;
   max-width: 680px;
+  background-image: ${(props) => {
+    switch (props.currentLetterTheme) {
+      case "군대":
+        return;
+      default:
+        break;
+    }
+  }};
 `;
 export const FlexWrapper1 = styled(FlexRowWrapper)`
   justify-content: space-between;
