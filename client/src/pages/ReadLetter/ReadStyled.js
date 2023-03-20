@@ -34,10 +34,8 @@ export const Wrapper = styled.div`
         cursor: pointer;
       }
       .speech-icon,
-      pause-icon {
+      .pause-icon {
         padding: 3px;
-      }
-      .active-icon {
         &:hover {
           padding: 3px;
           background: white;
