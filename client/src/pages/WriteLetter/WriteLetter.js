@@ -9,6 +9,9 @@ import SendMeModal from "./SendMeModal";
 import Modal from "../commons/Modal";
 import FontMenu from "./FontMenu";
 import ShadowButton from "../commons/ShadowButton";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 function WriteLetter() {
   const [openExplaination, setOpenExplaination] = useState(false);
@@ -23,10 +26,22 @@ function WriteLetter() {
     )
   );
   const [contentLength, setContentLength] = useState(0);
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    finalTranscript,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition();
+
   const handleOpenExplanation = () => {
     setOpenExplaination(!openExplaination);
   };
   const handleActiveIcon = (e) => {
+    SpeechRecognition.startListening({ continuous: true, language: "ko" });
+    if (listening) {
+      SpeechRecognition.stopListening();
+    }
     if (e.target.id === activeIcon) {
       setActiveIcon("");
     } else {
@@ -60,16 +75,19 @@ function WriteLetter() {
       <W.PageWrapper>
         <W.FlexWrapper2>
           <W.IconWrapper>
-            <BiMicrophone
-              onClick={handleActiveIcon}
-              className={
-                activeIcon === "음성인식"
-                  ? "active-icon microphone-icon"
-                  : "microphone-icon"
-              }
-              size="50"
-              id="음성인식"
-            />
+            {!browserSupportsSpeechRecognition ? (
+              <div>음성인식이 불가능한 브라우저</div>
+            ) : (
+              <BiMicrophone
+                onClick={handleActiveIcon}
+                className={
+                  listening ? "active-icon microphone-icon" : "microphone-icon"
+                }
+                size="50"
+                id="음성인식"
+              />
+            )}
+
             <W.BallonWrapper>
               <BiFontColor
                 onClick={handleActiveIcon}
@@ -101,7 +119,11 @@ function WriteLetter() {
               openExplaination={openExplaination}
               openSendMe={openSendMe}
               setOpenSendMe={setOpenSendMe}
+              startDate={startDate}
               setContentLength={setContentLength}
+              transcript={transcript}
+              finalTranscript={finalTranscript}
+              resetTranscript={resetTranscript}
             />
             <W.BallonWrapper>
               <W.TextCount>{contentLength}/7000</W.TextCount>
