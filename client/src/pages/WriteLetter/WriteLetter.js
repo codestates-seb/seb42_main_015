@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import * as W from "./WriteStyled";
-import { BiMicrophone, BiFontColor, BiLock, BiLockOpen } from "react-icons/bi";
+import { BiMicrophone, BiFontColor } from "react-icons/bi";
 import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
 import { SlQuestion } from "react-icons/sl";
 import { PALETTE_V1 } from "../../style/color";
@@ -26,6 +26,19 @@ function WriteLetter() {
     )
   );
   const [contentLength, setContentLength] = useState(0);
+  const [currentLetterTheme, setCurrentLetterTheme] = useState("군대");
+  const letterTheme = [
+    "군대",
+    "냥냥편지",
+    "리본",
+    "수박",
+    "알록달록",
+    "젖소",
+    "체리",
+    "클로버",
+  ];
+  const modalRef = useRef();
+
   const {
     transcript,
     listening,
@@ -37,29 +50,52 @@ function WriteLetter() {
   const handleOpenExplanation = () => {
     setOpenExplaination(!openExplaination);
   };
+
   const handleActiveIcon = (e) => {
-    SpeechRecognition.startListening({ continuous: true, language: "ko" });
-    if (listening) {
-      SpeechRecognition.stopListening();
-    }
-    if (e.target.id === activeIcon) {
-      setActiveIcon("");
-    } else {
-      setActiveIcon(e.target.id);
+    if (e.currentTarget.id === "음성인식") {
+      if (activeIcon === "음성인식") {
+        SpeechRecognition.stopListening();
+        setActiveIcon("");
+      } else {
+        setActiveIcon("음성인식");
+        navigator.mediaDevices.getUserMedia({ audio: true }).catch((err) => {
+          alert(
+            "오른쪽 상단에서 마이크 허용이 필요합니다. 마이크 허용 후 페이지를 새로고침해주세요."
+          );
+        });
+        SpeechRecognition.startListening({ continuous: true, language: "ko" });
+      }
+    } else if (e.currentTarget.id === "폰트변경") {
+      setActiveIcon("폰트변경");
     }
   };
 
-  useEffect(() => {
-    // console.log(activeIcon); // 클릭 시 active 에러
-  }, [activeIcon]);
+  const handleModal = (e) => {
+    if (openSendMe && !modalRef.current.contains(e.target)) {
+      setOpenSendMe(false);
+    }
+  };
+
+  const handleThemeLeft = () => {
+    if (letterTheme.indexOf(currentLetterTheme) === 0) {
+      setCurrentLetterTheme(letterTheme.length - 1);
+    } else {
+      setCurrentLetterTheme(
+        letterTheme[letterTheme.indexOf(currentLetterTheme) - 1]
+      );
+    }
+  };
+
   return (
-    <W.PageContainer>
+    <W.PageContainer onClick={handleModal}>
       {openExplaination || openSendMe ? <W.ExplainationBackground /> : <></>}
       {openSendMe ? (
         <Modal
+          modalRef={modalRef}
           ContainerHeight={"350px"}
           children={
             <SendMeModal
+              modalRef={modalRef}
               startDate={startDate}
               setStartDate={setStartDate}
               openSendMe={openSendMe}
@@ -110,7 +146,11 @@ function WriteLetter() {
             </W.BallonWrapper>
           </W.IconWrapper>
           <W.ThemeIcon>
-            <MdArrowBackIos className="arrow-backward-icon" size="30" />
+            <MdArrowBackIos
+              onClick={handleThemeLeft}
+              className="arrow-backward-icon"
+              size="30"
+            />
           </W.ThemeIcon>
           <W.LetterWrapper>
             <LetterContent
@@ -124,6 +164,7 @@ function WriteLetter() {
               transcript={transcript}
               finalTranscript={finalTranscript}
               resetTranscript={resetTranscript}
+              currentLetterTheme={currentLetterTheme}
             />
             <W.BallonWrapper>
               <W.TextCount>{contentLength}/7000</W.TextCount>
