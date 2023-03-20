@@ -45,11 +45,7 @@ const ReadLetter = ({ isLogin }) => {
 
   //! 음성 tts api
   //음성 value 상태
-  // const [voiceValue, voiceSetValue] = useState(`${R.LetterEx}`);
-  // const voiceValue = "아아아 마이크테스트 원투 원투";
   const voiceValue = `${R.LetterEx}`;
-  //icons active 상태
-  const [activeIcon, setActiveIcon] = useState(false);
 
   //음성tts speech 버튼
   const handleSpeechButton = () => {
@@ -60,10 +56,10 @@ const ReadLetter = ({ isLogin }) => {
     getSpeech(pauseSpeech());
   };
 
-  //음성 변환 목소리 preload
-  useEffect(() => {
-    window.speechSynthesis.getVoices();
-  }, [activeIcon]);
+  // //음성 변환 목소리 preload
+  // useEffect(() => {
+  //   window.speechSynthesis.getVoices();
+  // }, []);
 
   return (
     <>
@@ -75,16 +71,12 @@ const ReadLetter = ({ isLogin }) => {
                 <AiOutlineSound
                   size="30"
                   onClick={handleSpeechButton}
-                  className={
-                    activeIcon ? "active-icon speech-icon" : "speech-icon"
-                  }
+                  className="speech-icon"
                 />
                 <HiPause
                   size="30"
                   onClick={handlePauseButton}
-                  className={
-                    activeIcon ? "active-icon pause-icon" : "pause-icon"
-                  }
+                  className="pause-icon"
                 />
               </div>
               <R.EnterSeret>
