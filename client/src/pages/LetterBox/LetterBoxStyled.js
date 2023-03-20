@@ -5,7 +5,7 @@ import { FONT_STYLE_V1 } from "../../style/fontStyle";
 export const LetterBoxWrap = styled.div`
   width: 100%;
   min-height: 90vh;
-  
+  ${FONT_STYLE_V1.body.body_10_light}
 `;
 
 export const FilterContainer = styled.div`
@@ -35,6 +35,7 @@ export const Search = styled.input`
   outline: none;
   border: none;
   padding: 0.5rem;
+  font-size: 1rem;
 `;
 
 export const PeriodBox = styled.div`
@@ -173,18 +174,47 @@ export const ItemWrap = styled.div`
 `;
 
 export const ItemContainer = styled.div`
-  width: 81vw;
+  width: 90%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  /* align-content: flex-start; */
+  /* justify-content: center; */
+  align-content: flex-start;
+  padding-left: 5rem;
 `;
 
 export const ItemBox = styled.div`
-  width: 200px;
-  height: 300px;
+  width: 250px;
+  height: 350px;
   background-color: white;
   border: 1px solid black;
   margin-left: 3rem;
   margin-bottom: 3rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`;
+
+export const ItemImg = styled.img`
+  
+`;
+
+export const ItemTitle = styled.div`
+  ${FONT_STYLE_V1.title.title_14_medium}
+  margin-bottom: 2rem;
+`;
+
+export const ItemContents = styled.p`
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
+`;
+
+export const ItemDate = styled.div`
+  margin-top: 10rem;
 `;
