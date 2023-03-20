@@ -1,19 +1,37 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL} # jdbc:mysql://localhost:3306/witchdelivery-db
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: ${datasource}
+    username: root
+    password:
   jpa:
     show-sql: true
-    properties.hibernate.format_sql: true  # SQL pretty print
     database-platform: org.hibernate.dialect.MySQL8Dialect
-    database : mysql
-    hibernate.ddl-auto : create
+    database: mysql
+    hibernate.ddl-auto: create
+  servlet:
+    multipart:
+      max-file-size: 15MB # 단일 파일 업로드 용량 제한, default : 1mb
+      max-request-size: 15MB  # 모든 파일 업로드 용량 제한, default : 1mb
 mail:
   address:
-    admin: admin@gmail.com # 회원 등록시, 특정 이메일 주소에 관리자 권한을 부여할 수 있는지를 결정하기 위해 사용
+    admin: admin@gmail.com  # 관리자 권한
 jwt:
   key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
+cloud:
+  aws:
+    credentials:
+      access-key: ${s3.accesskey}
+      secret-key: ${s3.secretkey}
+    s3:
+      bucket: ${s3.bucket}
+    region.static: ${s3.resion}
+    stack.auto: false
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error

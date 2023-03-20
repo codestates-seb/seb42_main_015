@@ -23,6 +23,36 @@ export const FONT_STYLE_V1 = {
       font-size: 1.4rem;
       color: ${PALETTE_V1.text_primary};
     `,
+    title_20_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 2rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    title_30_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 3rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    title_20_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 2rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    title_40_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 4rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    title_20_thin: css`
+      font-family: "Pretendard-Thin";
+      font-size: 2rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    title_40_thin: css`
+      font-family: "Pretendard-Thin";
+      font-size: 4rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
   },
   body: {
     body_8_light: css`
@@ -40,18 +70,19 @@ export const FONT_STYLE_V1 = {
       font-size: 1.2rem;
       color: ${PALETTE_V1.text_primary};
     `,
-    title_30_regular: css`
-      font-family: "Sriracha", cursive;
-      font-size: 3rem;
-      color: #ffffff;
+    body_15_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 1.5rem;
+      color: ${PALETTE_V1.text_primary};
     `,
   },
-  textarea: {
-    textarea_10_light: css`
+  content: {
+    content_10_light: css`
       font-family: "Pretendard-Light";
       font-size: 1rem;
       color: ${PALETTE_V1.text_primary};
       line-height: 2rem;
+      text-align: justify;
     `,
   },
 };
@@ -95,4 +126,90 @@ export const FONT_STYLE_LOGIN = {
       font-size: 1.3rem;
     `,
   },
+};
+
+export const FONT_STYLE_LOGOUT = {
+  title_20_medium: css`
+    font-family: "Caveat", cursive;
+    font-size: 2rem;
+  `,
+  title_15_medium: css`
+    font-family: "Caveat", cursive;
+    font-size: 1.5rem;
+  `,
+  title_14_medium: css`
+    font-family: "B612", sans-serif;
+    font-size: 1.4rem;
+  `,
+  title_9_medium: css`
+    font-family: "B612", sans-serif;
+    font-size: 0.9rem;
+  `,
+};
+
+export const FONT_STYLE_READ = {
+  title_20_medium: css`
+    font-family: "Pretendard-Light";
+    font-size: 1.7rem;
+  `,
+  body_9_Medium: css`
+    font-family: "Pretendard-Medium";
+    font-size: 1rem;
+  `,
+  body_8_Medium: css`
+    font-family: "Pretendard-Medium";
+    font-size: 0.8rem;
+  `,
+  body_10_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 1rem;
+    text-align: justify;
+  `,
+  body_8_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 0.8rem;
+  `,
+  btn_8_light: css`
+    font-family: "B612", sans-serif;
+    font-size: 0.8rem;
+  `,
+  btn_7_light: css`
+    font-family: "B612", sans-serif;
+    font-size: 0.7rem;
+  `,
+};
+
+export const FONT_STYLE_LOGO = {
+  title: {
+    title_25_medium: css`
+      font-family: "Sriracha";
+      font-size: 2.5rem;
+      color: black;
+      line-height: 2rem;
+    `,
+  },
+};
+
+export const FONT_STYLE_CONTENT = {
+  pixel_10: css`
+    font-family: "DOSSaemmul";
+    font-size: 1rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
+  `,
+  gangwonedu_10_light: css`
+    font-family: "GangwonEdu_Light";
+    font-size: 1rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
+  `,
+  gangwonedu_10_bold: css`
+    font-family: "GangwonEdu_Bold";
+    font-size: 1rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
+  `,
 };
