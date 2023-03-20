@@ -31,11 +31,11 @@ public class JwtTokenizer {
     private int refreshTokenExpirationMinutes; // Refresh Token 만료 시간 정보
 
     // SecretKey를 Base64형식의 문자열로 인코딩
-    public String encodeBase64SecretKey(String secretKey) {
+    public String encodeBase64SecretKey(String secretKey) { // encodeSecretKeyWithBase64
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
-    // 인증된 사용자에게 JWT의 최초 발급을 위한 JWT생성 메서드
+    // AccessToken 생성 메서드
     public String generateAccessToken(Map<String, Object> claims,
                                       String subject,
                                       Date expiration,
@@ -51,8 +51,10 @@ public class JwtTokenizer {
                 .compact(); // JWT를 생성하고 직렬화
     }
 
-    // AccessToken이 만료되었을 경우, 새로 생성해주는 RefreshToken 생성 메서드
-    public String generateRefreshToken(String subject, Date expiration, String base64EncodedSecretKey) {
+    // RefreshToken 생성 메서드
+    public String generateRefreshToken(String subject,
+                                       Date expiration,
+                                       String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
         return Jwts.builder()
@@ -82,6 +84,11 @@ public class JwtTokenizer {
                 .setSigningKey(key) // 서명에 사용된 SecretKey 설정
                 .build()
                 .parseClaimsJws(jws); // JWT 파싱
+    }
+
+    // jwt 유효성 검증
+    public boolean validateToken(String jwt) {
+        return this.getClaims(jwt, encodeBase64SecretKey(secretKey)) != null;
     }
 
     // JWT의 만료 일시 지정 메서드로 JWT 생성 시 사용
