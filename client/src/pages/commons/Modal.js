@@ -67,19 +67,12 @@ function Modal(props) {
     if (isModalOpen && !el.current.contains(target)) setIsModalOpen(false);
   };
 
-  useEffect(() => {
-    window.addEventListener("click", handleCloseModal);
-    return () => {
-      window.removeEventListener("click", handleCloseModal);
-    };
-  });
-
   return (
     <ModalBack ref={el}>
       <ModalContainer
+        ref={props.modalRef}
         ContainerHeight={props.ContainerHeight}
-        ContainerWidth={props.ContainerWidth}
-      >
+        ContainerWidth={props.ContainerWidth}>
         <ModalHeader>
           <CircleWrapper>
             <Circle backgroundColor={PALETTE_V1.red_modal_button} />

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as W from "./WriteStyled";
-import { BiMicrophone, BiFontColor, BiLock, BiLockOpen } from "react-icons/bi";
+import { BiMicrophone, BiFontColor } from "react-icons/bi";
 import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
 import { SlQuestion } from "react-icons/sl";
 import { PALETTE_V1 } from "../../style/color";
@@ -26,6 +26,7 @@ function WriteLetter() {
     )
   );
   const [contentLength, setContentLength] = useState(0);
+  const modalRef = useRef();
   const {
     transcript,
     listening,
@@ -48,17 +49,26 @@ function WriteLetter() {
     }
   };
 
+  const handleModal = (e) => {
+    if (openSendMe && !modalRef.current.contains(e.target)) {
+      setOpenSendMe(false);
+    }
+  };
+
   useEffect(() => {
     // console.log(activeIcon); // 클릭 시 active 에러
   }, [activeIcon]);
+
   return (
-    <W.PageContainer>
+    <W.PageContainer onClick={handleModal}>
       {openExplaination || openSendMe ? <W.ExplainationBackground /> : <></>}
       {openSendMe ? (
         <Modal
+          modalRef={modalRef}
           ContainerHeight={"350px"}
           children={
             <SendMeModal
+              modalRef={modalRef}
               startDate={startDate}
               setStartDate={setStartDate}
               openSendMe={openSendMe}
