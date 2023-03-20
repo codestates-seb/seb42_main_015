@@ -1,9 +1,9 @@
 package com.witchdelivery.messageapp.member;
 
 import com.witchdelivery.messageapp.audit.BaseTime;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.witchdelivery.messageapp.auth.utils.CustomAuthorityUtils;
+import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.security.Principal;
@@ -12,36 +12,42 @@ import java.util.List;
 
 @Entity(name = "MEMBERS")
 @Getter
-@Setter
+@Setter // FIXME MemberUserDetailsService 클래스 수정
 @NoArgsConstructor
-public class Member extends BaseTime implements Principal{
+@AllArgsConstructor
+@Builder
+public class Member extends BaseTime implements Principal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long memberId;    // 사용자 고유번호
+    private Long memberId;  // PK
 
-    @Column(nullable = false)
-    private String email;   // 이메일
+    @Column(unique = true, nullable = false, updatable = false)
+    private String email;   // 이메일(아이디)
 
-    @Column(nullable = false)
-    private String memberName; // 닉네임
-
+    @Column
     private String password;    // 패스워드
+
+    @Column(unique = true, nullable = false)
+    private String nickname; // 닉네임
+
+    @Column
+    private String profileImageUrl; // 프로필 이미지
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>(); // 사용자 권한
 
-    public Member(String email) {
-        this.email = email;
-    }
-
-    public Member(String email, String memberName, String password) {
-        this.email = email;
-        this.memberName = memberName;
-        this.password = password;
-    }
-
     @Override
     public String getName() {
         return getEmail();
+    }
+
+    // 패스워드 암호화
+    public void passwordEncode(PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(this.password);
+    }
+
+    // 사용자 권한 설정
+    public void authorizeUser(CustomAuthorityUtils customAuthorityUtils) {
+        this.roles = customAuthorityUtils.createRoles(this.getEmail());
     }
 }

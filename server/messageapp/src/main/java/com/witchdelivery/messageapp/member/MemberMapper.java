@@ -6,7 +6,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface MemberMapper {
-    Member memberPostDtoToMember(MemberPostDto memberPostDto);
+    Member memberPostDtoToMember(MemberPostDto memberPostDto);  // FIXME 미사용으로 인한 삭제
 
     Member memberPatchDtoToMember(MemberPatchDto memberPatchDto);
 
