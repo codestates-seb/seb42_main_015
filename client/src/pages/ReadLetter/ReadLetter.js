@@ -10,7 +10,8 @@ import Modal from "../commons/Modal";
 import LoginModal from "./LoginModal";
 import { AiOutlineSound } from "react-icons/ai";
 import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
-import { getSpeech } from "./GetSpeech";
+import { HiPause } from "react-icons/hi2";
+import { getSpeech, pauseSpeech } from "./GetSpeech";
 
 const ReadLetter = ({ isLogin }) => {
   //비밀번호 쳤는지 안쳤는지
@@ -45,25 +46,19 @@ const ReadLetter = ({ isLogin }) => {
   //! 음성 tts api
   //음성 value 상태
   // const [voiceValue, voiceSetValue] = useState(`${R.LetterEx}`);
-  // const voiceValue = `${R.LetterEx}`;
-  const voiceValue = "안녕 디지몬 방가방가 반가워요";
+  // const voiceValue = "아아아 마이크테스트 원투 원투";
+  const voiceValue = `${R.LetterEx}`;
   //icons active 상태
   const [activeIcon, setActiveIcon] = useState(false);
-  //버튼 한번 눌렀는지 두번 눌렀는지
-  const [isClickTwice, setIsClickTwice] = useState(false);
 
-  const handleSpeechButton = (e) => {
-    if (!activeIcon && !activeIcon) {
-      getSpeech(voiceValue);
-      setActiveIcon(!activeIcon);
-      setIsClickTwice(true);
-    } else if (activeIcon) {
-      getSpeech("");
-    }
-    setActiveIcon(!activeIcon);
+  //음성tts speech 버튼
+  const handleSpeechButton = () => {
+    getSpeech(voiceValue);
   };
-
-  // const handleSpeechButton = (e) => {};
+  //음성tts pause 버튼
+  const handlePauseButton = () => {
+    getSpeech(pauseSpeech());
+  };
 
   //음성 변환 목소리 preload
   useEffect(() => {
@@ -76,13 +71,22 @@ const ReadLetter = ({ isLogin }) => {
         <R.Wrapper>
           <div className="ReadContainer" onClick={handleModal}>
             <div className="top-sub">
-              <AiOutlineSound
-                size="42"
-                onClick={handleSpeechButton}
-                className={
-                  activeIcon ? "active-icon speech-icon" : "speech-icon"
-                }
-              />
+              <div className="soundButtons">
+                <AiOutlineSound
+                  size="30"
+                  onClick={handleSpeechButton}
+                  className={
+                    activeIcon ? "active-icon speech-icon" : "speech-icon"
+                  }
+                />
+                <HiPause
+                  size="30"
+                  onClick={handlePauseButton}
+                  className={
+                    activeIcon ? "active-icon pause-icon" : "pause-icon"
+                  }
+                />
+              </div>
               <R.EnterSeret>
                 비밀번호
                 <input placeholder="****" />
