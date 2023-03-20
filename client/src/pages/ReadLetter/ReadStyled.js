@@ -17,13 +17,11 @@ export const Wrapper = styled.div`
   .ReadContainer {
     display: flex;
     align-items: center;
-    /* background: orange; */
     flex-direction: column;
     .top-sub {
       display: flex;
       justify-content: space-evenly;
-      margin: 0 0 0 25rem;
-      background: orange;
+      margin: 0 0 0 25.5rem;
 
       .speech-icon {
         cursor: pointer;
@@ -133,11 +131,9 @@ export const EnterSeret = styled.div`
   justify-content: center;
   width: 12rem;
   padding: 0.5rem 0.7rem 0.5rem 1.5rem;
-  margin-top: 10px;
   border: 2px solid #000000;
   ${FONT_STYLE_READ.body_8_Medium}
-  /* margin-bottom: 2rem; */
-  margin : 0 0 2rem 2rem;
+  margin : 0.2rem 0 2rem 2rem;
 
   input {
     ${FONT_STYLE_READ.body_8_light}

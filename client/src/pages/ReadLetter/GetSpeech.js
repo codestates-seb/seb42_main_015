@@ -20,7 +20,7 @@ export const getSpeech = (text) => {
     utterThis.lang = lang;
 
     /* 한국어 vocie 찾기
-       디바이스 별로 한국어는 ko-KR 또는 ko_KR로 voice가 정의되어 있다.
+        디바이스 별로 한국어는 ko-KR 또는 ko_KR로 voice가 정의되어 있다.
     */
     const kor_voice = voices.find(
       (elem) => elem.lang === lang || elem.lang === lang.replace("-", "_")
