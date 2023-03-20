@@ -39,10 +39,6 @@ function LetterContent({
     watch,
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
-  const weekday = ["일", "월", "화", "수", "목", "금", "토"];
-  const currentDate = `${new Date().getFullYear()}.${new Date().getMonth()}.${new Date().getDate()} ${
-    weekday[new Date().getDay()]
-  }`;
 
   const textarea = useRef();
 
