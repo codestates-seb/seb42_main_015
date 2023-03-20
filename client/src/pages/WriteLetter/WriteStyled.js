@@ -43,16 +43,46 @@ export const LetterWrapper = styled.div`
 `;
 export const LetterBox = styled(FlexColunmWrapper)`
   aspect-ratio: 3/5;
+  min-height: 1129px;
   justify-content: space-between;
-  background-color: #ffffff;
   border: 2px solid #000000;
-  padding: 2.5rem 3.5rem 2.5rem 3.5rem;
+  padding: 3rem 5rem 3rem 5rem;
   min-width: 680px;
   max-width: 680px;
-  background-image: ${(props) => {
+  ${(props) => {
     switch (props.currentLetterTheme) {
       case "군대":
-        return;
+        return css`
+          background-image: url(${군대});
+        `;
+      case "냥냥편지":
+        return css`
+          background-image: url(${냥냥편지});
+        `;
+      case "리본":
+        return css`
+          background-image: url(${리본});
+        `;
+      case "수박":
+        return css`
+          background-image: url(${수박});
+        `;
+      case "알록달록":
+        return css`
+          background-image: url(${알록달록});
+        `;
+      case "젖소":
+        return css`
+          background-image: url(${젖소});
+        `;
+      case "체리":
+        return css`
+          background-image: url(${체리});
+        `;
+      case "클로버":
+        return css`
+          background-image: url(${클로버});
+        `;
       default:
         break;
     }
@@ -71,6 +101,7 @@ export const IconWrapper = styled.div`
     color: ${PALETTE_V1.text_primary};
     margin-bottom: 20px;
     padding: 10px;
+    cursor: pointer;
   }
   .active-icon {
     background-color: ${PALETTE_V1.yellow_modal_button};
