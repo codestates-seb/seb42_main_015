@@ -81,12 +81,13 @@ export const FONT_STYLE_V1 = {
       color: ${PALETTE_V1.text_primary};
     `,
   },
-  textarea: {
-    textarea_10_light: css`
+  content: {
+    content_10_light: css`
       font-family: "Pretendard-Light";
       font-size: 1rem;
       color: ${PALETTE_V1.text_primary};
       line-height: 2rem;
+      text-align: justify;
     `,
   },
 };
@@ -157,5 +158,72 @@ export const FONT_STYLE_LOGOUT = {
   title_9_medium: css`
     font-family: "B612", sans-serif;
     font-size: 0.9rem;
+  `,
+};
+
+export const FONT_STYLE_READ = {
+  title_20_medium: css`
+    font-family: "Pretendard-Light";
+    font-size: 1.7rem;
+  `,
+  body_9_Medium: css`
+    font-family: "Pretendard-Medium";
+    font-size: 1rem;
+  `,
+  body_8_Medium: css`
+    font-family: "Pretendard-Medium";
+    font-size: 0.8rem;
+  `,
+  body_10_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 1rem;
+    text-align: justify;
+  `,
+  body_8_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 0.8rem;
+  `,
+  btn_8_light: css`
+    font-family: "B612", sans-serif;
+    font-size: 0.8rem;
+  `,
+  btn_7_light: css`
+    font-family: "B612", sans-serif;
+    font-size: 0.7rem;
+  `,
+};
+
+export const FONT_STYLE_LOGO = {
+  title: {
+    title_25_medium: css`
+      font-family: "Sriracha";
+      font-size: 2.5rem;
+      color: black;
+      line-height: 2rem;
+    `,
+  },
+};
+
+export const FONT_STYLE_CONTENT = {
+  pixel_10: css`
+    font-family: "DOSSaemmul";
+    font-size: 1rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
+  `,
+  gangwonedu_10_light: css`
+    font-family: "GangwonEdu_Light";
+    font-size: 1rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
+  `,
+  gangwonedu_10_bold: css`
+    font-family: "GangwonEdu_Bold";
+    font-size: 1rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
   `,
 };

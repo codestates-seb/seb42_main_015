@@ -11,4 +11,5 @@ public class MessageResponseDto {
     private Long messageId;
     private String content;
     private LocalDateTime createdAt;
+    private boolean bookMark;
 }

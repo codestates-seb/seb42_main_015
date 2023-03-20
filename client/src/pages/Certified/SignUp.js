@@ -21,7 +21,7 @@ import * as S from "./FormStyled";
   ? register : form의 유효성을 확인하는 메서드
   ? handleSubmit : form을 제출하는 함수
   ? watch : 입력폼에 적힌 값을 확인 하는 옵션
-    e.target.value와 동일하다
+    - e.target.value와 동일하다
   ? formState : form의 현재 상태를 담고 있다.
     - 중복 제출 방지 : isSubmitting (초기값 : false)
       formState에 isSubmitting 속성을 부여하면 -> form이 현재 제출중인 상태인지 아닌지를 알 수 있다.
@@ -49,7 +49,7 @@ function SignUp() {
       .min(8, "최소 8자리 이상 입력해주세요.")
       .max(16, "최대 16자까지 가능합니다.")
       .matches(
-        /^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
+        /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,16}$/,
         "영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요."
       ),
     passwordConfirm: yup

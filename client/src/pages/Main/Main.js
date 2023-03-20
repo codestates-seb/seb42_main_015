@@ -103,8 +103,8 @@ function Main() {
               <M.SubTitle>원하는 테마를 고르고 편지를 작성하세요.</M.SubTitle>
               <M.SubContents>
                 편지지를 넘겨 원하는 테마를 골라보세요. <br /> 편지 작성이 완료
-                되었다면, 원하는 주소명으로 <br /> 만들어집니다.
-                <span className="ex">
+                되었다면, 원하는 주소명으로 <br /> 만들어집니다. <br /> 
+                <p className="ex">
                   예시) https://sendy/letter/친구야-생일-축하해
                 </span>
               </M.SubContents>
@@ -216,7 +216,7 @@ function Main() {
             </M.FakeLast>
             <M.Footer>
               <M.FooterContainer>
-                <M.Logo onClick={()=>window.location.reload()}>
+                <M.Logo>
                   Sendy
                   <img className="logo-img" src={require("../../asset/작은편지.png")} />
                 </M.Logo>

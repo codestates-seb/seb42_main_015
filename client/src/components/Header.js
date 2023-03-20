@@ -10,6 +10,7 @@ const HeaderComponent = styled.header`
   background: #fcfbf4;
   border-bottom: 1px solid #312f2b;
   display: flex;
+  width: 100%;
   height: 60px;
   position: sticky;
   z-index: 999;
@@ -87,7 +88,7 @@ function Header({ isLogin }) {
                 <Link to="/writeletter">Write</Link>
               </li>
               <li>
-                <Link to="/">
+                <Link to="/letterbox">
                   <img className="postImg" src={postbox} />
                 </Link>
               </li>

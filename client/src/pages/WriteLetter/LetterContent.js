@@ -1,14 +1,68 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import * as W from "./WriteStyled";
 import { HiOutlineCheck } from "react-icons/hi";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import useStore from "../../store/store";
 
-function LetterContent({ openExplaination, sendMe, setSendMe }) {
+function LetterContent({
+  openExplaination,
+  openSendMe,
+  setOpenSendMe,
+  sendMeChecked,
+  setSendMeChecked,
+  startDate,
+  setContentLength,
+  finalTranscript,
+  resetTranscript,
+}) {
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
-  const currentDate = `${new Date().getFullYear()}.${new Date().getMonth()}.${new Date().getDate()} ${
+  const currentDate = `${new Date().getFullYear()}. ${(
+    "00" + new Date().getMonth()
+  ).slice(-2)}.${("00" + new Date().getDate()).slice(-2)} ${
     weekday[new Date().getDay()]
   }`;
+  const { contentFont, changeContentFont } = useStore((state) => state);
+  const formSchema = yup.object({
+    receiverName: yup
+      .string()
+      .required("1 ~ 15자를 입력해주세요.")
+      .min(1, "최소 1자리 이상 입력해주세요.")
+      .max(15, "최대 15자까지 가능합니다."),
+    content: yup
+      .string()
+      .required("7000자 미만으로 입력해주세요.")
+      .max(7000, "최대 7000자까지 가능합니다."),
+    senderName: yup
+      .string()
+      .required("1 ~ 15자를 입력해주세요.")
+      .min(1, "최소 1자리 이상 입력해주세요.")
+      .max(15, "최대 15자까지 가능합니다."),
+  });
+  const {
+    register,
+    watch,
+    formState: { isSubmitting, errors },
+  } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
+
+  const textarea = useRef();
+
+  useEffect(() => {
+    textarea.current.focus();
+  }, []);
+
+  useEffect(() => {
+    textarea.current.value += " " + finalTranscript;
+    resetTranscript();
+  }, [finalTranscript]); //listening일 때로 바꾸기
+
   const handleSendMe = () => {
-    setSendMe(!sendMe);
+    setOpenSendMe(!openSendMe);
+    setSendMeChecked(true);
+  };
+  const handleContentLength = (e) => {
+    setContentLength(e.target.value.length);
   };
   return (
     <W.LetterBox>
@@ -16,8 +70,15 @@ function LetterContent({ openExplaination, sendMe, setSendMe }) {
         <W.BallonWrapper>
           <W.NameInputWrapper>
             To
-            <W.NameInput></W.NameInput>
+            <W.NameInput
+              name="receiverName"
+              type="text"
+              {...register("receiverName")}
+            />
           </W.NameInputWrapper>
+          {errors.receiverName && (
+            <W.ErrorMessage>{errors.receiverName.message}</W.ErrorMessage>
+          )}
           {openExplaination ? (
             <W.BallonBottom1 id="ballon6">
               편지를 받을 사람 이름을 적습니다.
@@ -31,9 +92,9 @@ function LetterContent({ openExplaination, sendMe, setSendMe }) {
       <W.SendMeWrapper>
         <W.BallonWrapper>
           <W.SendMeCheckBox
-            className={sendMe ? "active" : ""}
+            className={sendMeChecked ? "active" : ""}
             onClick={handleSendMe}></W.SendMeCheckBox>
-          {sendMe ? (
+          {sendMeChecked ? (
             <HiOutlineCheck id="check-icon" size="25" onClick={handleSendMe} />
           ) : (
             <></>
@@ -49,14 +110,30 @@ function LetterContent({ openExplaination, sendMe, setSendMe }) {
             <></>
           )}
         </W.BallonWrapper>
+        {sendMeChecked ? (
+          <span>{`${startDate.getFullYear()}/${startDate.getMonth()}/${startDate.getDate()} ${startDate.getHours()}:${startDate.getMinutes()}`}</span>
+        ) : (
+          <></>
+        )}
       </W.SendMeWrapper>
-      <W.ContentTextarea></W.ContentTextarea>
+      <W.ContentTextarea
+        font={contentFont}
+        name="content"
+        onInput={handleContentLength}
+        {...register("content")}
+        ref={textarea}></W.ContentTextarea>
       <W.FromWrapper>
         <W.BallonWrapper>
           <W.NameInputWrapper>
             From
-            <W.NameInput></W.NameInput>
+            <W.NameInput
+              type="text"
+              name="senderName"
+              {...register("senderName")}></W.NameInput>
           </W.NameInputWrapper>
+          {errors.senderName && (
+            <W.ErrorMessage>{errors.senderName.message}</W.ErrorMessage>
+          )}
           {openExplaination ? (
             <W.BallonBottom1 id="ballon7">
               편지를 보내는 사람 이름을 적습니다.

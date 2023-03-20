@@ -253,9 +253,9 @@ export const SendyBottom = styled.div`
 
 export const Track = styled.div`
   height: 100%;
-  overflow: hidden;
-  padding: 0.5rem 0;
-  position: absolute;
+	overflow: hidden;
+	padding: 0.5rem 0;
+	position: absolute;
 `;
 
 export const TrackImg = styled.span`
@@ -302,7 +302,7 @@ export const FooterContainer = styled.div`
 
 export const Logo = styled.div`
   display: flex;
-  ${FONT_STYLE_LOGO.title.title_25_medium};
+  ${FONT_STYLE_LOGO.title.title_25_medium}
   position: relative;
   img {
     width: 25px;

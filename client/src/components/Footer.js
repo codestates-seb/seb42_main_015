@@ -1,19 +1,21 @@
 import React from "react";
 import styled from "styled-components";
+import BREAKPOINTMOBILE from "../breakpoint";
 import logo from "../asset/작은편지.png";
 
 const FooterComponent = styled.footer`
-  width: 100vw;
   height: max-content;
   background: #ffe49d;
   border-top: 1px solid #312f2b;
   color: #000;
   padding: 1.8rem 6rem 3rem;
-  width: 100vw;
   margin: 0;
   display: flex;
-  position: absolute;
+  position: relative;
   bottom: 0;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    padding: 2rem 2rem 2rem;
+  }
 
   .menuContainer {
     .logo {
@@ -21,6 +23,9 @@ const FooterComponent = styled.footer`
       font-family: "Sriracha";
       font-size: 2.4rem;
       margin-bottom: 12px;
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        font-size: 2rem;
+      }
     }
     .logo-img {
       display: inline-block;
@@ -36,6 +41,10 @@ const FooterComponent = styled.footer`
       margin-top: 20px;
       li {
         padding: 5px 0;
+      }
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        margin-top: 10px;
+        font-size: 0.7rem;
       }
     }
   }

@@ -9,14 +9,15 @@ export const PALETTE_V1 = {
   yellow_primary: "#fff59f",
   red_modal_button: "#FF4545",
   yellow_modal_button: "#FFCB12",
+  orange_dark: "#F09F40",
   green_modal_button: "#88E116",
+  aready_keep_button: "#d3d3d3",
 };
 export const PALETTE_LOGIN = {
   background: "#fff59f",
   loginText: "#fff250",
   subText: "#505050;",
 };
-
 export const PALETTE_MAIN = {
   background: ["#FFFBD3", "#FFFEFA"],
 };
