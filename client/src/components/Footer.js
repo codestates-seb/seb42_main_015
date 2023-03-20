@@ -17,7 +17,7 @@ const FooterComponent = styled.footer`
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     padding: 2rem 2rem 2rem;
   }
-
+  
   .menuContainer {
     .logo {
       display: flex;

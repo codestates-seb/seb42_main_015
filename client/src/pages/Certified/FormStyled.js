@@ -17,7 +17,7 @@ export const Container = styled.div`
 
 export const BackgroundYellow = styled.div`
   display: flex;
-  position: relative;
+  position: absolute;
   border: 1px solid black;
   background: #fff59f;
   margin: 1rem 0rem 0rem 2rem;

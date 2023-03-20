@@ -171,7 +171,7 @@ export const Button = styled.div`
 `;
 
 export const Textbox = styled.div`
-  width: 600px;
+  width: 650px;
   height: 500px;
   /* background-color: white;
   border: 1px solid black; */
@@ -193,7 +193,7 @@ export const SubTitle = styled.span`
   margin-bottom: 1rem;
 `;
 
-export const SubContents = styled.p`
+export const SubContents = styled.div`
   ${FONT_STYLE_V1.body.body_15_light}
   margin-bottom: 3rem;
   .ex {
