@@ -22,8 +22,12 @@ public class MessageService {
         return messageRepository.save(message);
     }
 
-    public Message findMessage(long messageId) {
-        return findVerifiedMessage(messageId);
+    public Message findMessage(long messageId, long password) {
+        Message message = findVerifiedMessage(messageId);
+        if (!message.getPassword().equals(password)) {
+            throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_MATCH);
+        }
+        return message;
     }
 
     public Page<Message> findAllMessages(int page, int size) {

@@ -13,6 +13,9 @@ spring:
     multipart:
       max-file-size: 15MB # 단일 파일 업로드 용량 제한, default : 1mb
       max-request-size: 15MB  # 모든 파일 업로드 용량 제한, default : 1mb
+  redis:
+    host: localhost
+    port: 6379
 mail:
   address:
     admin: admin@gmail.com  # 관리자 권한

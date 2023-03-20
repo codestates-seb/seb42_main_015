@@ -3,8 +3,10 @@ package com.witchdelivery.messageapp.auth.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.witchdelivery.messageapp.auth.dto.LoginDto;
 import com.witchdelivery.messageapp.auth.jwt.JwtTokenizer;
+import com.witchdelivery.messageapp.auth.service.RedisService;
 import com.witchdelivery.messageapp.member.Member;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,20 +22,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 // 클라이언트의 로그인 인증 정보를 직접적으로 수신하여 인증 처리의 엔트리포인트 역할을 하는 Custom Filter
+@Slf4j
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter { // UsernamePasswordAuthenticationFilter를 확장해서 구현
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
+    private final RedisService redisService;
 
     // AuthenticationManager는 로그인 인증 정보(Username/Password)를 전달받아 UserDetailsService와 인터랙션 한 뒤 인증 여부를 판단
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager,
+                                   JwtTokenizer jwtTokenizer,
+                                   RedisService redisService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenizer = jwtTokenizer;
+        this.redisService = redisService;
     }
 
     // 메서드 내부에서 인증을 시도하는 로직을 구현
     @SneakyThrows
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
+    public Authentication attemptAuthentication(HttpServletRequest request,
+                                                HttpServletResponse response) {
 
         ObjectMapper objectMapper = new ObjectMapper(); // 클라이언트에서 전송한 Username과 Password를 DTO클래스로 역직렬화하기 위해 ObjectMapper 인스턴스 생성
         LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class); // ServletInputStream 을 LoginDto 클래스의 객체로 역직렬화
@@ -60,12 +68,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
 
+        /*현재 refresh token을 키로 하는 데이터가 없으면 refresh token 레디스에 저장*/
+        if (redisService.getRefreshToken(refreshToken) == null) {
+            redisService.setRefreshToken(refreshToken, member.getEmail(), jwtTokenizer.getRefreshTokenExpirationMinutes());
+            log.info("Set refresh token in Redis");
+        }
+
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult); // 핸들러의 구현 메서드 호출
     }
 
     // Access Token 생성
     private String delegateAccessToken(Member member) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("memberId", member.getMemberId());
         claims.put("username", member.getEmail());
         claims.put("roles", member.getRoles());
 
