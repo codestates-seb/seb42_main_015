@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { PALETTE_MYPAGE, PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 import sendme from "../../asset/myPage-sendme.png";
+import pwd from "../../asset/pwd.png";
+import BREAKPOINTMOBILE from "../../breakpoint";
 
 export const MyPageContainer = styled.div`
   height: 100vh;
@@ -126,8 +128,56 @@ export const ResignationWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-export const ResignLink = styled(ReadletterLink).attrs({ href: "#" })`
+export const ResignLink = styled(ReadletterLink)`
   border-bottom: none;
   margin-top: 20px;
   margin-right: 20px;
+`;
+export const ResignBackground = styled.div`
+  background-color: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 300;
+`;
+export const ModalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 3rem 1rem 3rem;
+  height: 90%;
+  justify-content: space-evenly;
+  .notice {
+    ${FONT_STYLE_V1.body.body_10_light}
+    text-align: center;
+  }
+`;
+export const ModalTitle = styled.div`
+  ${FONT_STYLE_V1.title.title_16_medium}
+`;
+export const PwdInput = styled.input.attrs({ type: "password" })`
+  outline: none;
+  border: none;
+  font-size: 1.2rem;
+  background-image: url(${pwd});
+  background-size: 1.5rem;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid ${PALETTE_V1.text_primary};
+  background-position: left center;
+  padding: 0rem 3rem;
+  height: 2.3rem;
+  width: 14rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
+  &::placeholder {
+    ${FONT_STYLE_V1.body.body_8_light}
+    color: grey;
+  }
+`;
+export const NextIconWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 `;
