@@ -17,6 +17,12 @@ function LetterContent({
   finalTranscript,
   resetTranscript,
 }) {
+  const weekday = ["일", "월", "화", "수", "목", "금", "토"];
+  const currentDate = `${new Date().getFullYear()}. ${(
+    "00" + new Date().getMonth()
+  ).slice(-2)}.${("00" + new Date().getDate()).slice(-2)} ${
+    weekday[new Date().getDay()]
+  }`;
   const { contentFont, changeContentFont } = useStore((state) => state);
   const formSchema = yup.object({
     receiverName: yup
