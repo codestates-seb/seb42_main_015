@@ -7,36 +7,36 @@ export const TrashWrap = styled.div`
   background: #fcfbf4;
 `;
 
-export const GNBWrap = styled.ul`
-  display: flex;
-  margin-left: 5rem;
-`;
+// export const GNBWrap = styled.ul`
+//   display: flex;
+//   margin-left: 5rem;
+// `;
 
-export const GNBMenu = styled.li`
-  width: 120px;
-  height: 40px;
-  background-color: white;
-  border: 1px solid black;
-  border-top: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1rem;
-  &:hover {
-  }
-`;
+// export const GNBMenu = styled.li`
+//   width: 120px;
+//   height: 40px;
+//   background-color: white;
+//   border: 1px solid black;
+//   border-top: none;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   margin-right: 1rem;
+//   &:hover {
+//   }
+// `;
 
-export const GNBMenuOn = styled.li`
-  width: 120px;
-  height: 55px;
-  background-color: #fff06c;
-  border: 1px solid black;
-  border-top: none;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  padding-bottom: 0.5rem;
-`;
+// export const GNBMenuOn = styled.li`
+//   width: 120px;
+//   height: 55px;
+//   background-color: #fff06c;
+//   border: 1px solid black;
+//   border-top: none;
+//   display: flex;
+//   justify-content: center;
+//   align-items: flex-end;
+//   padding-bottom: 0.5rem;
+// `;
 
 export const TrashContainer = styled.div`
   display: flex;

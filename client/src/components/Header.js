@@ -10,9 +10,10 @@ const HeaderComponent = styled.header`
   background: #fcfbf4;
   border-bottom: 1px solid #312f2b;
   display: flex;
+  width: 100%;
   height: 60px;
   position: sticky;
-  z-index: 999;
+  z-index: 90;
 `;
 
 const HeaderContainer = styled.div`
@@ -84,10 +85,10 @@ function Header({ isLogin }) {
           {isLogin ? (
             <div id="nav-container">
               <li>
-                <Link to="/">Write</Link>
+                <Link to="/writeletter">Write</Link>
               </li>
               <li>
-                <Link to="/">
+                <Link to="/letterbox">
                   <img className="postImg" src={postbox} />
                 </Link>
               </li>

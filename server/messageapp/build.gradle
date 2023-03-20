@@ -19,26 +19,54 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-//	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	// Spring Web(WEB)
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-//	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	annotationProcessor 'org.projectlombok:lombok'
-	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Lombok(DEVELOPER TOOLS)
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// Mapstruct
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+
+	// Spring Data JPA(SQL)
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// MySQL Driver(SQL)
+	implementation 'org.springframework.boot:spring-boot-starter'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// Spring Security(SECURITY)
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	testImplementation 'org.springframework.security:spring-security-test'
 
+	// OAuth2 Client(SECURITY)
+//	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+	// Validation(I/O)
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// Java Mail Sender(I/O)
+//	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	// Spring Batch(I/O)
+//	implementation 'org.springframework.boot:spring-boot-starter-batch'
+//	testImplementation 'org.springframework.batch:spring-batch-test'
+
+	// JJWT
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly	'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
+	// Gson
+	implementation 'com.google.code.gson:gson'
+
+	// AWS
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
-tasks.named('test') {
+/*tasks.named('test') {
 	useJUnitPlatform()
-}
+}*/

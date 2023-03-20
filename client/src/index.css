@@ -55,12 +55,36 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped&display=swap");
 /* 로그인,회원가입 Welcome 폰트 -> font-family: 'Raleway', sans-serif; */
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap");
+/* 다음에 또 만나요  font-family: 'Caveat', cursive; */
+@import url("https://fonts.googleapis.com/css2?family=Caveat&display=swap");
+/* Main page font-family: 'B612', sans-serif; */
+@import url("https://fonts.googleapis.com/css2?family=B612&display=swap");
 
 /*웹 폰트 규칙 
 font-family: 'Caveat', cursive;
 font-family: 'Caveat Brush', cursive;
 font-family: 'Sriracha', cursive; */
-
+@font-face {
+  font-family: "DOSSaemmul";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/DOSSaemmul.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GangwonEdu_Light";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff")
+    format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GangwonEdu_Bold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff")
+    format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
 * {
   margin: 0;
   padding: 0;
@@ -80,4 +104,8 @@ a:visited {
 }
 a:active {
   background: none;
+}
+body {
+  background-color: #fcfbf4;
+  position: relative;
 }
