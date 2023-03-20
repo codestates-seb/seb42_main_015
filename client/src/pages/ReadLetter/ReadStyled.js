@@ -26,24 +26,14 @@ export const Wrapper = styled.div`
       .speech-icon {
         cursor: pointer;
         border-radius: 50%;
-        padding: 10px;
-        background-color: ${PALETTE_V1.yellow_modal_button};
-
-        &::after {
-          background-color: ${PALETTE_V1.yellow_modal_button};
-        }
-
+        padding: 7px;
         &:hover {
           background-color: ${PALETTE_V1.yellow_modal_button};
         }
       }
-      .active-speech-icon {
-        margin-top: 3px;
-        cursor: pointer;
-        background-color: ${PALETTE_V1.yellow_modal_button};
-        border-radius: 50%;
-        /* padding: 5px 5px; */
-      }
+    }
+    .active-icon {
+      background-color: ${PALETTE_V1.yellow_modal_button};
     }
   }
 `;
@@ -93,7 +83,7 @@ export const Secretform = styled.form`
     background-repeat: no-repeat;
     background-position: left;
     background-size: 1.5rem;
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {0
       background-size: 1.2rem;
       width: 13rem;
     }
@@ -188,11 +178,28 @@ export const Letterpaper = styled(FlexColunmWrapper)`
 `;
 
 export const Buttons = styled.div`
+  /* background: skyblue; */
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 10rem;
-  padding: 0rem 0rem 2rem 27rem;
+  height: 6rem;
+  padding: 0rem 0rem 0rem 26rem;
+
+  > div {
+    display: flex;
+    flex-grow: 1;
+    padding-left: 1.5rem;
+  }
+  .goback {
+    display: flex;
+    flex-grow: 5;
+    margin: 0.2rem 10rem 0 -25rem;
+    cursor: pointer;
+    /* &:hover {
+      background-color: ${PALETTE_V1.yellow_modal_button};
+      border-radius: 50%;
+      padding: 7px;
+    } */
+  }
 `;
 
 export const LetterEx = `이 노래는 it's about you baby

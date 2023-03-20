@@ -12,10 +12,10 @@ import LetterBox from "./pages/LetterBox/LetterBox";
 import SetPwd from "./pages/Certified/SetPwd";
 import Layout from "./components/Layout";
 import PwdChange from "./pages/MyPage/PwdChange";
-import Trash from './pages/MyPage/TrashList'
+import Trash from "./pages/MyPage/TrashList";
 // ! 공백
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const displayFooter = true;
   // ! 공백
   return (

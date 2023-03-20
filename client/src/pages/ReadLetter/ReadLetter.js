@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import * as R from "./ReadStyled";
 import { PALETTE_V1 } from "../../style/color";
 import domtoimage from "dom-to-image";
@@ -7,7 +8,8 @@ import SecretLetter from "./SecetLetter";
 import ShadowButton from "../commons/ShadowButton";
 import Modal from "../commons/Modal";
 import LoginModal from "./LoginModal";
-import { AiOutlineSound, AiTwotoneSound } from "react-icons/ai";
+import { AiOutlineSound } from "react-icons/ai";
+import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
 import { getSpeech } from "./GetSpeech";
 
 const ReadLetter = ({ isLogin }) => {
@@ -15,12 +17,13 @@ const ReadLetter = ({ isLogin }) => {
   const [enterPassword, setEnterPassword] = useState(false);
   //보관하기를 클릭했을 때 비로그인(저장X)인지 로그인(저장준비 완료)아닌지
   const [isKeeping, setIsKeeping] = useState(false);
+
   //'보관하기' 버튼 누르면 모달 나오는 이벤트 핸들러
   const handleKeeping = () => {
     setIsKeeping(!isKeeping);
   };
 
-  //! 미리보기 사진 저장 기능
+  //! 이미지 저장 기능
   //useRef로 -> DOM 선택
   const LetterRef = useRef();
   //이미지로 저장하기 버튼
@@ -31,33 +34,55 @@ const ReadLetter = ({ isLogin }) => {
     });
   };
 
+  //! 모달 영역 밖 클릭 시 모달 닫기
+  const ModalRef = useRef();
+  const handleModal = (e) => {
+    if (isKeeping && !ModalRef.current.contains(e.target)) {
+      setIsKeeping(false);
+    }
+    console.log(e.target);
+    console.log(ModalRef.current);
+  };
+
   //! 음성 tts api
+  //음성 value 상태
   // const [voiceValue, voiceSetValue] = useState(`${R.LetterEx}`);
-  const [voiceValue, voiceSetValue] = useState("안녕");
-  const [activeIcon, setActiveIcon] = useState("");
+  const [voiceValue, voiceSetValue] = useState("안녕 디지몬 방가방가 반가워요");
+  //icons active 상태
+  const [activeIcon, setActiveIcon] = useState(false);
+  //버튼 한번 눌렀는지 두번 눌렀는지
+  const [isClickTwice, setIsClickTwice] = useState(false);
+
   console.log(voiceValue);
 
-  const handleSpeechButton = () => {
-    getSpeech(voiceValue);
-    setActiveIcon(activeIcon);
+  const handleSpeechButton = (e) => {
+    if (activeIcon === false) {
+      getSpeech(voiceValue);
+      setActiveIcon(!activeIcon);
+    } else {
+      getSpeech(".");
+      setActiveIcon(!activeIcon);
+    }
+    setActiveIcon(!activeIcon);
   };
 
   //음성 변환 목소리 preload
   useEffect(() => {
     window.speechSynthesis.getVoices();
-  }, []);
+  }, [activeIcon]);
 
   return (
     <>
       {isLogin || enterPassword ? (
         <R.Wrapper>
-          <div className="ReadContainer">
+          <div className="ReadContainer" onClick={handleModal}>
             <div className="top-sub">
               <AiOutlineSound
-                size="45"
+                size="42"
                 onClick={handleSpeechButton}
-                className="speech-icon"
-                // className={activeIcon ? "active-speech-icon" : "speech-icon"}
+                className={
+                  activeIcon ? "active-icon speech-icon" : "speech-icon"
+                }
               />
               <R.EnterSeret>
                 비밀번호
@@ -73,6 +98,13 @@ const ReadLetter = ({ isLogin }) => {
               <div className="from">From. 오디토</div>
             </R.Letterpaper>
             <R.Buttons>
+              {isLogin ? (
+                <Link to="/letterbox">
+                  <HiOutlineArrowUturnLeft size="30" className="goback" />
+                </Link>
+              ) : (
+                <></>
+              )}
               <ShadowButton
                 backgroundColor={PALETTE_V1.yellow_button}
                 state="none-block"
@@ -98,7 +130,11 @@ const ReadLetter = ({ isLogin }) => {
               )}
               {isKeeping ? (
                 <R.ModalBackground>
-                  <Modal ContainerHeight={"350px"} children={<LoginModal />} />
+                  <Modal
+                    ModalRef={ModalRef}
+                    ContainerHeight={"500px"}
+                    children={<LoginModal ModalRef={ModalRef} />}
+                  />
                 </R.ModalBackground>
               ) : (
                 <></>
