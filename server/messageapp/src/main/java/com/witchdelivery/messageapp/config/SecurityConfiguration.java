@@ -12,16 +12,18 @@ import com.witchdelivery.messageapp.auth.jwt.JwtTokenizer;
 import com.witchdelivery.messageapp.auth.service.RedisService;
 import com.witchdelivery.messageapp.auth.userdetails.MemberUserDetailsService;
 import com.witchdelivery.messageapp.auth.utils.CustomAuthorityUtils;
+import com.witchdelivery.messageapp.member.MemberRepository;
+import com.witchdelivery.messageapp.oauth.OAuth2MemberSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -38,35 +40,48 @@ public class SecurityConfiguration {
     private final CustomAuthorityUtils authorityUtils;
     private final RedisService redisService;
     private final MemberUserDetailsService memberDetailsService; // final 없으니까 DI오류남 왜지??
+    private final MemberRepository memberRepository;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .headers().frameOptions().sameOrigin() // 동일 출처로부터 들어오는 request만 페이지 렌더링 허용
+                .headers().frameOptions().sameOrigin() // 동일 출처(도메인)의 요청만 허용
                 .and()
-                .csrf().disable() // CSRF공격에 대한 Spring Security설정 비활성화
-                .cors(withDefaults()) // corsConfigurationSource라는 이름으로 등록된 Bean 이용
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션을 생성하지 않도록 설정
+
+                .csrf().disable() // CSRF 보안 비활성화
+                .cors(withDefaults()) // CorsConfigurationSource 사용
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 정책 미사용
                 .and()
-                .formLogin().disable() // 폼 로그인 방식 비활성화
-                .httpBasic().disable() // request를 전송할 때마다 Username/Password정보를 Header에 실어서 인증하는 방식 비활성화
-                .exceptionHandling()
-                .authenticationEntryPoint(new MemberAuthenticationEntryPoint()) // 예외처리
-                .accessDeniedHandler(new MemberAccessDeniedHandler()) // 예외처리
+
+                .formLogin().disable() // formLogin 비활성화
+                .httpBasic().disable() // httpBasic 비활성화
+
+                .exceptionHandling()    // 예외처리
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                .accessDeniedHandler(new MemberAccessDeniedHandler())
                 .and()
-                .apply(new CustomFilterConfigurer()) // Custom Configurer를 추가해 커스터마이징된 Configuration을 추가
+
+                .apply(new CustomFilterConfigurer())    // CustomFilterConfigurer 사용
                 .and()
+
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.POST, "/*/users/**").permitAll() // 회원가입 누구나 접근
-                        .antMatchers(HttpMethod.GET, "/*/users").hasRole("ADMIN") // 모든 회원 정보의 목록, 관리자(ADMIN) 권한을 가진 사용자만 접근
-                        .antMatchers(HttpMethod.GET, "/*/users/**").hasAnyRole("USER", "ADMIN") // 특정 회원에 대한 정보 조회, 일반 사용자(USER)와 관리자(ADMIN)권한을 가진 사용자 모두 접근
-                        .antMatchers(HttpMethod.PATCH, "/*/users/**").hasRole("USER") // 회원 정보 수정, 일반 사용자(USER)권한만 가진 사용자만 접근
-                        .antMatchers(HttpMethod.DELETE, "/*/users/**").hasRole("USER") // 특정 회원 삭제(탈퇴), 일반 사용자(USER) 권한만 가진 사용자만 접근
-                        .antMatchers(HttpMethod.POST, "/*/messages/**").hasRole("USER") // 편지 작성, 일반 사용자(USER) 권한만 가진 사용자만 접근
-                        .antMatchers(HttpMethod.GET, "/*/messages").hasRole("USER") // 편지 목록 조회, 일반 사용자(USER) 권한만 가진 사용자만 접근
-                        .antMatchers(HttpMethod.GET, "/*/messages/**").permitAll() // 특정 편지 조회, 누구나 접근(회원&비회원)
-                        .antMatchers(HttpMethod.POST, "/*/auth/logout","/*/auth/reissue").permitAll() // 임시
-                        .anyRequest().permitAll()); // 나머지는 리소스에 대한 요청은 모든 접근 가능
+                        // FIXME
+                        // member
+//                        .antMatchers(HttpMethod.POST, "/*/users/**").permitAll()
+//                        .antMatchers(HttpMethod.GET, "/*/users").hasRole("ADMIN")
+//                        .antMatchers(HttpMethod.GET, "/*/users/**").hasAnyRole("USER", "ADMIN")
+//                        .antMatchers(HttpMethod.PATCH, "/*/users/**").hasRole("USER")
+//                        .antMatchers(HttpMethod.DELETE, "/*/users/**").hasRole("USER")
+//                        // message
+//                        .antMatchers(HttpMethod.POST, "/*/messages/**").hasRole("USER")
+//                        .antMatchers(HttpMethod.GET, "/*/messages").hasRole("USER")
+//                        .antMatchers(HttpMethod.GET, "/*/messages/**").permitAll()
+//                        // auth
+//                        .antMatchers(HttpMethod.POST, "/*/auth/logout","/*/auth/reissue").permitAll()   // FIXME
+//                        .anyRequest().permitAll()); // 그 외 모두 허용
+                        .anyRequest().permitAll())
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberRepository)));
         return http.build();
     }
 
@@ -80,8 +95,12 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setExposedHeaders(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowedOrigins(Arrays.asList("*")); // 모든 출처(Origin)에 대해 스크립트 기반의 HTTP통신 허용
         configuration.setAllowedMethods(Arrays.asList("OPTIONS","GET","POST", "PATCH", "DELETE")); // 파라미터로 지정한 HTTP Method에 대한 HTTP통신 허용
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(); // CorsConfigurationSource 인터페이스의 구현 클래스인 UrlBasedCorsConfigurationSource 클래스의 객체를 생성
         source.registerCorsConfiguration("/**", configuration); // 모든 URL 앞에서 구성한 CORS정책(CorsConfiguration)을 적용
         return source;
@@ -110,7 +129,9 @@ public class SecurityConfiguration {
                     .addFilter(jwtAuthenticationFilter) // JwtAuthenticationFilter를 Spring Security Filter Chain에 추가
                     .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class) // jwtVerificationFilter가 JwtAuthenticationFilter가 수행된 바로 다음에 동작하도록 함
                     .addFilterAfter(jwtReissueFilter, JwtVerificationFilter.class)
-                    .addFilterAfter(jwtLogoutFilter, JwtVerificationFilter.class);
+//                    .addFilterAfter(jwtLogoutFilter, JwtVerificationFilter.class);
+                    .addFilterAfter(jwtLogoutFilter, JwtVerificationFilter.class)
+                    .addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class);
         }
     }
 }
