@@ -59,27 +59,9 @@ function Modal(props) {
     };
   }, []);
 
-  //모달 열렸는지, 닫혔는지
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const el = useRef();
-  //모달 영역 밖 클릭시 모달 닫기
-  const handleCloseModal = ({ target }) => {
-    if (isModalOpen && !el.current.contains(target)) setIsModalOpen(false);
-  };
-
-  useEffect(() => {
-    window.addEventListener("click", handleCloseModal);
-    return () => {
-      window.removeEventListener("click", handleCloseModal);
-    };
-  });
-
-  console.log(el);
-
   return (
     <ModalBack>
       <ModalContainer
-        ref={el}
         ContainerHeight={props.ContainerHeight}
         ContainerWidth={props.ContainerWidth}
       >

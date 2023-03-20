@@ -38,7 +38,6 @@ function WriteLetter() {
     "클로버",
   ];
   const modalRef = useRef();
-
   const {
     transcript,
     listening,
@@ -78,29 +77,38 @@ function WriteLetter() {
 
   const handleThemeLeft = () => {
     if (letterTheme.indexOf(currentLetterTheme) === 0) {
-      setCurrentLetterTheme(letterTheme.length - 1);
+      setCurrentLetterTheme(letterTheme[letterTheme.length - 1]);
     } else {
       setCurrentLetterTheme(
         letterTheme[letterTheme.indexOf(currentLetterTheme) - 1]
       );
     }
   };
+  const handleThemeRight = () => {
+    if (letterTheme.indexOf(currentLetterTheme) === letterTheme.length - 1) {
+      setCurrentLetterTheme(letterTheme[0]);
+    } else {
+      setCurrentLetterTheme(
+        letterTheme[letterTheme.indexOf(currentLetterTheme) + 1]
+      );
+    }
+  };
 
+  useEffect(() => {
+    console.log(currentLetterTheme);
+  }, [currentLetterTheme]);
   return (
     <W.PageContainer onClick={handleModal}>
       {openExplaination || openSendMe ? <W.ExplainationBackground /> : <></>}
       {openSendMe ? (
         <Modal
-          modalRef={modalRef}
           ContainerHeight={"350px"}
           children={
             <SendMeModal
               modalRef={modalRef}
               startDate={startDate}
               setStartDate={setStartDate}
-              openSendMe={openSendMe}
               setOpenSendMe={setOpenSendMe}
-              sendMeChecked={sendMeChecked}
               setSendMeChecked={setSendMeChecked}
             />
           }
@@ -178,7 +186,11 @@ function WriteLetter() {
             </W.BallonWrapper>
           </W.LetterWrapper>
           <W.ThemeIcon>
-            <MdArrowForwardIos className="arrow-forward-icon" size="30" />
+            <MdArrowForwardIos
+              onClick={handleThemeRight}
+              className="arrow-forward-icon"
+              size="30"
+            />
           </W.ThemeIcon>
         </W.FlexWrapper2>
         <W.ButtonContainer>
