@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import * as M from "./Mainstyled";
 import { SectionsContainer, Section } from "react-fullpage";
 import { BsEnvelope } from "react-icons/bs";
+import { useLocation } from "react-router-dom";
 // ! 공백
 let options = {
   anchors: [
@@ -15,6 +16,12 @@ let options = {
 };
 // ! 공백
 function Main() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <M.MainWrap>
       <SectionsContainer {...options}>
@@ -104,7 +111,7 @@ function Main() {
                 편지지를 넘겨 원하는 테마를 골라보세요. <br /> 편지 작성이 완료
                 되었다면, 원하는 주소명으로 <br /> 만들어집니다. <br /> 
                 <p className="ex">
-                  예시) https://sendy/letter/친구야-생일-축하해
+                  예시&#41; https://sendy/letter/친구야-생일-축하해
                 </p>
               </M.SubContents>
               <M.Button>
