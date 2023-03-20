@@ -23,6 +23,11 @@ export const FONT_STYLE_V1 = {
       font-size: 1.4rem;
       color: ${PALETTE_V1.text_primary};
     `,
+    title_16_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 1.6rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
     title_20_medium: css`
       font-family: "Pretendard-Medium";
       font-size: 2rem;
@@ -50,6 +55,16 @@ export const FONT_STYLE_V1 = {
     `,
   },
   body: {
+    body_4_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 0.4rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_6_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 0.6rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
     body_8_light: css`
       font-family: "Pretendard-Light";
       font-size: 0.8rem;
