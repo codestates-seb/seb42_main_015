@@ -2,7 +2,6 @@ import styled from "styled-components";
 import BREAKPOINTMOBILE from "../../breakpoint";
 import { FONT_STYLE_READ, FONT_STYLE_LOGIN } from "../../style/fontStyle";
 import { PALETTE_V1 } from "../../style/color";
-
 import pwd from "../../asset/pwd.png";
 import email from "../../asset/mail.png";
 
@@ -18,13 +17,13 @@ export const Wrapper = styled.div`
   .ReadContainer {
     display: flex;
     align-items: center;
-    background: orange;
+    /* background: orange; */
     flex-direction: column;
     .top-sub {
       display: flex;
       justify-content: space-evenly;
       margin: 0 0 0 25rem;
-      /* background: orange; */
+      background: orange;
 
       .speech-icon {
         cursor: pointer;
