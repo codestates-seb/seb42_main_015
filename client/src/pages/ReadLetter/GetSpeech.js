@@ -17,7 +17,7 @@ export const getSpeech = (text) => {
     const lang = "ko-KR";
     const utterThis = new SpeechSynthesisUtterance(txt);
     //rate : speech 속도 조절 (기본값 1 / 조절 0.1 ~ 10 -> 숫자가 클수록 속도가 빠름 )
-    const rate = 0.9;
+    const rate = 0.8;
 
     utterThis.lang = lang;
     utterThis.rate = rate;
@@ -41,4 +41,8 @@ export const getSpeech = (text) => {
   };
 
   speech(text);
+};
+
+export const pauseSpeech = () => {
+  window.speechSynthesis.cancel();
 };

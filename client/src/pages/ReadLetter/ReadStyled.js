@@ -21,19 +21,29 @@ export const Wrapper = styled.div`
     .top-sub {
       display: flex;
       justify-content: space-evenly;
-      margin: 0 0 0 25.5rem;
-
-      .speech-icon {
+      margin: 0 0 0 22rem;
+      .soundButtons {
+        display: flex;
+        justify-content: space-evenly;
+        background: #d3d3d3;
+        border-radius: 3rem;
+        padding: 5px 5px;
+        width: 6rem;
+        height: 2.5rem;
+        margin-top: 0.2rem;
         cursor: pointer;
-        border-radius: 50%;
-        padding: 7px;
+      }
+      .speech-icon,
+      pause-icon {
+        padding: 3px;
+      }
+      .active-icon {
         &:hover {
-          background-color: ${PALETTE_V1.yellow_modal_button};
+          padding: 3px;
+          background: white;
+          border-radius: 50%;
         }
       }
-    }
-    .active-icon {
-      background-color: ${PALETTE_V1.yellow_modal_button};
     }
   }
 `;
@@ -178,7 +188,6 @@ export const Letterpaper = styled(FlexColunmWrapper)`
 `;
 
 export const Buttons = styled.div`
-  /* background: skyblue; */
   display: flex;
   align-items: center;
   height: 6rem;
@@ -186,12 +195,10 @@ export const Buttons = styled.div`
 
   > div {
     display: flex;
-    flex-grow: 1;
     padding-left: 1.5rem;
   }
   .goback {
     display: flex;
-    flex-grow: 5;
     margin: 0.2rem 10rem 0 -25rem;
     cursor: pointer;
     /* &:hover {
