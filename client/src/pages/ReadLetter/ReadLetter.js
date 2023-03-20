@@ -1,24 +1,29 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import * as R from "./ReadStyled";
 import { PALETTE_V1 } from "../../style/color";
+import domtoimage from "dom-to-image";
+import { saveAs } from "file-saver";
 import SecretLetter from "./SecetLetter";
 import ShadowButton from "../commons/ShadowButton";
 import Modal from "../commons/Modal";
 import LoginModal from "./LoginModal";
-import domtoimage from "dom-to-image";
-import { saveAs } from "file-saver";
+import { AiOutlineSound } from "react-icons/ai";
+import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
+import { getSpeech } from "./GetSpeech";
 
 const ReadLetter = ({ isLogin }) => {
   //비밀번호 쳤는지 안쳤는지
   const [enterPassword, setEnterPassword] = useState(false);
   //보관하기를 클릭했을 때 비로그인(저장X)인지 로그인(저장준비 완료)아닌지
   const [isKeeping, setIsKeeping] = useState(false);
+
   //'보관하기' 버튼 누르면 모달 나오는 이벤트 핸들러
   const handleKeeping = () => {
     setIsKeeping(!isKeeping);
   };
 
-  //! 미리보기 사진 저장 기능
+  //! 이미지 저장 기능
   //useRef로 -> DOM 선택
   const LetterRef = useRef();
   //이미지로 저장하기 버튼
@@ -29,15 +34,60 @@ const ReadLetter = ({ isLogin }) => {
     });
   };
 
+  //! 모달 영역 밖 클릭 시 모달 닫기
+  const ModalRef = useRef();
+  const handleModal = (e) => {
+    if (isKeeping && !ModalRef.current.contains(e.target)) {
+      setIsKeeping(false);
+    }
+  };
+
+  //! 음성 tts api
+  //음성 value 상태
+  // const [voiceValue, voiceSetValue] = useState(`${R.LetterEx}`);
+  // const voiceValue = `${R.LetterEx}`;
+  const voiceValue = "안녕 디지몬 방가방가 반가워요";
+  //icons active 상태
+  const [activeIcon, setActiveIcon] = useState(false);
+  //버튼 한번 눌렀는지 두번 눌렀는지
+  const [isClickTwice, setIsClickTwice] = useState(false);
+
+  const handleSpeechButton = (e) => {
+    if (!activeIcon && !activeIcon) {
+      getSpeech(voiceValue);
+      setActiveIcon(!activeIcon);
+      setIsClickTwice(true);
+    } else if (activeIcon) {
+      getSpeech("");
+    }
+    setActiveIcon(!activeIcon);
+  };
+
+  // const handleSpeechButton = (e) => {};
+
+  //음성 변환 목소리 preload
+  useEffect(() => {
+    window.speechSynthesis.getVoices();
+  }, [activeIcon]);
+
   return (
     <>
       {isLogin || enterPassword ? (
         <R.Wrapper>
-          <div className="ReadContainer">
-            <R.EnterSeret>
-              비밀번호
-              <input placeholder="****" />
-            </R.EnterSeret>
+          <div className="ReadContainer" onClick={handleModal}>
+            <div className="top-sub">
+              <AiOutlineSound
+                size="42"
+                onClick={handleSpeechButton}
+                className={
+                  activeIcon ? "active-icon speech-icon" : "speech-icon"
+                }
+              />
+              <R.EnterSeret>
+                비밀번호
+                <input placeholder="****" />
+              </R.EnterSeret>
+            </div>
             <R.Letterpaper ref={LetterRef}>
               <div className="top">
                 <div className="to">To. 김햄찌</div>
@@ -47,6 +97,13 @@ const ReadLetter = ({ isLogin }) => {
               <div className="from">From. 오디토</div>
             </R.Letterpaper>
             <R.Buttons>
+              {isLogin ? (
+                <Link to="/letterbox">
+                  <HiOutlineArrowUturnLeft size="30" className="goback" />
+                </Link>
+              ) : (
+                <></>
+              )}
               <ShadowButton
                 backgroundColor={PALETTE_V1.yellow_button}
                 state="none-block"
@@ -72,7 +129,11 @@ const ReadLetter = ({ isLogin }) => {
               )}
               {isKeeping ? (
                 <R.ModalBackground>
-                  <Modal ContainerHeight={"350px"} children={<LoginModal />} />
+                  <Modal
+                    ModalRef={ModalRef}
+                    ContainerHeight={"500px"}
+                    children={<LoginModal ModalRef={ModalRef} />}
+                  />
                 </R.ModalBackground>
               ) : (
                 <></>
@@ -119,8 +180,8 @@ export default ReadLetter;
   - 로그인되면 로그인 상태로 변환 (헤더 등)
   - 로그인 후 보관하기 버튼 누르면 -> 보관 모드로 상태 변경
   - 왼쪽 되돌아가기 버튼 -> 우편함으로 이동 "/letterbox"
-! 음성 APi
-  - 편지를 읽어주는 기능 -> 검색하기
+//! 음성 APi
+  //- 편지를 읽어주는 기능 -> 검색하기
 
 ! 3/17 오늘 끝내야 할일
 //0. 편지 정보 위치 지정하기
@@ -133,9 +194,9 @@ export default ReadLetter;
   //- 로그인 reaco-form 
 
 ! 3/20 오늘 할일
-  1. 보관완료 상태가 되면 ->  왼쪽 되돌아가기 버튼 -> 우편함으로 이동 "/letterbox"
-  2 편지 읽어주는 기능 추가
-  3. 로그인 모달 밖 영역 누르면 모달 닫기
+  //1. 보관완료 상태가 되면 ->  왼쪽 되돌아가기 버튼 -> 우편함으로 이동 "/letterbox"
+  //2. 음성 APi -> 편지 읽어주는 기능 추가
+  //3. 로그인 모달 밖 영역 누르면 모달 닫기
 
 ! 로그인 / 비로그인 시 로직
 ? 비회원일시

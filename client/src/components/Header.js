@@ -13,7 +13,7 @@ const HeaderComponent = styled.header`
   width: 100%;
   height: 60px;
   position: sticky;
-  z-index: 999;
+  z-index: 90;
 `;
 
 const HeaderContainer = styled.div`
