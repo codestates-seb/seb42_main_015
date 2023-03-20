@@ -8,20 +8,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-@RequiredArgsConstructor
 @RestController
-@RequestMapping("/sendy/File")
+@RequestMapping("/sendy/file")
+@RequiredArgsConstructor
 public class AwsS3Controller {
     private final AwsS3Service awsS3Service;
 
     @PostMapping("/upload")
     public ResponseEntity postFile(@RequestParam("images") MultipartFile multipartFile) throws IOException {
-        return new ResponseEntity<>(awsS3Service.uploadFile(multipartFile), HttpStatus.CREATED);
+        return new ResponseEntity<>(awsS3Service.uploadS3(multipartFile), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteFile(@RequestParam("images") String s3FileName) {
-        awsS3Service.deleteFile(s3FileName);
+        awsS3Service.deleteS3(s3FileName);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

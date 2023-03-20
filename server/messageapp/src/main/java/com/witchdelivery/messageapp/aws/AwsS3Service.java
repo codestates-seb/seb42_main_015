@@ -1,6 +1,6 @@
 package com.witchdelivery.messageapp.aws;
 
-import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.witchdelivery.messageapp.exception.BusinessLogicException;
@@ -17,26 +17,37 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AwsS3Service {
     @Value("${cloud.aws.s3.bucket}")
-    private String bucket;
-
-    private final AmazonS3 amazonS3;
+    private String s3BucketName;
+    private final AmazonS3Client amazonS3Client;
 
     // 단일 파일 업로드
-    public String uploadFile(MultipartFile multipartFile) throws IOException {
-        if (multipartFile.getSize() > 1024 * 1024 * 6)  // 용량 검증
-            throw new BusinessLogicException(ExceptionCode.MAX_FILE_SIZE_EXCEEDED); // 400
+    public String uploadS3(MultipartFile multipartFile) throws IOException {
+        findVerifiedFile(multipartFile);    // 파일 검증
+        verifiedExistedFile(multipartFile); // 용량 검증
 
         String s3FileName = UUID.randomUUID() + "-" + multipartFile.getOriginalFilename();  // UUID로 생성한 랜덤값 + "-" + 원래 파일명
 
-        ObjectMetadata objMeta = new ObjectMetadata();
-        objMeta.setContentLength(multipartFile.getInputStream().available());
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(multipartFile.getInputStream().available());
 
-        amazonS3.putObject(bucket, s3FileName, multipartFile.getInputStream(), objMeta);
+        amazonS3Client.putObject(s3BucketName, s3FileName, multipartFile.getInputStream(), objectMetadata);
 
-        return amazonS3.getUrl(bucket, s3FileName).toString();
+        return amazonS3Client.getUrl(s3BucketName, s3FileName).toString();
     }
 
-    public void deleteFile(String s3FileName) {
-        amazonS3.deleteObject(new DeleteObjectRequest(bucket, s3FileName));
+    public void deleteS3(String s3FileName) {
+        amazonS3Client.deleteObject(new DeleteObjectRequest(s3BucketName, s3FileName));
+    }
+
+    // 파일 검증
+    private void findVerifiedFile(MultipartFile multipartFile) {
+        if (multipartFile.isEmpty())
+            throw new BusinessLogicException(ExceptionCode.FILE_NOT_FOUND); // 404
+    }
+
+    // 용량 검증
+    private void verifiedExistedFile(MultipartFile multipartFile) {
+        if (multipartFile.getSize() > 1024 * 1024 * 4)
+            throw new BusinessLogicException(ExceptionCode.FILE_SIZE_EXCEEDED); // 400
     }
 }

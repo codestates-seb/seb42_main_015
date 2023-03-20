@@ -4,46 +4,41 @@ import com.witchdelivery.messageapp.auth.utils.CustomAuthorityUtils;
 import com.witchdelivery.messageapp.exception.BusinessLogicException;
 import com.witchdelivery.messageapp.exception.ExceptionCode;
 import com.witchdelivery.messageapp.utils.CustomBeanUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final CustomAuthorityUtils authorityUtils;
-    private final CustomBeanUtils<Member> beanUtils;
+    private final CustomAuthorityUtils customAuthorityUtils;
+    private final CustomBeanUtils<Member> customBeanUtils;
 
-    public MemberService(MemberRepository memberRepository,
-                         PasswordEncoder passwordEncoder,
-                         CustomAuthorityUtils authorityUtils,
-                         CustomBeanUtils<Member> beanUtils) {
-        this.memberRepository = memberRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.authorityUtils = authorityUtils;
-        this.beanUtils = beanUtils;
-    }
+    public Member createMember(MemberPostDto memberPostDto) {
+        verifiedExistedEmail(memberPostDto.getEmail());    // 이메일 검증
+        verifiedExistedName(memberPostDto.getNickname());    // 닉네임 검증
 
-    public Member createMember(Member member) {
-        verifiedExistedEmail(member.getEmail());    // 이메일 검증
-        verifiedExistedName(member.getMemberName());    // 닉네임 검증
+        Member member = Member.builder()
+                .email(memberPostDto.getEmail())
+                .password(memberPostDto.getPassword())
+                .nickname(memberPostDto.getNickname())
+                .build();
 
-        String encryptedPassword = passwordEncoder.encode(member.getPassword()); // 패스워드 암호화
-        member.setPassword(encryptedPassword); // 암호화된 패스워드를 password 필드에 재할당
-
-        List<String> roles = authorityUtils.createRoles(member.getEmail()); // 사용자 권한
-        member.setRoles(roles);
-
+        member.authorizeUser(customAuthorityUtils);
+        member.passwordEncode(passwordEncoder);
         return memberRepository.save(member);
     }
 
     public Member findMember(Long memberId) {
-        return findVerifiedMember(memberId);
+        return findVerifiedMember(memberId);       // 사용자 검증
     }
 
     public Page<Member> findMembers(int page, int size) {
@@ -52,15 +47,15 @@ public class MemberService {
     }
 
     public Member updateMember(Member member) {
-        Member findMember = findVerifiedMember(member.getMemberId());
-        verifiedExistedName(member.getMemberName());    // 닉네임 검증
-        beanUtils.copyNonNullProperties(member, findMember);
+        Member findMember = findVerifiedMember(member.getMemberId());   // 사용자 검증
+        verifiedExistedName(member.getNickname());    // 닉네임 검증
+        customBeanUtils.copyNonNullProperties(member, findMember);
         return memberRepository.save(findMember);
     }
 
     public void deleteMember(Long memberId) {
         Member findMember = findVerifiedMember(memberId);  // 사용자 검증
-        memberRepository.delete(findMember);    // TODO 사용자 탈퇴 시, 관련 데이터 일괄 삭제
+        memberRepository.delete(findMember);    // TODO 로직 수정
     }
 
     // 사용자 검증
@@ -77,8 +72,8 @@ public class MemberService {
     }
 
     // 닉네임 검증
-    public void verifiedExistedName(String memberName) {
-        Optional<Member> member = memberRepository.findByMemberName(memberName);
+    public void verifiedExistedName(String nickname) {
+        Optional<Member> member = memberRepository.findByNickname(nickname);
         if (member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_NAME_EXISTS);    // 409
     }
