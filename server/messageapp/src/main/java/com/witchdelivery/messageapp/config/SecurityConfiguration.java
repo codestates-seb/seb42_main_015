@@ -17,6 +17,7 @@ import com.witchdelivery.messageapp.oauth.OAuth2MemberSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -65,23 +66,21 @@ public class SecurityConfiguration {
                 .and()
 
                 .authorizeHttpRequests(authorize -> authorize
-                        // FIXME
                         // member
-//                        .antMatchers(HttpMethod.POST, "/*/users/**").permitAll()
-//                        .antMatchers(HttpMethod.GET, "/*/users").hasRole("ADMIN")
-//                        .antMatchers(HttpMethod.GET, "/*/users/**").hasAnyRole("USER", "ADMIN")
-//                        .antMatchers(HttpMethod.PATCH, "/*/users/**").hasRole("USER")
-//                        .antMatchers(HttpMethod.DELETE, "/*/users/**").hasRole("USER")
-//                        // message
-//                        .antMatchers(HttpMethod.POST, "/*/messages/**").hasRole("USER")
-//                        .antMatchers(HttpMethod.GET, "/*/messages").hasRole("USER")
-//                        .antMatchers(HttpMethod.GET, "/*/messages/**").permitAll()
-//                        // auth
-//                        .antMatchers(HttpMethod.POST, "/*/auth/logout","/*/auth/reissue").permitAll()   // FIXME
-//                        .anyRequest().permitAll()); // 그 외 모두 허용
+                        .antMatchers(HttpMethod.POST, "/*/users/**").permitAll()
+                        .antMatchers(HttpMethod.GET, "/*/users").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.GET, "/*/users/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.PATCH, "/*/users/**").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/*/users/**").hasRole("USER")
+                        // message
+                        .antMatchers(HttpMethod.POST, "/*/messages/**").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/*/messages").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/*/messages/**").permitAll()
+                        // auth
+                        .antMatchers(HttpMethod.POST, "/*/auth/logout","/*/auth/reissue").permitAll()   // FIXME
                         .anyRequest().permitAll())
                 .oauth2Login(oauth2 -> oauth2
-                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberRepository)));
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberRepository, redisService)));
         return http.build();
     }
 

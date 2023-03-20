@@ -1,10 +1,12 @@
 package com.witchdelivery.messageapp.oauth;
 
 import com.witchdelivery.messageapp.auth.jwt.JwtTokenizer;
+import com.witchdelivery.messageapp.auth.service.RedisService;
 import com.witchdelivery.messageapp.auth.utils.CustomAuthorityUtils;
 import com.witchdelivery.messageapp.member.Member;
 import com.witchdelivery.messageapp.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -18,11 +20,13 @@ import java.util.List;
 import java.util.Map;
 
 // OAuth2MemberSuccessHandler : OAuth 2 인증에 성공하면 호출되는 핸들러
+@Slf4j
 @RequiredArgsConstructor
 public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtTokenizer jwtTokenizer;    // 로그인 인증에 성공한 클라이언트에게 검증된 JWT를 생성 및 발급
     private final CustomAuthorityUtils customAuthorityUtils;    // 검증된 JWT의 Authentication 객체에 채울 사용자의 권한을 생성
     private final MemberRepository memberRepository;
+    private final RedisService redisService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
@@ -43,6 +47,12 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         response.setHeader("Refresh", refreshToken);
 
         response.addHeader(accessToken, refreshToken);
+
+        /*현재 refresh token을 키로 하는 데이터가 없으면 refresh token 레디스에 저장*/
+        if (redisService.getRefreshToken(refreshToken) == null) {
+            redisService.setRefreshToken(refreshToken, email, jwtTokenizer.getRefreshTokenExpirationMinutes());
+            log.info("Set refresh token in Redis");
+        }
 
         createOAuthMember(email, nickname, profileImageUrl);  // Resource Owner의 정보를 DB에 저장
     }
