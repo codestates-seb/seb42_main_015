@@ -40,31 +40,30 @@ const ReadLetter = ({ isLogin }) => {
     if (isKeeping && !ModalRef.current.contains(e.target)) {
       setIsKeeping(false);
     }
-    console.log(e.target);
-    console.log(ModalRef.current);
   };
 
   //! 음성 tts api
   //음성 value 상태
   // const [voiceValue, voiceSetValue] = useState(`${R.LetterEx}`);
-  const [voiceValue, voiceSetValue] = useState("안녕 디지몬 방가방가 반가워요");
+  // const voiceValue = `${R.LetterEx}`;
+  const voiceValue = "안녕 디지몬 방가방가 반가워요";
   //icons active 상태
   const [activeIcon, setActiveIcon] = useState(false);
   //버튼 한번 눌렀는지 두번 눌렀는지
   const [isClickTwice, setIsClickTwice] = useState(false);
 
-  console.log(voiceValue);
-
   const handleSpeechButton = (e) => {
-    if (activeIcon === false) {
+    if (!activeIcon && !activeIcon) {
       getSpeech(voiceValue);
       setActiveIcon(!activeIcon);
-    } else {
-      getSpeech(".");
-      setActiveIcon(!activeIcon);
+      setIsClickTwice(true);
+    } else if (activeIcon) {
+      getSpeech("");
     }
     setActiveIcon(!activeIcon);
   };
+
+  // const handleSpeechButton = (e) => {};
 
   //음성 변환 목소리 preload
   useEffect(() => {
@@ -181,8 +180,8 @@ export default ReadLetter;
   - 로그인되면 로그인 상태로 변환 (헤더 등)
   - 로그인 후 보관하기 버튼 누르면 -> 보관 모드로 상태 변경
   - 왼쪽 되돌아가기 버튼 -> 우편함으로 이동 "/letterbox"
-! 음성 APi
-  - 편지를 읽어주는 기능 -> 검색하기
+//! 음성 APi
+  //- 편지를 읽어주는 기능 -> 검색하기
 
 ! 3/17 오늘 끝내야 할일
 //0. 편지 정보 위치 지정하기
@@ -195,9 +194,9 @@ export default ReadLetter;
   //- 로그인 reaco-form 
 
 ! 3/20 오늘 할일
-  1. 보관완료 상태가 되면 ->  왼쪽 되돌아가기 버튼 -> 우편함으로 이동 "/letterbox"
-  2. 음성 APi -> 편지 읽어주는 기능 추가
-  3. 로그인 모달 밖 영역 누르면 모달 닫기
+  //1. 보관완료 상태가 되면 ->  왼쪽 되돌아가기 버튼 -> 우편함으로 이동 "/letterbox"
+  //2. 음성 APi -> 편지 읽어주는 기능 추가
+  //3. 로그인 모달 밖 영역 누르면 모달 닫기
 
 ! 로그인 / 비로그인 시 로직
 ? 비회원일시

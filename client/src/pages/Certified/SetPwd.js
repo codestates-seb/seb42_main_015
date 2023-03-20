@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as C from "./SetPwdStyled";
 import { AiOutlineArrowRight, AiOutlineEnter } from "react-icons/ai";
 import { BsEnvelopeAt } from "react-icons/bs";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -50,82 +50,139 @@ function SetPwd() {
   return (
     <C.SetPwdWrap>
       <C.CardBox />
-      <C.SetPwdContainer>
-        <C.LeftBox>
-          {page === undefined && (
-            <C.Text>
-              비밀번호 변경을 위해 <br /> 이메일 인증이 필요합니다.
-            </C.Text>
-          )}
-          {page === "2" && (
-            <C.Text>
-              이메일로 전송된 <br /> 인증번호를 입력해주세요.
-            </C.Text>
-          )}
-          {page === "3" && <C.Text>변경할 비밀번호를 설정해주세요.</C.Text>}
-        </C.LeftBox>
-        <C.RightBox>
-          <C.SetPwdTitle>Password</C.SetPwdTitle>
-          {page === undefined && (
-            <C.InputWrap>
-              <C.EmailLabel>Email</C.EmailLabel>
-              <C.EmailInputForm onSubmit={handleSubmit(onSubmit)}>
-                <BsEnvelopeAt />
-                <C.EmailInput
-                  type="email"
-                  name="email"
-                  placeholder="email address"
-                  {...register("email")}
-                />
-                <AiOutlineEnter />
-              </C.EmailInputForm>
-              {errors.email && <C.ErrorMsg>{errors.email.message}</C.ErrorMsg>}
-            </C.InputWrap>
-          )}
-          {page === "2" && (
-            <C.InputWrap>
-              <C.AuthLabel>번호를 차례대로 입력해주세요.</C.AuthLabel>
-              <C.AuthInputBox>
-                <C.AuthInput />
-                <C.AuthInput />
-                <C.AuthInput />
-                <C.AuthInput />
-                <C.AuthInput />
-              </C.AuthInputBox>
-            </C.InputWrap>
-          )}
-          {page === "3" && (
-            <C.InputWrap>
-              <C.SetPwdLabel>Password</C.SetPwdLabel>
-              <C.SetPwdBox>
-                <C.SetPwdInput
-                  name="password"
-                  type="password"
-                  {...register("password")}
-                />
-              </C.SetPwdBox>
-              {errors.password && <C.ErrorMsg>{errors.password.message}</C.ErrorMsg>}
-              <C.SetPwdLabel>Password Confirm</C.SetPwdLabel>
-              <C.SetPwdBox>
-                <C.SetPwdInput
-                  type="password"
-                  name="passwordConfirm"
-                  {...register("passwordConfirm")}
-                />
-              </C.SetPwdBox>
-              {errors.passwordConfirm && (
-                <C.ErrorMsg>{errors.passwordConfirm.message}</C.ErrorMsg>
-              )}
-              <C.ButtonBox>
-                <C.Button>확인</C.Button>
-              </C.ButtonBox>
-            </C.InputWrap>
-          )}
-          {(page === undefined || page === "2") && (
-            <AiOutlineArrowRight className="next" onClick={handleNext} />
-          )}
-        </C.RightBox>
-      </C.SetPwdContainer>
+      {page !== "4" && (
+        <C.SetPwdContainer>
+          <C.LeftBox>
+            {page === undefined && (
+              <C.Text>
+                비밀번호 변경을 위해 <br /> 이메일 인증이 필요합니다.
+              </C.Text>
+            )}
+            {page === "2" && (
+              <C.Text>
+                이메일로 전송된 <br /> 인증번호를 입력해주세요.
+              </C.Text>
+            )}
+            {page === "3" && <C.Text>변경할 비밀번호를 설정해주세요.</C.Text>}
+          </C.LeftBox>
+          <C.RightBox>
+            <C.SetPwdTitle>Password</C.SetPwdTitle>
+            {page === undefined && (
+              <C.InputWrap>
+                <C.EmailLabel>Email</C.EmailLabel>
+                <C.EmailInputForm onSubmit={handleSubmit(onSubmit)}>
+                  <BsEnvelopeAt />
+                  <C.EmailInput
+                    type="email"
+                    name="email"
+                    placeholder="email address"
+                    {...register("email")}
+                  />
+                  <AiOutlineEnter />
+                </C.EmailInputForm>
+                {errors.email && (
+                  <C.ErrorMsg>{errors.email.message}</C.ErrorMsg>
+                )}
+              </C.InputWrap>
+            )}
+            {page === "2" && (
+              <C.InputWrap>
+                <C.AuthLabel>번호를 차례대로 입력해주세요.</C.AuthLabel>
+                <C.AuthInputBox>
+                  <C.AuthInput />
+                  <C.AuthInput />
+                  <C.AuthInput />
+                  <C.AuthInput />
+                  <C.AuthInput />
+                </C.AuthInputBox>
+              </C.InputWrap>
+            )}
+            {page === "3" && (
+              <C.InputWrap>
+                <C.SetPwdLabel>Password</C.SetPwdLabel>
+                <C.SetPwdBox>
+                  <C.SetPwdInput
+                    name="password"
+                    type="password"
+                    {...register("password")}
+                  />
+                </C.SetPwdBox>
+                {errors.password && (
+                  <C.ErrorMsg>{errors.password.message}</C.ErrorMsg>
+                )}
+                <C.SetPwdLabel>Password Confirm</C.SetPwdLabel>
+                <C.SetPwdBox>
+                  <C.SetPwdInput
+                    type="password"
+                    name="passwordConfirm"
+                    {...register("passwordConfirm")}
+                  />
+                </C.SetPwdBox>
+                {errors.passwordConfirm && (
+                  <C.ErrorMsg>{errors.passwordConfirm.message}</C.ErrorMsg>
+                )}
+                <C.ButtonBox>
+                  <C.Button onClick={handleNext}>확인</C.Button>
+                </C.ButtonBox>
+              </C.InputWrap>
+            )}
+            {(page === undefined || page === "2") && (
+              <AiOutlineArrowRight className="next" onClick={handleNext} />
+            )}
+          </C.RightBox>
+        </C.SetPwdContainer>
+      )}
+      {page === "4" && (
+        <C.SetPwdContainer>
+          <C.SuccessContainer>
+            <C.SuccessImg
+              className="suc1"
+              src={require("../../asset/뽀시래기/보라 뽀시래기.png")}
+              alt=""
+            />
+            <C.SuccessImg
+              className="suc2"
+              src={require("../../asset/뽀시래기/빨주노 뽀시래기.png")}
+              alt=""
+            />
+            <C.SuccessImg
+              className="suc3"
+              src={require("../../asset/뽀시래기/초록 뽀시래기.png")}
+              alt=""
+            />
+            <C.SuccessImg
+              className="suc4"
+              src={require("../../asset/뽀시래기/파랑 뽀시래기.png")}
+              alt=""
+            />
+            <C.SuccessImg
+              className="suc5"
+              src={require("../../asset/뽀시래기/핑크 뽀시래기.png")}
+              alt=""
+            />
+            <C.SuccessImg
+              className="suc6"
+              src={require("../../asset/뽀시래기/핑크 여러개 뽀시래기.png")}
+              alt=""
+            />
+            <C.SuccessImg
+              className="suc7"
+              src={require("../../asset/뽀시래기/하트 뽀시래기.png")}
+              alt=""
+            />
+
+            <C.SuccessTitle>비밀번호 변경 완료</C.SuccessTitle>
+            <C.SuccessContent>
+              비밀번호 변경이 완료되었습니다.
+              <br />
+              로그인 페이지에서 로그인 해주세요.
+            </C.SuccessContent>
+            <Link to="/login">
+              <C.SuccessButton>Log in</C.SuccessButton>
+            </Link>
+          </C.SuccessContainer>
+        </C.SetPwdContainer>
+      )}
     </C.SetPwdWrap>
   );
 }
