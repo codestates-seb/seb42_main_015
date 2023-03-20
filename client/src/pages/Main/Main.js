@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import * as M from "./Mainstyled";
 import { SectionsContainer, Section } from "react-fullpage";
 import { BsEnvelope } from "react-icons/bs";
+import { useLocation } from "react-router-dom";
 // ! 공백
 let options = {
   anchors: ["sendyOne", "sendyTwo", "sendyThree", "sendyFour", "sendyFive"],
