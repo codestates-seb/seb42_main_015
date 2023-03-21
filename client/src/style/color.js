@@ -9,6 +9,8 @@ export const PALETTE_V1 = {
   yellow_primary: "#fff59f",
   red_modal_button: "#FF4545",
   yellow_modal_button: "#FFCB12",
+  yellow_light: "#FFFCC0",
+  yellow_basic: "#FFE848",
   orange_dark: "#F09F40",
   green_modal_button: "#88E116",
   aready_keep_button: "#d3d3d3",

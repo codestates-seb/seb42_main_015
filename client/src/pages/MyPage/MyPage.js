@@ -27,9 +27,13 @@ function MyPage() {
       {openResignModal ? (
         <M.ResignBackground>
           <Modal
-            modalRef={modalRef}
             ContainerHeight={"350px"}
-            children={<ResignModal />}
+            children={
+              <ResignModal
+                modalRef={modalRef}
+                setOpenResignModal={setOpenResignModal}
+              />
+            }
           />
         </M.ResignBackground>
       ) : (
