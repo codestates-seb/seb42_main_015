@@ -84,16 +84,12 @@ const ReadLetter = ({ isLogin }) => {
                 <input placeholder="****" />
               </R.EnterSeret>
             </div>
-            {/* 테마 : background */}
-            <R.Letterpaper ref={LetterRef} background="#ffffff">
+            <R.Letterpaper ref={LetterRef}>
               <div className="top">
                 <div className="to">To. 김햄찌</div>
                 <div className="date">2023.03.17 금</div>
               </div>
-              {/* font : font */}
-              <div className="content" font="Pretendard-Light">
-                {R.LetterEx}
-              </div>
+              <div className="content">{R.LetterEx}</div>
               <div className="from">From. 오디토</div>
             </R.Letterpaper>
             <R.Buttons>

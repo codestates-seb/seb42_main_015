@@ -119,7 +119,7 @@ export const LogForm = styled.form`
       }
       p {
         color: red;
-        margin-bottom: -0.5rem;
+        margin-bottom: -1rem;
         font-size: 14px;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           font-size: 11px;
@@ -154,38 +154,6 @@ export const LogForm = styled.form`
           @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
             padding: 0 10px;
           }
-        }
-      }
-
-      label {
-        position: relative;
-      }
-      .duplicate {
-        position: absolute;
-        top: 2.4rem;
-        right: 0.7rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "Pretendard-Light";
-        font-size: 0.4rem;
-        border: 1px solid #505050;
-        background: ${(props) => props.backgroundcolor};
-        width: 3.7rem;
-        height: 1.5rem;
-        cursor: pointer;
-        border-radius: 50%;
-        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          width: 3rem;
-          height: 1.3rem;
-          font-size: 6px;
-          top: 1.7rem;
-        }
-
-        :hover {
-          box-shadow: 0px 0px 0px 1px transparent, 0px 0px 0px 4px transparent,
-            0px 6px 16px rgb(0 0 0 / 12%);
-          transform: scale(1.02);
         }
       }
     }

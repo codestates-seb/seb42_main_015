@@ -5,12 +5,11 @@ import {
   AiOutlineEnter,
   AiOutlineLock,
 } from "react-icons/ai";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import GNB from "./GNB";
-import ShadowButton from "../commons/ShadowButton";
 
 function PwdChange() {
   const navigate = useNavigate();
@@ -155,7 +154,9 @@ function PwdChange() {
                 <br />
                 로그인 페이지에서 로그인 해주세요.
               </M.SuccessContent>
-              <ShadowButton backgroundColor='#FFFB95' onClick={() => navigate('/login')}>Login</ShadowButton>
+              <Link to="/login">
+                <M.SuccessButton>Log in</M.SuccessButton>
+              </Link>
             </M.SuccessContainer>
           </M.SuccessWrap>
         )}
