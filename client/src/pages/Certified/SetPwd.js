@@ -88,7 +88,7 @@ function SetPwd() {
             )}
             {page === "2" && (
               <C.InputWrap>
-                <C.AuthLabel>번호를 차례대로 입력해주세요.</C.AuthLabel>
+                <C.AuthLabel>인증번호를 차례대로 입력해주세요.</C.AuthLabel>
                 <C.AuthInputBox>
                   <C.AuthInput />
                   <C.AuthInput />

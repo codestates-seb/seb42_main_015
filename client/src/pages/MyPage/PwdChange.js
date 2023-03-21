@@ -5,7 +5,7 @@ import {
   AiOutlineEnter,
   AiOutlineLock,
 } from "react-icons/ai";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
