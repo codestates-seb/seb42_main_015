@@ -3,12 +3,14 @@ import BREAKPOINTMOBILE from "../../breakpoint";
 import {
   FONT_STYLE_LOGIN,
   FONT_STYLE_LOGOUT,
-  FONT_STYLE_READ,
+  FONT_STYLE_V1,
 } from "../../style/fontStyle";
 import email from "../../asset/mail.png";
 import pwd from "../../asset/pwd.png";
 import user1 from "../../asset/user1.png";
+import * as P from "./SetPwdStyled";
 
+//TODO :로그인, 회원가입 영역
 export const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -19,6 +21,7 @@ export const Container = styled.div`
   padding-bottom: 70px;
 `;
 
+//TODO :로그인, 회원가입 노랑 백그라운드
 export const BackgroundYellow = styled.div`
   display: flex;
   /* position: relative; */
@@ -34,6 +37,7 @@ export const BackgroundYellow = styled.div`
   }
 `;
 
+//TODO :로그인, 회원가입 흰색 form
 export const LogForm = styled.form`
   position: absolute;
   display: flex;
@@ -281,6 +285,7 @@ export const LogForm = styled.form`
   }
 `;
 
+//TODO :로그아웃 완료 페이지
 export const LogoutForm = styled.div`
   display: flex;
   min-height: 80vh;
@@ -329,9 +334,9 @@ export const LogoutForm = styled.div`
       }
     }
     .text {
-      margin-top: 2rem;
       justify-content: center;
       ${FONT_STYLE_LOGOUT.title_20_medium}
+      font-size: 2.8rem;
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
         ${FONT_STYLE_LOGOUT.title_15_medium}
       }
@@ -343,7 +348,7 @@ export const LogoutForm = styled.div`
       ${FONT_STYLE_LOGOUT.title_14_medium}
       margin-top: 3rem;
       padding: 2px;
-      width: 15rem;
+      width: 13rem;
       height: 4.2rem;
       cursor: pointer;
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
@@ -375,3 +380,84 @@ export const LogoutForm = styled.div`
     }
   }
 `;
+
+//TODO :회원가입 완료 페이지
+export const CompleteContainer = styled.div`
+  width: 60rem;
+  height: 48rem;
+  margin-right: 1.5rem;
+  margin-bottom: 2.5rem;
+  display: flex;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 20rem;
+    height: 32rem;
+  }
+  button {
+    justify-content: center;
+    border: 1px solid black;
+    background-color: #fcfbf4;
+    ${FONT_STYLE_LOGOUT.title_11_medium}
+    margin-top: 2rem;
+    padding: 2px;
+    width: 10rem;
+    height: 3.5rem;
+    cursor: pointer;
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      margin-top: 2rem;
+      width: 10rem;
+      height: 3rem;
+      ${FONT_STYLE_LOGOUT.title_9_medium}
+    }
+  }
+`;
+
+export const CompleteTitle = styled.div`
+  margin: 2rem 0;
+  justify-content: center;
+  ${FONT_STYLE_LOGOUT.title_30_Light}
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    ${FONT_STYLE_LOGOUT.title_15_medium}
+  }
+`;
+
+export const SuccessImges = () => {
+  return (
+    <>
+      <P.SuccessImg
+        className="suc1"
+        src={require("../../asset/뽀시래기/보라 뽀시래기.png")}
+        alt=""
+      />
+      <P.SuccessImg
+        className="suc2"
+        src={require("../../asset/뽀시래기/빨주노 뽀시래기.png")}
+        alt=""
+      />
+      <P.SuccessImg
+        className="suc3"
+        src={require("../../asset/뽀시래기/초록 뽀시래기.png")}
+        alt=""
+      />
+      <P.SuccessImg
+        className="suc4"
+        src={require("../../asset/뽀시래기/파랑 뽀시래기.png")}
+        alt=""
+      />
+      <P.SuccessImg
+        className="suc5"
+        src={require("../../asset/뽀시래기/핑크 뽀시래기.png")}
+        alt=""
+      />
+      <P.SuccessImg
+        className="suc6"
+        src={require("../../asset/뽀시래기/핑크 여러개 뽀시래기.png")}
+        alt=""
+      />
+      <P.SuccessImg
+        className="suc7"
+        src={require("../../asset/뽀시래기/하트 뽀시래기.png")}
+        alt=""
+      />
+    </>
+  );
+};

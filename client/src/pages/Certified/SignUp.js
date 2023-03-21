@@ -72,7 +72,7 @@ function SignUp() {
       )
       .then(() => {
         alert("회원가입 되었습니다.");
-        navigate("/login");
+        navigate("/completeSignup");
       })
       .catch((err) => {
         console.log(err);

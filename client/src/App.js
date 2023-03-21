@@ -13,6 +13,7 @@ import SetPwd from "./pages/Certified/SetPwd";
 import Layout from "./components/Layout";
 import PwdChange from "./pages/MyPage/PwdChange";
 import Trash from "./pages/MyPage/TrashList";
+import CompleteSignup from "./pages/Certified/CompleteSignup";
 // ! 공백
 function App() {
   const [isLogin, setIsLogin] = useState(true);
@@ -23,7 +24,7 @@ function App() {
       <Header isLogin={isLogin} />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="letterbox" element={<LetterBox />} />
+        <Route path="/letterbox" element={<LetterBox />} />
         <Route element={<Layout displayFooter={displayFooter} />}>
           <Route path="/login" element={<Login />} />
           <Route path="/setpwd" element={<SetPwd />} />
@@ -39,7 +40,7 @@ function App() {
             path="/readletter"
             element={<ReadLetter isLogin={isLogin} />}
           />
-          <Route path="letterbox" element={<LetterBox />} />
+          <Route path="/completeSignup" element={<CompleteSignup />} />
         </Route>
       </Routes>
     </BrowserRouter>
