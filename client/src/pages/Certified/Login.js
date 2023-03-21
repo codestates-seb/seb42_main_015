@@ -3,19 +3,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import * as L from "./FormStyled";
-import { useCookies } from "react-cookie";
 import axios from "axios";
-import { setCookie, getCookie } from "../../Cookie";
+import { setCookie, getCookie } from "./Cookie";
 
 function Login() {
   const navigate = useNavigate();
-  const [cookies, setCookie, getCookie] = useCookies(["accesstoken"]);
 
   const headers = {
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",
     "ngrok-skip-browser-warning": "12",
   };
+
   const formShema = yup.object({
     email: yup
       .string()
@@ -31,12 +30,15 @@ function Login() {
         "영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요."
       ),
   });
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
+
+  //로그인 제출 버튼
   const onSubmit = async (data) => {
     const { email, password } = data;
     await axios
@@ -50,21 +52,6 @@ function Login() {
       .then((res) => {
         alert("로그인되었습니다.");
         if (res.headers.getAuthorization) {
-          const accessToken = res.headers.get("Authorization").split(" ")[1];
-          const refeshToken = res.headers.get("Refresh");
-          // sessionStorage.setItem("accesstoken", accessToken);
-          // sessionStorage.setItem("refeshToken", refeshToken);
-          setCookie("accesstoken", accessToken);
-          // setCookie("refeshToken", refeshToken);
-          // console.log("refeshToken", refeshToken);
-
-          setCookie("Accesstoken", accessToken, {
-            path: "/",
-            sucure: true,
-            sameSite: "Strict",
-            HttpOnly: " HttpOnly ",
-          });
-          console.log(getCookie("Accesstoken"));
           //! refresh token은 -> local storage에 저장
           localStorage.setItem("refreshToken", res.headers.get("Refresh"));
           //! access token은 -> cookie에 저장
@@ -80,20 +67,15 @@ function Login() {
           );
           console.log("accesstoken", getCookie("accesstoken"));
           console.log("refreshToken", localStorage.getItem("refreshToken"));
+          navigate("/");
         }
-        // navigate("/");
-        navigate("/");
       })
       .catch((err) => {
         console.log(err);
         alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
       });
   };
-  // console.log(watch("email"));
-  //로그인 버튼
-  const handle = async () => {
-    await axios.post(`/api/sendy/users/signup`);
-  };
+
   return (
     <>
       <L.Container>
@@ -142,6 +124,7 @@ function Login() {
               </div>
             </div>
           </div>
+
           <div className="formRight">
             <div className="welcome">welcome!</div>
             <div className="imgWrapper">
@@ -170,4 +153,5 @@ function Login() {
     </>
   );
 }
+
 export default Login;
