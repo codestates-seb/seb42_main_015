@@ -57,10 +57,10 @@ function SignUp() {
   const onSubmit = async (data) => {
     const { email, username, password } = data;
 
-    if (!nameValid || !emailValid) {
-      alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
-      return;
-    }
+    // if (!nameValid || !emailValid) {
+    //   alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
+    //   return;
+    // }
 
     await axios
       .post(

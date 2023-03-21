@@ -38,6 +38,7 @@ function Login() {
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
 
+  //로그인 제출 버튼
   const onSubmit = async (data) => {
     const { email, password } = data;
     await axios
@@ -67,19 +68,12 @@ function Login() {
           console.log("accesstoken", getCookie("accesstoken"));
           console.log("refreshToken", localStorage.getItem("refreshToken"));
         }
-        navigate("/");
+        // navigate("/");
       })
       .catch((err) => {
         console.log(err);
         alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
       });
-  };
-
-  // console.log(watch("email"));
-
-  //로그인 버튼
-  const handle = async () => {
-    await axios.post(`/api/sendy/users/signup`);
   };
 
   return (
