@@ -1,6 +1,7 @@
 package com.witchdelivery.messageapp.member;
 
 import com.witchdelivery.messageapp.response.PageResponseDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,19 +11,15 @@ import javax.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/sendy/users")
+@RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper memberMapper;
 
-    public MemberController(MemberService memberService, MemberMapper memberMapper) {
-        this.memberService = memberService;
-        this.memberMapper = memberMapper;
-    }
-
     @PostMapping("/signup")
     public ResponseEntity postMember(@RequestBody MemberPostDto memberPostDto) {
-        Member member = memberMapper.memberPostDtoToMember(memberPostDto);
-        memberService.createMember(member);
+//        Member member = memberMapper.memberPostDtoToMember(memberPostDto);    // FIXME 미사용으로 인한 삭제
+        memberService.createMember(memberPostDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

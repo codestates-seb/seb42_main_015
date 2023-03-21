@@ -29,7 +29,7 @@ import * as S from "./FormStyled";
   */
 
 function SignUp() {
-  const formShema = yup.object({
+  const formSchema = yup.object({
     nickname: yup
       .string()
       .required("한글, 영문, 숫자로 이루어진 2~10자리를 입력해주세요.")
@@ -61,7 +61,7 @@ function SignUp() {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
 
   const onSubmit = (data) => {
     alert(JSON.stringify(data));

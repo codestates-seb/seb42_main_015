@@ -11,9 +11,11 @@ import ReadLetter from "./pages/ReadLetter/ReadLetter";
 import LetterBox from "./pages/LetterBox/LetterBox";
 import SetPwd from "./pages/Certified/SetPwd";
 import Layout from "./components/Layout";
+import PwdChange from "./pages/MyPage/PwdChange";
+import Trash from "./pages/MyPage/TrashList";
 // ! 공백
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const displayFooter = true;
   // ! 공백
   return (
@@ -27,6 +29,9 @@ function App() {
           <Route path="/setpwd" element={<SetPwd />} />
           <Route path="/setpwd/:page" element={<SetPwd />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/trash" element={<Trash />} />
+          <Route path="/pwdchange" element={<PwdChange />} />
+          <Route path="/pwdchange/:page" element={<PwdChange />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/writeletter" element={<WriteLetter />} />
           <Route path="/completeLogout" element={<CompleteLogout />} />

@@ -9,11 +9,14 @@ import com.witchdelivery.messageapp.response.PageResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 @RestController
+@Validated
 @RequestMapping("/sendy/messages")
 public class MessageController {
     private final MessageService messageService;
@@ -27,15 +30,15 @@ public class MessageController {
     }
 
     @PostMapping("/write")
-    public ResponseEntity postMessage(@RequestBody MessagePostDto messagePostDto) {
+    public ResponseEntity postMessage(@Valid @RequestBody MessagePostDto messagePostDto) {
         Message message = messageMapper.messagePostDtoToMessage(messagePostDto);
         messageService.createMessage(message);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/{message-id}")
-    public ResponseEntity getMessage(@PathVariable("message-id") Long messageId) {
-        Message message = messageService.findMessage(messageId);
+    public ResponseEntity getMessage(@PathVariable("message-id") Long messageId, @RequestParam Long password) {
+        Message message = messageService.findMessage(messageId, password);
         return new ResponseEntity<>(messageMapper.messageToMessageResponseDto(message), HttpStatus.OK);
     }
 

@@ -12,8 +12,19 @@ function LetterContent({
   setOpenSendMe,
   sendMeChecked,
   setSendMeChecked,
+  startDate,
   setContentLength,
+  finalTranscript,
+  resetTranscript,
+  currentLetterTheme,
 }) {
+  const weekday = ["일", "월", "화", "수", "목", "금", "토"];
+  const currentDate = `${new Date().getFullYear()}. ${(
+    "00" +
+    (new Date().getMonth() + 1)
+  ).slice(-2)}.${("00" + new Date().getDate()).slice(-2)} ${
+    weekday[new Date().getDay()]
+  }`;
   const { contentFont, changeContentFont } = useStore((state) => state);
   const formSchema = yup.object({
     receiverName: yup
@@ -36,16 +47,17 @@ function LetterContent({
     watch,
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
-  const weekday = ["일", "월", "화", "수", "목", "금", "토"];
-  const currentDate = `${new Date().getFullYear()}.${new Date().getMonth()}.${new Date().getDate()} ${
-    weekday[new Date().getDay()]
-  }`;
 
   const textarea = useRef();
 
   useEffect(() => {
     textarea.current.focus();
   }, []);
+
+  useEffect(() => {
+    textarea.current.value += " " + finalTranscript;
+    resetTranscript();
+  }, [finalTranscript]); //listening일 때로 바꾸기
 
   const handleSendMe = () => {
     setOpenSendMe(!openSendMe);
@@ -55,7 +67,7 @@ function LetterContent({
     setContentLength(e.target.value.length);
   };
   return (
-    <W.LetterBox>
+    <W.LetterBox currentLetterTheme={currentLetterTheme}>
       <W.FlexWrapper1>
         <W.BallonWrapper>
           <W.NameInputWrapper>
@@ -100,6 +112,13 @@ function LetterContent({
             <></>
           )}
         </W.BallonWrapper>
+        {sendMeChecked ? (
+          <span>{`${startDate.getFullYear()}/${
+            startDate.getMonth() + 1
+          }/${startDate.getDate()} ${startDate.getHours()}:${startDate.getMinutes()}`}</span>
+        ) : (
+          <></>
+        )}
       </W.SendMeWrapper>
       <W.ContentTextarea
         font={contentFont}

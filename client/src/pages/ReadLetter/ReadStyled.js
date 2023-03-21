@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import BREAKPOINTMOBILE from "../../breakpoint";
 import { FONT_STYLE_READ, FONT_STYLE_LOGIN } from "../../style/fontStyle";
+import { PALETTE_V1 } from "../../style/color";
 import pwd from "../../asset/pwd.png";
 import email from "../../asset/mail.png";
 
@@ -12,11 +13,36 @@ export const Wrapper = styled.div`
   padding: 3rem 2rem;
   overflow: hidden;
   padding-bottom: 70px;
-  /* background: orange; */
 
   .ReadContainer {
     display: flex;
+    align-items: center;
     flex-direction: column;
+    .top-sub {
+      display: flex;
+      justify-content: space-evenly;
+      margin: 0 0 0 22rem;
+      .soundButtons {
+        display: flex;
+        justify-content: space-evenly;
+        background: #d3d3d3;
+        border-radius: 3rem;
+        padding: 5px 5px;
+        width: 6rem;
+        height: 2.5rem;
+        margin-top: 0.2rem;
+        cursor: pointer;
+      }
+      .speech-icon,
+      .pause-icon {
+        padding: 3px;
+        &:hover {
+          padding: 3px;
+          background: white;
+          border-radius: 50%;
+        }
+      }
+    }
   }
 `;
 
@@ -65,7 +91,7 @@ export const Secretform = styled.form`
     background-repeat: no-repeat;
     background-position: left;
     background-size: 1.5rem;
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {0
       background-size: 1.2rem;
       width: 13rem;
     }
@@ -103,10 +129,9 @@ export const EnterSeret = styled.div`
   justify-content: center;
   width: 12rem;
   padding: 0.5rem 0.7rem 0.5rem 1.5rem;
-  border: 1px solid #000000;
+  border: 2px solid #000000;
   ${FONT_STYLE_READ.body_8_Medium}
-  margin-bottom: 2rem;
-  margin: 0 0 2rem 30.5rem;
+  margin : 0.2rem 0 2rem 2rem;
 
   input {
     ${FONT_STYLE_READ.body_8_light}
@@ -163,9 +188,23 @@ export const Letterpaper = styled(FlexColunmWrapper)`
 export const Buttons = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 10rem;
-  padding: 0rem 0rem 2rem 27rem;
+  height: 6rem;
+  padding: 0rem 0rem 0rem 26rem;
+
+  > div {
+    display: flex;
+    padding-left: 1.5rem;
+  }
+  .goback {
+    display: flex;
+    margin: 0.2rem 10rem 0 -25rem;
+    cursor: pointer;
+    /* &:hover {
+      background-color: ${PALETTE_V1.yellow_modal_button};
+      border-radius: 50%;
+      padding: 7px;
+    } */
+  }
 `;
 
 export const LetterEx = `이 노래는 it's about you baby
