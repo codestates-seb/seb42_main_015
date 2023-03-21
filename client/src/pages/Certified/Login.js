@@ -3,12 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import * as L from "./FormStyled";
-import { useCookies } from "react-cookie";
 import axios from "axios";
+import { setCookie, getCookie } from "../../Cookie";
 
 function Login() {
   const navigate = useNavigate();
-  const [cookies, setCookie, getCookie] = useCookies(["accesstoken"]);
 
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -52,23 +51,23 @@ function Login() {
       .then((res) => {
         alert("로그인되었습니다.");
         if (res.headers.getAuthorization) {
-          const accessToken = res.headers.get("Authorization").split(" ")[1];
-          const refeshToken = res.headers.get("Refresh");
-          // sessionStorage.setItem("accesstoken", accessToken);
-          // sessionStorage.setItem("refeshToken", refeshToken);
-          setCookie("accesstoken", accessToken);
-          // setCookie("refeshToken", refeshToken);
-          // console.log("refeshToken", refeshToken);
-
-          setCookie("Accesstoken", accessToken, {
-            path: "/",
-            sucure: true,
-            sameSite: "Strict",
-            HttpOnly: " HttpOnly ",
-          });
-          console.log(getCookie("Accesstoken"));
+          //! refresh token은 -> local storage에 저장
+          localStorage.setItem("refreshToken", res.headers.get("Refresh"));
+          //! access token은 -> cookie에 저장
+          setCookie(
+            "accesstoken",
+            res.headers.get("Authorization").split(" ")[1],
+            {
+              path: "/",
+              sucure: true,
+              sameSite: "Strict",
+              HttpOnly: " HttpOnly ",
+            }
+          );
+          console.log("accesstoken", getCookie("accesstoken"));
+          console.log("refreshToken", localStorage.getItem("refreshToken"));
         }
-        // navigate("/");
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
