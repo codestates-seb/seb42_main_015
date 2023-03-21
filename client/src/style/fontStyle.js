@@ -139,6 +139,10 @@ export const FONT_STYLE_LOGIN = {
 };
 
 export const FONT_STYLE_LOGOUT = {
+  title_30_Light: css`
+    font-family: "Pretendard-Light";
+    font-size: 3rem;
+  `,
   title_20_medium: css`
     font-family: "Caveat", cursive;
     font-size: 2rem;
@@ -154,6 +158,10 @@ export const FONT_STYLE_LOGOUT = {
   title_9_medium: css`
     font-family: "B612", sans-serif;
     font-size: 0.9rem;
+  `,
+  title_11_medium: css`
+    font-family: "B612", sans-serif;
+    font-size: 1.1rem;
   `,
 };
 
