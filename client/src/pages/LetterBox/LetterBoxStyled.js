@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
+import BREAKPOINTMOBILE from "../../breakpoint";
 
 export const LetterBoxWrap = styled.div`
   width: 100%;
@@ -100,11 +101,14 @@ export const CurrentSelect = styled.span`
 `;
 
 export const Dropdown = styled.ul`
-  width: 196px;
+  width: 100%;
   height: 120px;
   position: absolute;
   top: 40px;
   right: 1px;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 100%;
+  }
 `;
 
 export const DropdownItem = styled.li`
@@ -154,6 +158,9 @@ export const ListContainer = styled.div`
 
 export const ListDateContainer = styled.div`
   width: 200px;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 150px;
+  }
 `;
 
 export const ListDate = styled.div`
@@ -165,6 +172,9 @@ export const ListDate = styled.div`
 export const ListBar = styled.div`
   width: 200px;
   border-bottom: 1px solid black;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 150px;
+  }
 `;
 
 export const ItemWrap = styled.div`
@@ -181,6 +191,10 @@ export const ItemContainer = styled.div`
   /* justify-content: center; */
   align-content: flex-start;
   padding-left: 5rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    justify-content: center;
+    padding-left: 0;
+  }
 `;
 
 export const ItemBox = styled.div`
@@ -194,15 +208,19 @@ export const ItemBox = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-`;
-
-export const ItemImg = styled.img`
-  
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 300px;
+    height: 400px;
+    margin-left: 1rem;
+  }
 `;
 
 export const ItemTitle = styled.div`
   ${FONT_STYLE_V1.title.title_14_medium}
   margin-bottom: 2rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 2rem;
+  }
 `;
 
 export const ItemContents = styled.p`
@@ -213,6 +231,9 @@ export const ItemContents = styled.p`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   word-break: keep-all;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 1.2rem;
+  }
 `;
 
 export const ItemDate = styled.div`

@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { FONT_STYLE_LOGIN, FONT_STYLE_V1 } from "../../style/fontStyle";
 import { PALETTE_V1 } from "../../style/color";
+import BREAKPOINTMOBILE from "../../breakpoint";
 
 export const PwdChangeWrap = styled.div`
   width: 100%;
   min-height: 85vh;
   display: flex;
   flex-direction: column;
-  
   ${FONT_STYLE_V1.title.title_14_medium}
 `;
 
@@ -26,6 +26,10 @@ export const CardBox = styled.div`
   position: absolute;
   margin-left: 1rem;
   z-index: -1;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 20rem;
+    height: 32rem;
+  }
 `;
 
 export const PwdChangeContents = styled.div`
@@ -44,6 +48,10 @@ export const PwdChangeContents = styled.div`
     bottom: 20px;
     right: 20px;
     font-size: 2rem;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 20rem;
+    height: 32rem;
   }
 `;
 
@@ -81,12 +89,18 @@ export const PwdChangeTitle = styled.div`
   color: white;
   margin-top: -5rem;
   padding-bottom: 1rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 3.5rem;
+  }
 `;
 
 export const Explain = styled.p`
   ${FONT_STYLE_V1.body.body_12_light}
   margin-bottom: 2rem;
   text-align: center;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 1rem;
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -95,6 +109,9 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 15rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    padding: 0 3rem;
+  }
 `;
 
 export const ErrorMsg = styled.div`
@@ -118,6 +135,9 @@ export const PwdInput = styled.input`
   border: none;
   margin-left: 1rem;
   font-size: 1.2rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 1rem;
+  }
 `;
 
 export const PwdLabel = styled.label`
@@ -129,6 +149,9 @@ export const PwdLabel = styled.label`
 export const ButtonBox = styled.div`
   display: flex;
   justify-content: flex-end;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    justify-content: center;
+  }
 `;
 
 export const Button = styled.button`
@@ -146,6 +169,10 @@ export const SuccessWrap = styled.div`
   margin-right: 1.5rem;
   margin-bottom: 2.5rem;
   display: flex;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 20rem;
+    height: 32rem;
+  }
 `;
 
 export const SuccessContainer = styled.div`
@@ -156,6 +183,8 @@ export const SuccessContainer = styled.div`
   align-items: center;
   position: relative;
   overflow: hidden;
+  background-color: ${(props) =>
+    props.backgroundColor ? props.backgroundColor : ""};
   .suc1 {
     bottom: 10rem;
     right: 10rem;
@@ -168,41 +197,85 @@ export const SuccessContainer = styled.div`
     transform: rotate(40deg);
   }
   .suc3 {
-    top: -3rem; 
+    top: -3rem;
     left: 10rem;
     transform: rotate(110deg);
   }
   .suc4 {
-    bottom: 5rem; 
+    bottom: 5rem;
     left: -1rem;
     transform: rotate(-50deg);
   }
   .suc5 {
-    top: 7rem; 
+    top: 7rem;
     left: -5rem;
   }
   .suc6 {
     width: 25rem;
-    bottom: -10rem; 
+    bottom: -10rem;
     left: 10rem;
     transform: rotate(-20deg);
   }
   .suc7 {
     width: 20rem;
-    bottom: -5rem; 
+    bottom: -5rem;
     right: -5rem;
     transform: rotate(30deg);
   }
-  
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    .suc1 {
+      bottom: 8rem;
+      right: -3rem;
+      transform: rotate(50deg);
+    }
+    .suc2 {
+      width: 10rem;
+      top: 1rem;
+      right: -3rem;
+      transform: rotate(40deg);
+    }
+    .suc3 {
+      top: 0;
+      left: -4rem;
+      transform: rotate(110deg);
+    }
+    .suc4 {
+      bottom: 7rem;
+      left: -3rem;
+      transform: rotate(-50deg);
+    }
+    .suc5 {
+      top: -3.5rem;
+      left: 5rem;
+    }
+    .suc6 {
+      width: 10rem;
+      bottom: -4rem;
+      left: 0rem;
+      transform: rotate(-20deg);
+    }
+    .suc7 {
+      width: 15rem;
+      bottom: -5rem;
+      right: -5rem;
+      transform: rotate(30deg);
+    }
+  }
 `;
 
 export const SuccessImg = styled.img`
   position: absolute;
   width: 15rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 10rem;
+  }
 `;
 
 export const SuccessTitle = styled.div`
   ${FONT_STYLE_V1.title.title_30_medium}
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 2rem;
+  }
 `;
 
 export const SuccessContent = styled.div`
@@ -211,6 +284,9 @@ export const SuccessContent = styled.div`
   line-height: 1.5;
   margin-top: 2rem;
   margin-bottom: 3.5rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 1.2rem;
+  }
 `;
 
 export const SuccessButton = styled.button`
