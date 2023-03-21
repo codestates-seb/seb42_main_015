@@ -1,20 +1,10 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import * as L from "./FormStyled";
-import axios from "axios";
-import { setCookie, getCookie } from "./Cookie";
 
 function Login() {
-  const navigate = useNavigate();
-
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-    "ngrok-skip-browser-warning": "12",
-  };
-
   const formShema = yup.object({
     email: yup
       .string()
@@ -34,54 +24,13 @@ function Login() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
 
-  const onSubmit = async (data) => {
-    const { email, password } = data;
-    await axios
-      .post(
-        `/api/sendy/auth/login`,
-        { username: email, password: password },
-        {
-          headers,
-        }
-      )
-      .then((res) => {
-        alert("로그인되었습니다.");
-        if (res.headers.getAuthorization) {
-          //! refresh token은 -> local storage에 저장
-          localStorage.setItem("refreshToken", res.headers.get("Refresh"));
-          //! access token은 -> cookie에 저장
-          setCookie(
-            "accesstoken",
-            res.headers.get("Authorization").split(" ")[1],
-            {
-              path: "/",
-              sucure: true,
-              sameSite: "Strict",
-              HttpOnly: " HttpOnly ",
-            }
-          );
-          console.log("accesstoken", getCookie("accesstoken"));
-          console.log("refreshToken", localStorage.getItem("refreshToken"));
-        }
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
-      });
+  const onSubmit = (data) => {
+    alert(JSON.stringify(data));
+    console.log(data);
   };
-
-  // console.log(watch("email"));
-
-  //로그인 버튼
-  const handle = async () => {
-    await axios.post(`/api/sendy/users/signup`);
-  };
-
   return (
     <>
       <L.Container>
