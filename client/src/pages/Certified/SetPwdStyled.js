@@ -162,6 +162,7 @@ export const SuccessContainer = styled.div`
   align-items: center;
   position: relative;
   overflow: hidden;
+  background-color: ${(props) => props.backgroundColor ? props.backgroundColor : ''};
   .suc1 {
     bottom: 10rem;
     right: 10rem;
