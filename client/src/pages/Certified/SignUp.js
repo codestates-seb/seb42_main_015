@@ -3,6 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import * as S from "./FormStyled";
+import { useEffect } from "react";
 
 /* 
   ! YUP : 런타임 값 구문 분석 및 유효성 검사를 위한 스키마 빌더이다.  
@@ -67,7 +68,9 @@ function SignUp() {
     alert(JSON.stringify(data));
     console.log(data);
   };
-
+  useEffect(() => {
+    console.log(register);
+  }, [register]);
   return (
     <>
       <S.Container>

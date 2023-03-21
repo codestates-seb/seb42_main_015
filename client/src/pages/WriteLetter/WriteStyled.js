@@ -11,9 +11,11 @@ import 냥냥편지 from "../../asset/letterTheme/냥냥편지-theme.png";
 import 리본 from "../../asset/letterTheme/리본-theme.png";
 import 수박 from "../../asset/letterTheme/수박-theme.png";
 import 알록달록 from "../../asset/letterTheme/알록달록-theme.png";
-import 젖소 from "../../asset/letterTheme/젖소-theme.png";
 import 체리 from "../../asset/letterTheme/체리-theme.png";
 import 클로버 from "../../asset/letterTheme/클로버-theme.png";
+import 정월대보름 from "../../asset/letterTheme/정월대보름-theme.png";
+import 얼룩 from "../../asset/letterTheme/얼룩-theme.png";
+import 오리 from "../../asset/letterTheme/오리-theme.png";
 
 export const PageContainer = styled.div`
   background-color: ${PALETTE_V1.background};
@@ -26,6 +28,20 @@ export const PageContainer = styled.div`
 export const FlexRowWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  &.align-items {
+    align-items: center;
+  }
+  &.URL-wrapper {
+    justify-content: space-between;
+    align-items: center;
+  }
+  &.button-wrapper {
+    justify-content: flex-end;
+  }
+  #necessity {
+    ${FONT_STYLE_V1.body.body_9_light}
+    padding-left: 10px;
+  }
 `;
 export const FlexColunmWrapper = styled.div`
   display: flex;
@@ -71,9 +87,9 @@ export const LetterBox = styled(FlexColunmWrapper)`
         return css`
           background-image: url(${알록달록});
         `;
-      case "젖소":
+      case "얼룩":
         return css`
-          background-image: url(${젖소});
+          background-image: url(${얼룩});
         `;
       case "체리":
         return css`
@@ -82,6 +98,14 @@ export const LetterBox = styled(FlexColunmWrapper)`
       case "클로버":
         return css`
           background-image: url(${클로버});
+        `;
+      case "정월대보름":
+        return css`
+          background-image: url(${정월대보름});
+        `;
+      case "오리":
+        return css`
+          background-image: url(${오리});
         `;
       default:
         break;
@@ -334,6 +358,14 @@ export const ModalWrapper = styled.div`
   flex-direction: column;
   padding: 20px 20px;
   height: 90%;
+  &.make-letter {
+    justify-content: space-around;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .make-letter-wrapper {
+    padding-top: 20px;
+  }
 `;
 export const ModalTitle = styled.div`
   ${FONT_STYLE_V1.title.title_14_medium}
@@ -448,5 +480,61 @@ export const FontEl = styled.li`
   &.active {
     background-color: ${PALETTE_V1.yellow_modal_button};
     border-radius: 0;
+  }
+`;
+export const Label = styled.label`
+  ${FONT_STYLE_V1.title.title_14_medium}
+`;
+export const MakeLetterInput = styled.input`
+  border: none;
+  border-bottom: 1px solid ${PALETTE_V1.text_primary};
+  height: 2.3rem;
+  width: 8rem;
+  background-image: url(${(props) => props.backgroundImg});
+  background-size: 18px;
+  background-repeat: no-repeat;
+  background-position: left center;
+  margin-top: 3px;
+  padding: 0rem 25px;
+  &:focus {
+    outline: none;
+    background-color: ${PALETTE_V1.yellow_light};
+  }
+  &.URL-input {
+    padding: 0 5px;
+    margin-right: 18px;
+  }
+`;
+export const UploadBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .drag-file {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px dashed ${PALETTE_V1.text_primary};
+    .image {
+      width: 40px;
+      height: 40px;
+      margin-top: 20px;
+    }
+    .message {
+      ${FONT_STYLE_V1.body.body_10_light}
+    }
+  }
+  .file-label {
+    ${FONT_STYLE_V1.body.body_10_light}
+    border: 2px solid ${PALETTE_V1.text_primary};
+    border-radius: 0px;
+    background-color: #d9d9d9;
+    padding: 4px 6px;
+    margin-top: 10px;
+  }
+  .file {
+    display: none;
   }
 `;
