@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import * as C from "./SetPwdStyled";
 import { AiOutlineArrowRight, AiOutlineEnter } from "react-icons/ai";
 import { BsEnvelopeAt } from "react-icons/bs";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import ShadowButton from "../commons/ShadowButton";
 
 function SetPwd() {
   const navigate = useNavigate();
@@ -87,7 +88,7 @@ function SetPwd() {
             )}
             {page === "2" && (
               <C.InputWrap>
-                <C.AuthLabel>번호를 차례대로 입력해주세요.</C.AuthLabel>
+                <C.AuthLabel>인증번호를 차례대로 입력해주세요.</C.AuthLabel>
                 <C.AuthInputBox>
                   <C.AuthInput />
                   <C.AuthInput />
@@ -177,9 +178,9 @@ function SetPwd() {
               <br />
               로그인 페이지에서 로그인 해주세요.
             </C.SuccessContent>
-            <Link to="/login">
-              <C.SuccessButton>Log in</C.SuccessButton>
-            </Link>
+            <ShadowButton backgroundColor='#FFFB95' onClick={() => navigate("/login")}>
+              Login
+            </ShadowButton>
           </C.SuccessContainer>
         </C.SetPwdContainer>
       )}

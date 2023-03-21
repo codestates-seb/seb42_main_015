@@ -152,7 +152,7 @@ export const FlexColunmWrapper = styled.div`
 
 export const Letterpaper = styled(FlexColunmWrapper)`
   aspect-ratio: 3/5;
-  background-color: #ffffff;
+  background-color: ${(props) => props.background};
   flex-direction: column;
   border: 2px solid #000000;
   padding: 2.5rem 3rem 2.5rem 3rem;
@@ -169,12 +169,15 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   }
 
   .content {
-    ${FONT_STYLE_READ.body_10_light};
+    font-family: ${(props) => props.font};
+    text-align: justify;
+    font-size: 1rem;
     letter-spacing: 2px;
     line-height: 2rem;
     padding: 1rem 2rem 1rem 1rem;
     aspect-ratio: 3/5;
     overflow: auto;
+    ${FONT_STYLE_READ.body_10_light};
   }
 
   .from {
