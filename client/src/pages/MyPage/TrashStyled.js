@@ -1,42 +1,11 @@
 import styled from "styled-components";
-// import { FONT_STYLE_V1 } from "../style/fontStyle";
-// import { PALETTE_V1 } from "../style/color";
+import BREAKPOINTMOBILE from "../../breakpoint";
+import { FONT_STYLE_V1 } from "../../style/fontStyle";
 
 export const TrashWrap = styled.div`
   height: 1000px;
   background: #fcfbf4;
 `;
-
-// export const GNBWrap = styled.ul`
-//   display: flex;
-//   margin-left: 5rem;
-// `;
-
-// export const GNBMenu = styled.li`
-//   width: 120px;
-//   height: 40px;
-//   background-color: white;
-//   border: 1px solid black;
-//   border-top: none;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   margin-right: 1rem;
-//   &:hover {
-//   }
-// `;
-
-// export const GNBMenuOn = styled.li`
-//   width: 120px;
-//   height: 55px;
-//   background-color: #fff06c;
-//   border: 1px solid black;
-//   border-top: none;
-//   display: flex;
-//   justify-content: center;
-//   align-items: flex-end;
-//   padding-bottom: 0.5rem;
-// `;
 
 export const TrashContainer = styled.div`
   display: flex;
@@ -71,6 +40,9 @@ export const CheckBox = styled.div`
   cursor: pointer;
   text-align: center;
   margin-left: 3rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    margin-left: 1rem;
+  }
 `;
 
 export const ButtonBox = styled.div`
@@ -80,6 +52,10 @@ export const ButtonBox = styled.div`
 
 export const Button = styled.div`
   margin-right: 3rem;
+  ${FONT_STYLE_V1.title.title_10_medium}
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    margin-right: 1rem;
+  }
 `;
 
 export const ItemBox = styled.li`
@@ -88,16 +64,31 @@ export const ItemBox = styled.li`
   display: flex;
   align-items: center;
   border-bottom: 1px solid black;
-`
+  ${FONT_STYLE_V1.body.body_10_light}
+`;
+
 export const ItemName = styled.div`
   flex-grow: 1.5;
   border-right: 1px solid black;
   margin-right: 3rem;
   text-align: center;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    margin-right: 1rem;
+  }
 `;
 
 export const ItemContent = styled.div`
   flex-grow: 5;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 100px;
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: keep-all;
+  }
 `;
 
 export const ItemDate = styled.div`
