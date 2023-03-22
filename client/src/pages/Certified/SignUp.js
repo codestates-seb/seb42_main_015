@@ -153,13 +153,9 @@ function SignUp() {
                   {...register("username")}
                 />
                 {nameValid ? (
-                  <button className="duplicate">체크완료</button>
+                  <button className="duplicate-check">체크완료</button>
                 ) : (
-                  <button
-                    className="duplicate"
-                    onClick={usernameCheck}
-                    backgroundcolor="#ffcb12"
-                  >
+                  <button className="duplicate" onClick={usernameCheck}>
                     중복체크
                   </button>
                 )}
@@ -216,7 +212,6 @@ function SignUp() {
                 <div className="oauth-head">Sign up With</div>
                 <div className="oauth">
                   <img src={require("../../asset/구글.png")} alt="Googole" />
-                  <img src={require("../../asset/카카오.png")} alt="Kakao" />
                 </div>
               </div>
             </ul>
@@ -227,10 +222,9 @@ function SignUp() {
               <img src={require("../../asset/CatDog.png")} alt="CatandDog" />
             </div>
             <div className="oauth-form">
-              <div className="oauth-head">Log in With</div>
+              <div className="oauth-head">Sign up With</div>
               <div className="oauth">
                 <img src={require("../../asset/구글.png")} alt="Googole" />
-                <img src={require("../../asset/카카오.png")} alt="Kakao" />
               </div>
             </div>
           </li>

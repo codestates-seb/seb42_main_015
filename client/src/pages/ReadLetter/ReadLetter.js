@@ -61,6 +61,19 @@ const ReadLetter = ({ isLogin }) => {
   //   window.speechSynthesis.getVoices();
   // }, []);
 
+  //! 휴지통 alert
+  const onRemove = () => {
+    if (
+      window.confirm(
+        "정말로 삭제하시겠습니까?\n삭제된 편지는 [마이페이지-휴지통]에서 확인할 수 있습니다."
+      )
+    ) {
+      alert("삭제되었습니다.");
+    } else {
+      return;
+    }
+  };
+
   return (
     <>
       {isLogin || enterPassword ? (
@@ -98,7 +111,11 @@ const ReadLetter = ({ isLogin }) => {
                   <Link to="/letterbox">
                     <HiOutlineArrowUturnLeft size="30" className="goback" />
                   </Link>
-                  <HiOutlineTrash size="30" className="trash" />
+                  <HiOutlineTrash
+                    size="30"
+                    className="trash"
+                    onClick={onRemove}
+                  />
                 </>
               ) : (
                 <></>

@@ -9,12 +9,6 @@ import { setCookie, getCookie } from "./Cookie";
 function Login() {
   const navigate = useNavigate();
 
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-    "ngrok-skip-browser-warning": "12",
-  };
-
   const formShema = yup.object({
     email: yup
       .string()
@@ -37,6 +31,12 @@ function Login() {
     watch,
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
+
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "12",
+  };
 
   //로그인 제출 버튼
   const onSubmit = async (data) => {
@@ -120,7 +120,6 @@ function Login() {
                 <div className="oauth-head">Log in With</div>
                 <div className="oauth">
                   <img src={require("../../asset/구글.png")} alt="Googole" />
-                  <img src={require("../../asset/카카오.png")} alt="Kakao" />
                 </div>
               </div>
             </div>
@@ -145,7 +144,6 @@ function Login() {
               <div className="oauth-head">Log in With</div>
               <div className="oauth">
                 <img src={require("../../asset/구글.png")} alt="Googole" />
-                <img src={require("../../asset/카카오.png")} alt="Kakao" />
               </div>
             </div>
           </div>
