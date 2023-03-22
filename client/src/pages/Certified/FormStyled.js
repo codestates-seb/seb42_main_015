@@ -72,7 +72,7 @@ export const LogForm = styled.form`
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           font-size: 2.5rem;
           margin: ${(props) =>
-            props.theme === "login" ? "1.5rem 0rem 1.5rem" : "0.8rem 0 0"};
+            props.theme === "login" ? "1.5rem 0rem 1.5rem" : "0.8rem 0 1rem"};
         }
       }
       input {

@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import * as S from "./FormStyled";
 import axios from "axios";
+import { GoogleOauthLogin } from "./OauthGoogle";
+import { formSchema, headers } from "./formShema";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -13,45 +14,11 @@ function SignUp() {
   //이메일 중복검사
   const [emailValid, setEmailValid] = useState(false);
 
-  const formSchema = yup.object({
-    username: yup
-      .string()
-      .required("한글, 영문, 숫자로 이루어진 2~10자리를 입력해주세요.")
-      .min(2, "최소 2자리 이상 입력해주세요.")
-      .max(10, "최대 10자까지 가능합니다.")
-      .matches(
-        /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/,
-        "한글, 영문, 숫자로 이루어진 2~10자리를 입력해주세요."
-      ),
-    email: yup
-      .string()
-      .required("이메일을 입력해주세요")
-      .email("이메일 형식이 아닙니다."),
-    password: yup
-      .string()
-      .required("영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요.")
-      .min(8, "최소 8자리 이상 입력해주세요.")
-      .max(16, "최대 16자까지 가능합니다.")
-      .matches(
-        /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,16}$/,
-        "영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요."
-      ),
-    passwordConfirm: yup
-      .string()
-      .oneOf([yup.ref("password")], "비밀번호가 일치하지 않습니다."),
-  });
-
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
-
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-    "ngrok-skip-browser-warning": "12",
-  };
 
   //sign up 제출 버튼
   const onSubmit = async (data) => {
@@ -211,7 +178,11 @@ function SignUp() {
               <div className="oauth-form">
                 <div className="oauth-head">Sign up With</div>
                 <div className="oauth">
-                  <img src={require("../../asset/구글.png")} alt="Googole" />
+                  <img
+                    src={require("../../asset/구글.png")}
+                    alt="Googole"
+                    onClick={GoogleOauthLogin}
+                  />
                 </div>
               </div>
             </ul>
@@ -224,7 +195,11 @@ function SignUp() {
             <div className="oauth-form">
               <div className="oauth-head">Sign up With</div>
               <div className="oauth">
-                <img src={require("../../asset/구글.png")} alt="Googole" />
+                <img
+                  src={require("../../asset/구글.png")}
+                  alt="Googole"
+                  onClick={GoogleOauthLogin}
+                />
               </div>
             </div>
           </li>
