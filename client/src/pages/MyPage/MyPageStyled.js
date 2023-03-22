@@ -152,10 +152,18 @@ export const ModalWrapper = styled.div`
   .notice {
     ${FONT_STYLE_V1.body.body_10_light}
     text-align: center;
+    p {
+      padding-top: 5px;
+    }
+  }
+  .input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 export const ModalTitle = styled.div`
-  ${FONT_STYLE_V1.title.title_16_medium}
+  ${FONT_STYLE_V1.title.title_20_medium}
 `;
 export const PwdInput = styled.input.attrs({ type: "password" })`
   outline: none;
@@ -170,7 +178,6 @@ export const PwdInput = styled.input.attrs({ type: "password" })`
   height: 2.3rem;
   width: 14rem;
   margin-top: 1.2rem;
-  margin-bottom: 0.5rem;
   &::placeholder {
     ${FONT_STYLE_V1.body.body_8_light}
     color: grey;
@@ -180,4 +187,17 @@ export const NextIconWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  .active {
+    cursor: pointer;
+    padding: 4px;
+    &:hover {
+      background-color: #dbdbdb;
+      border-radius: 50%;
+    }
+  }
+`;
+export const PwdError = styled.div`
+  ${FONT_STYLE_V1.body.body_8_light}
+  color: ${PALETTE_V1.red_modal_button};
+  padding-top: 10px;
 `;

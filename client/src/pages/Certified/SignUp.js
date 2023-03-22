@@ -1,36 +1,20 @@
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as S from "./FormStyled";
-
-/* 
-  ! YUP : 런타임 값 구문 분석 및 유효성 검사를 위한 스키마 빌더이다.  
-    - yup을 사용하면 좀 더 편하게 유효성 검증로직을 구현할 수 있다.
-    - yup.object을 통해 schema를 만들어 검증로직, 에러메세지를 한번에 정의할 수 있다.
-  ? Schema.oneOf(arrayOfValues: Array<any>, message?: string | function):
-    - oneOf(값) : 값만 true로 반환한다.
-    [예제]
-    let schema = yup.oneOf(['jimmy', 42]);
-    await schema.isValid(42); // => true
-    await schema.isValid('jimmy'); // => true
-    await schema.isValid(new Date()); // => false         
-*/
-/*  
-  ! useForm
-  ? register : form의 유효성을 확인하는 메서드
-  ? handleSubmit : form을 제출하는 함수
-  ? watch : 입력폼에 적힌 값을 확인 하는 옵션
-    - e.target.value와 동일하다
-  ? formState : form의 현재 상태를 담고 있다.
-    - 중복 제출 방지 : isSubmitting (초기값 : false)
-      formState에 isSubmitting 속성을 부여하면 -> form이 현재 제출중인 상태인지 아닌지를 알 수 있다.
-      즉 -> event.preventDefault()를 사용하지 않아도 된다.
-  */
+import axios from "axios";
 
 function SignUp() {
+  const navigate = useNavigate();
+  //유저네임 중복검사
+  const [nameValid, setNameValid] = useState(false);
+  //이메일 중복검사
+  const [emailValid, setEmailValid] = useState(false);
+
   const formSchema = yup.object({
-    nickname: yup
+    username: yup
       .string()
       .required("한글, 영문, 숫자로 이루어진 2~10자리를 입력해주세요.")
       .min(2, "최소 2자리 이상 입력해주세요.")
@@ -63,9 +47,93 @@ function SignUp() {
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
 
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    console.log(data);
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "12",
+  };
+
+  //sign up 제출 버튼
+  const onSubmit = async (data) => {
+    const { email, username, password } = data;
+
+    // if (!nameValid || !emailValid) {
+    //   alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
+    //   return;
+    // }
+
+    await axios
+      .post(
+        `/api/sendy/users/signup`,
+        { email: email, nickname: username, password: password },
+        {
+          headers,
+        }
+      )
+      .then(() => {
+        alert("회원가입 되었습니다.");
+        navigate("/completesignup");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
+      });
+  };
+
+  //유저네임 중복체크
+  const usernameCheck = async (data) => {
+    const { username } = data;
+    if (username) {
+      axios
+        .post(
+          `/api/sendy/users/signup`,
+          {
+            nickname: username,
+          },
+          {
+            headers,
+          }
+        )
+        .then((res) => {
+          if (res.status === 409) {
+            alert("이미 존재하는 유저네임입니다.");
+          } else {
+            alert("사용 가능한 유저네임입니다.");
+            setNameValid(!nameValid);
+          }
+        })
+        .catch((res) => {
+          console.log(res.data);
+        });
+    }
+  };
+
+  //이메일 중복체크
+  const emailCheck = async (data) => {
+    const { email } = data;
+    if (email) {
+      axios
+        .post(
+          `/api/sendy/users/signup`,
+          {
+            email: email,
+          },
+          {
+            headers,
+          }
+        )
+        .then((res) => {
+          if (res.status === 409) {
+            alert("이미 존재하는 이메일입니다.");
+          } else {
+            alert("사용 가능한 이메일입니다.");
+            setEmailValid(!emailValid);
+          }
+        })
+        .catch((res) => {
+          console.log(res.data);
+        });
+    }
   };
 
   return (
@@ -76,21 +144,43 @@ function SignUp() {
           <li className="formLeft">
             <ul className="login-form">
               <li className="loginText">Sign up</li>
-              <input
-                className="userInput"
-                name="nickname"
-                type="text"
-                placeholder="user Nickname"
-                {...register("nickname")}
-              />
+              <label>
+                <input
+                  className="userInput"
+                  name="username"
+                  type="text"
+                  placeholder="user name"
+                  {...register("username")}
+                />
+                {nameValid ? (
+                  <button className="duplicate">체크완료</button>
+                ) : (
+                  <button
+                    className="duplicate"
+                    onClick={usernameCheck}
+                    backgroundcolor="#ffcb12"
+                  >
+                    중복체크
+                  </button>
+                )}
+              </label>
               {errors.nickname && <p>{errors.nickname.message}</p>}
-              <input
-                className="emailInput"
-                type="email"
-                name="email"
-                placeholder="email address"
-                {...register("email")}
-              />
+              <label>
+                <input
+                  className="emailInput"
+                  type="email"
+                  name="email"
+                  placeholder="email address"
+                  {...register("email")}
+                />
+                {emailValid ? (
+                  <button className="duplicate">체크완료</button>
+                ) : (
+                  <button className="duplicate" onClick={emailCheck}>
+                    중복체크
+                  </button>
+                )}
+              </label>
               {errors.email && <p>{errors.email.message}</p>}
               <input
                 className="pwdInput"
@@ -151,3 +241,27 @@ function SignUp() {
 }
 
 export default SignUp;
+
+/* 
+  ! YUP : 런타임 값 구문 분석 및 유효성 검사를 위한 스키마 빌더이다.  
+    - yup을 사용하면 좀 더 편하게 유효성 검증로직을 구현할 수 있다.
+    - yup.object을 통해 schema를 만들어 검증로직, 에러메세지를 한번에 정의할 수 있다.
+  ? Schema.oneOf(arrayOfValues: Array<any>, message?: string | function):
+    - oneOf(값) : 값만 true로 반환한다.
+    [예제]
+    let schema = yup.oneOf(['jimmy', 42]);
+    await schema.isValid(42); // => true
+    await schema.isValid('jimmy'); // => true
+    await schema.isValid(new Date()); // => false         
+*/
+/*  
+  ! useForm
+  ? register : form의 유효성을 확인하는 메서드
+  ? handleSubmit : form을 제출하는 함수
+  ? watch : 입력폼에 적힌 값을 확인 하는 옵션
+    - e.target.value와 동일하다
+  ? formState : form의 현재 상태를 담고 있다.
+    - 중복 제출 방지 : isSubmitting (초기값 : false)
+      formState에 isSubmitting 속성을 부여하면 -> form이 현재 제출중인 상태인지 아닌지를 알 수 있다.
+      즉 -> event.preventDefault()를 사용하지 않아도 된다.
+  */
