@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import BREAKPOINTMOBILE from "../../breakpoint";
+import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
 import {
   FONT_STYLE_LOGIN,
   FONT_STYLE_LOGOUT,

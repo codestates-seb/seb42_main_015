@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import BREAKPOINTMOBILE from "../../breakpoint";
+import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
 import { FONT_STYLE_READ, FONT_STYLE_LOGIN } from "../../style/fontStyle";
 import { PALETTE_V1 } from "../../style/color";
 import pwd from "../../asset/pwd.png";

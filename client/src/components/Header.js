@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import BREAKPOINTMOBILE from "../breakpoint";
+import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../src/breakpoint";
 import { Link, useNavigate } from "react-router-dom";
 import postbox from "../asset/postbox.svg";
 import axios from "axios";
@@ -8,12 +8,6 @@ import { getCookie } from "../pages/Certified/Cookie";
 
 function Header({ isLogin }) {
   const navigate = useNavigate();
-
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-    "ngrok-skip-browser-warning": "12",
-  };
 
   //로그아웃 제출 버튼
   const onLogout = async () => {
@@ -25,7 +19,9 @@ function Header({ isLogin }) {
           Refresh: localStorage.getItem("refreshToken"),
         },
         {
-          headers,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "12",
         }
       )
       .then((res) => {
@@ -91,10 +87,11 @@ const HeaderComponent = styled.header`
   background: #fcfbf4;
   border-bottom: 1px solid #312f2b;
   display: flex;
-  width: 100%;
+  /* width: 100%; */
   height: 60px;
   position: sticky;
   z-index: 90;
+  overflow: scroll;
 `;
 
 const HeaderContainer = styled.div`
@@ -103,7 +100,7 @@ const HeaderContainer = styled.div`
   height: 100%;
   justify-content: space-between;
   margin: 0px 50px;
-  width: 100vw;
+  /* width: 100vw; */
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     margin: 0px 30px;
