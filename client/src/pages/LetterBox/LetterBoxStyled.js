@@ -218,7 +218,7 @@ export const ItemBox = styled.div`
   flex-direction: column;
   position: relative;
   cursor: pointer;
-  background-image: url(${오리});
+  background-image: url(${알록달록});
   background-size: cover;
   background-repeat: no-repeat;
 `;
@@ -307,6 +307,40 @@ export const DeleteButtonON = styled.div`
   border-radius: 50%;
   position: fixed;
   bottom: 120px;
+  right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  background-color: ${PALETTE_V1.orange_dark};
+  color: white;
+  cursor: pointer;
+`;
+
+export const ReceiveButton = styled.div`
+  width: 60px;
+  height: 60px;
+  border: 3px solid ${PALETTE_V1.orange_dark};
+  border-radius: 50%;
+  position: fixed;
+  bottom: 200px;
+  right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  background-color: white;
+  color: ${PALETTE_V1.orange_dark};
+  cursor: pointer;
+`;
+
+export const SendButton = styled.div`
+  width: 60px;
+  height: 60px;
+  border: 3px solid ${PALETTE_V1.orange_dark};
+  border-radius: 50%;
+  position: fixed;
+  bottom: 200px;
   right: 30px;
   display: flex;
   justify-content: center;

@@ -29,13 +29,13 @@ function LetterItem({ select, trash }) {
         }}
       >
         {mark ? (
-          <img src={require("../../asset/bookmark-red.png")} />
+          <img src={require("../../asset/bookmark-red.png")} alt='' />
         ) : (
-          <img src={require("../../asset/bookmark-grey.png")} />
+          <img src={require("../../asset/bookmark-grey.png")} alt=''  />
         )}
       </L.BookMark>
       <L.ItemDate>2023.03.20</L.ItemDate>
-      <L.ItemTitle>김햄찌의 귀빠진 날</L.ItemTitle>
+      <L.ItemTitle>From. 김햄찌</L.ItemTitle>
       <L.ItemContents>
         내가 만든 쿠키 너를 위해 구웠지, but you know that it ain't for free,
         yeah 내가 만든 쿠키 너무 부드러우니 (what?) 자꾸만 떠오르니 (ayy) 널
