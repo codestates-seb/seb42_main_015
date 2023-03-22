@@ -26,6 +26,7 @@ export const TrashTableMenu = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-weight: 600;
   .select-all {
     border: 2px solid black;
   }
@@ -65,6 +66,7 @@ export const ItemBox = styled.li`
   border-bottom: 1px solid black;
   ${FONT_STYLE_V1.body.body_10_light}
 `;
+
 export const ItemName = styled.div`
   flex-grow: 1.5;
   border-right: 1px solid black;

@@ -97,6 +97,7 @@ export const InputWrap = styled.div`
     padding: 0 3rem;
   }
 `;
+
 export const ErrorMsg = styled.div`
   ${FONT_STYLE_V1.body.body_8_light}
   color: red;

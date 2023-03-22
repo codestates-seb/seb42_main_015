@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     "/api",
     createProxyMiddleware({
-      target: "https://naveropenapi.apigw.ntruss.com/recog/v1/stt",
+      target: "https://3d0f-220-95-3-215.jp.ngrok.io/",
       changeOrigin: true,
       pathRewrite: {
         "^/api": "",

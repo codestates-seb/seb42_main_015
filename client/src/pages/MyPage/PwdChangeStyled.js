@@ -8,6 +8,7 @@ export const PwdChangeWrap = styled.div`
   min-height: 85vh;
   display: flex;
   flex-direction: column;
+
   ${FONT_STYLE_V1.title.title_14_medium}
 `;
 

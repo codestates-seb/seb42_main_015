@@ -155,7 +155,12 @@ function PwdChange() {
                 <br />
                 로그인 페이지에서 로그인 해주세요.
               </M.SuccessContent>
-              <ShadowButton backgroundColor='#FFFB95' onClick={() => navigate('/login')}>Login</ShadowButton>
+              <ShadowButton
+                backgroundColor="#FFFB95"
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </ShadowButton>
             </M.SuccessContainer>
           </M.SuccessWrap>
         )}
