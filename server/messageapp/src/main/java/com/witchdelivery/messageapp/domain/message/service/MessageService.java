@@ -25,6 +25,13 @@ public class MessageService {
         Outgoing outgoing = new Outgoing();
         outgoing.setMessage(savedMessage);
         outgoing.setMember(savedMessage.getMember());
+        outgoing.setOutgoingNickname(savedMessage.getMember().getNickname());
+        String content = savedMessage.getContent();
+        if (content.length() > 30) {
+            content = content.substring(0,30);
+        }
+        outgoing.setContent(content); // 30자 미리보기
+        outgoing.setMessageCreatedAt(savedMessage.getCreatedAt());
         outgoingService.createOutgoing(outgoing);
         return savedMessage;
     }
