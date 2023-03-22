@@ -10,7 +10,7 @@ import Modal from "../commons/Modal";
 import LoginModal from "./LoginModal";
 import { AiOutlineSound } from "react-icons/ai";
 import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
-import { HiPause } from "react-icons/hi2";
+import { HiPause, HiOutlineTrash } from "react-icons/hi2";
 import { getSpeech, pauseSpeech } from "./GetSpeech";
 
 const ReadLetter = ({ isLogin }) => {
@@ -94,9 +94,12 @@ const ReadLetter = ({ isLogin }) => {
             </R.Letterpaper>
             <R.Buttons>
               {isLogin ? (
-                <Link to="/letterbox">
-                  <HiOutlineArrowUturnLeft size="30" className="goback" />
-                </Link>
+                <>
+                  <Link to="/letterbox">
+                    <HiOutlineArrowUturnLeft size="30" className="goback" />
+                  </Link>
+                  <HiOutlineTrash size="30" />
+                </>
               ) : (
                 <></>
               )}

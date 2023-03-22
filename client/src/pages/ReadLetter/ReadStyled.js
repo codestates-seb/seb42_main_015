@@ -5,6 +5,7 @@ import { PALETTE_V1 } from "../../style/color";
 import pwd from "../../asset/pwd.png";
 import email from "../../asset/mail.png";
 
+//todo : 전체 편지지 wrapper
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -46,6 +47,7 @@ export const Wrapper = styled.div`
   }
 `;
 
+//todo :
 export const SWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -189,7 +191,7 @@ export const Buttons = styled.div`
   display: flex;
   align-items: center;
   height: 6rem;
-  padding: 0rem 0rem 0rem 26rem;
+  padding: 0rem 0rem 0rem 24rem;
 
   > div {
     display: flex;
@@ -197,13 +199,8 @@ export const Buttons = styled.div`
   }
   .goback {
     display: flex;
-    margin: 0.2rem 10rem 0 -25rem;
+    margin: 0.2rem 10rem 0 -23.5rem;
     cursor: pointer;
-    /* &:hover {
-      background-color: ${PALETTE_V1.yellow_modal_button};
-      border-radius: 50%;
-      padding: 7px;
-    } */
   }
 `;
 
