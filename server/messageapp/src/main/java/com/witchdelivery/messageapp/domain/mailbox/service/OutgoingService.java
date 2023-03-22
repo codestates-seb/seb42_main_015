@@ -15,6 +15,9 @@ public class OutgoingService { // 발신 (보내는 사람)
     private final OutgoingRepository outgoingRepository;
 
     public Outgoing createOutgoing(Outgoing outgoing) {
+
+
+
         return outgoingRepository.save(outgoing); // outgoing 정보 저장
     }
 

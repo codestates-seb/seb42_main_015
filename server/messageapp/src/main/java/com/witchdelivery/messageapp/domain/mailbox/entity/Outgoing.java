@@ -29,6 +29,14 @@ public class Outgoing extends BaseTime { // 발신 (보내는 사람)
     @JoinColumn(name = "MESSAGE_ID")
     private Message message; // FK 편지식별번호
 
+    private String outgoingNickname; // 발신자 (보내는 사람) 닉네임
+
+    private String content; // 편지 내용
+
+    private LocalDateTime messageCreatedAt; // 편지 생성날짜
+
+    private boolean bookMark; // 북마크 여부
+
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member; // FK 사용자식별번호
