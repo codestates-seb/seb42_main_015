@@ -4,6 +4,9 @@ spring:
     url: ${datasource}
     username: root
     password:
+  batch:
+    jdbc:
+      initialize-schema: always
   jpa:
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL8Dialect

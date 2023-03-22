@@ -55,6 +55,10 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 	// Spring Data Redis (Access+Driver)(NOSQL)
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	// Spring Batch
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
+	implementation 'org.springframework.boot:spring-boot-starter-quartz'
+	testImplementation 'org.springframework.batch:spring-batch-test'
 }
 
 /*tasks.named('test') {

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+
 @Service
 public class MessageService {
     private final MessageRepository messageRepository;
@@ -22,12 +23,8 @@ public class MessageService {
         return messageRepository.save(message);
     }
 
-    public Message findMessage(long messageId, long password) {
-        Message message = findVerifiedMessage(messageId);
-        if (!message.getPassword().equals(password)) {
-            throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_MATCH);
-        }
-        return message;
+    public Message findMessage(long messageId) {
+        return findVerifiedMessage(messageId);
     }
 
     public Page<Message> findAllMessages(int page, int size) {
@@ -38,5 +35,10 @@ public class MessageService {
     public Message findVerifiedMessage(Long messageId) {
         Optional<Message> optionalMessage = messageRepository.findById(messageId);
         return optionalMessage.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MESSAGE_NOT_FOUND));
+    }
+
+    public void deleteMessage(Long messageId) {
+        Message message = findVerifiedMessage(messageId);
+        messageRepository.delete(message);
     }
 }
