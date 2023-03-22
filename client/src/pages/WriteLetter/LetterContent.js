@@ -127,17 +127,19 @@ function LetterContent({
         {...register("content")}
         ref={textarea}></W.ContentTextarea>
       <W.FromWrapper>
-        <W.BallonWrapper>
-          <W.NameInputWrapper>
+        <W.BallonWrapper id="from-wrapper">
+          <W.NameInputWrapper className="from-input">
             From
             <W.NameInput
               type="text"
               name="senderName"
-              id="from-input"
+              className="from-input"
               {...register("senderName")}></W.NameInput>
           </W.NameInputWrapper>
           {errors.senderName && (
-            <W.ErrorMessage>{errors.senderName.message}</W.ErrorMessage>
+            <W.ErrorMessage className="from-input">
+              {errors.senderName.message}
+            </W.ErrorMessage>
           )}
           {openExplaination ? (
             <W.BallonBottom1 id="ballon7">
