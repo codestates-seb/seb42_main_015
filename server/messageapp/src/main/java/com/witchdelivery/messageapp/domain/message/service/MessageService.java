@@ -29,6 +29,13 @@ public class MessageService {
         return savedMessage;
     }
 
+    public void updatedMessageSaved(Long messageId, boolean messageSaved) {
+        Message message = findVerifiedMessage(messageId);
+
+        message.setMessageSaved(true);
+        messageRepository.save(message);
+    }
+
     public Message findMessage(long messageId) {
         return findVerifiedMessage(messageId);
     }

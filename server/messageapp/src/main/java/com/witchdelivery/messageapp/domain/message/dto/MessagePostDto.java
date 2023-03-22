@@ -18,8 +18,5 @@ public class MessagePostDto {
     private String content;
     @Digits(integer = 4, fraction = 0, message = "편지 비밀번호 숫자 4자리를 입력해주세요.")
     private Long password;
-    private boolean messageSaved;
-    private boolean bookMark;
-
     private long memberId;
 }
