@@ -7,7 +7,7 @@ import Ballon3 from "../../asset/ballon3.png";
 import Ballon4 from "../../asset/ballon4.png";
 import Ballon5 from "../../asset/ballon5.png";
 import transparentImg from "../../asset/transparent-background.png";
-import BREAKPOINTMOBILE from "../../breakpoint";
+import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
 import 군대 from "../../asset/letterTheme/군대-theme.png";
 import 냥냥편지 from "../../asset/letterTheme/냥냥편지-theme.png";
 import 리본 from "../../asset/letterTheme/리본-theme.png";
