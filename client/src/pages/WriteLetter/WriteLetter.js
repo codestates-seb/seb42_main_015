@@ -179,31 +179,54 @@ function WriteLetter() {
               size="30"
             />
           </W.ThemeIcon>
-          <W.LetterWrapper>
-            <LetterContent
-              sendMeChecked={sendMeChecked}
-              setSendMeChecked={setSendMeChecked}
-              openExplaination={openExplaination}
-              openSendMe={openSendMe}
-              setOpenSendMe={setOpenSendMe}
-              startDate={startDate}
-              setContentLength={setContentLength}
-              transcript={transcript}
-              finalTranscript={finalTranscript}
-              resetTranscript={resetTranscript}
-              currentLetterTheme={currentLetterTheme}
-            />
-            <W.BallonWrapper>
-              <W.TextCount>{contentLength}/7000</W.TextCount>
-              {openExplaination ? (
-                <W.BallonTop id="ballon3">
-                  글자 수를 확인할 수 있습니다.
-                </W.BallonTop>
-              ) : (
-                <></>
-              )}
-            </W.BallonWrapper>
-          </W.LetterWrapper>
+          <W.FlexColunmWrapper>
+            <W.LetterWrapper>
+              <LetterContent
+                sendMeChecked={sendMeChecked}
+                setSendMeChecked={setSendMeChecked}
+                openExplaination={openExplaination}
+                openSendMe={openSendMe}
+                setOpenSendMe={setOpenSendMe}
+                startDate={startDate}
+                setContentLength={setContentLength}
+                transcript={transcript}
+                finalTranscript={finalTranscript}
+                resetTranscript={resetTranscript}
+                currentLetterTheme={currentLetterTheme}
+              />
+              <W.BallonWrapper>
+                <W.TextCount>{contentLength}/7000</W.TextCount>
+                {openExplaination ? (
+                  <W.BallonTop id="ballon3">
+                    글자 수를 확인할 수 있습니다.
+                  </W.BallonTop>
+                ) : (
+                  <></>
+                )}
+              </W.BallonWrapper>
+            </W.LetterWrapper>
+            <W.ButtonWrapper>
+              <SlQuestion
+                onClick={handleOpenExplanation}
+                className="question-icon"
+                size="30"
+              />
+              <W.BallonWrapper className="button">
+                {openExplaination ? (
+                  <W.BallonBottom1 id="ballon4">
+                    작성을 마무리하고 편지를 생성합니다.
+                  </W.BallonBottom1>
+                ) : (
+                  <></>
+                )}
+                <ShadowButton
+                  onClick={handleOpenMakeLetter}
+                  backgroundColor={PALETTE_V1.yellow_button}>
+                  편지생성
+                </ShadowButton>
+              </W.BallonWrapper>
+            </W.ButtonWrapper>
+          </W.FlexColunmWrapper>
           <W.ThemeIcon>
             <MdArrowForwardIos
               onClick={handleThemeRight}
@@ -212,41 +235,6 @@ function WriteLetter() {
             />
           </W.ThemeIcon>
         </W.FlexWrapper2>
-        <W.ButtonContainer>
-          <W.ButtonWrapper>
-            <SlQuestion
-              onClick={handleOpenExplanation}
-              className="question-icon"
-              size="30"
-            />
-            <W.BallonWrapper className="button">
-              {openExplaination ? (
-                <W.BallonBottom2 id="ballon5">
-                  작성한 편지를 미리 볼 수 있습니다.
-                </W.BallonBottom2>
-              ) : (
-                <></>
-              )}
-              <ShadowButton backgroundColor={PALETTE_V1.yellow_button}>
-                미리보기
-              </ShadowButton>
-            </W.BallonWrapper>
-            <W.BallonWrapper className="button">
-              {openExplaination ? (
-                <W.BallonBottom1 id="ballon4">
-                  작성을 마무리하고 편지를 생성합니다.
-                </W.BallonBottom1>
-              ) : (
-                <></>
-              )}
-              <ShadowButton
-                onClick={handleOpenMakeLetter}
-                backgroundColor={PALETTE_V1.yellow_button}>
-                편지생성
-              </ShadowButton>
-            </W.BallonWrapper>
-          </W.ButtonWrapper>
-        </W.ButtonContainer>
       </W.PageWrapper>
     </W.PageContainer>
   );

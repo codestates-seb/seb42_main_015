@@ -133,6 +133,7 @@ function LetterContent({
             <W.NameInput
               type="text"
               name="senderName"
+              id="from-input"
               {...register("senderName")}></W.NameInput>
           </W.NameInputWrapper>
           {errors.senderName && (

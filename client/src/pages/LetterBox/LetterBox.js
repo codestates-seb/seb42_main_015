@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import * as L from "./LetterBoxStyled";
 import LetterView from "./LetterView";
 import { GrSearch } from "react-icons/gr";
-import { AiOutlineCalendar } from "react-icons/ai";
+import { AiOutlineCalendar, AiOutlineArrowUp } from "react-icons/ai";
+import { HiOutlineTrash } from "react-icons/hi";
 import {
   RiArrowDropDownLine,
   RiArrowUpSLine,
@@ -13,6 +14,8 @@ function LetterBox() {
   const [lefttTab, setleftTab] = useState(false);
   const [rightTab, setRightTab] = useState(false);
   const [currentTab, setCurrentTab] = useState("최신순");
+  const [select, setSelect] = useState(false);
+  const [trash, setTrash] = useState(false);
 
   const tabItem = ["최신순", "오래된 순", "북마크"];
   const [yearL, setYearL] = useState(2023);
@@ -59,6 +62,11 @@ function LetterBox() {
     if (yearR > 2023) {
       setYearR(yearR - 1);
     }
+  };
+
+  const handleDelete = () => {
+    setTrash(!trash);
+    setSelect(!select);
   };
 
   return (
@@ -121,9 +129,25 @@ function LetterBox() {
         </L.DropdownContainer>
       </L.FilterContainer>
       <L.ViewWrap>
-        <LetterView />
+        <LetterView select={select} trash={trash} />
         <L.Gradient />
       </L.ViewWrap>
+      <L.TopButton
+        onClick={() => {
+          window.scrollTo(0, 0);
+        }}
+      >
+        <AiOutlineArrowUp />
+      </L.TopButton>
+      {trash ? (
+        <L.DeleteButtonON onClick={handleDelete}>
+          <HiOutlineTrash />
+        </L.DeleteButtonON>
+      ) : (
+        <L.DeleteButtonOff onClick={handleDelete}>
+          <HiOutlineTrash />
+        </L.DeleteButtonOff>
+      )}
     </L.LetterBoxWrap>
   );
 }

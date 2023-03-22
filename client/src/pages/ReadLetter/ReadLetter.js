@@ -1,28 +1,28 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import * as R from "./ReadStyled";
-import { PALETTE_V1 } from "../../style/color";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
 import SecretLetter from "./SecetLetter";
-import ShadowButton from "../commons/ShadowButton";
-import Modal from "../commons/Modal";
-import LoginModal from "./LoginModal";
 import { AiOutlineSound } from "react-icons/ai";
-import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
-import { HiPause, HiOutlineTrash } from "react-icons/hi2";
+import { HiPause } from "react-icons/hi2";
 import { getSpeech, pauseSpeech } from "./GetSpeech";
+import ReadButtons from "./ReadButtons";
+import axios from "axios";
 
 const ReadLetter = ({ isLogin }) => {
+  const url = new URL(window.location.href);
+  const urlParams = url.searchParams.get("password"); //url파라미터값
+  const { id } = useParams();
+  console.log(id);
+
+  //todo: useState
   //비밀번호 쳤는지 안쳤는지
   const [enterPassword, setEnterPassword] = useState(false);
   //보관하기를 클릭했을 때 비로그인(저장X)인지 로그인(저장준비 완료)아닌지
   const [isKeeping, setIsKeeping] = useState(false);
-
-  //'보관하기' 버튼 누르면 모달 나오는 이벤트 핸들러
-  const handleKeeping = () => {
-    setIsKeeping(!isKeeping);
-  };
+  //편지 정보 가져오기
+  const [data, setData] = useState([]);
 
   //! 이미지 저장 기능
   //useRef로 -> DOM 선택
@@ -56,10 +56,32 @@ const ReadLetter = ({ isLogin }) => {
     getSpeech(pauseSpeech());
   };
 
-  // //음성 변환 목소리 preload
-  // useEffect(() => {
-  //   window.speechSynthesis.getVoices();
-  // }, []);
+  //음성 변환 목소리 preload
+  useEffect(() => {
+    window.speechSynthesis.getVoices();
+  }, []);
+
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "12",
+  };
+
+  //! 전체 편지정보 가져오기
+  useEffect(() => {
+    const getLetterData = async () => {
+      await axios
+        .get(`/api/sendy/messages/${id}/${urlParams}`, { headers })
+        .then((res) => {
+          setData(res.body);
+        })
+        .catch((err) => {
+          // alert(err);
+          // console.log(err);
+        });
+    };
+    getLetterData();
+  }, [data]);
 
   return (
     <>
@@ -92,52 +114,13 @@ const ReadLetter = ({ isLogin }) => {
               <div className="content">{R.LetterEx}</div>
               <div className="from">From. 오디토</div>
             </R.Letterpaper>
-            <R.Buttons>
-              {isLogin ? (
-                <>
-                  <Link to="/letterbox">
-                    <HiOutlineArrowUturnLeft size="30" className="goback" />
-                  </Link>
-                  <HiOutlineTrash size="30" className="trash" />
-                </>
-              ) : (
-                <></>
-              )}
-              <ShadowButton
-                backgroundColor={PALETTE_V1.yellow_button}
-                state="none-block"
-                onClick={onDownloadBtn}
-              >
-                이미지 저장
-              </ShadowButton>
-              {isLogin ? (
-                <ShadowButton
-                  backgroundColor={PALETTE_V1.aready_keep_button}
-                  state="block"
-                >
-                  보관완료
-                </ShadowButton>
-              ) : (
-                <ShadowButton
-                  backgroundColor={PALETTE_V1.yellow_button}
-                  state="none-block"
-                  onClick={handleKeeping}
-                >
-                  보관하기
-                </ShadowButton>
-              )}
-              {isKeeping ? (
-                <R.ModalBackground>
-                  <Modal
-                    ModalRef={ModalRef}
-                    ContainerHeight={"500px"}
-                    children={<LoginModal ModalRef={ModalRef} />}
-                  />
-                </R.ModalBackground>
-              ) : (
-                <></>
-              )}
-            </R.Buttons>
+            <ReadButtons
+              ModalRef={ModalRef}
+              isKeeping={isKeeping}
+              setIsKeeping={setIsKeeping}
+              isLogin={isLogin}
+              onDownloadBtn={onDownloadBtn}
+            />
           </div>
         </R.Wrapper>
       ) : (
@@ -153,15 +136,6 @@ const ReadLetter = ({ isLogin }) => {
 export default ReadLetter;
 
 /*
-! 서버 오픈 전 끝내야 할일  
-2. 버튼
-  //- 이미지로 저장하기 -> 이미지 캡쳐 기능 추가
-  //- 보관하기 -> 로그인 페이지로 이동
-  //- 보관완료 -> 로그인 상태를 받아 로그인한 회원이면 보관하기에서-> 보관완료로 이름 변경
-
-//3. 로그인 상태이면
-//  - 비밀번호 입력 모달이 안나온다.
-
 ! 서버 오픈 후 할일
 1. 비밀번호 검증
   - 편지 비밀번호 인증
@@ -179,23 +153,7 @@ export default ReadLetter;
   - 로그인되면 로그인 상태로 변환 (헤더 등)
   - 로그인 후 보관하기 버튼 누르면 -> 보관 모드로 상태 변경
   - 왼쪽 되돌아가기 버튼 -> 우편함으로 이동 "/letterbox"
-//! 음성 APi
-  //- 편지를 읽어주는 기능 -> 검색하기
 
-! 3/17 오늘 끝내야 할일
-//0. 편지 정보 위치 지정하기
-  //- to
-  //- 날짜
-  //- content
-  //- from
-
-//1. 로그인 모달 만들기
-  //- 로그인 reaco-form 
-
-! 3/20 오늘 할일
-  //1. 보관완료 상태가 되면 ->  왼쪽 되돌아가기 버튼 -> 우편함으로 이동 "/letterbox"
-  //2. 음성 APi -> 편지 읽어주는 기능 추가
-  //3. 로그인 모달 밖 영역 누르면 모달 닫기
 
 ! 로그인 / 비로그인 시 로직
 ? 비회원일시

@@ -72,7 +72,7 @@ export const LogForm = styled.form`
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           font-size: 2.5rem;
           margin: ${(props) =>
-            props.theme === "login" ? "1.5rem 0rem 1.5rem" : "0.8rem 0 0"};
+            props.theme === "login" ? "1.5rem 0rem 1.5rem" : "0.8rem 0 1rem"};
         }
       }
       input {
@@ -90,7 +90,7 @@ export const LogForm = styled.form`
         background-size: 1.5rem;
         font-size: 14px;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          width: 14rem;
+          width: 15rem;
           font-size: 11px;
           margin-top: 1.2rem;
           margin-bottom: 0.5rem;
@@ -169,7 +169,7 @@ export const LogForm = styled.form`
         font-family: "Pretendard-Light";
         font-size: 0.4rem;
         border: 1px solid #505050;
-        background: ${(props) => props.backgroundcolor};
+        background: #ffcb12;
         width: 3.7rem;
         height: 1.5rem;
         cursor: pointer;
@@ -187,6 +187,28 @@ export const LogForm = styled.form`
           transform: scale(1.02);
         }
       }
+      .duplicate-check {
+        position: absolute;
+        top: 2.4rem;
+        right: 0.7rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Pretendard-Light";
+        font-size: 0.4rem;
+        border: 1px solid #505050;
+        background: #d3d3d3;
+        width: 3.7rem;
+        height: 1.5rem;
+        cursor: pointer;
+        border-radius: 50%;
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+          width: 3rem;
+          height: 1.3rem;
+          font-size: 6px;
+          top: 1.7rem;
+        }
+      }
     }
     .oauth-form {
       display: none;
@@ -194,13 +216,18 @@ export const LogForm = styled.form`
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
         display: flex;
         .oauth-head {
+          justify-content: center;
+          display: flex;
           padding: ${(props) =>
             props.theme === "login" ? "50px 20px 13px" : "35px 20px 13px"};
 
           ${FONT_STYLE_LOGIN.body.body_8_light}
         }
         .oauth {
-          justify-content: space-around;
+          justify-content: center;
+          display: flex;
+          width: 10rem;
+          height: 1.8rem;
           img {
             width: 1.8rem;
             margin: 0 10px;
