@@ -1,10 +1,19 @@
-import * as L from "./ReadStyled";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
+import * as L from "./ReadStyled";
 import * as yup from "yup";
+import axios from "axios";
+import { setCookie } from "../Certified/Cookie";
 
-const LoginModal = ({ ModalRef }) => {
+const LoginModal = ({ ModalRef, setIsKeeping }) => {
+  //로그인되면 모달 닫기
+  const CloseModal = () => {
+    alert("로그인되었습니다.");
+    setIsKeeping(false);
+  };
+
   const formShema = yup.object({
     email: yup
       .string()
@@ -27,9 +36,46 @@ const LoginModal = ({ ModalRef }) => {
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
 
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    console.log(data);
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "12",
+  };
+
+  //! 로그인 제출 버튼
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+    await axios
+      .post(
+        `/api/sendy/auth/login`,
+        { username: email, password: password },
+        {
+          headers,
+        }
+      )
+      .then((res) => {
+        alert("로그인되었습니다.");
+        CloseModal();
+        if (res.headers.getAuthorization) {
+          //! refresh token은 -> local storage에 저장
+          localStorage.setItem("refreshToken", res.headers.get("Refresh"));
+          //! access token은 -> cookie에 저장
+          setCookie(
+            "accesstoken",
+            res.headers.get("Authorization").split(" ")[1],
+            {
+              path: "/",
+              sucure: true,
+              sameSite: "Strict",
+              HttpOnly: " HttpOnly ",
+            }
+          );
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+      });
   };
 
   return (
@@ -37,7 +83,6 @@ const LoginModal = ({ ModalRef }) => {
       <div className="loginText">Log in</div>
       <div className="oauth">
         <img src={require("../../asset/구글.png")} alt="Googole" />
-        <img src={require("../../asset/카카오.png")} alt="Kakao" />
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
@@ -62,6 +107,7 @@ const LoginModal = ({ ModalRef }) => {
           type="submit"
           value="Log in"
           disabled={isSubmitting}
+          onClick={CloseModal}
         />
       </form>
       <div className="sub-form">

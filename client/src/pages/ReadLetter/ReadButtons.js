@@ -72,7 +72,9 @@ const ReadButtons = ({
             <Modal
               ModalRef={ModalRef}
               ContainerHeight={"500px"}
-              children={<LoginModal ModalRef={ModalRef} />}
+              children={
+                <LoginModal ModalRef={ModalRef} setIsKeeping={setIsKeeping} />
+              }
             />
           </R.ModalBackground>
         ) : (
