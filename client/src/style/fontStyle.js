@@ -28,6 +28,11 @@ export const FONT_STYLE_V1 = {
       font-size: 1.6rem;
       color: ${PALETTE_V1.text_primary};
     `,
+    title_18_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 1.8rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
     title_20_medium: css`
       font-family: "Pretendard-Medium";
       font-size: 2rem;
