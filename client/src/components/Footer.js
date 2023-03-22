@@ -18,6 +18,7 @@ const FooterComponent = styled.footer`
     padding: 2rem 2rem 2rem;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    padding: 1.2rem 2rem 1.2rem;
   }
 
   .menuContainer {
@@ -27,9 +28,10 @@ const FooterComponent = styled.footer`
       font-size: 2.4rem;
       margin-bottom: 12px;
       @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
       @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+        font-size: 1.8rem;
       }
     }
     .logo-img {
@@ -49,9 +51,11 @@ const FooterComponent = styled.footer`
       }
       @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
         margin-top: 10px;
-        font-size: 0.7rem;
+        font-size: 0.8rem;
       }
       @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+        margin-top: 5px;
+        font-size: 0.6rem;
       }
     }
   }

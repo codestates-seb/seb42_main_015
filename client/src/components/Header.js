@@ -105,6 +105,7 @@ const HeaderContainer = styled.div`
     margin: 0px 30px;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    margin: 0 2rem 0 2rem;
   }
 
   .logo {
@@ -117,9 +118,7 @@ const HeaderContainer = styled.div`
     padding-bottom: 4px;
 
     @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 1.4rem;
-    }
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+      font-size: 1.7rem;
     }
   }
 
@@ -134,6 +133,9 @@ const HeaderContainer = styled.div`
     display: flex;
     li {
       padding: 0px 20px;
+      @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+        padding: 0px 15px;
+      }
     }
     .postImg {
       width: 35px;
@@ -147,10 +149,8 @@ const HeaderContainer = styled.div`
     font-family: "Inria Sans", sans-serif;
     cursor: pointer;
 
-    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 0.8rem;
-    }
     @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+      font-size: 0.9rem;
     }
   }
 `;

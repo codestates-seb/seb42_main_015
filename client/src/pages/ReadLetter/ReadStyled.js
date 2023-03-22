@@ -60,7 +60,6 @@ export const SWrapper = styled.div`
 //todo : 비밀번호 입력 form
 export const Secretform = styled.form`
   display: flex;
-  /* margin-top: -5rem; */
   padding: 5rem 5rem;
   width: 50vw;
   height: 40vh;
@@ -72,15 +71,18 @@ export const Secretform = styled.form`
     padding: 5rem 1rem;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+     height: 60vh;
   }
   div {
     display: flex;
     ${FONT_STYLE_READ.title_20_medium}
 
     @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 1rem;
+      font-size: 1.5rem;
     }
     @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+      font-size: 1rem;
+      width: 12rem;
     }
   }
   .pwdInput {
@@ -101,9 +103,13 @@ export const Secretform = styled.form`
 
     @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
       background-size: 1.2rem;
-      width: 13rem;
+      width: 18rem;
     }
     @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+       background-size: 1.2rem;
+       height: 2rem;
+       width: 12rem;
+    }
     }
   }
   .btn {
@@ -125,17 +131,25 @@ export const Secretform = styled.form`
       margin-left: 55%;
     }
     @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+      width: 5rem;
+      height: 1.6rem;
+      font-size: 0.5rem;
+      margin-left: 55%;
     }
   }
   p {
     color: red;
-    margin: -2rem 0 1rem;
-    font-size: 14px;
+    margin: -3.3rem 0 -1rem;
+    font-size: 16px;
 
     @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 11px;
+      margin: -2.2rem 0 -1rem;
+      font-size: 13px;
     }
     @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+      margin: -2rem 0 -1rem;
+      width: 12rem;
+      font-size: 10px;
     }
   }
 `;
