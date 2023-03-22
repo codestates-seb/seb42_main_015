@@ -47,7 +47,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-//todo :
+//todo :비밀번호 편지 페이지 wrapper
 export const SWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -58,6 +58,7 @@ export const SWrapper = styled.div`
   padding-bottom: 300px;
 `;
 
+//todo : 비밀번호 입력 form
 export const Secretform = styled.form`
   display: flex;
   /* margin-top: -5rem; */
@@ -126,6 +127,7 @@ export const Secretform = styled.form`
   }
 `;
 
+//todo : 편지 조회 페이지에서 맨위 비밀번호 input
 export const EnterSeret = styled.div`
   display: flex;
   justify-content: center;
@@ -146,6 +148,7 @@ export const EnterSeret = styled.div`
   }
 `;
 
+//todo : 편지 letter wrapper
 export const FlexColunmWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -187,11 +190,12 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   }
 `;
 
+//todo : 아래 버튼들(우편함 돌아가기, 휴지통, 이미지저장, 보관하기)
 export const Buttons = styled.div`
   display: flex;
   align-items: center;
   height: 6rem;
-  padding: 0rem 0rem 0rem 24rem;
+  padding: 0rem 0rem 0rem 23.5rem;
 
   > div {
     display: flex;
@@ -199,11 +203,17 @@ export const Buttons = styled.div`
   }
   .goback {
     display: flex;
-    margin: 0.2rem 10rem 0 -23.5rem;
+    margin: 0.2rem 10rem 0 -23rem;
+    cursor: pointer;
+  }
+  .trash {
+    display: flex;
+    margin-right: 8px;
     cursor: pointer;
   }
 `;
 
+//todo : 편지 content hard cording
 export const LetterEx = `이 노래는 it's about you baby
 Only you
 You, you, you
@@ -258,6 +268,7 @@ No, I can never let him go
 He's the one that's living in my system baby
 `;
 
+//todo : 보관하기 로그인 모달
 export const ModalWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -331,6 +342,7 @@ export const ModalWrapper = styled.div`
   }
 `;
 
+//todo : 보관하기 로그인 모달 백그라운드
 export const ModalBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
   position: fixed;

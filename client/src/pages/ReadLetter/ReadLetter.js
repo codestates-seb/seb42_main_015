@@ -98,7 +98,7 @@ const ReadLetter = ({ isLogin }) => {
                   <Link to="/letterbox">
                     <HiOutlineArrowUturnLeft size="30" className="goback" />
                   </Link>
-                  <HiOutlineTrash size="30" />
+                  <HiOutlineTrash size="30" className="trash" />
                 </>
               ) : (
                 <></>
