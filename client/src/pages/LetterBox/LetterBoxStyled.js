@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
-import BREAKPOINTMOBILE from "../../breakpoint";
+import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
 import 구름 from "../../asset/letterTheme/구름-theme.png";
 import 군대 from "../../asset/letterTheme/군대-theme.png";
 import 냥냥편지 from "../../asset/letterTheme/냥냥편지-theme.png";

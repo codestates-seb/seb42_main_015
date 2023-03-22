@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { PALETTE_MAIN } from "../../style/color";
 import { FONT_STYLE_V1, FONT_STYLE_LOGO } from "../../style/fontStyle";
-import BREAKPOINTMOBILE from "../../breakpoint";
+import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
 
 export const MainWrap = styled.div``;
 
