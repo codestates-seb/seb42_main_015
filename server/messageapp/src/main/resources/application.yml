@@ -27,6 +27,7 @@ spring:
             clientId: ${google.clientid}
             clientSecret: ${google.clientsecret}
             scope: email, profile
+            redirect-uri: http://localhost:3000/login/oauth2/code/google
 mail:
   address:
     admin: admin@gmail.com  # 관리자 권한
