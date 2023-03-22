@@ -227,7 +227,7 @@ export const LogForm = styled.form`
           justify-content: center;
           display: flex;
           width: 10rem;
-          height: 2rem;
+          height: 1.8rem;
           img {
             width: 1.8rem;
             margin: 0 10px;
