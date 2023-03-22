@@ -101,8 +101,10 @@ const HeaderContainer = styled.div`
   margin: 0px 50px;
   width: 100vw;
 
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
     margin: 0px 30px;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
   }
 
   .logo {
@@ -114,8 +116,10 @@ const HeaderContainer = styled.div`
     font-size: 2.1rem;
     padding-bottom: 4px;
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
       font-size: 1.4rem;
+    }
+    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
     }
   }
 
@@ -143,8 +147,10 @@ const HeaderContainer = styled.div`
     font-family: "Inria Sans", sans-serif;
     cursor: pointer;
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
       font-size: 0.8rem;
+    }
+    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
     }
   }
 `;

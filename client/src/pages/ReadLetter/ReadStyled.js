@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
 import { FONT_STYLE_READ, FONT_STYLE_LOGIN } from "../../style/fontStyle";
-import { PALETTE_V1 } from "../../style/color";
 import pwd from "../../asset/pwd.png";
 import email from "../../asset/mail.png";
 
@@ -69,14 +68,19 @@ export const Secretform = styled.form`
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
     padding: 5rem 1rem;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
   }
   div {
     display: flex;
     ${FONT_STYLE_READ.title_20_medium}
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+
+    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
       font-size: 1rem;
+    }
+    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
     }
   }
   .pwdInput {
@@ -94,9 +98,12 @@ export const Secretform = styled.form`
     background-repeat: no-repeat;
     background-position: left;
     background-size: 1.5rem;
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {0
+
+    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
       background-size: 1.2rem;
       width: 13rem;
+    }
+    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
     }
   }
   .btn {
@@ -110,19 +117,25 @@ export const Secretform = styled.form`
     ${FONT_STYLE_READ.btn_8_light}
     margin-left: 70%;
     cursor: pointer;
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+
+    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
       width: 5rem;
       height: 1.6rem;
       font-size: 0.5rem;
       margin-left: 55%;
+    }
+    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
     }
   }
   p {
     color: red;
     margin: -2rem 0 1rem;
     font-size: 14px;
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+
+    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
       font-size: 11px;
+    }
+    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
     }
   }
 `;
