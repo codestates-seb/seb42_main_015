@@ -24,10 +24,10 @@ function SignUp() {
   const onSubmit = async (data) => {
     const { email, username, password } = data;
 
-    // if (!nameValid || !emailValid) {
-    //   alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
-    //   return;
-    // }
+    if (!nameValid || !emailValid) {
+      alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
+      return;
+    }
 
     await axios
       .post(
@@ -53,7 +53,7 @@ function SignUp() {
     if (username) {
       axios
         .post(
-          `/api/sendy/users/signup`,
+          `/api/sendy/users/nickname`,
           {
             nickname: username,
           },
@@ -81,7 +81,7 @@ function SignUp() {
     if (email) {
       axios
         .post(
-          `/api/sendy/users/signup`,
+          `/api/sendy/users/email`,
           {
             email: email,
           },

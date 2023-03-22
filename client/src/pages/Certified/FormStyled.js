@@ -35,9 +35,10 @@ export const BackgroundYellow = styled.div`
   height: ${(props) => (props.theme === "login" ? "40rem" : "41rem")};
   @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 20rem;
-    height: ${(props) => (props.theme === "login" ? "30rem" : "36rem")};
+    height: ${(props) => (props.theme === "login" ? "31rem" : "37rem")};
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    height: ${(props) => (props.theme === "login" ? "31rem" : "37rem")};
     width: 18rem;
   }
 `;
@@ -53,10 +54,11 @@ export const LogForm = styled.form`
   margin-bottom: 2rem;
   @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 20rem;
-    height: ${(props) => (props.theme === "login" ? "30rem" : "36rem")};
+    height: ${(props) => (props.theme === "login" ? "32rem" : "38rem")};
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
     width: 18rem;
+    height: ${(props) => (props.theme === "login" ? "32rem" : "38rem")};
   }
   .formLeft {
     flex-grow: 1;
@@ -82,7 +84,9 @@ export const LogForm = styled.form`
         @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
           font-size: 2.5rem;
           margin: ${(props) =>
-            props.theme === "login" ? "1.5rem 0rem 1.5rem" : "0.8rem 0 1rem"};
+            props.theme === "login"
+              ? "1.2rem 0rem 1.2rem"
+              : "0.2rem 0rem 0.8rem"};
         }
       }
       input {
@@ -137,8 +141,9 @@ export const LogForm = styled.form`
         font-size: 14px;
 
         @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-          font-size: 11px;
+          font-size: 10px;
           margin-bottom: 3px;
+          padding: 0 12px;
         }
       }
 
@@ -246,7 +251,7 @@ export const LogForm = styled.form`
           justify-content: center;
           display: flex;
           padding: ${(props) =>
-            props.theme === "login" ? "50px 20px 13px" : "35px 20px 13px"};
+            props.theme === "login" ? "45px 20px 13px" : "35px 20px 13px"};
 
           ${FONT_STYLE_LOGIN.body.body_8_light}
         }
