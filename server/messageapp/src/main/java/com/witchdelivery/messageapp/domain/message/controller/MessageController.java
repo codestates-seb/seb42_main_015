@@ -2,6 +2,7 @@ package com.witchdelivery.messageapp.domain.message.controller;
 
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.domain.member.service.MemberService;
+import com.witchdelivery.messageapp.domain.message.dto.MessagePatchDto;
 import com.witchdelivery.messageapp.domain.message.dto.MessagePostDto;
 import com.witchdelivery.messageapp.domain.message.service.MessageService;
 import com.witchdelivery.messageapp.domain.message.entity.Message;
@@ -37,6 +38,12 @@ public class MessageController {
 
         messageService.createMessage(message);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/saved/{message-id}")
+    public ResponseEntity updateMessageSaved(@PathVariable("message-id") Long messageId, @RequestBody MessagePatchDto messagePatchDto) {
+        messageService.updatedMessageSaved(messageId, messagePatchDto.isMessageSaved());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{message-id}")
