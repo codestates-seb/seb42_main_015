@@ -135,9 +135,7 @@ function SignUp() {
         });
     }
   };
-  useEffect(() => {
-    console.log(register);
-  }, [register]);
+
   return (
     <>
       <S.Container>
@@ -160,7 +158,8 @@ function SignUp() {
                   <button
                     className="duplicate"
                     onClick={usernameCheck}
-                    backgroundcolor="#ffcb12">
+                    backgroundcolor="#ffcb12"
+                  >
                     중복체크
                   </button>
                 )}
