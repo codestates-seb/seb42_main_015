@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
+import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
+
 const ModalBack = styled.div`
   position: fixed;
   top: 0;
@@ -21,6 +23,10 @@ const ModalContainer = styled.div`
   height: ${(props) => props.ContainerHeight || "600px"};
   border: 2px solid ${PALETTE_V1.text_primary};
   z-index: 300;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    top: 30%;
+    left: 10%;
+  }
 `;
 const ModalHeader = styled.div`
   position: relative;
@@ -63,8 +69,7 @@ function Modal(props) {
     <ModalBack>
       <ModalContainer
         ContainerHeight={props.ContainerHeight}
-        ContainerWidth={props.ContainerWidth}
-      >
+        ContainerWidth={props.ContainerWidth}>
         <ModalHeader>
           <CircleWrapper>
             <Circle backgroundColor={PALETTE_V1.red_modal_button} />
