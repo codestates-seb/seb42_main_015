@@ -9,11 +9,6 @@ function TrashList() {
 
   return (
     <M.TrashWrap>
-      {/* <M.GNBWrap>
-        <M.GNBMenu>내 정보</M.GNBMenu>
-        <M.GNBMenu>비밀번호 수정</M.GNBMenu>
-        <M.GNBMenuOn>휴지통</M.GNBMenuOn>
-      </M.GNBWrap> */}
       <GNB />
       <M.TrashContainer>
         <M.TrashTable>

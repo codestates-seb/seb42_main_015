@@ -1,9 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import * as L from "./LetterBoxStyled";
 
-function LetterItem() {
+function LetterItem({ select, trash }) {
+  const [mark, setMark] = useState(false);
+  const [border, setBorder] = useState("1px solid black");
+  const [shadow, setShadow] = useState("none");
+  const handleClick = () => {
+    if (trash === true && select === true) {
+      setBorder("3px solid red");
+      setShadow("1px 0px 30px 0px rgba(255,0,0,0.5)")
+      setMark(false);
+      if (border === "3px solid red") {
+        setBorder("1px solid black");
+        setShadow("none");
+        setMark(false);
+      }
+    } else {
+      setBorder("1px solid black");
+      setShadow("none");
+    }
+  };
+
   return (
-    <L.ItemBox>
+    <L.ItemBox onClick={handleClick} borderColor={border} shadowColor={shadow}>
+      <L.BookMark
+        onClick={() => {
+          setMark(!mark);
+        }}
+      >
+        {mark ? (
+          <img src={require("../../asset/bookmark-red.png")} />
+        ) : (
+          <img src={require("../../asset/bookmark-grey.png")} />
+        )}
+      </L.BookMark>
+      <L.ItemDate>2023.03.20</L.ItemDate>
       <L.ItemTitle>김햄찌의 귀빠진 날</L.ItemTitle>
       <L.ItemContents>
         내가 만든 쿠키 너를 위해 구웠지, but you know that it ain't for free,
@@ -12,7 +43,6 @@ function LetterItem() {
         보고 싶어 If you want it, you can get it, if you want it 네 목소리를 또
         들려줘, boy
       </L.ItemContents>
-      <L.ItemDate>2023.03.20</L.ItemDate>
     </L.ItemBox>
   );
 }

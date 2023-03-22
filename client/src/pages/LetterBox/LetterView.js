@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as L from "./LetterBoxStyled";
 import LetterList from "./LetterList";
 
-function LetterView() {
+function LetterView({select, trash}) {
   // target 생성
   const [items, setItems] = useState([]);
   const [target, setTarget] = useState(null);
@@ -39,7 +39,7 @@ function LetterView() {
 
   return (
     <L.ListWrap>
-      <LetterList ref={setTarget} />
+      <LetterList ref={setTarget} select={select} trash={trash} />
       <LetterList />
       <LetterList />
     </L.ListWrap>
