@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
+import BREAKPOINTMOBILE from "../../breakpoint";
 
 export const LetterBoxWrap = styled.div`
   width: 100%;
@@ -100,7 +101,7 @@ export const CurrentSelect = styled.span`
 `;
 
 export const Dropdown = styled.ul`
-  width: 196px;
+  width: 100%;
   height: 120px;
   position: absolute;
   top: 40px;
@@ -154,6 +155,9 @@ export const ListContainer = styled.div`
 
 export const ListDateContainer = styled.div`
   width: 200px;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 150px;
+  }
 `;
 
 export const ListDate = styled.div`
@@ -165,12 +169,19 @@ export const ListDate = styled.div`
 export const ListBar = styled.div`
   width: 200px;
   border-bottom: 1px solid black;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 150px;
+  }
 `;
 
 export const ItemWrap = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 3rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    justify-content: center;
+    padding-left: 0;
+  }
 `;
 
 export const ItemContainer = styled.div`
@@ -190,19 +201,26 @@ export const ItemBox = styled.div`
   border: 1px solid black;
   margin-left: 3rem;
   margin-bottom: 3rem;
-  padding: 2rem;
+  padding: 4rem 2rem 1rem;
   display: flex;
   flex-direction: column;
   position: relative;
 `;
 
 export const ItemImg = styled.img`
-  
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 300px;
+    height: 400px;
+    margin-left: 1rem;
+  }
 `;
 
 export const ItemTitle = styled.div`
   ${FONT_STYLE_V1.title.title_14_medium}
   margin-bottom: 2rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 2rem;
+  }
 `;
 
 export const ItemContents = styled.p`
@@ -213,8 +231,14 @@ export const ItemContents = styled.p`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   word-break: keep-all;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 1.2rem;
+  }
 `;
 
 export const ItemDate = styled.div`
-  margin-top: 10rem;
+  margin-top: 9rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    margin-top: 5rem;
+  }
 `;

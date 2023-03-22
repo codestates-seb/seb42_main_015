@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { PALETTE_MAIN } from "../../style/color";
 import { FONT_STYLE_V1, FONT_STYLE_LOGO } from "../../style/fontStyle";
+import BREAKPOINTMOBILE from "../../breakpoint";
 
 export const MainWrap = styled.div``;
 
@@ -19,6 +20,9 @@ export const Column2 = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    flex-direction: column;
+  }
 `;
 
 export const Column3 = styled.div`
@@ -29,6 +33,9 @@ export const Column3 = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    flex-direction: column;
+  }
 `;
 
 export const Column4 = styled.div`
@@ -39,6 +46,9 @@ export const Column4 = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    flex-direction: column;
+  }
 `;
 
 export const Column5 = styled.div`
@@ -66,8 +76,8 @@ export const LeftImgBox = styled.div`
   }
   .left3 {
     position: absolute;
-    bottom: 120px;
-    left: 100px;
+    bottom: 160px;
+    left: 90px;
   }
   .left4 {
     position: absolute;
@@ -77,12 +87,50 @@ export const LeftImgBox = styled.div`
   .left5 {
     position: absolute;
     bottom: -10px;
-    left: 150px;
+    left: 110px;
   }
   .sendy {
     position: absolute;
     top: 10px;
     left: -10px;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    .left1 {
+      position: absolute;
+      bottom: 160px;
+      left: -70px;
+      width: 270px;
+    }
+    .left2 {
+      position: absolute;
+      bottom: 40px;
+      left: -50px;
+      width: 230px;
+    }
+    .left3 {
+      position: absolute;
+      bottom: 150px;
+      left: 80px;
+      width: 120px;
+    }
+    .left4 {
+      position: absolute;
+      bottom: 250px;
+      left: -60px;
+      width: 250px;
+    }
+    .left5 {
+      position: absolute;
+      bottom: -10px;
+      left: 110px;
+      width: 200px;
+    }
+    .sendy {
+      position: absolute;
+      top: 10px;
+      left: -10px;
+      width: 500px;
+    }
   }
 `;
 
@@ -107,6 +155,32 @@ export const RightImgBox = styled.div`
     bottom: 70px;
     right: 0;
   }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    .right1 {
+      position: absolute;
+      top: 0;
+      right: -40px;
+      width: 150px;
+    }
+    .right2 {
+      position: absolute;
+      top: -50px;
+      right: 40px;
+      width: 200px;
+    }
+    .right3 {
+      position: absolute;
+      top: 170px;
+      right: -15px;
+      width: 130px;
+    }
+    .sendy {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 300px;
+    }
+  }
 `;
 
 export const Intro = styled.div`
@@ -119,6 +193,14 @@ export const Intro = styled.div`
     width: 610px;
     transition: 3s;
   }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    display: flex;
+    flex-direction: column;
+    &:hover .high-light {
+      width: 470px;
+      transition: 3s;
+    }
+  }
 `;
 
 export const IntroTextbox = styled.div`
@@ -127,11 +209,19 @@ export const IntroTextbox = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 2rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    margin-right: 0;
+  }
 `;
 export const IntroImgbox = styled.div`
   background-color: #fff;
   width: 400px;
   height: 600px;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 250px;
+    height: 400px;
+    margin-top: 2rem;
+  }
 `;
 
 export const Title = styled.div`
@@ -149,12 +239,21 @@ export const Title = styled.div`
     bottom: 5px;
     left: -10px;
   }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 3rem;
+    strong {
+      font-size: 3rem;
+    }
+  }
 `;
 
 export const Contents = styled.div`
   ${FONT_STYLE_V1.title.title_20_thin}
   margin-top: 1rem;
   margin-bottom: 3rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 1.5rem;
+  }
 `;
 export const Button = styled.div`
   ${FONT_STYLE_V1.title.title_12_medium}
@@ -167,6 +266,11 @@ export const Button = styled.div`
   align-items: center;
   .button-icon {
     margin-right: 0.5rem;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 1rem;
+    width: 160px;
+    height: 50px;
   }
 `;
 
@@ -186,11 +290,21 @@ export const Textbox = styled.div`
     top: -50px;
     left: -20px;
   }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 550px;
+    height: 350px;
+    padding-left: 0;
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 export const SubTitle = styled.span`
   ${FONT_STYLE_V1.title.title_20_medium}
   margin-bottom: 1rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 1.5rem;
+  }
 `;
 
 export const SubContents = styled.div`
@@ -199,12 +313,19 @@ export const SubContents = styled.div`
   .ex {
     margin-top: 2rem;
   }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 1.2rem;
+  }
 `;
 
 export const Imgbox = styled.div`
   width: 600px;
   height: 500px;
   background-color: #ccc;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 550px;
+    height: 400px;
+  }
 `;
 
 export const Last = styled.div`
@@ -281,6 +402,9 @@ export const LastTitle = styled.div`
   margin-bottom: 3rem;
   letter-spacing: 1px;
   line-height: 1.5;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 2rem;
+  }
 `;
 
 export const Footer = styled.footer`

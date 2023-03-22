@@ -24,6 +24,8 @@ function LetterList() {
           <LetterItem />
           <LetterItem />
           <LetterItem />
+          <LetterItem />
+          <LetterItem />
         </L.ItemContainer>
       </L.ItemWrap>
     </L.ListContainer>
