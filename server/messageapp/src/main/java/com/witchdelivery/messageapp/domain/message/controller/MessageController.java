@@ -46,9 +46,9 @@ public class MessageController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/{message-id}")
-    public ResponseEntity getMessage(@PathVariable("message-id") Long messageId) {
-        Message message = messageService.findMessage(messageId);
+    @GetMapping("/{message-id}/{urlName}")
+    public ResponseEntity getMessage(@PathVariable("message-id") Long messageId, @PathVariable("urlName") String urlName) {
+        Message message = messageService.findMessageByUrlName(messageId, urlName);
         return new ResponseEntity<>(messageMapper.messageToMessageResponseDto(message), HttpStatus.OK);
     }
 

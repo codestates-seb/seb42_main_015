@@ -19,4 +19,5 @@ public class MessagePostDto {
     @Digits(integer = 4, fraction = 0, message = "편지 비밀번호 숫자 4자리를 입력해주세요.")
     private Long password;
     private long memberId;
+    private String urlName;  // url 이름
 }

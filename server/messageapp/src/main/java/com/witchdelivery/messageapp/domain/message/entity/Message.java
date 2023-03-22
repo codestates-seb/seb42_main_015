@@ -21,6 +21,9 @@ public class Message extends BaseTime {
     private String toName;       // 편지에서 to "애칭"
     private String fromName;     // 편지에서 from "애칭"
 
+    @Column(name = "URL_NAME" , nullable = false)
+    private String urlName;     // url 이름
+
     @Column(nullable = false, length = 7000)
     private String content; // 편지 내용
     @Column(nullable = true)
