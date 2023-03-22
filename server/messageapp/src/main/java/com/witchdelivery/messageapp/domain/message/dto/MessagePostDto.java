@@ -20,4 +20,6 @@ public class MessagePostDto {
     private Long password;
     private boolean messageSaved;
     private boolean bookMark;
+
+    private long memberId;
 }

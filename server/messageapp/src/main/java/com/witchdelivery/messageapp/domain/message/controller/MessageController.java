@@ -1,5 +1,6 @@
 package com.witchdelivery.messageapp.domain.message.controller;
 
+import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.domain.member.service.MemberService;
 import com.witchdelivery.messageapp.domain.message.dto.MessagePostDto;
 import com.witchdelivery.messageapp.domain.message.service.MessageService;
@@ -30,6 +31,10 @@ public class MessageController {
     @PostMapping("/write")
     public ResponseEntity postMessage(@Valid @RequestBody MessagePostDto messagePostDto) {
         Message message = messageMapper.messagePostDtoToMessage(messagePostDto);
+
+        Member member = memberService.findVerifiedMember(messagePostDto.getMemberId());
+        message.setMember(member);
+
         messageService.createMessage(message);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

@@ -1,5 +1,6 @@
 package com.witchdelivery.messageapp.domain.message.entity;
 
+import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.global.audit.BaseTime;
 import com.witchdelivery.messageapp.global.utils.BooleanToYNConverter;
 import lombok.Getter;
@@ -28,4 +29,8 @@ public class Message extends BaseTime {
     private boolean messageSaved;          // 편지 저장 여부
     @Convert(converter = BooleanToYNConverter.class)           // Boolean 값을 DB에서 Y 또는 N으로 컨버트 하는 기능
     private boolean bookMark;                // 북마크 여부
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member; // FK 사용자식별번호... 이게 맞나...
 }

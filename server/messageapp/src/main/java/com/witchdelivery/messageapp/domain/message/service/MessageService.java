@@ -1,9 +1,12 @@
 package com.witchdelivery.messageapp.domain.message.service;
 
+import com.witchdelivery.messageapp.domain.mailbox.entity.Outgoing;
+import com.witchdelivery.messageapp.domain.mailbox.service.OutgoingService;
 import com.witchdelivery.messageapp.domain.message.repository.MessageRepository;
 import com.witchdelivery.messageapp.global.exception.BusinessLogicException;
 import com.witchdelivery.messageapp.global.exception.ExceptionCode;
 import com.witchdelivery.messageapp.domain.message.entity.Message;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -12,15 +15,18 @@ import java.util.Optional;
 
 
 @Service
+@RequiredArgsConstructor
 public class MessageService {
     private final MessageRepository messageRepository;
-
-    public MessageService(MessageRepository messageRepository) {
-        this.messageRepository = messageRepository;
-    }
+    private final OutgoingService outgoingService;
 
     public Message createMessage(Message message) {
-        return messageRepository.save(message);
+        Message savedMessage = messageRepository.save(message);
+        Outgoing outgoing = new Outgoing();
+        outgoing.setMessage(savedMessage);
+        outgoing.setMember(savedMessage.getMember());
+        outgoingService.createOutgoing(outgoing);
+        return savedMessage;
     }
 
     public Message findMessage(long messageId) {
