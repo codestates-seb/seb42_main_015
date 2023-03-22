@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
+import { BREAKPOINTMOBILE2 } from "../../breakpoint";
 
 const StyledContainer = styled.div`
   position: relative;

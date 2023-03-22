@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import * as S from "./ReadStyled";
+import { formSchema, headers } from "../Certified/formShema";
 
 const ReadLetter = ({ enterPassword, setEnterPassword }) => {
-  const formShema = yup.object({
-    password: yup
+  const formSchema = yup.object({
+    numberpassword: yup
       .string()
       .required("숫자로 이루어진 비밀번호 4자리를 입력해주세요.")
       .matches(
@@ -19,7 +20,7 @@ const ReadLetter = ({ enterPassword, setEnterPassword }) => {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
 
   const onSubmit = (data) => {
     alert("비밀번호가 일치합니다! 어떤 편지가 왔을까요?");
@@ -34,12 +35,12 @@ const ReadLetter = ({ enterPassword, setEnterPassword }) => {
           <div className="head">편지 비밀번호를 입력해주세요.</div>
           <input
             className="pwdInput"
-            name="password"
+            name="numberpassword"
             type="password"
             placeholder="Password"
-            {...register("password")}
+            {...register("numberpassword")}
           />
-          {errors.password && <p>{errors.password.message}</p>}
+          {errors.numberpassword && <p>{errors.numberpassword.message}</p>}
           <input
             className="btn"
             type="submit"
