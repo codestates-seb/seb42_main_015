@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import BREAKPOINTMOBILE from "../breakpoint";
+import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
 import { Link, useNavigate } from "react-router-dom";
 import postbox from "../asset/postbox.svg";
 import axios from "axios";

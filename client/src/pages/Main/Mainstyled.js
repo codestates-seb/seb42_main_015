@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { PALETTE_MAIN } from "../../style/color";
 import { FONT_STYLE_V1, FONT_STYLE_LOGO } from "../../style/fontStyle";
-import BREAKPOINTMOBILE from "../../breakpoint";
+import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
 
 export const MainWrap = styled.div``;
 
@@ -374,9 +374,9 @@ export const SendyBottom = styled.div`
 
 export const Track = styled.div`
   height: 100%;
-	overflow: hidden;
-	padding: 0.5rem 0;
-	position: absolute;
+  overflow: hidden;
+  padding: 0.5rem 0;
+  position: absolute;
 `;
 
 export const TrackImg = styled.span`
@@ -433,7 +433,7 @@ export const Logo = styled.div`
     height: 25px;
     position: absolute;
     left: 110px;
-  } 
+  }
 `;
 
 export const Info = styled.ul`
