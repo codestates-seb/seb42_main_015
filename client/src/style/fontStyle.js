@@ -8,6 +8,11 @@ export const FONT_STYLE_V1 = {
       font-size: 0.8rem;
       color: ${PALETTE_V1.text_primary};
     `,
+    title_9_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 0.9rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
     title_10_medium: css`
       font-family: "Pretendard-Medium";
       font-size: 1rem;

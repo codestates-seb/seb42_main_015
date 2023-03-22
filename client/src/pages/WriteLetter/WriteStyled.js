@@ -26,8 +26,11 @@ export const PageContainer = styled.div`
   display: flex;
   justify-content: center;
   overflow-x: none;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
     width: ${BREAKPOINTMOBILE}px;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    width: ${BREAKPOINTMOBILE2}px;
   }
 `;
 export const FlexRowWrapper = styled.div`
@@ -64,10 +67,18 @@ export const FlexColunmWrapper = styled.div`
 `;
 export const FlexWrapper2 = styled(FlexRowWrapper)`
   justify-content: center;
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    width: ${BREAKPOINTMOBILE2}px;
+  }
 `;
 export const PageWrapper = styled(FlexColunmWrapper)`
   padding: 70px 30px 0 30px;
   width: 100%;
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    padding: 10vw 7vw;
+    width: ${BREAKPOINTMOBILE2}px;
+    align-items: center;
+  }
 `;
 export const LetterWrapper = styled.div`
   max-height: 1154px;
@@ -126,7 +137,7 @@ export const LetterBox = styled(FlexColunmWrapper)`
         break;
     }
   }};
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
     max-width: 65vw;
     min-width: 450px;
     max-height: 108.3vw;
@@ -134,11 +145,19 @@ export const LetterBox = styled(FlexColunmWrapper)`
     padding: 2rem 4rem 2rem 4rem;
     background-size: cover;
   }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    min-width: 75vw;
+    max-width: 75vw;
+    min-height: 125vw;
+    max-height: 125vw;
+    padding: 1rem 2rem 1rem 2rem;
+    background-size: cover;
+  }
 `;
 export const FlexWrapper1 = styled(FlexRowWrapper)`
   justify-content: space-between;
   padding-top: 0.8rem;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
   }
 `;
 export const IconWrapper = styled.div`
@@ -156,6 +175,13 @@ export const IconWrapper = styled.div`
     background-color: ${PALETTE_V1.yellow_modal_button};
     border-radius: 50%;
   }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    .microphone-icon,
+    .font-icon {
+      margin-bottom: 5px;
+      margin-left: 20px;
+    }
+  }
 `;
 export const ThemeIcon = styled.div`
   display: flex;
@@ -165,6 +191,10 @@ export const ThemeIcon = styled.div`
   .arrow-backward-icon,
   .arrow-forward-icon {
     color: ${PALETTE_V1.text_primary};
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    padding-left: 0;
+    padding-right: 0;
   }
 `;
 export const NameInputWrapper = styled.div`
@@ -176,9 +206,20 @@ export const NameInputWrapper = styled.div`
   min-width: 250px;
   width: 250px;
   height: 2rem;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
     max-width: 160px;
     min-width: 160px;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    ${FONT_STYLE_V1.body.body_10_light}
+    max-width: 20vw;
+    min-width: 20vw;
+    max-height: 20px;
+    min-height: 20px;
+    &.from-input {
+      max-width: 30vw;
+      min-width: 30vw;
+    }
   }
 `;
 export const NameInput = styled.input`
@@ -187,16 +228,12 @@ export const NameInput = styled.input`
   background-color: transparent;
   margin-left: 5px;
   margin-bottom: 6px;
+  overflow: hidden;
   &:focus {
     outline: none;
   }
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    max-width: 80%;
-    min-width: 80%;
-    &#from-input {
-      max-width: 70%;
-      min-width: 70%;
-    }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    ${FONT_STYLE_V1.body.body_9_light}
   }
 `;
 export const Text = styled.div`
@@ -228,12 +265,24 @@ export const SendMeCheckBox = styled.div`
     content: "";
     background-color: rgb(255, 228, 157);
   }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    &::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border: 1px solid ${PALETTE_V1.text_primary};
+    }
+  }
 `;
 export const SendMeLabel = styled.div`
+  ${FONT_STYLE_V1.body.body_12_light}
   color: ${PALETTE_V1.text_primary};
   vertical-align: middle;
   max-height: 21px;
   padding-left: 5px;
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    ${FONT_STYLE_V1.body.body_10_light}
+  }
 `;
 export const ContentContainer = styled.div``;
 export const ContentTextarea = styled.textarea`
@@ -258,6 +307,8 @@ export const ContentTextarea = styled.textarea`
   }
 `;
 export const FromWrapper = styled(FlexRowWrapper)`
+  width: 100%;
+  display: flex;
   justify-content: flex-end;
   padding-bottom: 0.8rem;
 `;
@@ -271,7 +322,7 @@ export const ButtonWrapper = styled(FlexRowWrapper)`
   .question-icon {
     color: ${PALETTE_V1.text_primary};
     margin-right: 10px;
-    z-index: 110;
+    z-index: 200;
   }
   &#sendMeModalButton {
     justify-content: center;
@@ -318,7 +369,7 @@ export const BallonTop = styled.div`
   background-repeat: no-repeat;
   background-position: top;
   max-width: 300px;
-  &#ballon2 {
+  &.ballon2 {
     background-image: url(${Ballon5});
     height: 110px;
     padding-top: 82px;
@@ -331,6 +382,16 @@ export const BallonTop = styled.div`
     top: 20px;
     left: -30px;
     width: 240px;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    &.ballon2 {
+      ${FONT_STYLE_V1.body.body_9_light}
+      top: 25px;
+      left: -60px;
+      padding-top: 60px;
+      padding-left: 70px;
+      background-size: 200px;
+    }
   }
 `;
 export const BallonBottom1 = styled.div`
@@ -363,6 +424,10 @@ export const BallonBottom1 = styled.div`
     right: 10px;
     max-width: 280px;
   }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    ${FONT_STYLE_V1.body.body_9_light}
+    background-size: 220px;
+  }
 `;
 export const BallonBottom2 = styled.div`
   ${FONT_STYLE_V1.body.body_10_light};
@@ -393,6 +458,13 @@ export const BallonWrapper = styled.div`
   }
   &.button {
     padding-left: 20px;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    &#from-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
   }
 `;
 export const ButtonContainer = styled.div`
@@ -503,9 +575,18 @@ export const ReservationText = styled.div`
 `;
 export const ErrorMessage = styled.p`
   ${FONT_STYLE_V1.body.body_9_light}
+  position: absolute;
   padding-top: 2px;
   color: grey;
   width: fit-content;
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    ${FONT_STYLE_V1.body.body_8_light}
+    color: grey;
+    white-space: nowrap;
+    &.from-input {
+      bottom: -18px;
+    }
+  }
 `;
 export const FontContainer = styled.ul`
   position: absolute;
