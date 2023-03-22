@@ -3,10 +3,12 @@ import { PALETTE_MYPAGE, PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 import sendme from "../../asset/myPage-sendme.png";
 import pwd from "../../asset/pwd.png";
-import BREAKPOINTMOBILE from "../../breakpoint";
+import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
 
 export const MyPageContainer = styled.div`
   height: 100vh;
+  overflow-x: hidden;
+  min-width: 630px;
 `;
 export const FlexWrapper1 = styled.div`
   display: flex;
@@ -19,6 +21,14 @@ export const GNBWrapper = styled.div`
   justify-content: space-around;
   padding-left: 80px;
   padding-bottom: 50px;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    padding-left: 10vw;
+    width: 70vw;
+  }
+  @media screen and (max-width: 645px) {
+    padding-left: 64.5px;
+    width: 452.5px;
+  }
 `;
 export const GNBMenu = styled.div`
   ${FONT_STYLE_V1.title.title_12_medium}
@@ -30,6 +40,7 @@ export const GNBMenu = styled.div`
   width: 135px;
   text-align: center;
   cursor: pointer;
+  min-width: 125px;
   &.active {
     background-color: ${PALETTE_V1.yellow_primary};
     padding-top: 1rem;
@@ -47,12 +58,17 @@ export const UserInfoCard = styled.div`
   justify-content: space-evenly;
   background-color: white;
   border: 2px solid ${PALETTE_V1.text_primary};
-  /* max-width: 65vw; */
   aspect-ratio: 4/1;
   min-width: 667px;
   box-shadow: 15px 15px ${PALETTE_V1.yellow_primary},
     17px 17px ${PALETTE_V1.text_primary}, 13px 17px ${PALETTE_V1.text_primary},
     17px 13px ${PALETTE_V1.text_primary};
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    max-width: 500px;
+    min-width: 500px;
+    max-height: 160px;
+    min-height: 160px;
+  }
 `;
 export const FlexWrapper2 = styled.div`
   display: flex;
@@ -66,6 +82,12 @@ export const UserImage = styled.img`
   width: 130px;
   height: 130px;
   margin-bottom: 5px;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    max-width: 100px;
+    min-width: 100px;
+    max-height: 100px;
+    min-height: 100px;
+  }
 `;
 export const UserInfoWrapper = styled.div`
   display: flex;
@@ -108,8 +130,11 @@ export const EditButton = styled.div`
   margin-right: 3px;
   position: absolute;
   right: -14px;
-  bottom: -4px;
+  bottom: -5px;
   cursor: pointer;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    bottom: -13px;
+  }
 `;
 export const Sticker = styled.img.attrs({ src: `${sendme}` })`
   position: absolute;
@@ -118,13 +143,17 @@ export const Sticker = styled.img.attrs({ src: `${sendme}` })`
   bottom: -80px;
   right: -100px;
   transform: rotate(-40deg);
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 170px;
+    bottom: -70px;
+  }
 `;
 export const StickerWrapper = styled.div`
   position: relative;
 `;
 export const ResignationWrapper = styled.div`
   border-top: 2px solid ${PALETTE_V1.text_primary};
-  margin-top: 50px;
+  margin-top: 100px;
   display: flex;
   justify-content: flex-end;
 `;
@@ -152,10 +181,18 @@ export const ModalWrapper = styled.div`
   .notice {
     ${FONT_STYLE_V1.body.body_10_light}
     text-align: center;
+    p {
+      padding-top: 5px;
+    }
+  }
+  .input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 export const ModalTitle = styled.div`
-  ${FONT_STYLE_V1.title.title_16_medium}
+  ${FONT_STYLE_V1.title.title_18_medium}
 `;
 export const PwdInput = styled.input.attrs({ type: "password" })`
   outline: none;
@@ -170,7 +207,6 @@ export const PwdInput = styled.input.attrs({ type: "password" })`
   height: 2.3rem;
   width: 14rem;
   margin-top: 1.2rem;
-  margin-bottom: 0.5rem;
   &::placeholder {
     ${FONT_STYLE_V1.body.body_8_light}
     color: grey;
@@ -180,4 +216,17 @@ export const NextIconWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  .active {
+    cursor: pointer;
+    padding: 4px;
+    &:hover {
+      background-color: #dbdbdb;
+      border-radius: 50%;
+    }
+  }
+`;
+export const PwdError = styled.div`
+  ${FONT_STYLE_V1.body.body_8_light}
+  color: ${PALETTE_V1.red_modal_button};
+  padding-top: 10px;
 `;

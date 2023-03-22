@@ -28,6 +28,11 @@ export const FONT_STYLE_V1 = {
       font-size: 1.6rem;
       color: ${PALETTE_V1.text_primary};
     `,
+    title_18_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 1.8rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
     title_20_medium: css`
       font-family: "Pretendard-Medium";
       font-size: 2rem;
@@ -153,6 +158,10 @@ export const FONT_STYLE_LOGIN = {
 };
 
 export const FONT_STYLE_LOGOUT = {
+  title_30_Light: css`
+    font-family: "Pretendard-Light";
+    font-size: 3rem;
+  `,
   title_20_medium: css`
     font-family: "Caveat", cursive;
     font-size: 2rem;
@@ -168,6 +177,10 @@ export const FONT_STYLE_LOGOUT = {
   title_9_medium: css`
     font-family: "B612", sans-serif;
     font-size: 0.9rem;
+  `,
+  title_11_medium: css`
+    font-family: "B612", sans-serif;
+    font-size: 1.1rem;
   `,
 };
 

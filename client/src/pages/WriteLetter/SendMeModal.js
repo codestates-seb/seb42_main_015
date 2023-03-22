@@ -8,7 +8,7 @@ function SendMeModal({
   startDate,
   setStartDate,
   setSendMeChecked,
-  modalRef,
+  sendMeModalRef,
 }) {
   const handleCloseModal = () => {
     setStartDate(
@@ -26,7 +26,7 @@ function SendMeModal({
   };
 
   return (
-    <W.ModalWrapper ref={modalRef}>
+    <W.ModalWrapper ref={sendMeModalRef}>
       <W.ModalTitle>예약시간</W.ModalTitle>
       <W.TimeBoxWrapper>
         <W.BallonWrapper>

@@ -14,22 +14,27 @@ function MyPage() {
     changeCurrentPage("MyPage");
   }, []);
 
-  const handleOpenResignModal = (e) => {
+  const handleModal = (e) => {
     if (openResignModal && !modalRef.current.contains(e.target)) {
       setOpenResignModal(false);
-    } else {
-      setOpenResignModal(!openResignModal);
     }
+  };
+  const handleOpenResignModal = () => {
+    setOpenResignModal(!openResignModal);
   };
 
   return (
-    <M.MyPageContainer>
+    <M.MyPageContainer onClick={handleModal}>
       {openResignModal ? (
         <M.ResignBackground>
           <Modal
-            modalRef={modalRef}
             ContainerHeight={"350px"}
-            children={<ResignModal />}
+            children={
+              <ResignModal
+                modalRef={modalRef}
+                setOpenResignModal={setOpenResignModal}
+              />
+            }
           />
         </M.ResignBackground>
       ) : (

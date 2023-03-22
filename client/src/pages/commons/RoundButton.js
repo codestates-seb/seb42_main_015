@@ -11,6 +11,7 @@ const StyledRoundButton = styled.button`
   height: ${(props) => props.height || "40px"};
   margin-right: 10px;
   ${FONT_STYLE_V1.body.body_10_light}
+  ${(props) => props.fontStyle}
 `;
 
 function RoundButton({ children, ...rest }) {

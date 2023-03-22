@@ -1,6 +1,18 @@
 import styled from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
+import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
+import 구름 from "../../asset/letterTheme/구름-theme.png";
+import 군대 from "../../asset/letterTheme/군대-theme.png";
+import 냥냥편지 from "../../asset/letterTheme/냥냥편지-theme.png";
+import 리본 from "../../asset/letterTheme/리본-theme.png";
+import 수박 from "../../asset/letterTheme/수박-theme.png";
+import 알록달록 from "../../asset/letterTheme/알록달록-theme.png";
+import 얼룩 from "../../asset/letterTheme/얼룩-theme.png";
+import 오리 from "../../asset/letterTheme/오리-theme.png";
+import 정월대보름 from "../../asset/letterTheme/정월대보름-theme.png";
+import 체리 from "../../asset/letterTheme/체리-theme.png";
+import 클로버 from "../../asset/letterTheme/클로버-theme.png";
 
 export const LetterBoxWrap = styled.div`
   width: 100%;
@@ -100,7 +112,7 @@ export const CurrentSelect = styled.span`
 `;
 
 export const Dropdown = styled.ul`
-  width: 196px;
+  width: 100%;
   height: 120px;
   position: absolute;
   top: 40px;
@@ -108,7 +120,7 @@ export const Dropdown = styled.ul`
 `;
 
 export const DropdownItem = styled.li`
-  width: 196px;
+  width: 100%;
   height: 40px;
   border: 1px solid black;
   border-right: none;
@@ -154,6 +166,9 @@ export const ListContainer = styled.div`
 
 export const ListDateContainer = styled.div`
   width: 200px;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 150px;
+  }
 `;
 
 export const ListDate = styled.div`
@@ -165,12 +180,19 @@ export const ListDate = styled.div`
 export const ListBar = styled.div`
   width: 200px;
   border-bottom: 1px solid black;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 150px;
+  }
 `;
 
 export const ItemWrap = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 3rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    justify-content: center;
+    padding-left: 0;
+  }
 `;
 
 export const ItemContainer = styled.div`
@@ -180,29 +202,41 @@ export const ItemContainer = styled.div`
   flex-wrap: wrap;
   /* justify-content: center; */
   align-content: flex-start;
-  padding-left: 5rem;
+  padding-left: 3rem;
 `;
 
 export const ItemBox = styled.div`
   width: 250px;
   height: 350px;
-  background-color: white;
-  border: 1px solid black;
+  /* background-color: white; */
+  border: ${(props) => (props.borderColor ? props.borderColor : "black")};
+  box-shadow: ${(props) => props.shadowColor};
   margin-left: 3rem;
   margin-bottom: 3rem;
-  padding: 2rem;
+  padding: 4rem 2rem 1rem;
   display: flex;
   flex-direction: column;
   position: relative;
+  cursor: pointer;
+  background-image: url(${오리});
+  background-size: cover;
+  background-repeat: no-repeat;
 `;
 
 export const ItemImg = styled.img`
-  
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 300px;
+    height: 400px;
+    margin-left: 1rem;
+  }
 `;
 
 export const ItemTitle = styled.div`
   ${FONT_STYLE_V1.title.title_14_medium}
   margin-bottom: 2rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 2rem;
+  }
 `;
 
 export const ItemContents = styled.p`
@@ -213,8 +247,72 @@ export const ItemContents = styled.p`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   word-break: keep-all;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 1.2rem;
+  }
 `;
 
 export const ItemDate = styled.div`
-  margin-top: 10rem;
+  ${FONT_STYLE_V1.title.title_10_medium}
+  margin-bottom: 0.5rem;
+`;
+
+export const BookMark = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  img {
+    width: 3rem;
+  }
+`;
+
+export const TopButton = styled.div`
+  width: 60px;
+  height: 60px;
+  border: 3px solid ${PALETTE_V1.orange_dark};
+  border-radius: 50%;
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  background-color: white;
+  color: ${PALETTE_V1.orange_dark};
+  cursor: pointer;
+`;
+
+export const DeleteButtonOff = styled.div`
+  width: 60px;
+  height: 60px;
+  border: 3px solid ${PALETTE_V1.orange_dark};
+  border-radius: 50%;
+  position: fixed;
+  bottom: 120px;
+  right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  background-color: white;
+  color: ${PALETTE_V1.orange_dark};
+  cursor: pointer;
+`;
+
+export const DeleteButtonON = styled.div`
+  width: 60px;
+  height: 60px;
+  border: 3px solid ${PALETTE_V1.orange_dark};
+  border-radius: 50%;
+  position: fixed;
+  bottom: 120px;
+  right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  background-color: ${PALETTE_V1.orange_dark};
+  color: white;
+  cursor: pointer;
 `;

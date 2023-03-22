@@ -19,7 +19,7 @@ function LetterContent({
   currentLetterTheme,
 }) {
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
-  const currentDate = `${new Date().getFullYear()}. ${(
+  const currentDate = `${new Date().getFullYear()}.${(
     "00" +
     (new Date().getMonth() + 1)
   ).slice(-2)}.${("00" + new Date().getDate()).slice(-2)} ${
@@ -133,6 +133,7 @@ function LetterContent({
             <W.NameInput
               type="text"
               name="senderName"
+              id="from-input"
               {...register("senderName")}></W.NameInput>
           </W.NameInputWrapper>
           {errors.senderName && (

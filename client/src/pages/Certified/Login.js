@@ -1,36 +1,60 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import * as L from "./FormStyled";
+import axios from "axios";
+import { setCookie, getCookie } from "./Cookie";
+import { GoogleOauthLogin } from "./OauthGoogle";
+import { formSchema, headers } from "./formShema";
 
 function Login() {
-  const formShema = yup.object({
-    email: yup
-      .string()
-      .required("이메일을 입력해주세요")
-      .email("이메일 형식이 아닙니다."),
-    password: yup
-      .string()
-      .required("영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요.")
-      .min(8, "최소 8자리 이상 입력해주세요.")
-      .max(16, "최대 16자까지 가능합니다.")
-      .matches(
-        /^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
-        "영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요."
-      ),
-  });
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { isSubmitting, errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
 
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    console.log(data);
+  //TODO :로그인 제출 버튼
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+    await axios
+      .post(
+        `/api/sendy/auth/login`,
+        { username: email, password: password },
+        {
+          headers,
+        }
+      )
+      .then((res) => {
+        alert("로그인되었습니다.");
+        if (res.headers.getAuthorization) {
+          //! refresh token은 -> local storage에 저장
+          localStorage.setItem("refreshToken", res.headers.get("Refresh"));
+          //! access token은 -> cookie에 저장
+          setCookie(
+            "accesstoken",
+            res.headers.get("Authorization").split(" ")[1],
+            {
+              path: "/",
+              sucure: true,
+              sameSite: "Strict",
+              HttpOnly: " HttpOnly ",
+            }
+          );
+          console.log("accesstoken", getCookie("accesstoken"));
+          console.log("refreshToken", localStorage.getItem("refreshToken"));
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+      });
   };
+
   return (
     <>
       <L.Container>
@@ -74,8 +98,11 @@ function Login() {
               <div className="oauth-form">
                 <div className="oauth-head">Log in With</div>
                 <div className="oauth">
-                  <img src={require("../../asset/구글.png")} alt="Googole" />
-                  <img src={require("../../asset/카카오.png")} alt="Kakao" />
+                  <img
+                    src={require("../../asset/구글.png")}
+                    alt="Googole"
+                    onClick={GoogleOauthLogin}
+                  />
                 </div>
               </div>
             </div>
@@ -99,8 +126,11 @@ function Login() {
             <div className="oauth-form">
               <div className="oauth-head">Log in With</div>
               <div className="oauth">
-                <img src={require("../../asset/구글.png")} alt="Googole" />
-                <img src={require("../../asset/카카오.png")} alt="Kakao" />
+                <img
+                  src={require("../../asset/구글.png")}
+                  alt="Googole"
+                  onClick={GoogleOauthLogin}
+                />
               </div>
             </div>
           </div>

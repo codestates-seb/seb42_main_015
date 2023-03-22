@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import * as L from "./LetterBoxStyled";
 import LetterItem from "./LetterItem";
 
-function LetterList() {
+function LetterList({select, trash}) {
   return (
     <L.ListContainer>
       <L.ListDateContainer>
@@ -11,19 +11,21 @@ function LetterList() {
       </L.ListDateContainer>
       <L.ItemWrap>
         <L.ItemContainer>
-          <LetterItem />
-          <LetterItem />
-          <LetterItem />
-          <LetterItem />
-          <LetterItem />
-          <LetterItem />
-          <LetterItem />
-          <LetterItem />
-          <LetterItem />
-          <LetterItem />
-          <LetterItem />
-          <LetterItem />
-          <LetterItem />
+          <LetterItem select={select} trash={trash} />
+          <LetterItem select={select} trash={trash} />
+          <LetterItem select={select} trash={trash} />
+          <LetterItem select={select} trash={trash} />
+          <LetterItem select={select} trash={trash} />
+          <LetterItem select={select} trash={trash} />
+          <LetterItem select={select} trash={trash} />
+          <LetterItem select={select} trash={trash} />
+          <LetterItem select={select} trash={trash} />
+          <LetterItem select={select} trash={trash} />
+          <LetterItem select={select} trash={trash} />
+          <LetterItem select={select} trash={trash} />
+          <LetterItem select={select} trash={trash} />
+          <LetterItem select={select} trash={trash} />
+          <LetterItem select={select} trash={trash} />
         </L.ItemContainer>
       </L.ItemWrap>
     </L.ListContainer>

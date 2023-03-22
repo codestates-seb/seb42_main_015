@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import BREAKPOINTMOBILE from "../../breakpoint";
+import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
 import { FONT_STYLE_READ, FONT_STYLE_LOGIN } from "../../style/fontStyle";
 import { PALETTE_V1 } from "../../style/color";
 import pwd from "../../asset/pwd.png";
 import email from "../../asset/mail.png";
 
+//todo : 전체 편지지 wrapper
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -21,23 +22,32 @@ export const Wrapper = styled.div`
     .top-sub {
       display: flex;
       justify-content: space-evenly;
-      margin: 0 0 0 25.5rem;
-
-      .speech-icon {
+      margin: 0 0 0 22rem;
+      .soundButtons {
+        display: flex;
+        justify-content: space-evenly;
+        background: #d3d3d3;
+        border-radius: 3rem;
+        padding: 5px 5px;
+        width: 6rem;
+        height: 2.5rem;
+        margin-top: 0.2rem;
         cursor: pointer;
-        border-radius: 50%;
-        padding: 7px;
+      }
+      .speech-icon,
+      .pause-icon {
+        padding: 3px;
         &:hover {
-          background-color: ${PALETTE_V1.yellow_modal_button};
+          padding: 3px;
+          background: white;
+          border-radius: 50%;
         }
       }
-    }
-    .active-icon {
-      background-color: ${PALETTE_V1.yellow_modal_button};
     }
   }
 `;
 
+//todo :비밀번호 편지 페이지 wrapper
 export const SWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -48,6 +58,7 @@ export const SWrapper = styled.div`
   padding-bottom: 300px;
 `;
 
+//todo : 비밀번호 입력 form
 export const Secretform = styled.form`
   display: flex;
   /* margin-top: -5rem; */
@@ -116,6 +127,7 @@ export const Secretform = styled.form`
   }
 `;
 
+//todo : 편지 조회 페이지에서 맨위 비밀번호 input
 export const EnterSeret = styled.div`
   display: flex;
   justify-content: center;
@@ -136,6 +148,7 @@ export const EnterSeret = styled.div`
   }
 `;
 
+//todo : 편지 letter wrapper
 export const FlexColunmWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -177,31 +190,30 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   }
 `;
 
+//todo : 아래 버튼들(우편함 돌아가기, 휴지통, 이미지저장, 보관하기)
 export const Buttons = styled.div`
-  /* background: skyblue; */
   display: flex;
   align-items: center;
   height: 6rem;
-  padding: 0rem 0rem 0rem 26rem;
+  padding: 0rem 0rem 0rem 23.5rem;
 
   > div {
     display: flex;
-    flex-grow: 1;
     padding-left: 1.5rem;
   }
   .goback {
     display: flex;
-    flex-grow: 5;
-    margin: 0.2rem 10rem 0 -25rem;
+    margin: 0.2rem 10rem 0 -23rem;
     cursor: pointer;
-    /* &:hover {
-      background-color: ${PALETTE_V1.yellow_modal_button};
-      border-radius: 50%;
-      padding: 7px;
-    } */
+  }
+  .trash {
+    display: flex;
+    margin-right: 8px;
+    cursor: pointer;
   }
 `;
 
+//todo : 편지 content hard cording
 export const LetterEx = `이 노래는 it's about you baby
 Only you
 You, you, you
@@ -256,6 +268,7 @@ No, I can never let him go
 He's the one that's living in my system baby
 `;
 
+//todo : 보관하기 로그인 모달
 export const ModalWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -329,6 +342,7 @@ export const ModalWrapper = styled.div`
   }
 `;
 
+//todo : 보관하기 로그인 모달 백그라운드
 export const ModalBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
   position: fixed;
