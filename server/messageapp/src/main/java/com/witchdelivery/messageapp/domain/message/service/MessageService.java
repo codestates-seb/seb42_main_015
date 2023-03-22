@@ -57,6 +57,14 @@ public class MessageService {
         return optionalMessage.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MESSAGE_NOT_FOUND));
     }
 
+    public Message findMessageByUrlName(Long messageId, String urlName) {
+        Message message = findVerifiedMessage(messageId);
+        if (!urlName.equals(message.getUrlName())) {
+            throw new BusinessLogicException(ExceptionCode.MESSAGE_NOT_FOUND);
+        }
+        return message;
+    }
+
     public void deleteMessage(Long messageId) {
         Message message = findVerifiedMessage(messageId);
         messageRepository.delete(message);
