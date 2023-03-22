@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
+import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../src/breakpoint";
 import logo from "../asset/작은편지.png";
 import { Link } from "react-router-dom";
 
