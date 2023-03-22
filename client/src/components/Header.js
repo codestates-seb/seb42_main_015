@@ -87,11 +87,10 @@ const HeaderComponent = styled.header`
   background: #fcfbf4;
   border-bottom: 1px solid #312f2b;
   display: flex;
-  /* width: 100%; */
+  width: 100%;
   height: 60px;
   position: sticky;
   z-index: 90;
-  overflow: scroll;
 `;
 
 const HeaderContainer = styled.div`
@@ -100,7 +99,7 @@ const HeaderContainer = styled.div`
   height: 100%;
   justify-content: space-between;
   margin: 0px 50px;
-  /* width: 100vw; */
+  width: 100vw;
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     margin: 0px 30px;
