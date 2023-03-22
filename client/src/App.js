@@ -16,7 +16,7 @@ import Trash from "./pages/MyPage/TrashList";
 import CompleteSignup from "./pages/Certified/CompleteSignup";
 // ! 공백
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const displayFooter = true;
   // ! 공백
   return (
@@ -37,7 +37,7 @@ function App() {
           <Route path="/writeletter" element={<WriteLetter />} />
           <Route path="/completeLogout" element={<CompleteLogout />} />
           <Route
-            path="/readletter"
+            path="/readletter/1"
             element={<ReadLetter isLogin={isLogin} />}
           />
           <Route path="/completeSignup" element={<CompleteSignup />} />
