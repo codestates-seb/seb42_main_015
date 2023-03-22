@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import BREAKPOINTMOBILE from "../../breakpoint";
+import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 
 export const TrashWrap = styled.div`
