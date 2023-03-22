@@ -6,6 +6,8 @@ import Ballon2 from "../../asset/ballon2.png";
 import Ballon3 from "../../asset/ballon3.png";
 import Ballon4 from "../../asset/ballon4.png";
 import Ballon5 from "../../asset/ballon5.png";
+import transparentImg from "../../asset/transparent-background.png";
+import BREAKPOINTMOBILE from "../../breakpoint";
 import 군대 from "../../asset/letterTheme/군대-theme.png";
 import 냥냥편지 from "../../asset/letterTheme/냥냥편지-theme.png";
 import 리본 from "../../asset/letterTheme/리본-theme.png";
@@ -24,6 +26,9 @@ export const PageContainer = styled.div`
   display: flex;
   justify-content: center;
   overflow-x: none;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: ${BREAKPOINTMOBILE}px;
+  }
 `;
 export const FlexRowWrapper = styled.div`
   display: flex;
@@ -42,17 +47,27 @@ export const FlexRowWrapper = styled.div`
     ${FONT_STYLE_V1.body.body_9_light}
     padding-left: 10px;
   }
+  &.upload-box {
+    width: 100%;
+    height: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+  }
 `;
 export const FlexColunmWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: fit-content;
+  &.align-center {
+    align-items: center;
+  }
 `;
 export const FlexWrapper2 = styled(FlexRowWrapper)`
   justify-content: center;
 `;
 export const PageWrapper = styled(FlexColunmWrapper)`
   padding: 70px 30px 0 30px;
+  width: 100%;
 `;
 export const LetterWrapper = styled.div`
   max-height: 1154px;
@@ -111,10 +126,20 @@ export const LetterBox = styled(FlexColunmWrapper)`
         break;
     }
   }};
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    max-width: 65vw;
+    min-width: 450px;
+    max-height: 108.3vw;
+    min-height: 750px;
+    padding: 2rem 4rem 2rem 4rem;
+    background-size: cover;
+  }
 `;
 export const FlexWrapper1 = styled(FlexRowWrapper)`
   justify-content: space-between;
   padding-top: 0.8rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+  }
 `;
 export const IconWrapper = styled.div`
   display: flex;
@@ -151,6 +176,10 @@ export const NameInputWrapper = styled.div`
   min-width: 250px;
   width: 250px;
   height: 2rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    max-width: 160px;
+    min-width: 160px;
+  }
 `;
 export const NameInput = styled.input`
   ${FONT_STYLE_V1.body.body_10_light}
@@ -161,11 +190,25 @@ export const NameInput = styled.input`
   &:focus {
     outline: none;
   }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    max-width: 80%;
+    min-width: 80%;
+    &#from-input {
+      max-width: 70%;
+      min-width: 70%;
+    }
+  }
 `;
 export const Text = styled.div`
   ${FONT_STYLE_V1.body.body_12_light}
 `;
-export const Date = styled(Text)``;
+export const Date = styled(Text)`
+  height: fit-content;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    ${FONT_STYLE_V1.body.body_10_light}
+    white-space: nowrap;
+  }
+`;
 export const SendMeWrapper = styled(FlexRowWrapper)`
   align-items: center;
   padding-bottom: 0.5rem;
@@ -224,6 +267,7 @@ export const ButtonWrapper = styled(FlexRowWrapper)`
   justify-content: flex-end;
   padding-top: 20px;
   padding-bottom: 30px;
+  width: 100%;
   .question-icon {
     color: ${PALETTE_V1.text_primary};
     margin-right: 10px;
@@ -340,6 +384,7 @@ export const BallonBottom2 = styled.div`
 `;
 export const BallonWrapper = styled.div`
   position: relative;
+  width: fit-content;
   #check-icon {
     position: absolute;
     top: -10px;
@@ -362,6 +407,7 @@ export const ModalWrapper = styled.div`
     justify-content: space-around;
     padding-left: 30px;
     padding-right: 30px;
+    height: 95%;
   }
   .make-letter-wrapper {
     padding-top: 20px;
@@ -459,6 +505,7 @@ export const ErrorMessage = styled.p`
   ${FONT_STYLE_V1.body.body_9_light}
   padding-top: 2px;
   color: grey;
+  width: fit-content;
 `;
 export const FontContainer = styled.ul`
   position: absolute;
@@ -509,21 +556,41 @@ export const UploadBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  width: 100%;
   .drag-file {
     width: 100%;
-    height: 100%;
+    height: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     border: 2px dashed ${PALETTE_V1.text_primary};
     .image {
       width: 40px;
       height: 40px;
-      margin-top: 20px;
     }
     .message {
       ${FONT_STYLE_V1.body.body_10_light}
+    }
+    .preview-container {
+      position: relative;
+    }
+    .preview {
+      width: 100px;
+      height: fit-content;
+      max-height: 170px;
+      border: 1px solid ${PALETTE_V1.text_primary};
+      background-image: url(${transparentImg});
+    }
+    .icon-container {
+      position: absolute;
+      top: 0px;
+      padding: 2px;
+      .x-icon {
+        background-color: #ffffff;
+        border-radius: 50%;
+        height: fit-content;
+      }
     }
   }
   .file-label {

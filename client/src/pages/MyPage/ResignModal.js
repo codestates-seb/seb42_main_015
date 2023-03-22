@@ -46,15 +46,13 @@ function ResignModal({ setOpenResignModal, modalRef }) {
   const handleQuit = () => {
     setOpenResignModal(false);
   };
-  // useEffect(() => {
-  //   console.log(isValid);
-  // }, [isValid]);
+
   return (
     <M.ModalWrapper ref={modalRef}>
       <M.ModalTitle>{title[modalStage]}</M.ModalTitle>
       <div className="notice">
-        {notice[modalStage].map((el) => (
-          <p>
+        {notice[modalStage].map((el, idx) => (
+          <p key={modalStage + "-" + idx}>
             {el}
             <br />
           </p>
