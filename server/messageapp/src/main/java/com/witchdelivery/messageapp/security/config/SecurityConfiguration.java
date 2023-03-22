@@ -11,7 +11,7 @@ import com.witchdelivery.messageapp.security.auth.handler.MemberAuthenticationSu
 import com.witchdelivery.messageapp.security.auth.jwt.JwtTokenizer;
 import com.witchdelivery.messageapp.security.auth.service.RedisService;
 import com.witchdelivery.messageapp.security.auth.service.MemberUserDetailsService;
-import com.witchdelivery.messageapp.security.auth.utils.CustomAuthorityUtils;
+import com.witchdelivery.messageapp.security.utils.CustomAuthorityUtils;
 import com.witchdelivery.messageapp.domain.member.repository.MemberRepository;
 import com.witchdelivery.messageapp.security.oauth.OAuth2MemberSuccessHandler;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.witchdelivery.messageapp.domain.member.service;
 
-import com.witchdelivery.messageapp.security.auth.utils.CustomAuthorityUtils;
+import com.witchdelivery.messageapp.security.utils.CustomAuthorityUtils;
 import com.witchdelivery.messageapp.domain.member.dto.MemberPostDto;
 import com.witchdelivery.messageapp.domain.member.repository.MemberRepository;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
