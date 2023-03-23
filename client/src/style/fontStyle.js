@@ -287,9 +287,17 @@ export const FONT_STYLE_READ = {
     font-size: 1rem;
     text-align: justify;
   `,
+  body_9_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 0.9rem;
+  `,
   body_8_light: css`
     font-family: "Pretendard-Light";
     font-size: 0.8rem;
+  `,
+  body_7_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 0.7rem;
   `,
   btn_8_light: css`
     font-family: "B612", sans-serif;

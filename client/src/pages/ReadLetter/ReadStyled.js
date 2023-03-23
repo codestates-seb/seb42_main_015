@@ -425,24 +425,27 @@ export const ModalWrapper = styled.div`
       margin: 1.5rem 0;
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
         height: 3.3rem;
+        margin: 2rem 0;
       }
     }
     p {
       color: red;
-      font-size: 10px;
+      padding: 0 30px;
+      ${FONT_STYLE_READ.body_10_light}
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        ${FONT_STYLE_READ.body_7_light}
+        padding: 0 12px;
+      }
     }
   }
   .sub {
     display: flex;
     ${FONT_STYLE_LOGIN.body.body_9_light}
-
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    }
   }
   li {
     padding: 0 10px;
-
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      padding: 0 7px;
     }
   }
 `;
