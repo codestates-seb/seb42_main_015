@@ -2,7 +2,7 @@ package com.witchdelivery.messageapp.security.oauth;
 
 import com.witchdelivery.messageapp.security.auth.jwt.JwtTokenizer;
 import com.witchdelivery.messageapp.security.auth.service.RedisService;
-import com.witchdelivery.messageapp.security.auth.utils.CustomAuthorityUtils;
+import com.witchdelivery.messageapp.security.utils.CustomAuthorityUtils;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ import java.util.Map;
 public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtTokenizer jwtTokenizer;    // 로그인 인증에 성공한 클라이언트에게 검증된 JWT를 생성 및 발급
     private final CustomAuthorityUtils customAuthorityUtils;    // 검증된 JWT의 Authentication 객체에 채울 사용자의 권한을 생성
-    private final MemberRepository memberRepository;
+    private final MemberRepository memberRepository;    // Resource Owner의 정보를 DB에 저장
     private final RedisService redisService;
 
     @Override

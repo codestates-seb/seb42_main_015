@@ -1,5 +1,6 @@
 package com.witchdelivery.messageapp.domain.member.controller;
 
+import com.witchdelivery.messageapp.domain.member.dto.ExistedPostDto;
 import com.witchdelivery.messageapp.domain.member.mapper.MemberMapper;
 import com.witchdelivery.messageapp.domain.member.dto.MemberPatchDto;
 import com.witchdelivery.messageapp.domain.member.dto.MemberPostDto;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 @RestController
@@ -22,10 +24,22 @@ public class MemberController {
     private final MemberMapper memberMapper;
 
     @PostMapping("/signup")
-    public ResponseEntity postMember(@RequestBody MemberPostDto memberPostDto) {
+    public ResponseEntity postMember(@Valid @RequestBody MemberPostDto memberPostDto) {
 //        Member member = memberMapper.memberPostDtoToMember(memberPostDto);    // FIXME 미사용으로 인한 삭제
         memberService.createMember(memberPostDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping("/email")
+    public ResponseEntity postEmail(@Valid @RequestBody ExistedPostDto.ExistedEmailDto existedEmailDto) {
+        memberService.verifiedExistedEmail(existedEmailDto.getEmail());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/nickname")
+    public ResponseEntity postNickname(@Valid @RequestBody ExistedPostDto.ExistedNicknameDto existedNicknameDto) {
+        memberService.verifiedExistedName(existedNicknameDto.getNickname());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/{member-id}")

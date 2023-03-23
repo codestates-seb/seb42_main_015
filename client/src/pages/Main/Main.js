@@ -187,30 +187,30 @@ function Main() {
             <M.FakeLast>
               <M.SendyBottom>
                 <M.Track>
-                  <M.TrackImg>
+                  <M.TrackImgReverse>
                     <img
                       src={require("../../asset/mainImg/bottom.png")}
                       alt=""
                     />
-                  </M.TrackImg>
-                  <M.TrackImg>
+                  </M.TrackImgReverse>
+                  <M.TrackImgReverse>
                     <img
                       src={require("../../asset/mainImg/bottom.png")}
                       alt=""
                     />
-                  </M.TrackImg>
-                  <M.TrackImg>
+                  </M.TrackImgReverse>
+                  <M.TrackImgReverse>
                     <img
                       src={require("../../asset/mainImg/bottom.png")}
                       alt=""
                     />
-                  </M.TrackImg>
-                  <M.TrackImg>
+                  </M.TrackImgReverse>
+                  <M.TrackImgReverse>
                     <img
                       src={require("../../asset/mainImg/bottom.png")}
                       alt=""
                     />
-                  </M.TrackImg>
+                  </M.TrackImgReverse>
                 </M.Track>
               </M.SendyBottom>
             </M.FakeLast>

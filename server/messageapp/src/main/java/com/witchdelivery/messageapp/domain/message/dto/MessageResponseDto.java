@@ -15,4 +15,5 @@ public class MessageResponseDto {
     private LocalDateTime createdAt;
     private boolean messageSaved;
     private boolean bookMark;
+    private String urlName;
 }
