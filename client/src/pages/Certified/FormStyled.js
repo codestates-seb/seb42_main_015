@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
+import { BREAKPOINTMOBILE } from "../../breakpoint";
 import {
   FONT_STYLE_LOGIN,
   FONT_STYLE_LOGOUT,
@@ -18,28 +18,22 @@ export const Container = styled.div`
   min-height: 85vh;
   padding: 3rem 2rem;
   overflow: hidden;
-  padding: 3rem;
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    min-height: 95vh;
-  }
+  padding-bottom: 70px;
 `;
 
 //TODO :로그인, 회원가입 노랑 백그라운드
 export const BackgroundYellow = styled.div`
   display: flex;
+  /* position: relative; */
   position: absolute;
   border: 1px solid black;
   background: #fff59f;
   margin: 1rem 0rem 0rem 2rem;
   width: 60rem;
   height: ${(props) => (props.theme === "login" ? "40rem" : "41rem")};
-  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 20rem;
     height: ${(props) => (props.theme === "login" ? "31rem" : "37rem")};
-  }
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    height: ${(props) => (props.theme === "login" ? "31rem" : "37rem")};
-    width: 18rem;
   }
 `;
 
@@ -52,20 +46,15 @@ export const LogForm = styled.form`
   background-color: #fff;
   border: 1px solid black;
   margin-bottom: 2rem;
-  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 20rem;
-    height: ${(props) => (props.theme === "login" ? "32rem" : "38rem")};
-  }
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    width: 18rem;
     height: ${(props) => (props.theme === "login" ? "32rem" : "38rem")};
   }
   .formLeft {
     flex-grow: 1;
     border-right: 1px solid #000;
     padding: 10px 30px 30px;
-
-    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       border-right: 0px solid #000;
       font-size: 2rem;
       padding: 10px 20px 30px;
@@ -80,13 +69,10 @@ export const LogForm = styled.form`
         ${FONT_STYLE_LOGIN.title.title_40_medium}
         margin: ${(props) =>
           props.theme === "login" ? "1.7rem 0px 1rem" : "1rem 0px 0px"};
-
-        @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           font-size: 2.5rem;
           margin: ${(props) =>
-            props.theme === "login"
-              ? "1.2rem 0rem 1.2rem"
-              : "0.2rem 0rem 0.8rem"};
+            props.theme === "login" ? "1.5rem 0rem 1.5rem" : "0.8rem 0 0"};
         }
       }
       input {
@@ -103,9 +89,8 @@ export const LogForm = styled.form`
         background-position: left;
         background-size: 1.5rem;
         font-size: 14px;
-
-        @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-          width: 14rem;
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+          width: 15rem;
           font-size: 11px;
           margin-top: 1.2rem;
           margin-bottom: 0.5rem;
@@ -114,24 +99,21 @@ export const LogForm = styled.form`
       .userInput {
         background-image: url("${user1}");
         background-size: 1.3rem;
-
-        @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           background-size: 1rem;
         }
       }
       .emailInput {
         background-image: url("${email}");
         background-size: 1.4rem;
-
-        @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           background-size: 1rem;
         }
       }
       .pwdInput {
         background-image: url("${pwd}");
         background-size: 1.5rem;
-
-        @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           background-size: 1.2rem;
         }
       }
@@ -139,11 +121,9 @@ export const LogForm = styled.form`
         color: red;
         margin-bottom: -1rem;
         font-size: 14px;
-
-        @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-          font-size: 10px;
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+          font-size: 11px;
           margin-bottom: 3px;
-          padding: 0 12px;
         }
       }
 
@@ -155,8 +135,7 @@ export const LogForm = styled.form`
         background: #fff06c;
         margin-top: ${(props) => (props.theme === "login" ? "5rem" : "3.5rem")};
         cursor: pointer;
-
-        @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           width: 14rem;
           height: 2.2rem;
           font-size: 12px;
@@ -167,15 +146,12 @@ export const LogForm = styled.form`
       .sub-form {
         display: flex;
         ${FONT_STYLE_LOGIN.body.body_9_light}
-
-        @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           font-size: 11px;
         }
-
         li {
           padding: 0 20px;
-
-          @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+          @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
             padding: 0 10px;
           }
         }
@@ -198,15 +174,11 @@ export const LogForm = styled.form`
         height: 1.5rem;
         cursor: pointer;
         border-radius: 50%;
-
-        @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           width: 3rem;
           height: 1.3rem;
           font-size: 6px;
           top: 1.7rem;
-        }
-        @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-          font-size: 3px;
         }
 
         :hover {
@@ -230,28 +202,24 @@ export const LogForm = styled.form`
         height: 1.5rem;
         cursor: pointer;
         border-radius: 50%;
-
-        @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-          fwidth: 3rem;
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+          width: 3rem;
           height: 1.3rem;
           font-size: 6px;
           top: 1.7rem;
-        }
-        @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-          font-size: 3px;
         }
       }
     }
     .oauth-form {
       display: none;
       flex-direction: column;
-      @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
         display: flex;
         .oauth-head {
           justify-content: center;
           display: flex;
           padding: ${(props) =>
-            props.theme === "login" ? "45px 20px 13px" : "35px 20px 13px"};
+            props.theme === "login" ? "50px 20px 13px" : "35px 20px 13px"};
 
           ${FONT_STYLE_LOGIN.body.body_8_light}
         }
@@ -259,7 +227,7 @@ export const LogForm = styled.form`
           justify-content: center;
           display: flex;
           width: 10rem;
-          height: 1.8rem;
+          height: 2rem;
           img {
             width: 1.8rem;
             margin: 0 10px;
@@ -272,11 +240,9 @@ export const LogForm = styled.form`
 
   .formRight {
     flex-grow: ${(props) => (props.theme === "login" ? "1" : "0")};
-
-    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       display: none;
     }
-
     .welcome {
       ${FONT_STYLE_LOGIN.title.title_22_medium};
       display: flex;
@@ -348,28 +314,25 @@ export const LogForm = styled.form`
 //TODO :로그아웃 완료 페이지
 export const LogoutForm = styled.div`
   display: flex;
-  margin-top: -7rem;
-  padding-bottom: 3rem;
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    margin-top: -2rem;
-    padding: 0 0 3rem;
+  min-height: 80vh;
+  width: 90vw;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 50rem;
   }
-
   .Left {
     justify-content: flex-end;
     display: flex;
     flex-grow: 2;
-    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       flex-grow: 1;
       justify-content: flex-start;
     }
-
     img {
       margin-top: 8rem;
-      width: 17rem;
-      height: 17rem;
-      @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-        margin-top: 1rem;
+      width: 16rem;
+      height: 16rem;
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        margin-top: 9rem;
         width: 12rem;
         height: 12rem;
       }
@@ -381,38 +344,27 @@ export const LogoutForm = styled.div`
     flex-grow: 1;
     flex-direction: column;
     align-items: center;
-
-    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       flex-grow: 2;
     }
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-      flex-grow: 1;
-    }
     img {
-      display: flex;
-      align-items: center;
       margin-top: 13rem;
       align-items: center;
       width: 28rem;
       height: 28rem;
       transform: rotate(20deg);
-
-      @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-        margin-top: 10rem;
-        width: 13rem;
-        height: 13rem;
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        margin-top: 22rem;
+        width: 20rem;
+        height: 20rem;
       }
     }
     .text {
       justify-content: center;
       ${FONT_STYLE_LOGOUT.title_20_medium}
       font-size: 2.8rem;
-
-      @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-        font-size: 2.5rem;
-      }
-      @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-        font-size: 1.5rem;
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        ${FONT_STYLE_LOGOUT.title_15_medium}
       }
     }
     button {
@@ -425,18 +377,11 @@ export const LogoutForm = styled.div`
       width: 13rem;
       height: 4.2rem;
       cursor: pointer;
-
-      @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
         margin-top: 2rem;
-        width: 11rem;
-        height: 3.5rem;
-        font-size: 1.2rem;
-      }
-      @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-        margin-top: 1.5rem;
-        width: 7rem;
-        height: 2.5rem;
-        font-size: 0.8rem;
+        width: 10rem;
+        height: 3rem;
+        ${FONT_STYLE_LOGOUT.title_9_medium}
       }
     }
   }
@@ -445,20 +390,16 @@ export const LogoutForm = styled.div`
     justify-content: flex-start;
     display: flex;
     flex-grow: 2;
-
-    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       flex-grow: 1;
       justify-content: flex-end;
     }
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    }
     img {
       margin-top: 43rem;
-      width: 17rem;
-      height: 17rem;
-
-      @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-        margin-top: 32rem;
+      width: 16rem;
+      height: 16rem;
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        margin-top: 45rem;
         width: 12rem;
         height: 12rem;
       }
@@ -468,42 +409,30 @@ export const LogoutForm = styled.div`
 
 //TODO :회원가입 완료 페이지
 export const CompleteContainer = styled.div`
-  width: 50rem;
+  width: 60rem;
   height: 48rem;
   margin-right: 1.5rem;
   margin-bottom: 2.5rem;
   display: flex;
-
-  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 30rem;
-    height: 38rem;
-  }
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    margin-right: 0.3rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 20rem;
+    height: 32rem;
   }
   button {
     justify-content: center;
     border: 1px solid black;
     background-color: #fcfbf4;
     ${FONT_STYLE_LOGOUT.title_11_medium}
-    font-size: 1.3rem;
     margin-top: 2rem;
     padding: 2px;
     width: 10rem;
     height: 3.5rem;
     cursor: pointer;
-
-    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       margin-top: 2rem;
-      width: 8rem;
-      height: 2.8rem;
-      font-size: 1rem;
-    }
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-      margin-top: 1.2rem;
-      width: 6rem;
-      height: 2.3rem;
-      font-size: 0.8rem;
+      width: 10rem;
+      height: 3rem;
+      ${FONT_STYLE_LOGOUT.title_9_medium}
     }
   }
 `;
@@ -511,16 +440,9 @@ export const CompleteContainer = styled.div`
 export const CompleteTitle = styled.div`
   margin: 2rem 0;
   justify-content: center;
-  font-family: "Pretendard-Medium";
-  font-size: 2.6rem;
-
-  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-    margin: 1.6rem 0;
-    font-size: 1.6rem;
-  }
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    margin: 1.6rem 0;
-    font-size: 1.4rem;
+  ${FONT_STYLE_LOGOUT.title_30_Light}
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    ${FONT_STYLE_LOGOUT.title_15_medium}
   }
 `;
 

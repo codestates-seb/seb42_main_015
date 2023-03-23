@@ -1,28 +1,49 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as L from "./ReadStyled";
+import * as yup from "yup";
 import axios from "axios";
-import { setCookie, getCookie } from "../Certified/Cookie";
-import { GoogleOauthLogin } from "../Certified/OauthGoogle";
-import { formSchema, headers, options } from "../Certified/FormSchema.js";
+import { setCookie } from "../Certified/Cookie";
 
 const LoginModal = ({ ModalRef, setIsKeeping }) => {
   //로그인되면 모달 닫기
   const CloseModal = () => {
     alert("로그인되었습니다.");
-    console.log("accesstoken", getCookie("accesstoken"));
     setIsKeeping(false);
   };
+
+  const formShema = yup.object({
+    email: yup
+      .string()
+      .required("이메일을 입력해주세요")
+      .email("이메일 형식이 아닙니다."),
+    password: yup
+      .string()
+      .required("영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요.")
+      .min(8, "최소 8자리 이상 입력해주세요.")
+      .max(16, "최대 16자까지 가능합니다.")
+      .matches(
+        /^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
+        "영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요."
+      ),
+  });
 
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
+
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "12",
+  };
 
   //! 로그인 제출 버튼
-  const onFormSubmit = async (data) => {
+  const onSubmit = async (data) => {
     const { email, password } = data;
     await axios
       .post(
@@ -33,6 +54,7 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
         }
       )
       .then((res) => {
+        alert("로그인되었습니다.");
         CloseModal();
         if (res.headers.getAuthorization) {
           //! refresh token은 -> local storage에 저장
@@ -42,7 +64,10 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
             "accesstoken",
             res.headers.get("Authorization").split(" ")[1],
             {
-              options,
+              path: "/",
+              sucure: true,
+              sameSite: "Strict",
+              HttpOnly: " HttpOnly ",
             }
           );
         }
@@ -57,13 +82,9 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
     <L.ModalWrapper ref={ModalRef}>
       <div className="loginText">Log in</div>
       <div className="oauth">
-        <img
-          src={require("../../asset/구글.png")}
-          alt="Googole"
-          onClick={GoogleOauthLogin}
-        />
+        <img src={require("../../asset/구글.png")} alt="Googole" />
       </div>
-      <form onSubmit={handleSubmit(onFormSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input
           className="emailInput"
           {...register("email")}
