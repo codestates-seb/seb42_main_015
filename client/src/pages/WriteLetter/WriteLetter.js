@@ -2,6 +2,7 @@ import React, { forwardRef, useEffect, useRef, useState } from "react";
 import * as W from "./WriteStyled";
 import { BiMicrophone, BiFontColor } from "react-icons/bi";
 import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { SlQuestion } from "react-icons/sl";
 import { PALETTE_V1 } from "../../style/color";
 import LetterContent from "./LetterContent";
@@ -13,7 +14,6 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import MakeLetter from "./MakeLetter";
-import { BREAKPOINTMOBILE2 } from "../../breakpoint";
 
 function WriteLetter() {
   const [openExplaination, setOpenExplaination] = useState(false);
@@ -105,12 +105,13 @@ function WriteLetter() {
     setOpenMakeLetter(!openMakeLetter);
   };
   const getBrowserSize = () => {
-    if (window.innerWidth > BREAKPOINTMOBILE2) {
-    } else {
-      setBrowserSize(window.innerWidth);
-    }
+    setBrowserSize(window.innerWidth);
   };
   window.addEventListener("resize", getBrowserSize);
+  useEffect(() => {
+    setBrowserSize(window.innerWidth);
+  }, []);
+
   return (
     <W.PageContainer onClick={handleModal}>
       {openExplaination || openSendMe || openMakeLetter ? (
@@ -143,24 +144,32 @@ function WriteLetter() {
       ) : (
         <></>
       )}
-      <W.PageWrapper>
-        <W.FlexWrapper2>
-          {browserSize > 360 ? (
+      <W.PageWrapper id="page-wrapper">
+        <W.FlexWrapper2 id="flex-wrapper">
+          {browserSize > 767 ? (
             <W.IconWrapper>
-              {!browserSupportsSpeechRecognition ? (
-                <div>음성인식이 불가능한 브라우저</div>
-              ) : (
-                <BiMicrophone
-                  onClick={handleActiveIcon}
-                  className={
-                    listening
-                      ? "active-icon microphone-icon"
-                      : "microphone-icon"
-                  }
-                  size="50"
-                  id="음성인식"
-                />
-              )}
+              <W.BallonWrapper>
+                {!browserSupportsSpeechRecognition ? (
+                  <div>음성인식이 불가능한 브라우저</div>
+                ) : (
+                  <BiMicrophone
+                    onClick={handleActiveIcon}
+                    className={
+                      listening
+                        ? "active-icon microphone-icon"
+                        : "microphone-icon"
+                    }
+                    id="음성인식"
+                  />
+                )}
+                {openExplaination ? (
+                  <W.BallonBottom1 className="stt-button">
+                    음성인식으로 편지를 작성할 수 있습니다.
+                  </W.BallonBottom1>
+                ) : (
+                  <></>
+                )}
+              </W.BallonWrapper>
 
               <W.BallonWrapper>
                 <BiFontColor
@@ -170,7 +179,6 @@ function WriteLetter() {
                       ? "active-icon font-icon"
                       : "font-icon"
                   }
-                  size="50"
                   id="폰트변경"
                 />
                 {activeIcon === "폰트변경" ? <FontMenu /> : <></>}
@@ -187,30 +195,37 @@ function WriteLetter() {
             <></>
           )}
           <W.ThemeIcon>
-            <MdArrowBackIos
+            <IoIosArrowBack
               onClick={handleThemeLeft}
               className="arrow-backward-icon"
-              size="30"
             />
           </W.ThemeIcon>
-          <W.FlexColunmWrapper>
+          <W.FlexColunmWrapper className="letter">
             <W.LetterWrapper>
-              {browserSize <= 360 ? (
+              {browserSize <= 767 ? (
                 <W.FlexRowWrapper>
-                  {!browserSupportsSpeechRecognition ? (
-                    <div>음성인식이 불가능한 브라우저</div>
-                  ) : (
-                    <BiMicrophone
-                      onClick={handleActiveIcon}
-                      className={
-                        listening
-                          ? "active-icon microphone-icon"
-                          : "microphone-icon"
-                      }
-                      size="25"
-                      id="음성인식"
-                    />
-                  )}
+                  <W.BallonWrapper>
+                    {!browserSupportsSpeechRecognition ? (
+                      <div>음성인식이 불가능한 브라우저</div>
+                    ) : (
+                      <BiMicrophone
+                        onClick={handleActiveIcon}
+                        className={
+                          listening
+                            ? "active-icon microphone-icon"
+                            : "microphone-icon"
+                        }
+                        id="음성인식"
+                      />
+                    )}
+                    {openExplaination ? (
+                      <W.BallonTop className="stt-button">
+                        음성인식으로 편지를 작성할 수 있습니다.
+                      </W.BallonTop>
+                    ) : (
+                      <></>
+                    )}
+                  </W.BallonWrapper>
 
                   <W.BallonWrapper>
                     <BiFontColor
@@ -220,19 +235,18 @@ function WriteLetter() {
                           ? "active-icon font-icon"
                           : "font-icon"
                       }
-                      size="25"
                       id="폰트변경"
                     />
                     {activeIcon === "폰트변경" ? <FontMenu /> : <></>}
                     {openExplaination ? (
-                      browserSize > 360 ? (
+                      browserSize > 767 ? (
                         <W.BallonTop className="ballon2">
                           글씨체를 변경할 수 있습니다.
                         </W.BallonTop>
                       ) : (
-                        <W.BallonBottom1>
+                        <W.BallonLeft className="change-font">
                           글씨체를 변경할 수 있습니다.
-                        </W.BallonBottom1>
+                        </W.BallonLeft>
                       )
                     ) : (
                       <></>
@@ -254,11 +268,12 @@ function WriteLetter() {
                 finalTranscript={finalTranscript}
                 resetTranscript={resetTranscript}
                 currentLetterTheme={currentLetterTheme}
+                browserSize={browserSize}
               />
               <W.BallonWrapper>
                 <W.TextCount>{contentLength}/7000</W.TextCount>
                 {openExplaination ? (
-                  browserSize > 360 ? (
+                  browserSize > 767 ? (
                     <W.BallonTop id="ballon3">
                       글자 수를 확인할 수 있습니다.
                     </W.BallonTop>
@@ -276,13 +291,16 @@ function WriteLetter() {
               <SlQuestion
                 onClick={handleOpenExplanation}
                 className="question-icon"
-                size="30"
               />
               <W.BallonWrapper className="button">
                 {openExplaination ? (
-                  <W.BallonBottom1 id="ballon4">
-                    작성을 마무리하고 편지를 생성합니다.
-                  </W.BallonBottom1>
+                  browserSize > 767 ? (
+                    <W.BallonBottom1 id="ballon4">
+                      작성을 마무리하고 편지를 생성합니다.
+                    </W.BallonBottom1>
+                  ) : (
+                    <></>
+                  )
                 ) : (
                   <></>
                 )}
@@ -295,10 +313,9 @@ function WriteLetter() {
             </W.ButtonWrapper>
           </W.FlexColunmWrapper>
           <W.ThemeIcon>
-            <MdArrowForwardIos
+            <IoIosArrowForward
               onClick={handleThemeRight}
               className="arrow-forward-icon"
-              size="30"
             />
           </W.ThemeIcon>
         </W.FlexWrapper2>
