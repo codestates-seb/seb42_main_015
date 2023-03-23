@@ -260,9 +260,9 @@ export const FONT_STYLE_LOGOUT = {
 };
 
 export const FONT_STYLE_READ = {
-  title_20_medium: css`
+  title_19_medium: css`
     font-family: "Pretendard-Light";
-    font-size: 1.7rem;
+    font-size: 1.9rem;
   `,
   body_9_Medium: css`
     font-family: "Pretendard-Medium";

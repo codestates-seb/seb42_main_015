@@ -85,34 +85,32 @@ export const SWrapper = styled.div`
 export const Secretform = styled.form`
   display: flex;
   padding: 5rem 5rem;
-  width: 50vw;
   height: 40vh;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    height: 60vh;
+    height: 40vh;
   }
   div {
     display: flex;
-    ${FONT_STYLE_READ.title_20_medium}
+    ${FONT_STYLE_READ.title_19_medium}
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 1rem;
-      width: 12rem;
+      font-size: 1.7rem;
     }
   }
   .pwdInput {
     display: flex;
-    width: 23rem;
-    height: 2.3rem;
+    width: 27rem;
+    height: 2.7rem;
     background-size: 1.5rem;
-    padding: 0rem 3rem;
+    padding: 1rem 3rem;
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 1px solid #000;
+    border-bottom: 1.2px solid #000;
     background-image: url("${pwd}");
     background-color: initial;
     background-repeat: no-repeat;
@@ -120,38 +118,34 @@ export const Secretform = styled.form`
     background-size: 1.5rem;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      background-size: 1.2rem;
-      height: 2rem;
-      width: 12rem;
+      width: 22rem;
+      font-size: 1.5rem;
     }
   }
   .btn {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 6.7rem;
-    height: 2.1rem;
-    border: 1px solid #838383;
+    width: 7rem;
+    height: 2.5rem;
+    border: 1.2px solid #000;
     background-color: #fcfbf4;
     ${FONT_STYLE_READ.btn_8_light}
-    margin-left: 70%;
+    margin-left: 58%;
     cursor: pointer;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      width: 5rem;
-      height: 1.6rem;
       font-size: 0.5rem;
-      margin-left: 55%;
+      margin-left: 65%;
     }
   }
   p {
     color: red;
-    margin: -3.3rem 0 -1rem;
-    font-size: 16px;
+    margin: -5.3rem 0 -1rem;
+    font-size: 14px;
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      margin: -2rem 0 -1rem;
-      width: 12rem;
-      font-size: 10px;
+      margin: -3rem 0 -1rem;
+      font-size: 7px;
     }
   }
 `;
@@ -269,8 +263,8 @@ export const Buttons = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: 6rem;
-  padding: 0rem 0rem 0rem 31rem;
+  height: 8rem;
+  padding: 0rem 0rem 0rem 37rem;
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     padding: 0rem 0rem 0rem 14rem;
