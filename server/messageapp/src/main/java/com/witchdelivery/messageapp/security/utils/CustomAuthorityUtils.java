@@ -1,4 +1,4 @@
-package com.witchdelivery.messageapp.security.auth.utils;
+package com.witchdelivery.messageapp.security.utils;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;

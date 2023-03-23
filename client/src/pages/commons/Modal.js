@@ -11,7 +11,7 @@ const ModalBack = styled.div`
   right: 0;
   background-color: none;
   display: flex;
-  z-index: 200;
+  z-index: 300;
   justify-content: center;
   align-items: center;
   min-width: 963px;
@@ -22,7 +22,7 @@ const ModalContainer = styled.div`
   width: ${(props) => props.ContainerWidth || "400px"};
   height: ${(props) => props.ContainerHeight || "600px"};
   border: 2px solid ${PALETTE_V1.text_primary};
-  z-index: 300;
+  z-index: 400;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     top: 30%;
     left: 10%;
