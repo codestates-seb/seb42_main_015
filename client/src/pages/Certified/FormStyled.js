@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import { BREAKPOINTMOBILE } from "../../breakpoint";
-import {
-  FONT_STYLE_LOGIN,
-  FONT_STYLE_LOGOUT,
-  FONT_STYLE_V1,
-} from "../../style/fontStyle";
+import { FONT_STYLE_LOGIN, FONT_STYLE_LOGOUT } from "../../style/fontStyle";
 import email from "../../asset/mail.png";
 import pwd from "../../asset/pwd.png";
 import user1 from "../../asset/user1.png";
@@ -412,24 +408,25 @@ export const CompleteContainer = styled.div`
   margin-bottom: 2.5rem;
   display: flex;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 20rem;
-    height: 32rem;
+    width: 60%;
+    height: 38rem;
   }
+
   button {
     justify-content: center;
     border: 1px solid black;
     background-color: #fcfbf4;
-    ${FONT_STYLE_LOGOUT.title_11_medium}
+    ${FONT_STYLE_LOGOUT.button_14_san}
     margin-top: 2rem;
     padding: 2px;
-    width: 10rem;
-    height: 3.5rem;
+    width: 12rem;
+    height: 4.2rem;
     cursor: pointer;
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       margin-top: 2rem;
       width: 10rem;
-      height: 3rem;
-      ${FONT_STYLE_LOGOUT.title_9_medium}
+      height: 3.4rem;
+      ${FONT_STYLE_LOGOUT.title_10_medium}
     }
   }
 `;
@@ -439,7 +436,7 @@ export const CompleteTitle = styled.div`
   justify-content: center;
   ${FONT_STYLE_LOGOUT.title_30_Light}
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    ${FONT_STYLE_LOGOUT.title_15_medium}
+    ${FONT_STYLE_LOGOUT.title_18_medium}
   }
 `;
 

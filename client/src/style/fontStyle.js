@@ -251,21 +251,25 @@ export const FONT_STYLE_LOGOUT = {
     font-family: "Caveat", cursive;
     font-size: 2rem;
   `,
+  title_18_medium: css`
+    font-family: "Pretendard-Light";
+    font-size: 1.8rem;
+  `,
   title_15_medium: css`
-    font-family: "Caveat", cursive;
+    font-family: "Pretendard-Light";
     font-size: 1.5rem;
   `,
   title_14_medium: css`
     font-family: "B612", sans-serif;
     font-size: 1.4rem;
   `,
-  title_9_medium: css`
+  title_10_medium: css`
     font-family: "B612", sans-serif;
     font-size: 0.9rem;
   `,
-  title_11_medium: css`
+  button_14_san: css`
     font-family: "B612", sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.4rem;
   `,
 };
 
