@@ -1,16 +1,11 @@
 package com.witchdelivery.messageapp.domain.mailbox.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 import java.time.LocalDateTime;
 
-@Getter
-@AllArgsConstructor
-public class OutgoingResponseDto { // 발신 (보내는 사람)
-    private long outgoingId; // 발신식별번호
+public class ReceivingResponseDto { // 수신(받는 사람)
+    private long receivingId; // 수신식별번호
     private long messageId; // 편지식별번호
-    private String toName; // 받는사람 닉네임 (편지테이블의 toName)
+    private String outgoingNickname; // 발신자 (보내는 사람) 닉네임
     private String content; // 편지 내용
     private LocalDateTime messageCreatedAt; // 편지 생성날짜
     private boolean bookMark; // 북마크 여부

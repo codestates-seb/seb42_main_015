@@ -1,7 +1,11 @@
 package com.witchdelivery.messageapp.domain.message.service;
 
 import com.witchdelivery.messageapp.domain.mailbox.entity.Outgoing;
+import com.witchdelivery.messageapp.domain.mailbox.entity.Receiving;
 import com.witchdelivery.messageapp.domain.mailbox.service.OutgoingService;
+import com.witchdelivery.messageapp.domain.mailbox.service.ReceivingService;
+import com.witchdelivery.messageapp.domain.member.entity.Member;
+import com.witchdelivery.messageapp.domain.member.service.MemberService;
 import com.witchdelivery.messageapp.domain.message.repository.MessageRepository;
 import com.witchdelivery.messageapp.global.exception.BusinessLogicException;
 import com.witchdelivery.messageapp.global.exception.ExceptionCode;
@@ -19,28 +23,25 @@ import java.util.Optional;
 public class MessageService {
     private final MessageRepository messageRepository;
     private final OutgoingService outgoingService;
+    private final ReceivingService receivingService;
+    private final MemberService memberService;
 
     public Message createMessage(Message message) {
         Message savedMessage = messageRepository.save(message);
-        Outgoing outgoing = new Outgoing();
-        outgoing.setMessage(savedMessage);
-        outgoing.setMember(savedMessage.getMember());
-        outgoing.setOutgoingNickname(savedMessage.getMember().getNickname());
-        String content = savedMessage.getContent();
-        if (content.length() > 30) {
-            content = content.substring(0,30);
-        }
-        outgoing.setContent(content); // 30자 미리보기
-        outgoing.setMessageCreatedAt(savedMessage.getCreatedAt());
+        Outgoing outgoing = outgoingJoinMessage(savedMessage);
         outgoingService.createOutgoing(outgoing);
         return savedMessage;
     }
 
-    public void updatedMessageSaved(Long messageId, boolean messageSaved) {
+    public void updatedMessageSaved(Long messageId, boolean messageSaved, long memberId) {
         Message message = findVerifiedMessage(messageId);
-
         message.setMessageSaved(true);
-        messageRepository.save(message);
+        Message savedMessage = messageRepository.save(message);
+
+        Receiving receiving = receivingJoinMessage(savedMessage, memberId);
+
+        receivingService.createReceiving(receiving);
+
     }
 
     public Message findMessage(long messageId) {
@@ -68,5 +69,36 @@ public class MessageService {
     public void deleteMessage(Long messageId) {
         Message message = findVerifiedMessage(messageId);
         messageRepository.delete(message);
+    }
+
+    private Outgoing outgoingJoinMessage(Message savedMessage) {
+        Outgoing outgoing = new Outgoing();
+        outgoing.setMessage(savedMessage);
+        outgoing.setMember(savedMessage.getMember()); // outgoing(n)-member(1) 연관관계매핑, member는 사용자
+        outgoing.setToName(savedMessage.getToName());
+        String content = savedMessage.getContent();
+        if (content.length() > 70) {
+            content = content.substring(0,70);
+        }
+        outgoing.setContent(content); // 70자 미리보기
+        outgoing.setMessageCreatedAt(savedMessage.getCreatedAt());
+        return outgoing;
+    }
+
+    private Receiving receivingJoinMessage(Message savedMessage, long memberId) {
+        Member member = memberService.findVerifiedMember(memberId); // 사용자랑 receiving 연관관계매핑용
+
+        Receiving receiving = new Receiving();
+        receiving.setMessage(savedMessage);
+        receiving.setMember(member); // receiving(n)-member(1) 연관관계매핑, member는 사용자
+//        Member outgoingMember = memberService.findVerifiedMember(savedMessage.getOutgoingId); // 보낸사람의 닉네임 찾기
+        receiving.setOutgoingNickname(savedMessage.getMember().getNickname());
+        String content = savedMessage.getContent();
+        if (content.length() > 70) {
+            content = content.substring(0,70);
+        }
+        receiving.setContent(content); // 70자 미리보기
+        receiving.setMessageCreatedAt(savedMessage.getCreatedAt());
+        return receiving;
     }
 }

@@ -7,6 +7,7 @@ import com.witchdelivery.messageapp.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -15,16 +16,13 @@ public class OutgoingService { // 발신 (보내는 사람)
     private final OutgoingRepository outgoingRepository;
 
     public Outgoing createOutgoing(Outgoing outgoing) {
-
-
-
         return outgoingRepository.save(outgoing); // outgoing 정보 저장
     }
 
     public void updateOutgoingStatus(long outgoingId) { // outgoing 상태 OUTGOING_DELETE변경
         Outgoing findOutgoing = findVerifiedOutgoing(outgoingId);
         findOutgoing.setOutgoingStatus(Outgoing.OutgoingStatus.OUTGOING_DELETE);
-        // deletedAt도 생성
+        findOutgoing.setDeletedAt(LocalDateTime.now());
         outgoingRepository.save(findOutgoing);
     }
 

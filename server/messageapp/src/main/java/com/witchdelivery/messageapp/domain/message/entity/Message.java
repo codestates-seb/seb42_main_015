@@ -35,5 +35,8 @@ public class Message extends BaseTime {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    private Member member; // FK 사용자식별번호... 이게 맞나...
+    private Member member; // FK 사용자식별번호(사용자와 연관관계 매핑)
+
+//    @Column(nullable = false)
+//    private Long outgoingId; // 보내는 사람 Id즉 사용자 Id 두번 받는거 맞음...
 }

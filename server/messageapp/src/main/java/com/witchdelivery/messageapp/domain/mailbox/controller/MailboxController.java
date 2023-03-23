@@ -25,14 +25,20 @@ public class MailboxController {
     private final ReceivingMapper receivingMapper;
 
     // 발신 삭제처리 메서드 (반환할건 없을 거 같음)
-    @PatchMapping("/outgoing/{outgoing-id}") // 발신자식별번호
+    @PatchMapping("/outgoing/{outgoing-id}") // 발신식별번호
     public ResponseEntity outgoingStatus(@PathVariable("outgoing-id") long outgoingId) {
         outgoingService.updateOutgoingStatus(outgoingId);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    // 수신 삭제처리 메서드
+    // 수신 삭제처리 메서드 (반환할건 없을 거 같음)
+    @PatchMapping("/receiving/{receiving-id}") // 수신식별번호
+    public ResponseEntity receivingStatus(@PathVariable("receiving-id") long receivingId) {
+        receivingService.updateReceivingStatus(receivingId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 
 }
