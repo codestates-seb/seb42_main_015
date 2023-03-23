@@ -5,6 +5,7 @@ import com.witchdelivery.messageapp.domain.mailbox.entity.Receiving;
 import com.witchdelivery.messageapp.domain.mailbox.service.OutgoingService;
 import com.witchdelivery.messageapp.domain.mailbox.service.ReceivingService;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
+import com.witchdelivery.messageapp.domain.member.service.MemberDbService;
 import com.witchdelivery.messageapp.domain.member.service.MemberService;
 import com.witchdelivery.messageapp.domain.message.repository.MessageRepository;
 import com.witchdelivery.messageapp.global.exception.BusinessLogicException;
@@ -24,7 +25,7 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final OutgoingService outgoingService;
     private final ReceivingService receivingService;
-    private final MemberService memberService;
+    private final MemberDbService memberDbService;
 
     public Message createMessage(Message message) {
         Message savedMessage = messageRepository.save(message);
@@ -41,7 +42,6 @@ public class MessageService {
         Receiving receiving = receivingJoinMessage(savedMessage, memberId);
 
         receivingService.createReceiving(receiving);
-
     }
 
     public Message findMessage(long messageId) {
@@ -86,7 +86,7 @@ public class MessageService {
     }
 
     private Receiving receivingJoinMessage(Message savedMessage, long memberId) {
-        Member member = memberService.findVerifiedMember(memberId); // 사용자랑 receiving 연관관계매핑용
+        Member member = memberDbService.findVerifiedMember(memberId); // 사용자랑 receiving 연관관계매핑용
 
         Receiving receiving = new Receiving();
         receiving.setMessage(savedMessage);

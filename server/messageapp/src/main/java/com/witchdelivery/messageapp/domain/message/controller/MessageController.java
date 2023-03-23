@@ -1,6 +1,7 @@
 package com.witchdelivery.messageapp.domain.message.controller;
 
 import com.witchdelivery.messageapp.domain.member.entity.Member;
+import com.witchdelivery.messageapp.domain.member.service.MemberDbService;
 import com.witchdelivery.messageapp.domain.member.service.MemberService;
 import com.witchdelivery.messageapp.domain.message.dto.MessagePatchDto;
 import com.witchdelivery.messageapp.domain.message.dto.MessagePostDto;
@@ -26,15 +27,13 @@ import javax.validation.constraints.Positive;
 public class MessageController {
     private final MessageService messageService;
     private final MessageMapper messageMapper;
-    private final MemberService memberService;
-
-
+    private final MemberDbService memberDbService;
 
     @PostMapping("/write")
     public ResponseEntity postMessage(@Valid @RequestBody MessagePostDto messagePostDto) {
         Message message = messageMapper.messagePostDtoToMessage(messagePostDto);
 
-        Member member = memberService.findVerifiedMember(messagePostDto.getMemberId());
+        Member member = memberDbService.findVerifiedMember(messagePostDto.getMemberId());
         message.setMember(member);
 
         messageService.createMessage(message);
