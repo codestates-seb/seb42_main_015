@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
+import { BREAKPOINTMOBILE } from "../../breakpoint";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
+import { PALETTE_V1 } from "../../style/color";
 
 export const TrashWrap = styled.div`
   height: 1000px;
   background: #fcfbf4;
+  ${FONT_STYLE_V1.body.body_15_light}
 `;
 
 export const TrashContainer = styled.div`
@@ -18,6 +20,7 @@ export const TrashTable = styled.div`
 `;
 
 export const TrashTableMenu = styled.div`
+  ${FONT_STYLE_V1.title.title_16_medium}
   width: 80vw;
   height: 40px;
   border-top: 2px solid black;
@@ -25,7 +28,6 @@ export const TrashTableMenu = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: 600;
   .select-all {
     border: 2px solid black;
   }
@@ -37,10 +39,13 @@ export const CheckBox = styled.div`
   border: 1px solid black;
   border-radius: 3px;
   cursor: pointer;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-left: 3rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    margin-left: 1rem;
+    margin: 0 0.5rem;
+    transform: scale(0.7);
   }
 `;
 
@@ -51,10 +56,6 @@ export const ButtonBox = styled.div`
 
 export const Button = styled.div`
   margin-right: 3rem;
-  ${FONT_STYLE_V1.title.title_10_medium}
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    margin-right: 1rem;
-  }
 `;
 
 export const ItemBox = styled.li`
@@ -63,7 +64,6 @@ export const ItemBox = styled.li`
   display: flex;
   align-items: center;
   border-bottom: 1px solid black;
-  ${FONT_STYLE_V1.body.body_10_light}
 `;
 
 export const ItemName = styled.div`
@@ -73,11 +73,13 @@ export const ItemName = styled.div`
   text-align: center;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     margin-right: 1rem;
+    padding-right: 1rem;
   }
 `;
 
 export const ItemContent = styled.div`
   flex-grow: 5;
+  margin-right: 0.5rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 100px;
     overflow: hidden;
@@ -93,4 +95,99 @@ export const ItemContent = styled.div`
 export const ItemDate = styled.div`
   flex-grow: 1;
   color: #cccccc;
+`;
+
+
+export const ModalBox = styled.div`
+  width: 300px;
+  height: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 50%;
+    margin-bottom: 1.5rem;
+  }
+`;
+export const ModalText = styled.div`
+  margin-bottom: 1rem;
+`;
+export const ModalBtton = styled.div`
+  background-color: #ddd;
+  border: 2px solid ${PALETTE_V1.text_primary};
+  width: 100px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TopButton = styled.div`
+  width: 60px;
+  height: 60px;
+  border: 3px solid ${PALETTE_V1.orange_dark};
+  border-radius: 50%;
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  background-color: white;
+  color: ${PALETTE_V1.orange_dark};
+  cursor: pointer;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    right: 10px;
+  }
+`;
+
+export const ReceiveButton = styled.div`
+  width: 60px;
+  height: 60px;
+  border: 3px solid ${PALETTE_V1.orange_dark};
+  border-radius: 50%;
+  position: fixed;
+  bottom: 120px;
+  right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  background-color: white;
+  color: ${PALETTE_V1.orange_dark};
+  cursor: pointer;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 50px;
+    height: 50px;
+    bottom: 85px;
+    right: 10px;
+  }
+`;
+
+export const SendButton = styled.div`
+  width: 60px;
+  height: 60px;
+  border: 3px solid ${PALETTE_V1.orange_dark};
+  border-radius: 50%;
+  position: fixed;
+  bottom: 120px;
+  right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  background-color: ${PALETTE_V1.orange_dark};
+  color: white;
+  cursor: pointer;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 50px;
+    height: 50px;
+    bottom: 85px;
+    right: 10px;
+  }
 `;

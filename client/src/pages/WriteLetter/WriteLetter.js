@@ -13,6 +13,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import MakeLetter from "./MakeLetter";
+import { BREAKPOINTMOBILE2 } from "../../breakpoint";
 
 function WriteLetter() {
   const [openExplaination, setOpenExplaination] = useState(false);
@@ -41,6 +42,7 @@ function WriteLetter() {
     "얼룩",
     "오리",
   ];
+  const [browserSize, setBrowserSize] = useState();
   const sendMeModalRef = useRef();
   const makeLetterModalRef = useRef();
   const {
@@ -102,7 +104,13 @@ function WriteLetter() {
   const handleOpenMakeLetter = (e) => {
     setOpenMakeLetter(!openMakeLetter);
   };
-
+  const getBrowserSize = () => {
+    if (window.innerWidth > BREAKPOINTMOBILE2) {
+    } else {
+      setBrowserSize(window.innerWidth);
+    }
+  };
+  window.addEventListener("resize", getBrowserSize);
   return (
     <W.PageContainer onClick={handleModal}>
       {openExplaination || openSendMe || openMakeLetter ? (
@@ -137,41 +145,47 @@ function WriteLetter() {
       )}
       <W.PageWrapper>
         <W.FlexWrapper2>
-          <W.IconWrapper>
-            {!browserSupportsSpeechRecognition ? (
-              <div>음성인식이 불가능한 브라우저</div>
-            ) : (
-              <BiMicrophone
-                onClick={handleActiveIcon}
-                className={
-                  listening ? "active-icon microphone-icon" : "microphone-icon"
-                }
-                size="50"
-                id="음성인식"
-              />
-            )}
-
-            <W.BallonWrapper>
-              <BiFontColor
-                onClick={handleActiveIcon}
-                className={
-                  activeIcon === "폰트변경"
-                    ? "active-icon font-icon"
-                    : "font-icon"
-                }
-                size="50"
-                id="폰트변경"
-              />
-              {activeIcon === "폰트변경" ? <FontMenu /> : <></>}
-              {openExplaination ? (
-                <W.BallonTop id="ballon2">
-                  글씨체를 변경할 수 있습니다.
-                </W.BallonTop>
+          {browserSize > 360 ? (
+            <W.IconWrapper>
+              {!browserSupportsSpeechRecognition ? (
+                <div>음성인식이 불가능한 브라우저</div>
               ) : (
-                <></>
+                <BiMicrophone
+                  onClick={handleActiveIcon}
+                  className={
+                    listening
+                      ? "active-icon microphone-icon"
+                      : "microphone-icon"
+                  }
+                  size="50"
+                  id="음성인식"
+                />
               )}
-            </W.BallonWrapper>
-          </W.IconWrapper>
+
+              <W.BallonWrapper>
+                <BiFontColor
+                  onClick={handleActiveIcon}
+                  className={
+                    activeIcon === "폰트변경"
+                      ? "active-icon font-icon"
+                      : "font-icon"
+                  }
+                  size="50"
+                  id="폰트변경"
+                />
+                {activeIcon === "폰트변경" ? <FontMenu /> : <></>}
+                {openExplaination ? (
+                  <W.BallonTop className="ballon2">
+                    글씨체를 변경할 수 있습니다.
+                  </W.BallonTop>
+                ) : (
+                  <></>
+                )}
+              </W.BallonWrapper>
+            </W.IconWrapper>
+          ) : (
+            <></>
+          )}
           <W.ThemeIcon>
             <MdArrowBackIos
               onClick={handleThemeLeft}
@@ -181,6 +195,53 @@ function WriteLetter() {
           </W.ThemeIcon>
           <W.FlexColunmWrapper>
             <W.LetterWrapper>
+              {browserSize <= 360 ? (
+                <W.FlexRowWrapper>
+                  {!browserSupportsSpeechRecognition ? (
+                    <div>음성인식이 불가능한 브라우저</div>
+                  ) : (
+                    <BiMicrophone
+                      onClick={handleActiveIcon}
+                      className={
+                        listening
+                          ? "active-icon microphone-icon"
+                          : "microphone-icon"
+                      }
+                      size="25"
+                      id="음성인식"
+                    />
+                  )}
+
+                  <W.BallonWrapper>
+                    <BiFontColor
+                      onClick={handleActiveIcon}
+                      className={
+                        activeIcon === "폰트변경"
+                          ? "active-icon font-icon"
+                          : "font-icon"
+                      }
+                      size="25"
+                      id="폰트변경"
+                    />
+                    {activeIcon === "폰트변경" ? <FontMenu /> : <></>}
+                    {openExplaination ? (
+                      browserSize > 360 ? (
+                        <W.BallonTop className="ballon2">
+                          글씨체를 변경할 수 있습니다.
+                        </W.BallonTop>
+                      ) : (
+                        <W.BallonBottom1>
+                          글씨체를 변경할 수 있습니다.
+                        </W.BallonBottom1>
+                      )
+                    ) : (
+                      <></>
+                    )}
+                  </W.BallonWrapper>
+                </W.FlexRowWrapper>
+              ) : (
+                <></>
+              )}
               <LetterContent
                 sendMeChecked={sendMeChecked}
                 setSendMeChecked={setSendMeChecked}
@@ -197,9 +258,15 @@ function WriteLetter() {
               <W.BallonWrapper>
                 <W.TextCount>{contentLength}/7000</W.TextCount>
                 {openExplaination ? (
-                  <W.BallonTop id="ballon3">
-                    글자 수를 확인할 수 있습니다.
-                  </W.BallonTop>
+                  browserSize > 360 ? (
+                    <W.BallonTop id="ballon3">
+                      글자 수를 확인할 수 있습니다.
+                    </W.BallonTop>
+                  ) : (
+                    <W.BallonTop className="ballon2">
+                      글자 수를 확인할 수 있습니다.
+                    </W.BallonTop>
+                  )
                 ) : (
                   <></>
                 )}
