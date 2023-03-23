@@ -1,5 +1,7 @@
 package com.witchdelivery.messageapp.domain.member.entity;
 
+import com.witchdelivery.messageapp.domain.mailbox.entity.Outgoing;
+import com.witchdelivery.messageapp.domain.mailbox.entity.Receiving;
 import com.witchdelivery.messageapp.global.audit.BaseTime;
 import com.witchdelivery.messageapp.security.utils.CustomAuthorityUtils;
 import lombok.*;
@@ -31,24 +33,48 @@ public class Member extends BaseTime implements Principal {
     @Column(unique = true, nullable = false)
     private String nickname; // 닉네임
 
-    @Column
-    private String profileImageUrl; // 프로필 이미지  // FIXME
-
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>(); // 사용자 권한
+
+    // 연관관계 매핑 목록
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    private MemberFile memberFile;
+
+    @OneToMany(mappedBy = "member")
+    private List<Outgoing> outgoing = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Receiving> receiving = new ArrayList<>();
 
     @Override
     public String getName() {
         return getEmail();
     }
 
-    // 패스워드 암호화
+    /**
+     * 패스워드 암호화 메서드
+     * @param passwordEncoder
+     */
     public void passwordEncode(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(this.password);
     }
 
-    // 사용자 권한 설정
+    /**
+     * 사용자 권한 설정 메서드
+     * @param customAuthorityUtils
+     */
     public void authorizeUser(CustomAuthorityUtils customAuthorityUtils) {
         this.roles = customAuthorityUtils.createRoles(this.getEmail());
+    }
+
+    /**
+     * 연관관계 매핑 메서드
+     * @param memberFile
+     */
+    public void addMemberFile(MemberFile memberFile) {
+        if (memberFile.getMember() != this) {
+            memberFile.setMember(this);
+        }
+        this.memberFile = memberFile;
     }
 }

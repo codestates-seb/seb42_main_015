@@ -6,16 +6,16 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 
-public class ExistedPostDto {
+public class VerifiedExistedDto {
     @Getter
-    public static class ExistedEmailDto {
+    public static class EmailDto {
         @NotBlank
         @Email
         private String email;   // 이메일(아이디)
     }
 
     @Getter
-    public static class ExistedNicknameDto {
+    public static class NicknameDto {
         @NotBlank
         private String nickname; // 닉네임
     }

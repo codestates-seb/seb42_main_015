@@ -1,33 +1,46 @@
 package com.witchdelivery.messageapp.domain.member.service;
 
+import com.witchdelivery.messageapp.domain.member.dto.MemberResponseDto;
+import com.witchdelivery.messageapp.domain.member.entity.MemberFile;
+import com.witchdelivery.messageapp.domain.member.repository.MemberFileRepository;
+import com.witchdelivery.messageapp.infra.file.S3File;
+import com.witchdelivery.messageapp.infra.file.S3Service;
 import com.witchdelivery.messageapp.security.utils.CustomAuthorityUtils;
 import com.witchdelivery.messageapp.domain.member.dto.MemberPostDto;
 import com.witchdelivery.messageapp.domain.member.repository.MemberRepository;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
-import com.witchdelivery.messageapp.global.exception.BusinessLogicException;
-import com.witchdelivery.messageapp.global.exception.ExceptionCode;
 import com.witchdelivery.messageapp.global.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
+import java.io.IOException;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class MemberService {
+    private final MemberDbService memberDbService;
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final CustomAuthorityUtils customAuthorityUtils;
-    private final CustomBeanUtils<Member> customBeanUtils;
+    private final PasswordEncoder passwordEncoder;  // 패스워드 암호화
+    private final CustomAuthorityUtils customAuthorityUtils;    // 사용자 권한 설정
+    private final CustomBeanUtils<Member> customBeanUtils;    // FIXME 미사용으로 인한 삭제
+    private final S3Service s3Service;
+    private final MemberFileRepository memberFileRepository;
 
+
+    /**
+     * 사용자 등록(회원가입) 메서드
+     * @param memberPostDto
+     * @return
+     */
     public Member createMember(MemberPostDto memberPostDto) {
-        verifiedExistedEmail(memberPostDto.getEmail());    // 이메일 검증
-        verifiedExistedName(memberPostDto.getNickname());    // 닉네임 검증
+        memberDbService.verifiedExistedEmail(memberPostDto.getEmail()); // 이메일 검증
+        memberDbService.verifiedExistedName(memberPostDto.getNickname());   // 닉네임 검증
 
         Member member = Member.builder()
                 .email(memberPostDto.getEmail())
@@ -35,49 +48,98 @@ public class MemberService {
                 .nickname(memberPostDto.getNickname())
                 .build();
 
-        member.authorizeUser(customAuthorityUtils);
         member.passwordEncode(passwordEncoder);
+        member.authorizeUser(customAuthorityUtils);
         return memberRepository.save(member);
     }
 
-    public Member findMember(Long memberId) {
-        return findVerifiedMember(memberId);       // 사용자 검증
+    /**
+     * 단일 사용자 조회(마이페이지) 메서드
+     * @param memberId
+     * @return
+     */
+    public MemberResponseDto findMember(Long memberId) {
+        memberDbService.findVerifiedMember(memberId);       // 사용자 검증
+        Member findMember = memberDbService.findVerifiedMember(memberId);
+
+        if (findMember.getMemberFile() != null) {   // 사용자 프로필 이미지 설정 시
+            return MemberResponseDto.builder()
+                    .memberId(findMember.getMemberId())
+                    .email(findMember.getEmail())
+                    .nickname(findMember.getNickname())
+                    .profileImage(findMember.getMemberFile().getFilePath())
+                    .createdAt(findMember.getCreatedAt())
+                    .build();
+        } else {
+            return MemberResponseDto.builder()
+                    .memberId(findMember.getMemberId())
+                    .email(findMember.getEmail())
+                    .nickname(findMember.getNickname())
+                    .createdAt(findMember.getCreatedAt())
+                    .build();
+        }
     }
 
+    /**
+     * 전체 사용자 조회 메서드
+     * @param page
+     * @param size
+     * @return
+     */
     public Page<Member> findMembers(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         return memberRepository.findAllByOrderByMemberIdDesc(pageRequest);
     }
 
+    // TODO 닉네임 수정 메서드
+    // TODO 패스워드 수정 메서드
+    /**
+     * 사용자 정보 수정 메서드
+     * @param member
+     * @return
+     */
     public Member updateMember(Member member) {
-        Member findMember = findVerifiedMember(member.getMemberId());   // 사용자 검증
-        verifiedExistedName(member.getNickname());    // 닉네임 검증
-        customBeanUtils.copyNonNullProperties(member, findMember);
-        return memberRepository.save(findMember);
+        Member findMember = memberDbService.findVerifiedMember(member.getMemberId());   // 사용자 검증
+        Member updateMember = customBeanUtils.copyNonNullProperties(member, findMember);  // copyNonNullProperties(원본 객체, 복사 객체)
+
+        memberDbService.verifiedExistedName(member.getNickname());    // 닉네임 검증
+        member.passwordEncode(passwordEncoder);
+        return memberRepository.save(updateMember);
     }
 
+    /**
+     * 사용자 삭제(회원탈퇴) 메서드
+     * @param memberId
+     */
     public void deleteMember(Long memberId) {
-        Member findMember = findVerifiedMember(memberId);  // 사용자 검증
+        Member findMember = memberDbService.findVerifiedMember(memberId);  // 사용자 검증
         memberRepository.delete(findMember);    // TODO 로직 수정
     }
 
-    // 사용자 검증
-    public Member findVerifiedMember(long memberId) {
-        Optional<Member> member = memberRepository.findById(memberId);  // orElseThrow() : Optional 객체가 null 값을 가지고 있다면 예외처리 발생
-        return member.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));   // 404
-    }
+    /**
+     * 사용자 프로필 이미지 S3 업로드/수정 메서드
+     * @param memberId
+     * @param multipartFile
+     * @return
+     * @throws IOException
+     */
+    public void updateProfileS3(Long memberId, MultipartFile multipartFile) throws IOException {
+        Member findMember = memberDbService.findVerifiedMember(memberId);   // 사용자 검증
 
-    // 이메일 검증
-    public void verifiedExistedEmail(String email) {
-        Optional<Member> member = memberRepository.findByEmail(email);
-        if (member.isPresent()) // isPresent() : Optional 객체가 값을 가지고 있다면 true, 아니라면 false
-            throw new BusinessLogicException(ExceptionCode.MEMBER_EMAIL_EXISTS);    // 409
-    }
+        // TODO customBeanUtils을 이용한 코드 리팩토링
+        // TODO 파일 존재 시, 기존 파일 삭제
 
-    // 닉네임 검증
-    public void verifiedExistedName(String nickname) {
-        Optional<Member> member = memberRepository.findByNickname(nickname);
-        if (member.isPresent())
-            throw new BusinessLogicException(ExceptionCode.MEMBER_NAME_EXISTS);    // 409
+        String dir = "memberImage"; // 사용자 프로필 이미지 디렉토리 지정
+        S3File s3File = s3Service.s3ImageUpload(multipartFile, dir);
+
+        MemberFile memberFile = MemberFile.builder()
+                .originFileName(s3File.getOriginFileName())
+                .fileName(s3File.getFileName())
+                .filePath(s3File.getFilePath())
+                .fileSize(s3File.getFileSize())
+                .build();
+
+        findMember.addMemberFile(memberFile);
+        memberRepository.save(findMember);
     }
 }
