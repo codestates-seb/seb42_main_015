@@ -1,7 +1,7 @@
 package com.witchdelivery.messageapp.domain.member.entity;
 
 import com.witchdelivery.messageapp.global.audit.BaseTime;
-import com.witchdelivery.messageapp.security.auth.utils.CustomAuthorityUtils;
+import com.witchdelivery.messageapp.security.utils.CustomAuthorityUtils;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -19,6 +19,7 @@ import java.util.List;
 public class Member extends BaseTime implements Principal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MEMBER_ID")
     private Long memberId;  // PK
 
     @Column(unique = true, nullable = false, updatable = false)
@@ -31,7 +32,7 @@ public class Member extends BaseTime implements Principal {
     private String nickname; // 닉네임
 
     @Column
-    private String profileImageUrl; // 프로필 이미지
+    private String profileImageUrl; // 프로필 이미지  // FIXME
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>(); // 사용자 권한

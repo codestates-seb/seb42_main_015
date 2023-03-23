@@ -11,7 +11,7 @@ import com.witchdelivery.messageapp.security.auth.handler.MemberAuthenticationSu
 import com.witchdelivery.messageapp.security.auth.jwt.JwtTokenizer;
 import com.witchdelivery.messageapp.security.auth.service.RedisService;
 import com.witchdelivery.messageapp.security.auth.service.MemberUserDetailsService;
-import com.witchdelivery.messageapp.security.auth.utils.CustomAuthorityUtils;
+import com.witchdelivery.messageapp.security.utils.CustomAuthorityUtils;
 import com.witchdelivery.messageapp.domain.member.repository.MemberRepository;
 import com.witchdelivery.messageapp.security.oauth.OAuth2MemberSuccessHandler;
 import lombok.RequiredArgsConstructor;
@@ -77,7 +77,9 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET, "/*/messages").hasRole("USER")
                         .antMatchers(HttpMethod.GET, "/*/messages/**").permitAll()
                         // auth
-                        .antMatchers(HttpMethod.POST, "/*/auth/logout","/*/auth/reissue").permitAll()   // FIXME
+                        .antMatchers(HttpMethod.POST, "/*/auth/logout","/*/auth/reissue").authenticated()
+                        // mailbox
+                        .antMatchers(HttpMethod.PATCH, "/*/mailbox/**").hasRole("USER")
                         .anyRequest().permitAll())
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberRepository, redisService)));

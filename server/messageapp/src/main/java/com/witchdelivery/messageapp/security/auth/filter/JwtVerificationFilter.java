@@ -2,7 +2,7 @@ package com.witchdelivery.messageapp.security.auth.filter;
 
 import com.witchdelivery.messageapp.security.auth.jwt.JwtTokenizer;
 import com.witchdelivery.messageapp.security.auth.service.RedisService;
-import com.witchdelivery.messageapp.security.auth.utils.CustomAuthorityUtils;
+import com.witchdelivery.messageapp.security.utils.CustomAuthorityUtils;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.SignatureException;
