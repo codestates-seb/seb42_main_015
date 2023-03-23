@@ -114,4 +114,14 @@ body {
   font-size: 62.5%;
   line-height: 1.285;
 }
+@media screen and (max-width: 767px) {
+  html {
+    font-size: 50%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  html {
+    font-size: 78%;
+  }
+}
 /* 1.6rem === 16px */
