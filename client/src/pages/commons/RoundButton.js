@@ -10,7 +10,7 @@ const StyledRoundButton = styled.button`
   width: ${(props) => props.width || "100px"};
   height: ${(props) => props.height || "40px"};
   margin-right: 10px;
-  ${FONT_STYLE_V1.body.body_10_light}
+  ${FONT_STYLE_V1.body.body_18_light}
   ${(props) => props.fontStyle}
 `;
 

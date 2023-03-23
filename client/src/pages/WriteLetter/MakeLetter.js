@@ -38,7 +38,6 @@ function MakeLetter({ makeLetterModalRef }) {
         return;
       }
       const file = e.dataTransfer.items[0].getAsFile();
-      console.log(file);
       renderFile(file);
     } else {
       renderFile(e.dataTransfer.files[0]);
@@ -47,7 +46,6 @@ function MakeLetter({ makeLetterModalRef }) {
   const handleDragOver = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log(e);
     setDragOver(true);
   };
   const handleFile = (e) => {
