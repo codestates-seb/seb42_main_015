@@ -193,9 +193,15 @@ export const FONT_STYLE_LOGO = {
 };
 export const FONT_STYLE_LOGIN = {
   title: {
-    title_40_medium: css`
+    title_42_medium: css`
       font-family: "Sriracha";
       font-size: 4.2rem;
+      -webkit-text-stroke: 1px #000;
+      color: ${PALETTE_LOGIN.loginText};
+    `,
+    title_37_medium: css`
+      font-family: "Sriracha";
+      font-size: 3.7rem;
       -webkit-text-stroke: 1px #000;
       color: ${PALETTE_LOGIN.loginText};
     `,
@@ -229,6 +235,10 @@ export const FONT_STYLE_LOGIN = {
       font-family: "IBM Plex Sans Thai Looped", sans-serif;
       font-size: 1.3rem;
     `,
+    button_4_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 0.4rem;
+    `,
   },
 };
 
@@ -241,28 +251,32 @@ export const FONT_STYLE_LOGOUT = {
     font-family: "Caveat", cursive;
     font-size: 2rem;
   `,
+  title_18_medium: css`
+    font-family: "Pretendard-Light";
+    font-size: 1.8rem;
+  `,
   title_15_medium: css`
-    font-family: "Caveat", cursive;
+    font-family: "Pretendard-Light";
     font-size: 1.5rem;
   `,
   title_14_medium: css`
     font-family: "B612", sans-serif;
     font-size: 1.4rem;
   `,
-  title_9_medium: css`
+  title_10_medium: css`
     font-family: "B612", sans-serif;
     font-size: 0.9rem;
   `,
-  title_11_medium: css`
+  button_14_san: css`
     font-family: "B612", sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.4rem;
   `,
 };
 
 export const FONT_STYLE_READ = {
-  title_20_medium: css`
+  title_19_medium: css`
     font-family: "Pretendard-Light";
-    font-size: 1.7rem;
+    font-size: 1.9rem;
   `,
   body_9_Medium: css`
     font-family: "Pretendard-Medium";
@@ -277,9 +291,17 @@ export const FONT_STYLE_READ = {
     font-size: 1rem;
     text-align: justify;
   `,
+  body_9_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 0.9rem;
+  `,
   body_8_light: css`
     font-family: "Pretendard-Light";
     font-size: 0.8rem;
+  `,
+  body_7_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 0.7rem;
   `,
   btn_8_light: css`
     font-family: "B612", sans-serif;

@@ -6,7 +6,7 @@ import * as S from "./ReadStyled";
 import { headers, options } from "../Certified/setupCertified";
 
 const ReadLetter = ({ enterPassword, setEnterPassword }) => {
-  const formSchema = yup.object({
+  const FormSchema = yup.object({
     numberpassword: yup
       .string()
       .required("숫자로 이루어진 비밀번호 4자리를 입력해주세요.")
@@ -20,7 +20,7 @@ const ReadLetter = ({ enterPassword, setEnterPassword }) => {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
   const onSubmit = (data) => {
     alert("비밀번호가 일치합니다! 어떤 편지가 왔을까요?");
