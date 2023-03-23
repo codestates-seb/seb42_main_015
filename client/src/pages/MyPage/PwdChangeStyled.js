@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { FONT_STYLE_LOGIN, FONT_STYLE_V1 } from "../../style/fontStyle";
-import { PALETTE_V1 } from "../../style/color";
-import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
+import { BREAKPOINTMOBILE } from "../../breakpoint";
 
 export const PwdChangeWrap = styled.div`
   width: 100%;
