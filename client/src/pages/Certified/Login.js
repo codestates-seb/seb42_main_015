@@ -10,7 +10,7 @@ import { headers, options, GoogleOauthLogin } from "./setupCertified";
 function Login() {
   const navigate = useNavigate();
 
-  const formShema = yup.object({
+  const FormSchema = yup.object({
     email: yup
       .string()
       .required("이메일을 입력해주세요")
@@ -31,7 +31,7 @@ function Login() {
     handleSubmit,
     watch,
     formState: { isSubmitting, errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
   //TODO :로그인 제출 버튼
   const onSubmit = async (data) => {

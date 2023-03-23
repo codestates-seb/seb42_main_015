@@ -14,6 +14,7 @@ const ReadButtons = ({
   onDownloadBtn,
 }) => {
   //'보관하기' 버튼 누르면 모달 나오는 이벤트 핸들러
+
   const handleKeeping = () => {
     setIsKeeping(!isKeeping);
   };
@@ -75,6 +76,7 @@ const ReadButtons = ({
             <Modal
               ModalRef={ModalRef}
               ContainerHeight={"500px"}
+              ContainerWidth={"370px"}
               children={
                 <LoginModal ModalRef={ModalRef} setIsKeeping={setIsKeeping} />
               }

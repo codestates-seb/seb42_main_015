@@ -264,7 +264,7 @@ export const Buttons = styled.div`
   align-items: center;
   justify-content: space-around;
   height: 8rem;
-  padding: 0rem 0rem 0rem 37rem;
+  padding: 0rem 0rem 0rem 32rem;
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     padding: 0rem 0rem 0rem 14rem;
@@ -287,10 +287,10 @@ export const Buttons = styled.div`
   }
   .goback {
     display: flex;
-    margin: 0.2rem 10rem 0 -30.5rem;
+    margin: 0.2rem 10rem 0 -31rem;
     cursor: pointer;
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      margin: 0.2rem 0rem 0 -12.5rem;
+      margin: 0.2rem 0rem 0 -13rem;
       width: 2.8rem;
       height: 2.8rem;
     }
@@ -367,17 +367,13 @@ export const ModalWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 10px 20px 20px;
-  height: 90%;
-
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-  }
 
   .loginText {
     ${FONT_STYLE_LOGIN.title.title_40_medium}
-    margin:1rem 0px 1rem;
-    font-size: 3rem;
+    margin:1rem 0px 2rem;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      ${FONT_STYLE_LOGIN.title.title_37_medium}
     }
   }
   .oauth {
@@ -387,11 +383,13 @@ export const ModalWrapper = styled.div`
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     }
     img {
-      width: 2rem;
+      width: 3rem;
       margin: 0 10px;
       cursor: pointer;
 
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        width: 2rem;
+        margin: 0 10px;
       }
     }
   }
@@ -401,12 +399,9 @@ export const ModalWrapper = styled.div`
     align-items: center;
     justify-content: center;
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    }
-
     input {
-      width: 16rem;
-      height: 2.3rem;
+      width: 22rem;
+      height: 3rem;
       margin: 1rem 0 0;
       padding: 0rem 2rem;
       border-top: none;
@@ -415,29 +410,31 @@ export const ModalWrapper = styled.div`
       border-bottom: 1px solid #000;
       background-repeat: no-repeat;
       background-position: left;
-      font-size: 11px;
-      margin-bottom: 0.7rem;
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
 
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       }
     }
     .emailInput {
       background-image: url("${email}");
-      background-size: 1.2rem;
+      background-size: 1.5rem;
 
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        background-size: 1.2rem;
       }
     }
     .pwdInput {
       background-image: url("${pwd}");
-      background-size: 1.3rem;
+      background-size: 1.6rem;
 
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        background-size: 1.3rem;
       }
     }
     .btn {
-      width: 10rem;
-      height: 2.5rem;
+      width: 13rem;
+      height: 3rem;
       border: 1px solid #000;
       ${FONT_STYLE_LOGIN.button.button_13_light}
       font-size: 13px;
@@ -458,7 +455,6 @@ export const ModalWrapper = styled.div`
   .sub-form {
     display: flex;
     ${FONT_STYLE_LOGIN.body.body_9_light}
-    font-size: 0.6rem;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     }

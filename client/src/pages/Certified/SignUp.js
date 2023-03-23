@@ -14,7 +14,7 @@ function SignUp() {
   //이메일 중복검사
   const [emailValid, setEmailValid] = useState(false);
 
-  const formSchema = yup.object({
+  const FormSchema = yup.object({
     username: yup
       .string()
       .required("한글, 영문, 숫자로 이루어진 2~10자리를 입력해주세요.")
@@ -48,7 +48,7 @@ function SignUp() {
     watch,
     getValues,
     formState: { isSubmitting, errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
   //sign up 제출 버튼
   const onSubmit = async (data) => {
