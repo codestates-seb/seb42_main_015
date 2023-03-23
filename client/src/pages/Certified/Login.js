@@ -10,7 +10,7 @@ import { headers, options, GoogleOauthLogin } from "./setupCertified";
 function Login() {
   const navigate = useNavigate();
 
-  const FormSchema = yup.object({
+  const formShema = yup.object({
     email: yup
       .string()
       .required("이메일을 입력해주세요")
@@ -31,7 +31,7 @@ function Login() {
     handleSubmit,
     watch,
     formState: { isSubmitting, errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
 
   //TODO :로그인 제출 버튼
   const onSubmit = async (data) => {
@@ -59,13 +59,29 @@ function Login() {
           );
           console.log("accesstoken", getCookie("accesstoken"));
           console.log("refreshToken", localStorage.getItem("refreshToken"));
-          navigate("/");
+          // navigate("/");
         }
       })
       .catch((err) => {
         console.log(err);
         alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
       });
+  };
+
+  //TODO : OAUTH 로그인 제출 버튼
+  const oauthURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=972730796553-kmbi1dbe3h5u0qvqbh1b8mic4mhalvrt.apps.googleusercontent.com&
+response_type=token&
+redirect_uri=http://localhost:3000&
+scope=https://www.googleapis.com/auth/userinfo.email`;
+
+  const oauthHandler = () => {
+    window.location.assign(oauthURL);
+  };
+
+  const oauthLogin = async () => {
+    const url = new URL(window.location.href);
+    const hash = url.hash;
+    console.log(hash);
   };
 
   return (
@@ -111,11 +127,7 @@ function Login() {
               <div className="oauth-form">
                 <div className="oauth-head">Log in With</div>
                 <div className="oauth">
-                  <img
-                    src={require("../../asset/구글.png")}
-                    alt="Googole"
-                    onClick={GoogleOauthLogin}
-                  />
+                  <img src={require("../../asset/구글.png")} alt="Googole" />
                 </div>
               </div>
             </div>
@@ -139,11 +151,7 @@ function Login() {
             <div className="oauth-form">
               <div className="oauth-head">Log in With</div>
               <div className="oauth">
-                <img
-                  src={require("../../asset/구글.png")}
-                  alt="Googole"
-                  onClick={GoogleOauthLogin}
-                />
+                <img src={require("../../asset/구글.png")} alt="Googole" />
               </div>
             </div>
           </div>
