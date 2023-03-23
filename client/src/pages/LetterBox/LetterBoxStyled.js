@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
-import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
+import { BREAKPOINTMOBILE } from "../../breakpoint";
 import 구름 from "../../asset/letterTheme/구름-theme.png";
 import 군대 from "../../asset/letterTheme/군대-theme.png";
 import 냥냥편지 from "../../asset/letterTheme/냥냥편지-theme.png";
@@ -17,7 +17,7 @@ import 클로버 from "../../asset/letterTheme/클로버-theme.png";
 export const LetterBoxWrap = styled.div`
   width: 100%;
   min-height: 90vh;
-  ${FONT_STYLE_V1.body.body_10_light}
+  ${FONT_STYLE_V1.body.body_15_light}
 `;
 
 export const FilterContainer = styled.div`
@@ -36,7 +36,7 @@ export const SearchContainer = styled.div`
   border-right: 1px solid black;
   position: relative;
   .icon {
-    font-size: 1.5rem;
+    font-size: 2rem;
     margin: 0 1rem;
   }
 `;
@@ -47,11 +47,11 @@ export const Search = styled.input`
   outline: none;
   border: none;
   padding: 0.5rem;
-  font-size: 1rem;
+  ${FONT_STYLE_V1.body.body_15_light}
 `;
 
 export const PeriodBox = styled.div`
-  width: 300px;
+  width: 28vw;
   height: 118px;
   border: 1px solid black;
   position: absolute;
@@ -59,6 +59,10 @@ export const PeriodBox = styled.div`
   right: ${(props) => props.right || "-1px"};
   background-color: ${(props) =>
     props.backgroundColor || PALETTE_V1.background};
+  z-index: 10;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 200px;
+  }
 `;
 
 export const Line = styled.div`
@@ -73,11 +77,11 @@ export const Date = styled.ul`
   display: flex;
   justify-content: center;
   align-items: center;
-  ${FONT_STYLE_V1.body.body_15_light}
+  ${FONT_STYLE_V1.body.body_20_light}
 `;
 
 export const DateYear = styled.li`
-  margin: 0 1rem;
+  margin: 0 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -174,7 +178,7 @@ export const ListDateContainer = styled.div`
 export const ListDate = styled.div`
   text-align: right;
   margin-bottom: 0.5rem;
-  ${FONT_STYLE_V1.body.body_15_light}
+  ${FONT_STYLE_V1.body.body_20_light}
 `;
 
 export const ListBar = styled.div`
@@ -200,9 +204,11 @@ export const ItemContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  /* justify-content: center; */
   align-content: flex-start;
-  padding-left: 3rem;
+  /* padding-left: 2rem; */
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    padding-left: 0;
+  }
 `;
 
 export const ItemBox = styled.div`
@@ -223,23 +229,16 @@ export const ItemBox = styled.div`
   background-repeat: no-repeat;
 `;
 
-export const ItemImg = styled.img`
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 300px;
-    height: 400px;
-    margin-left: 1rem;
-  }
-`;
-
 export const ItemTitle = styled.div`
-  ${FONT_STYLE_V1.title.title_14_medium}
+  ${FONT_STYLE_V1.title.title_18_medium}
   margin-bottom: 2rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    font-size: 2rem;
+    ${FONT_STYLE_V1.title.title_25_medium}
   }
 `;
 
 export const ItemContents = styled.p`
+  ${FONT_STYLE_V1.body.body_15_light}
   overflow: hidden;
   white-space: normal;
   text-overflow: ellipsis;
@@ -248,13 +247,16 @@ export const ItemContents = styled.p`
   -webkit-box-orient: vertical;
   word-break: keep-all;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    font-size: 1.2rem;
+    ${FONT_STYLE_V1.body.body_20_light}
   }
 `;
 
 export const ItemDate = styled.div`
-  ${FONT_STYLE_V1.title.title_10_medium}
+  ${FONT_STYLE_V1.title.title_14_medium}
   margin-bottom: 0.5rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    ${FONT_STYLE_V1.title.title_18_medium}
+  }
 `;
 
 export const BookMark = styled.div`
@@ -262,7 +264,12 @@ export const BookMark = styled.div`
   top: 0;
   right: 0;
   img {
-    width: 3rem;
+    width: 5rem;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    img {
+      width: 8rem;
+    }
   }
 `;
 
@@ -281,6 +288,12 @@ export const TopButton = styled.div`
   background-color: white;
   color: ${PALETTE_V1.orange_dark};
   cursor: pointer;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    right: 10px;
+  }
 `;
 
 export const DeleteButtonOff = styled.div`
@@ -298,6 +311,12 @@ export const DeleteButtonOff = styled.div`
   background-color: white;
   color: ${PALETTE_V1.orange_dark};
   cursor: pointer;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 50px;
+    height: 50px;
+    bottom: 85px;
+    right: 10px;
+  }
 `;
 
 export const DeleteButtonON = styled.div`
@@ -315,6 +334,12 @@ export const DeleteButtonON = styled.div`
   background-color: ${PALETTE_V1.orange_dark};
   color: white;
   cursor: pointer;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 50px;
+    height: 50px;
+    bottom: 85px;
+    right: 10px;
+  }
 `;
 
 export const ReceiveButton = styled.div`
@@ -332,6 +357,12 @@ export const ReceiveButton = styled.div`
   background-color: white;
   color: ${PALETTE_V1.orange_dark};
   cursor: pointer;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 50px;
+    height: 50px;
+    bottom: 150px;
+    right: 10px;
+  }
 `;
 
 export const SendButton = styled.div`
@@ -349,4 +380,10 @@ export const SendButton = styled.div`
   background-color: ${PALETTE_V1.orange_dark};
   color: white;
   cursor: pointer;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 50px;
+    height: 50px;
+    bottom: 150px;
+    right: 10px;
+  }
 `;

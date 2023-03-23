@@ -1,7 +1,8 @@
 import styled, { keyframes } from "styled-components";
 import { PALETTE_MAIN } from "../../style/color";
 import { FONT_STYLE_V1, FONT_STYLE_LOGO } from "../../style/fontStyle";
-import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
+import { BREAKPOINTMOBILE } from "../../breakpoint";
+import 정월대보름 from "../../asset/letterTheme/정월대보름-theme.png";
 
 export const MainWrap = styled.div``;
 
@@ -97,39 +98,39 @@ export const LeftImgBox = styled.div`
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     .left1 {
       position: absolute;
-      bottom: 160px;
-      left: -70px;
-      width: 270px;
+      bottom: 130px;
+      left: -50px;
+      width: 150px;
     }
     .left2 {
       position: absolute;
       bottom: 40px;
       left: -50px;
-      width: 230px;
+      width: 150px;
     }
     .left3 {
       position: absolute;
-      bottom: 150px;
-      left: 80px;
-      width: 120px;
+      bottom: 120px;
+      left: 40px;
+      width: 80px;
     }
     .left4 {
       position: absolute;
-      bottom: 250px;
+      bottom: 180px;
       left: -60px;
-      width: 250px;
+      width: 150px;
     }
     .left5 {
       position: absolute;
       bottom: -10px;
-      left: 110px;
-      width: 200px;
+      left: 40px;
+      width: 150px;
     }
     .sendy {
       position: absolute;
       top: 10px;
       left: -10px;
-      width: 500px;
+      width: 100vw;
     }
   }
 `;
@@ -158,27 +159,27 @@ export const RightImgBox = styled.div`
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     .right1 {
       position: absolute;
-      top: 0;
+      top: -10px;
       right: -40px;
-      width: 150px;
+      width: 110px;
     }
     .right2 {
       position: absolute;
-      top: -50px;
-      right: 40px;
-      width: 200px;
+      top: -40px;
+      right: 15px;
+      width: 150px;
     }
     .right3 {
       position: absolute;
-      top: 170px;
-      right: -15px;
-      width: 130px;
+      top: 120px;
+      right: -30px;
+      width: 90px;
     }
     .sendy {
       position: absolute;
       bottom: 70px;
       right: 0;
-      width: 300px;
+      width: 60vw;
     }
   }
 `;
@@ -190,14 +191,14 @@ export const Intro = styled.div`
   justify-content: center;
   align-items: center;
   &:hover .high-light {
-    width: 610px;
+    width: 500px;
     transition: 3s;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     display: flex;
     flex-direction: column;
     &:hover .high-light {
-      width: 470px;
+      width: 240px;
       transition: 3s;
     }
   }
@@ -208,28 +209,32 @@ export const IntroTextbox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-right: 2rem;
+  margin-right: 4rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     margin-right: 0;
   }
 `;
 export const IntroImgbox = styled.div`
   background-color: #fff;
-  width: 400px;
-  height: 600px;
+  width: 319px;
+  height: 530px;
+  background-image: url(${정월대보름});
+  background-size: cover;
+  background-repeat: no-repeat;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 250px;
+    width: 240px;
     height: 400px;
-    margin-top: 2rem;
+    margin-top: 4rem;
   }
 `;
 
 export const Title = styled.div`
   ${FONT_STYLE_V1.title.title_40_thin}
-  position: relative;
   strong {
     ${FONT_STYLE_V1.title.title_40_medium}
   }
+  position: relative;
+  overflow: hidden;
   .high-light {
     width: 30px;
     height: 20px;
@@ -244,6 +249,9 @@ export const Title = styled.div`
     strong {
       font-size: 3rem;
     }
+    .high-light {
+      height: 10px;
+    }
   }
 `;
 
@@ -251,12 +259,10 @@ export const Contents = styled.div`
   ${FONT_STYLE_V1.title.title_20_thin}
   margin-top: 1rem;
   margin-bottom: 3rem;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    font-size: 1.5rem;
-  }
 `;
+
 export const Button = styled.div`
-  ${FONT_STYLE_V1.title.title_12_medium}
+  ${FONT_STYLE_V1.title.title_14_medium}
   background-color: #feb950;
   width: 200px;
   height: 50px;
@@ -268,22 +274,18 @@ export const Button = styled.div`
     margin-right: 0.5rem;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    font-size: 1rem;
-    width: 160px;
-    height: 50px;
+    width: 120px;
+    height: 40px;
   }
 `;
 
 export const Textbox = styled.div`
-  width: 650px;
-  height: 500px;
-  /* background-color: white;
-  border: 1px solid black; */
+  /* border: 1px solid black; */
+  padding: 5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
-  padding-left: 3rem;
   .flower {
     width: 100px;
     position: absolute;
@@ -291,20 +293,19 @@ export const Textbox = styled.div`
     left: -20px;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 550px;
-    height: 350px;
-    padding-left: 0;
     align-items: center;
     text-align: center;
+    .flower {
+      width: 50px;
+      top: -25px;
+      left: 40%;
+    }
   }
 `;
 
 export const SubTitle = styled.span`
   ${FONT_STYLE_V1.title.title_20_medium}
   margin-bottom: 1rem;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    font-size: 1.5rem;
-  }
 `;
 
 export const SubContents = styled.div`
@@ -313,9 +314,6 @@ export const SubContents = styled.div`
   .ex {
     margin-top: 2rem;
   }
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    font-size: 1.2rem;
-  }
 `;
 
 export const Imgbox = styled.div`
@@ -323,7 +321,7 @@ export const Imgbox = styled.div`
   height: 500px;
   background-color: #ccc;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 550px;
+    width: 280px;
     height: 400px;
   }
 `;
@@ -335,8 +333,9 @@ export const Last = styled.div`
 
 export const FakeLast = styled.div`
   min-height: 370px;
-  /* position: relative; */
-  /* background-color: aquamarine; */
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    min-height: 320px;
+  }
 `;
 
 const flowAnimation = keyframes`
@@ -352,7 +351,7 @@ const flowAnimation = keyframes`
 
 export const SendyTop = styled.div`
   width: 100vw;
-  height: 70px;
+  height: 65px;
   border-bottom: 1px solid black;
   overflow: hidden;
   position: relative;
@@ -363,7 +362,7 @@ export const SendyTop = styled.div`
 
 export const SendyBottom = styled.div`
   width: 100vw;
-  height: 70px;
+  height: 65px;
   border-top: 1px solid black;
   overflow: hidden;
   position: relative;
@@ -383,7 +382,12 @@ export const TrackImg = styled.span`
   animation: ${flowAnimation} 5s linear infinite;
   align-items: center;
   display: inline-flex;
-  /* will-change: transform; */
+`;
+
+export const TrackImgReverse = styled.span`
+  animation: ${flowAnimation} 5s linear infinite reverse;
+  align-items: center;
+  display: inline-flex;
 `;
 
 export const LastTextBox = styled.div`
@@ -403,7 +407,7 @@ export const LastTitle = styled.div`
   letter-spacing: 1px;
   line-height: 1.5;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    font-size: 2rem;
+    ${FONT_STYLE_V1.title.title_25_medium}
   }
 `;
 
@@ -416,6 +420,9 @@ export const Footer = styled.footer`
   display: flex;
   position: absolute;
   bottom: 0px;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    height: 250px;
+  }
 `;
 
 export const FooterContainer = styled.div`
@@ -424,22 +431,31 @@ export const FooterContainer = styled.div`
   justify-content: center;
 `;
 
-export const Logo = styled.div`
+export const Logo = styled.span`
+  ${FONT_STYLE_LOGO.title.title_35_medium}
+  width: max-content;
   display: flex;
-  ${FONT_STYLE_LOGO.title.title_25_medium}
   position: relative;
   img {
     width: 25px;
     height: 25px;
     position: absolute;
-    left: 110px;
+    right: -30px;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    img {
+      width: 18px;
+      height: 18px;
+      right: -20px;
+    }
   }
 `;
 
 export const Info = styled.ul`
-  ${FONT_STYLE_V1.body.body_8_light}
+  ${FONT_STYLE_V1.body.body_12_light}
+  width: max-content;
   display: flex;
   flex-direction: column;
   line-height: 2;
-  margin-top: 2.2rem;
+  margin-top: 2.5rem;
 `;
