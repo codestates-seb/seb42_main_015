@@ -295,9 +295,9 @@ function WriteLetter() {
               <W.BallonWrapper className="button">
                 {openExplaination ? (
                   browserSize > 767 ? (
-                    <W.BallonBottom1 id="ballon4">
+                    <W.BallonBottom2 className="make-letter-button">
                       작성을 마무리하고 편지를 생성합니다.
-                    </W.BallonBottom1>
+                    </W.BallonBottom2>
                   ) : (
                     <></>
                   )
