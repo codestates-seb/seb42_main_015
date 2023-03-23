@@ -4,6 +4,7 @@ import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.domain.member.service.MemberService;
 import com.witchdelivery.messageapp.domain.message.dto.MessagePatchDto;
 import com.witchdelivery.messageapp.domain.message.dto.MessagePostDto;
+import com.witchdelivery.messageapp.domain.message.dto.PasswordInputDto;
 import com.witchdelivery.messageapp.domain.message.service.MessageService;
 import com.witchdelivery.messageapp.domain.message.entity.Message;
 import com.witchdelivery.messageapp.domain.message.mapper.MessageMapper;
@@ -63,6 +64,18 @@ public class MessageController {
     public ResponseEntity deleteMessage(Long messageId) {
         messageService.deleteMessage(messageId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/{message-id}/{urlName}")
+    public ResponseEntity getMessage(@PathVariable("message-id") Long messageId,
+                                     @PathVariable("urlName") String urlName,
+                                     @Valid @RequestBody PasswordInputDto passwordInputDto) {
+        Message message = messageService.findMessageByUrlName(messageId, urlName);
+
+        if (!passwordInputDto.getPassword().equals(message.getPassword())) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(messageMapper.messageToMessageResponseDto(message), HttpStatus.OK);
     }
 }
 

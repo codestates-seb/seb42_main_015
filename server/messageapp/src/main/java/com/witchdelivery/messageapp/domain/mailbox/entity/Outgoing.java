@@ -3,6 +3,7 @@ package com.witchdelivery.messageapp.domain.mailbox.entity;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.domain.message.entity.Message;
 import com.witchdelivery.messageapp.global.audit.BaseTime;
+import com.witchdelivery.messageapp.global.utils.BooleanToYNConverter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,6 +36,7 @@ public class Outgoing extends BaseTime { // 발신 (보내는 사람)
 
     private LocalDateTime messageCreatedAt; // 편지 생성날짜
 
+    @Convert(converter = BooleanToYNConverter.class)     // 북마크 컨버터
     private boolean bookMark; // 북마크 여부
 
     @ManyToOne
