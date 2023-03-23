@@ -163,7 +163,7 @@ export const LogForm = styled.form`
       }
       .duplicate {
         position: absolute;
-        top: 2.4rem;
+        top: 2.7rem;
         right: 0.7rem;
         display: flex;
         justify-content: center;

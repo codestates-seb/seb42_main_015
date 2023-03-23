@@ -45,6 +45,8 @@ function SignUp() {
   const {
     register,
     handleSubmit,
+    watch,
+    getValues,
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
 
@@ -52,81 +54,74 @@ function SignUp() {
   const onSubmit = async (data) => {
     const { email, username, password } = data;
 
-    if (!nameValid || !emailValid) {
+    if (!nameValid && !emailValid) {
       alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
       return;
-    }
-
-    await axios
-      .post(
-        `/api/sendy/users/signup`,
-        { email: email, nickname: username, password: password },
-        {
-          headers,
-        }
-      )
-      .then(() => {
-        alert("회원가입 되었습니다.");
-        navigate("/completesignup");
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("이미 가입된 유저입니다.");
-      });
-  };
-
-  //유저네임 중복체크
-  const usernameCheck = async (data) => {
-    const { username } = data;
-    if (username) {
-      axios
+    } else {
+      await axios
         .post(
           `/api/sendy/users/signup`,
+          { email: email, nickname: username, password: password },
           {
-            nickname: username,
+            headers,
+          }
+        )
+        .then(() => {
+          alert("회원가입 되었습니다.");
+          navigate("/completesignup");
+        })
+        .catch((err) => {
+          console.log(err);
+          // alert("이미 가입된 유저입니다.");
+        });
+    }
+  };
+  //유저네임 중복체크
+  const usernameCheck = async () => {
+    if (watch("username")) {
+      axios
+        .post(
+          `/api/sendy/users/nickname`,
+          {
+            nickname: watch("username"),
           },
           {
             headers,
           }
         )
         .then((res) => {
-          if (res.status === 409) {
-            alert("이미 존재하는 유저네임입니다.");
-          } else {
+          if (res.status === 200) {
             alert("사용 가능한 유저네임입니다.");
-            setNameValid(!nameValid);
           }
+          setNameValid(!nameValid);
         })
-        .catch((res) => {
-          console.log(res.data);
+        .catch(() => {
+          alert("이미 존재하는 유저네임입니다.");
         });
     }
   };
 
   //이메일 중복체크
-  const emailCheck = async (data) => {
-    const { email } = data;
-    if (email) {
+  const emailCheck = async () => {
+    if (watch("email")) {
       axios
         .post(
-          `/api/sendy/users/signup`,
+          `/api/sendy/users/email`,
           {
-            email: email,
+            email: watch("email"),
           },
           {
             headers,
           }
         )
         .then((res) => {
-          if (res.status === 409) {
-            alert("이미 존재하는 이메일입니다.");
-          } else {
+          if (res.status === 200) {
             alert("사용 가능한 이메일입니다.");
-            setEmailValid(!emailValid);
           }
+          setEmailValid(!emailValid);
         })
-        .catch((res) => {
-          console.log(res.data);
+        .catch(() => {
+          alert("이미 존재하는 이메일입니다.");
         });
     }
   };
@@ -165,7 +160,7 @@ function SignUp() {
                   {...register("email")}
                 />
                 {emailValid ? (
-                  <button className="duplicate">체크완료</button>
+                  <button className="duplicate-check">체크완료</button>
                 ) : (
                   <button className="duplicate" onClick={emailCheck}>
                     중복체크
@@ -206,7 +201,11 @@ function SignUp() {
               <div className="oauth-form">
                 <div className="oauth-head">Sign up With</div>
                 <div className="oauth">
-                  <img src={require("../../asset/구글.png")} alt="Googole" />
+                  <img
+                    src={require("../../asset/구글.png")}
+                    alt="Googole"
+                    onClick={GoogleOauthLogin}
+                  />
                 </div>
               </div>
             </ul>
@@ -219,7 +218,11 @@ function SignUp() {
             <div className="oauth-form">
               <div className="oauth-head">Sign up With</div>
               <div className="oauth">
-                <img src={require("../../asset/구글.png")} alt="Googole" />
+                <img
+                  src={require("../../asset/구글.png")}
+                  alt="Googole"
+                  onClick={GoogleOauthLogin}
+                />
               </div>
             </div>
           </li>
