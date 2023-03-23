@@ -16,4 +16,5 @@ public class MessageResponseDto {
     private boolean messageSaved;
     private boolean bookMark;
     private String urlName;
+    private String password;
 }

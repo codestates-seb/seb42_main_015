@@ -5,6 +5,8 @@ import com.witchdelivery.messageapp.domain.mailbox.repository.OutgoingRepository
 import com.witchdelivery.messageapp.global.exception.BusinessLogicException;
 import com.witchdelivery.messageapp.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -35,6 +37,17 @@ public class OutgoingService { // 발신 (보내는 사람)
                 optionalOutgoing.orElseThrow(()->
                         new BusinessLogicException(ExceptionCode.OUTGOING_NOT_FOUND));
         return findOutgoing;
+    }
+
+    public void updatedOutgoingBookMark(Long outgoingId, boolean bookMark) {
+        Outgoing outgoing = findVerifiedOutgoing(outgoingId);
+        outgoing.setBookMark(!outgoing.isBookMark());
+        outgoingRepository.save(outgoing);
+    }
+
+    public Page<Outgoing> findAllMessages(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return outgoingRepository.findAllByOrderByOutgoingIdDesc(pageRequest);
     }
 
 }

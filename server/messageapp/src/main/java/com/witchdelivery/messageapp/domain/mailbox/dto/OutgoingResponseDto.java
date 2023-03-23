@@ -14,4 +14,5 @@ public class OutgoingResponseDto { // 발신 (보내는 사람)
     private String content; // 편지 내용
     private LocalDateTime messageCreatedAt; // 편지 생성날짜
     private boolean bookMark; // 북마크 여부
+    private long memberId; // 사용자 식별번호
 }
