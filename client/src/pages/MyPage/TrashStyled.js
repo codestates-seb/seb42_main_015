@@ -97,7 +97,6 @@ export const ItemDate = styled.div`
   color: #cccccc;
 `;
 
-
 export const ModalBox = styled.div`
   width: 300px;
   height: 230px;
@@ -113,7 +112,7 @@ export const ModalBox = styled.div`
 export const ModalText = styled.div`
   margin-bottom: 1rem;
 `;
-export const ModalBtton = styled.div`
+export const ModalButton = styled.div`
   background-color: #ddd;
   border: 2px solid ${PALETTE_V1.text_primary};
   width: 100px;
@@ -121,6 +120,9 @@ export const ModalBtton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  &:nth-child(1) {
+    margin-right: 1rem;
+  }
 `;
 
 export const TopButton = styled.div`

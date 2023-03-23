@@ -1,39 +1,35 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import TrashItem from "./TrashItem";
 import GNB from "./GNB";
 import * as M from "./TrashStyled";
 import { AiOutlineCheck } from "react-icons/ai";
 import Modal from "../commons/Modal";
 import { AiOutlineArrowUp } from "react-icons/ai";
-import { HiOutlineTrash } from "react-icons/hi";
-import {
-  RiUserReceivedLine,
-  RiUserSharedLine,
-} from "react-icons/ri";
+import { RiUserReceivedLine, RiUserSharedLine } from "react-icons/ri";
 
 function TrashList() {
   const [checked, setChecked] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
-  const modalRef = useRef();
   const [isSend, setIsSend] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  // const modalRef = useRef();
 
-  const handleModal = (e) => {
-    if (openModal && !modalRef.current.contains(e.target)) {
-      setOpenModal(false);
-    }
-  };
+  // const handleModal = (e) => {
+  //   if (openModal && !modalRef.current.contains(e.target)) {
+  //     setOpenModal(false);
+  //   }
+  // };
 
-  const onRemove = () => {
-    if (
-      window.confirm(
-        "정말로 삭제하시겠습니까?\n삭제된 편지는 [마이페이지-휴지통]에서 확인할 수 있습니다."
-      )
-    ) {
-      alert("삭제되었습니다.");
-    } else {
-      return;
-    }
-  };
+  // const onRemove = () => {
+  //   if (
+  //     window.confirm(
+  //       "정말로 삭제하시겠습니까?\n삭제된 편지는 [마이페이지-휴지통]에서 확인할 수 있습니다."
+  //     )
+  //   ) {
+  //     alert("삭제되었습니다.");
+  //   } else {
+  //     return;
+  //   }
+  // };
 
   return (
     <M.TrashWrap>
@@ -42,9 +38,12 @@ function TrashList() {
         {openModal && (
           <Modal ContainerHeight="280px" ContainerWidth="300px">
             <M.ModalBox>
-              <img src={require('../../asset/Sad.png')} alt='' />
+              <img src={require("../../asset/Sad.png")} alt="" />
               <M.ModalText>삭제하면 다시는 편지를 보지 못해요</M.ModalText>
-              <M.ModalBtton>잘 가</M.ModalBtton>
+              <M.ButtonBox>
+                <M.ModalButton onClick={() => setOpenModal(!openModal)}>취소</M.ModalButton>
+                <M.ModalButton>잘 가</M.ModalButton>
+              </M.ButtonBox>
             </M.ModalBox>
           </Modal>
         )}
@@ -58,7 +57,13 @@ function TrashList() {
             </M.CheckBox>
             <M.ButtonBox>
               <M.Button>복구</M.Button>
-              <M.Button onClick={() => {setOpenModal(!openModal)}}>영구 삭제</M.Button>
+              <M.Button
+                onClick={() => {
+                  setOpenModal(!openModal);
+                }}
+              >
+                영구 삭제
+              </M.Button>
             </M.ButtonBox>
           </M.TrashTableMenu>
           <TrashItem />
