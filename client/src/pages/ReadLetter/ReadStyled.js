@@ -22,9 +22,8 @@ export const Wrapper = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    background: orange;
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      width: 24rem;
+      max-width: 39rem;
     }
 
     .top-sub {
@@ -33,7 +32,7 @@ export const Wrapper = styled.div`
       margin: 0 0 0 32rem;
 
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-        margin: 0 0 0 2rem;
+        margin: 0 0 0 15.5rem;
       }
       .soundButtons {
         display: flex;
@@ -47,9 +46,9 @@ export const Wrapper = styled.div`
         cursor: pointer;
 
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          margin-top: 0.1rem;
+          margin-top: -0.1rem;
           height: 3.3rem;
-          padding: 0px 3px 25px 3px;
+          padding: 0px 4px 30px 4px;
         }
       }
       .speech-icon,
@@ -169,11 +168,11 @@ export const EnterSeret = styled.div`
   margin: 0.2rem 0 2rem 2rem;
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    margin: 0.2rem 0 1.2rem 2rem;
-    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-    height: 3rem;
+    margin: 0rem 0 1.2rem 2rem;
+    padding: 0.7rem 0.5rem 0.7rem 0.5rem;
+    height: 3.4rem;
     font-size: 0.7rem;
-    width: 12rem;
+    width: 13rem;
   }
 
   p {
@@ -202,7 +201,7 @@ export const FlexColunmWrapper = styled.div`
   background: skyblue;
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 24rem;
+    width: 39rem;
   }
 `;
 
@@ -212,13 +211,13 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   background-color: #ffffff;
   flex-direction: column;
   border: 2px solid #000000;
-  padding: 2.5rem 3rem;
+  padding: 2.5rem 2.5rem;
   min-width: 680px;
   max-width: 680px;
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     min-width: 18rem;
-    padding: 1.5rem 0.8rem;
+    padding: 2rem 1.4rem;
   }
 
   .top {
@@ -228,6 +227,7 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     margin-bottom: 1rem;
     padding: 1rem 2rem 1rem 1rem;
     ${FONT_STYLE_READ.body_9_Medium}
+    font-size: 1.5rem;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       padding: 0.5rem 1.2rem 1rem 1rem;
@@ -238,13 +238,14 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   .content {
     ${FONT_STYLE_READ.body_10_light};
     letter-spacing: 2px;
-    line-height: 2rem;
+    line-height: 2.5rem;
     padding: 1rem 2rem 1rem 1rem;
     aspect-ratio: 3/5;
     overflow: auto;
+    font-size: 1.3rem;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      padding: 0rem 1.2rem 1rem 1rem;
+      padding: 0.7rem 1.2rem 1.5rem 1.2rem;
       font-size: 0.9rem;
     }
   }
@@ -254,6 +255,7 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     ${FONT_STYLE_READ.body_9_Medium};
     justify-content: flex-end;
     padding: 1rem 2rem 1rem 1rem;
+    font-size: 1.5rem;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       padding: 1.4rem 1.2rem 0.5rem 0rem;
@@ -268,10 +270,17 @@ export const Buttons = styled.div`
   align-items: center;
   justify-content: space-around;
   height: 6rem;
-  padding: 0rem 0rem 0rem 23.5rem;
+  padding: 0rem 0rem 0rem 31rem;
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    padding: 0rem 0rem 0rem 3.2rem;
+    padding: 0rem 0rem 0rem 14rem;
+  }
+
+  .button {
+    font-size: 1.2rem;
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      font-size: 1.4rem;
+    }
   }
 
   > div {
@@ -279,24 +288,26 @@ export const Buttons = styled.div`
     padding-left: 1.5rem;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      padding-left: 0.5rem;
+      padding-left: 0.9rem;
     }
   }
   .goback {
     display: flex;
-    margin: 0.2rem 10rem 0 -23rem;
+    margin: 0.2rem 10rem 0 -30.5rem;
     cursor: pointer;
-
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      margin: 0.2rem 0rem 0 -2.8rem;
+      margin: 0.2rem 0rem 0 -12.5rem;
+      width: 2.8rem;
+      height: 2.8rem;
     }
   }
   .trash {
     display: flex;
     margin-right: 8px;
     cursor: pointer;
-
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      width: 3rem;
+      height: 3rem;
     }
   }
 `;

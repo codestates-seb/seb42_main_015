@@ -41,8 +41,8 @@ const StyledButton = styled.button`
 `;
 const StyledShadow = styled.div`
   background-color: ${PALETTE_V1.text_primary};
-  min-width: 30px;
-  width: 30px;
+  min-width: 100px;
+  width: 100px;
   height: 40px;
   position: absolute;
   top: 5px;

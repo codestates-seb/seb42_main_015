@@ -45,6 +45,7 @@ const ReadButtons = ({
           <></>
         )}
         <ShadowButton
+          className="button"
           backgroundColor={PALETTE_V1.yellow_button}
           state="none-block"
           onClick={onDownloadBtn}
@@ -53,6 +54,7 @@ const ReadButtons = ({
         </ShadowButton>
         {isLogin ? (
           <ShadowButton
+            className="button"
             backgroundColor={PALETTE_V1.aready_keep_button}
             state="block"
           >
@@ -60,6 +62,7 @@ const ReadButtons = ({
           </ShadowButton>
         ) : (
           <ShadowButton
+            className="button"
             backgroundColor={PALETTE_V1.yellow_button}
             state="none-block"
             onClick={handleKeeping}

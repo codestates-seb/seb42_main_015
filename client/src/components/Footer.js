@@ -25,7 +25,7 @@ const FooterComponent = styled.footer`
       margin-bottom: 12px;
       font-size: 2.4rem;
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
     }
     .logo-img {
