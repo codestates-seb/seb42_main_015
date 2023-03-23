@@ -5,8 +5,7 @@ import * as yup from "yup";
 import * as L from "./FormStyled";
 import axios from "axios";
 import { setCookie, getCookie } from "./Cookie";
-import { GoogleOauthLogin } from "./OauthGoogle";
-import { headers, options } from "./FormSchema";
+import { headers, options, GoogleOauthLogin } from "./setupCertified";
 
 function Login() {
   const navigate = useNavigate();

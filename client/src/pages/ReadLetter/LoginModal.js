@@ -6,6 +6,11 @@ import * as L from "./ReadStyled";
 import * as yup from "yup";
 import axios from "axios";
 import { setCookie } from "../Certified/Cookie";
+import {
+  headers,
+  options,
+  GoogleOauthLogin,
+} from "../Certified/setupCertified";
 
 const LoginModal = ({ ModalRef, setIsKeeping }) => {
   //로그인되면 모달 닫기
