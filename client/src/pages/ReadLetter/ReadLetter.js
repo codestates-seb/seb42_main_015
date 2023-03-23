@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import * as R from "./ReadStyled";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
-import SecretLetter from "./SecetLetter";
+import SecretLetter from "./SecretLetter";
 import { AiOutlineSound } from "react-icons/ai";
 import { HiPause } from "react-icons/hi2";
 import { getSpeech, pauseSpeech } from "./GetSpeech";
