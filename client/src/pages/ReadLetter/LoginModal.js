@@ -6,6 +6,7 @@ import * as L from "./ReadStyled";
 import * as yup from "yup";
 import axios from "axios";
 import { setCookie } from "../Certified/Cookie";
+import { header, GoogleOauthLogin, options } from "../Certified/setupCertified";
 
 const LoginModal = ({ ModalRef, setIsKeeping }) => {
   //로그인되면 모달 닫기
@@ -81,7 +82,11 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
     <L.ModalWrapper ref={ModalRef}>
       <div className="loginText">Log in</div>
       <div className="oauth">
-        <img src={require("../../asset/구글.png")} alt="Googole" />
+        <img
+          src={require("../../asset/구글.png")}
+          alt="Googole"
+          onClick={GoogleOauthLogin}
+        />
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
@@ -109,7 +114,7 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
           onClick={CloseModal}
         />
       </form>
-      <div className="sub-form">
+      <div className="sub">
         <Link to="/setpwd">
           <li>forget Password</li>
         </Link>

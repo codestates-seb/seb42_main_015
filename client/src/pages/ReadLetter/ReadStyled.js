@@ -367,34 +367,20 @@ export const ModalWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 10px 20px 20px;
-  background: orange;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    height: 350px;
-  }
+  /* background: orange; */
 
   .loginText {
-    ${FONT_STYLE_LOGIN.title.title_40_medium}
+    ${FONT_STYLE_LOGIN.title.title_42_medium}
     margin:1rem 0px 2rem;
-
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      ${FONT_STYLE_LOGIN.title.title_37_medium}
-    }
   }
   .oauth {
     justify-content: space-around;
     margin-bottom: 0.7rem;
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    }
     img {
       width: 3rem;
       margin: 0 10px;
       cursor: pointer;
-
-      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-        width: 2rem;
-        margin: 0 10px;
-      }
     }
   }
   form {
@@ -407,7 +393,7 @@ export const ModalWrapper = styled.div`
       width: 22rem;
       height: 3rem;
       margin: 1rem 0 0;
-      padding: 0rem 2rem;
+      padding: 0rem 2.2rem;
       border-top: none;
       border-left: none;
       border-right: none;
@@ -416,25 +402,18 @@ export const ModalWrapper = styled.div`
       background-position: left;
       font-size: 0.8rem;
       margin-bottom: 1rem;
-
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        width: 23rem;
+        margin-bottom: 1.2rem;
       }
     }
     .emailInput {
       background-image: url("${email}");
       background-size: 1.5rem;
-
-      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-        background-size: 1.2rem;
-      }
     }
     .pwdInput {
       background-image: url("${pwd}");
       background-size: 1.6rem;
-
-      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-        background-size: 1.3rem;
-      }
     }
     .btn {
       width: 13rem;
@@ -444,16 +423,13 @@ export const ModalWrapper = styled.div`
       font-size: 13px;
       background: #fff06c;
       margin: 1.5rem 0;
-
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        height: 3.3rem;
       }
     }
     p {
       color: red;
       font-size: 10px;
-
-      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      }
     }
   }
   .sub {

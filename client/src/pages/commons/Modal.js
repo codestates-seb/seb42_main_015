@@ -38,7 +38,7 @@ const ModalContainer = styled.div`
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 70%;
     min-width: 218px;
-    height: 400px;
+    height: 40%;
   }
 `;
 const ModalHeader = styled.div`
