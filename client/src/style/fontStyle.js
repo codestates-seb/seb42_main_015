@@ -193,9 +193,9 @@ export const FONT_STYLE_LOGO = {
 };
 export const FONT_STYLE_LOGIN = {
   title: {
-    title_40_medium: css`
+    title_42_medium: css`
       font-family: "Sriracha";
-      font-size: 4rem;
+      font-size: 4.2rem;
       -webkit-text-stroke: 1px #000;
       color: ${PALETTE_LOGIN.loginText};
     `,

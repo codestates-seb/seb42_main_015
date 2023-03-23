@@ -83,13 +83,7 @@ function Login() {
                 name="email"
                 placeholder="email address"
               />
-              {errors ? (
-                errors.email && <p>{errors.email.message}</p>
-              ) : (
-                <div>
-                  errors.email && <p>오류메세지 없음</p>
-                </div>
-              )}
+              {errors.email && <p>{errors.email.message}</p>}
               <input
                 className="pwdInput"
                 {...register("password")}
@@ -98,13 +92,7 @@ function Login() {
                 placeholder="Password"
                 {...register("password")}
               />
-              {errors ? (
-                errors.password && <p>{errors.password.message}</p>
-              ) : (
-                <div>
-                  errors.email && <p>오류메세지 없음</p>
-                </div>
-              )}
+              {errors.password && <p>{errors.password.message}</p>}
               <input
                 className="btn"
                 type="submit"

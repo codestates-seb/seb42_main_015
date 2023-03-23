@@ -195,7 +195,7 @@ function SignUp() {
               />
               <div className="sub-form ">
                 <Link to="/login">
-                  <li>Log in</li>
+                  <div>Log in</div>
                 </Link>
               </div>
               <div className="oauth-form">
