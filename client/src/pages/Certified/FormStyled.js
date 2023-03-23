@@ -32,8 +32,8 @@ export const BackgroundYellow = styled.div`
   width: 60rem;
   height: ${(props) => (props.theme === "login" ? "40rem" : "41rem")};
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 20rem;
-    height: ${(props) => (props.theme === "login" ? "31rem" : "37rem")};
+    width: 27rem;
+    height: ${(props) => (props.theme === "login" ? "38rem" : "39rem")};
   }
 `;
 
@@ -47,8 +47,8 @@ export const LogForm = styled.form`
   border: 1px solid black;
   margin-bottom: 2rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 20rem;
-    height: ${(props) => (props.theme === "login" ? "32rem" : "38rem")};
+    width: 27rem;
+    height: ${(props) => (props.theme === "login" ? "39rem" : "40rem")};
   }
   .formLeft {
     flex-grow: 1;
@@ -70,14 +70,14 @@ export const LogForm = styled.form`
         margin: ${(props) =>
           props.theme === "login" ? "1.7rem 0px 1rem" : "1rem 0px 0px"};
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          font-size: 2.5rem;
+          font-size: 3rem;
           margin: ${(props) =>
-            props.theme === "login" ? "1.5rem 0rem 1.5rem" : "0.8rem 0 0"};
+            props.theme === "login" ? "1rem 0rem 1.5rem" : "0.8rem 0 0"};
         }
       }
       input {
         width: 23rem;
-        /* height: 2.3rem; */
+        height: 2.3rem;
         height: 3rem;
         margin-top: ${(props) => (props.theme === "login" ? "3rem" : "2rem")};
         margin-bottom: 0.5rem;
@@ -89,11 +89,10 @@ export const LogForm = styled.form`
         background-repeat: no-repeat;
         background-position: left;
         background-size: 1.5rem;
-        font-size: 14px;
+        font-size: clamp(0.6rem, 3vw, 1rem);
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          width: 15rem;
-          font-size: 11px;
-          margin-top: 1.2rem;
+          width: 20rem;
+          margin-top: 1rem;
           margin-bottom: 0.5rem;
           height: 3rem;
         }
@@ -122,9 +121,10 @@ export const LogForm = styled.form`
       p {
         color: red;
         margin-bottom: -1rem;
-        font-size: 14px;
+        padding: 0 10px;
+        font-size: clamp(0.6rem, 3vw, 1rem);
+        padding: 0 10px;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          font-size: 11px;
           margin-bottom: 3px;
         }
       }
@@ -139,9 +139,9 @@ export const LogForm = styled.form`
         cursor: pointer;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           width: 14rem;
-          height: 2.2rem;
+          height: 2.7rem;
           font-size: 12px;
-          margin-top: 1.4rem;
+          margin-top: 2rem;
           margin-bottom: 0.6rem;
         }
       }
@@ -149,12 +149,12 @@ export const LogForm = styled.form`
         display: flex;
         ${FONT_STYLE_LOGIN.body.body_9_light}
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          font-size: 11px;
+          font-size: 7px;
         }
         li {
           padding: 0 20px;
           @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-            padding: 0 10px;
+            padding: 0 5px;
           }
         }
       }
@@ -221,7 +221,7 @@ export const LogForm = styled.form`
           justify-content: center;
           display: flex;
           padding: ${(props) =>
-            props.theme === "login" ? "50px 20px 13px" : "35px 20px 13px"};
+            props.theme === "login" ? "18px 20px 13px" : "35px 20px 13px"};
 
           ${FONT_STYLE_LOGIN.body.body_8_light}
         }
@@ -261,32 +261,36 @@ export const LogForm = styled.form`
       flex-shrink: 2;
 
       .section1 {
-        padding: 0rem 5rem;
+        padding: 0rem 4rem;
         display: flex;
         flex-direction: row;
         img {
+          margin-left: 0rem;
           width: 9.2rem;
+          transform: rotate(-4deg);
         }
         .box {
           border: 1px solid black;
-          padding: 3px 25px;
+          padding: 0px 22px;
           height: 1.5rem;
-          margin: 4rem -1.3rem;
+          margin: 4rem 0rem 2rem -1.2rem;
           background: #fff;
+          z-index: 1;
         }
       }
       .section2 {
         display: flex;
         flex-direction: row;
+        padding: 0rem 6rem 0rem 0rem;
         img {
           width: 9.2rem;
           margin-left: 15rem;
         }
         .box {
           border: 1px solid black;
-          padding: 1px 40px;
+          padding: 1px 37px;
           height: 1.5rem;
-          margin: 3.7rem 4rem 0rem -14rem;
+          margin: 3.7rem 4rem 0rem -15.5rem;
           background: #fff;
         }
       }
@@ -299,7 +303,7 @@ export const LogForm = styled.form`
       .oauth-head {
         ${FONT_STYLE_LOGIN.body.body_8_light}
         padding: ${(props) =>
-          props.theme === "login" ? "60px 20px 5px" : "90px 20px 5px"};
+          props.theme === "login" ? "48px 20px 5px" : "90px 20px 5px"};
       }
       .oauth {
         justify-content: space-around;

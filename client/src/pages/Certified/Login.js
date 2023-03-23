@@ -68,22 +68,6 @@ function Login() {
       });
   };
 
-  //TODO : OAUTH 로그인 제출 버튼
-  const oauthURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=972730796553-kmbi1dbe3h5u0qvqbh1b8mic4mhalvrt.apps.googleusercontent.com&
-response_type=token&
-redirect_uri=http://localhost:3000&
-scope=https://www.googleapis.com/auth/userinfo.email`;
-
-  const oauthHandler = () => {
-    window.location.assign(oauthURL);
-  };
-
-  const oauthLogin = async () => {
-    const url = new URL(window.location.href);
-    const hash = url.hash;
-    console.log(hash);
-  };
-
   return (
     <>
       <L.Container>
@@ -99,7 +83,13 @@ scope=https://www.googleapis.com/auth/userinfo.email`;
                 name="email"
                 placeholder="email address"
               />
-              {errors.email && <p>{errors.email.message}</p>}
+              {errors ? (
+                errors.email && <p>{errors.email.message}</p>
+              ) : (
+                <div>
+                  errors.email && <p>오류메세지 없음</p>
+                </div>
+              )}
               <input
                 className="pwdInput"
                 {...register("password")}
@@ -108,7 +98,13 @@ scope=https://www.googleapis.com/auth/userinfo.email`;
                 placeholder="Password"
                 {...register("password")}
               />
-              {errors.password && <p>{errors.password.message}</p>}
+              {errors ? (
+                errors.password && <p>{errors.password.message}</p>
+              ) : (
+                <div>
+                  errors.email && <p>오류메세지 없음</p>
+                </div>
+              )}
               <input
                 className="btn"
                 type="submit"
@@ -127,7 +123,11 @@ scope=https://www.googleapis.com/auth/userinfo.email`;
               <div className="oauth-form">
                 <div className="oauth-head">Log in With</div>
                 <div className="oauth">
-                  <img src={require("../../asset/구글.png")} alt="Googole" />
+                  <img
+                    src={require("../../asset/구글.png")}
+                    alt="Googole"
+                    onClick={GoogleOauthLogin}
+                  />
                 </div>
               </div>
             </div>
@@ -151,7 +151,11 @@ scope=https://www.googleapis.com/auth/userinfo.email`;
             <div className="oauth-form">
               <div className="oauth-head">Log in With</div>
               <div className="oauth">
-                <img src={require("../../asset/구글.png")} alt="Googole" />
+                <img
+                  src={require("../../asset/구글.png")}
+                  alt="Googole"
+                  onClick={GoogleOauthLogin}
+                />
               </div>
             </div>
           </div>

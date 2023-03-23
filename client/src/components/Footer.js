@@ -48,21 +48,18 @@ const FooterComponent = styled.footer`
       font-family: "Pretendard-Light";
       display: flex;
       flex-direction: column;
-      font-size: 0.9rem;
       margin-top: 20px;
-      li {
-        padding: 5px 0;
-        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          padding: 2.5px 0;
-        }
-      }
-      @media screen and (min-width: ${BREAKPOINTTABLET}px) {
-        font-size: 0.8rem;
-      }
-      /* ~767까지 */
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
         margin-top: 5px;
         font-size: 0.6rem;
+      }
+      li {
+        padding: 3px 0;
+        font-size: 1.2rem;
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+          padding: 2.5px 0;
+          font-size: 0.8rem;
+        }
       }
     }
   }

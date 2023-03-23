@@ -1,10 +1,5 @@
-import React, { useEffect } from "react";
 import styled from "styled-components";
-import {
-  BREAKPOINTMOBILE,
-  BREAKPOINTTABLET,
-  BREAKPOINTMOBILE2,
-} from "../../src/breakpoint";
+import { BREAKPOINTMOBILE } from "../../src/breakpoint";
 import { Link, useNavigate } from "react-router-dom";
 import postbox from "../asset/postbox.svg";
 import axios from "axios";
@@ -92,7 +87,7 @@ const HeaderComponent = styled.header`
   border-bottom: 1px solid #312f2b;
   display: flex;
   width: 100%;
-  height: clamp(55px, 3vw, 70px);
+  height: clamp(58px, 3vw, 65px);
   position: sticky;
   z-index: 90;
 `;
@@ -116,7 +111,7 @@ const HeaderContainer = styled.div`
     justify-content: center;
     font-family: "Sriracha";
     padding-bottom: 4px;
-    font-size: clamp(2.8rem, 3vw, 3.2rem);
+    font-size: clamp(2.6rem, 3vw, 2.8rem);
   }
 
   .logo-img {
@@ -135,11 +130,11 @@ const HeaderContainer = styled.div`
       }
     }
     .postImg {
-      width: 35px;
+      width: 2.8rem;
       padding-top: 2px;
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
         padding-top: 12px;
-        width: 15px;
+        width: 1.8rem;
       }
     }
   }
@@ -148,6 +143,6 @@ const HeaderContainer = styled.div`
     color: #000000;
     font-family: "Inria Sans", sans-serif;
     cursor: pointer;
-    font-size: clamp(1.5rem, 3vw, 1.9rem);
+    font-size: clamp(1.6rem, 3vw, 1.6rem);
   }
 `;

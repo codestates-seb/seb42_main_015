@@ -103,7 +103,7 @@ const ReadLetter = ({ isLogin }) => {
               </div>
               <R.EnterSeret>
                 비밀번호
-                <input placeholder="****" />
+                <p>****</p>
               </R.EnterSeret>
             </div>
             <R.Letterpaper ref={LetterRef}>

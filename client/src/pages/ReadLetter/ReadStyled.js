@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
+import {
+  BREAKPOINTMOBILE,
+  BREAKPOINTMOBILE2,
+  BREAKPOINTTABLET,
+} from "../../breakpoint";
 import { FONT_STYLE_READ, FONT_STYLE_LOGIN } from "../../style/fontStyle";
 import pwd from "../../asset/pwd.png";
 import email from "../../asset/mail.png";
@@ -18,42 +22,49 @@ export const Wrapper = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-      width: 21rem;
+    background: orange;
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      width: 24rem;
     }
 
     .top-sub {
       display: flex;
       justify-content: space-evenly;
-      margin: 0 0 0 22rem;
+      margin: 0 0 0 32rem;
 
-      @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-        margin: 0 0 0 5.7rem;
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        margin: 0 0 0 2rem;
       }
       .soundButtons {
         display: flex;
         justify-content: space-evenly;
         background: #d3d3d3;
         border-radius: 3rem;
-        padding: 5px 5px;
-        width: 6rem;
-        height: 2.5rem;
+        padding: 4px 5px 0px 5px;
+        width: 8rem;
+        height: 3rem;
         margin-top: 0.2rem;
         cursor: pointer;
 
-        @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-          width: 5rem;
-          height: 2.3rem;
-          padding: 3.5px 5px;
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+          margin-top: 0.1rem;
+          height: 3.3rem;
+          padding: 0px 3px 25px 3px;
         }
       }
       .speech-icon,
       .pause-icon {
         padding: 3px;
+        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+          padding: 6px;
+        }
         &:hover {
           padding: 3px;
           background: white;
           border-radius: 50%;
+          @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+            padding: 6px;
+          }
         }
       }
     }
@@ -81,20 +92,14 @@ export const Secretform = styled.form`
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
-  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-    padding: 5rem 1rem;
-  }
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     height: 60vh;
   }
   div {
     display: flex;
     ${FONT_STYLE_READ.title_20_medium}
 
-    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 1.5rem;
-    }
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       font-size: 1rem;
       width: 12rem;
     }
@@ -115,11 +120,7 @@ export const Secretform = styled.form`
     background-position: left;
     background-size: 1.5rem;
 
-    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-      background-size: 1.2rem;
-      width: 18rem;
-    }
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       background-size: 1.2rem;
       height: 2rem;
       width: 12rem;
@@ -137,13 +138,7 @@ export const Secretform = styled.form`
     margin-left: 70%;
     cursor: pointer;
 
-    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-      width: 5rem;
-      height: 1.6rem;
-      font-size: 0.5rem;
-      margin-left: 55%;
-    }
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       width: 5rem;
       height: 1.6rem;
       font-size: 0.5rem;
@@ -154,12 +149,7 @@ export const Secretform = styled.form`
     color: red;
     margin: -3.3rem 0 -1rem;
     font-size: 16px;
-
-    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-      margin: -2.2rem 0 -1rem;
-      font-size: 13px;
-    }
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       margin: -2rem 0 -1rem;
       width: 12rem;
       font-size: 10px;
@@ -172,31 +162,33 @@ export const EnterSeret = styled.div`
   display: flex;
   justify-content: center;
   width: 12rem;
-  padding: 0.5rem 0.7rem 0.5rem 1.5rem;
+  padding: 0.7rem 0.7rem 0.7rem 0.7rem;
   border: 2px solid #000000;
   ${FONT_STYLE_READ.body_8_Medium}
-  margin : 0.2rem 0 2rem 2rem;
+  font-size : 1rem;
+  margin: 0.2rem 0 2rem 2rem;
 
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    margin: 0.2rem 0 1.2rem 1rem;
-    padding: 0.6rem 0.2rem 0.6rem 0.7rem;
-    width: 8rem;
-    height: 2.2rem;
-    font-size: 0.6rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    margin: 0.2rem 0 1.2rem 2rem;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    height: 3rem;
+    font-size: 0.7rem;
+    width: 12rem;
   }
 
-  input {
+  p {
     ${FONT_STYLE_READ.body_8_light}
+    font-size : 1rem;
     border: none;
     background-color: initial;
-    margin-left: 20px;
+    margin-left: 10px;
     padding: 0 5px;
     width: 4rem;
     letter-spacing: 6px;
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-      margin-left: 10px;
-      width: 3.7rem;
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      margin-left: 5px;
+      width: 5rem;
       letter-spacing: 3px;
     }
   }
@@ -207,9 +199,10 @@ export const FlexColunmWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: fit-content;
+  background: skyblue;
 
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    width: 20rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 24rem;
   }
 `;
 
@@ -223,7 +216,7 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   min-width: 680px;
   max-width: 680px;
 
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     min-width: 18rem;
     padding: 1.5rem 0.8rem;
   }
@@ -236,7 +229,7 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     padding: 1rem 2rem 1rem 1rem;
     ${FONT_STYLE_READ.body_9_Medium}
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       padding: 0.5rem 1.2rem 1rem 1rem;
       font-size: 0.9rem;
     }
@@ -250,7 +243,7 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     aspect-ratio: 3/5;
     overflow: auto;
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       padding: 0rem 1.2rem 1rem 1rem;
       font-size: 0.9rem;
     }
@@ -261,10 +254,8 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     ${FONT_STYLE_READ.body_9_Medium};
     justify-content: flex-end;
     padding: 1rem 2rem 1rem 1rem;
-    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-    }
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       padding: 1.4rem 1.2rem 0.5rem 0rem;
       font-size: 0.8rem;
     }
@@ -279,7 +270,7 @@ export const Buttons = styled.div`
   height: 6rem;
   padding: 0rem 0rem 0rem 23.5rem;
 
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     padding: 0rem 0rem 0rem 3.2rem;
   }
 
@@ -287,7 +278,7 @@ export const Buttons = styled.div`
     display: flex;
     padding-left: 1.5rem;
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       padding-left: 0.5rem;
     }
   }
@@ -296,7 +287,7 @@ export const Buttons = styled.div`
     margin: 0.2rem 10rem 0 -23rem;
     cursor: pointer;
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       margin: 0.2rem 0rem 0 -2.8rem;
     }
   }
@@ -305,7 +296,7 @@ export const Buttons = styled.div`
     margin-right: 8px;
     cursor: pointer;
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     }
   }
 `;
@@ -372,38 +363,30 @@ export const ModalWrapper = styled.div`
   flex-direction: column;
   padding: 10px 20px 20px;
   height: 90%;
-  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-  }
 
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
   }
 
   .loginText {
     ${FONT_STYLE_LOGIN.title.title_40_medium}
     margin:1rem 0px 1rem;
     font-size: 3rem;
-    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-    }
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     }
   }
   .oauth {
     justify-content: space-around;
     margin-bottom: 0.7rem;
-    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-    }
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     }
     img {
       width: 2rem;
       margin: 0 10px;
       cursor: pointer;
-      @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-      }
 
-      @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       }
     }
   }
@@ -412,10 +395,8 @@ export const ModalWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-    }
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     }
 
     input {
@@ -431,28 +412,22 @@ export const ModalWrapper = styled.div`
       background-position: left;
       font-size: 11px;
       margin-bottom: 0.7rem;
-      @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-      }
 
-      @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       }
     }
     .emailInput {
       background-image: url("${email}");
       background-size: 1.2rem;
-      @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-      }
 
-      @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       }
     }
     .pwdInput {
       background-image: url("${pwd}");
       background-size: 1.3rem;
-      @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-      }
 
-      @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       }
     }
     .btn {
@@ -463,19 +438,15 @@ export const ModalWrapper = styled.div`
       font-size: 13px;
       background: #fff06c;
       margin: 1.5rem 0;
-      @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-      }
 
-      @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       }
     }
     p {
       color: red;
       font-size: 10px;
-      @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-      }
 
-      @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       }
     }
   }
@@ -484,13 +455,13 @@ export const ModalWrapper = styled.div`
     ${FONT_STYLE_LOGIN.body.body_9_light}
     font-size: 0.6rem;
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     }
   }
   li {
     padding: 0 10px;
 
-    @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     }
   }
 `;
