@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
+import { BREAKPOINTMOBILE } from "../../breakpoint";
 import {
   FONT_STYLE_LOGIN,
   FONT_STYLE_LOGOUT,
@@ -72,12 +72,13 @@ export const LogForm = styled.form`
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           font-size: 2.5rem;
           margin: ${(props) =>
-            props.theme === "login" ? "1.5rem 0rem 1.5rem" : "0.8rem 0 1rem"};
+            props.theme === "login" ? "1.5rem 0rem 1.5rem" : "0.8rem 0 0"};
         }
       }
       input {
         width: 23rem;
-        height: 2.3rem;
+        /* height: 2.3rem; */
+        height: 3rem;
         margin-top: ${(props) => (props.theme === "login" ? "3rem" : "2rem")};
         margin-bottom: 0.5rem;
         padding: 0rem 3rem;
@@ -94,6 +95,7 @@ export const LogForm = styled.form`
           font-size: 11px;
           margin-top: 1.2rem;
           margin-bottom: 0.5rem;
+          height: 3rem;
         }
       }
       .userInput {
@@ -161,7 +163,7 @@ export const LogForm = styled.form`
       }
       .duplicate {
         position: absolute;
-        top: 2.4rem;
+        top: 2.7rem;
         right: 0.7rem;
         display: flex;
         justify-content: center;
@@ -227,7 +229,7 @@ export const LogForm = styled.form`
           justify-content: center;
           display: flex;
           width: 10rem;
-          height: 1.8rem;
+          height: 2rem;
           img {
             width: 1.8rem;
             margin: 0 10px;

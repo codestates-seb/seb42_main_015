@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../src/breakpoint";
+import {
+  BREAKPOINTMOBILE,
+  BREAKPOINTTABLET,
+  BREAKPOINTMOBILE2,
+} from "../../src/breakpoint";
 import { Link, useNavigate } from "react-router-dom";
 import postbox from "../asset/postbox.svg";
 import axios from "axios";
@@ -91,6 +95,10 @@ const HeaderComponent = styled.header`
   height: 60px;
   position: sticky;
   z-index: 90;
+  /* ~767까지 */
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    height: 50px;
+  }
 `;
 
 const HeaderContainer = styled.div`
@@ -101,8 +109,13 @@ const HeaderContainer = styled.div`
   margin: 0px 50px;
   width: 100vw;
 
+  /* 768부터~ */
+  @media screen and (min-width: ${BREAKPOINTTABLET}px) {
+    margin: 0px 40px;
+  }
+  /* ~767까지 */
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    margin: 0px 30px;
+    margin: 0px 25px;
   }
 
   .logo {
@@ -111,11 +124,16 @@ const HeaderContainer = styled.div`
     align-items: center;
     justify-content: center;
     font-family: "Sriracha";
-    font-size: 2.1rem;
+    font-size: 3.3rem;
     padding-bottom: 4px;
 
+    /* 768부터~ */
+    @media screen and (min-width: ${BREAKPOINTTABLET}px) {
+      font-size: 2.8rem;
+    }
+    /* ~767까지 */
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 1.4rem;
+      font-size: 2rem;
     }
   }
 
@@ -124,12 +142,27 @@ const HeaderContainer = styled.div`
     width: 22px;
     height: 16px;
     margin-left: 3px;
+
+    /* ~767까지 */
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      width: 20px;
+      height: 14px;
+    }
   }
 
   #nav-container {
     display: flex;
     li {
       padding: 0px 20px;
+
+      /* 768부터~ */
+      @media screen and (min-width: ${BREAKPOINTTABLET}px) {
+        padding: 0px 15px;
+      }
+      /* ~767까지 */
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        padding: 0px 10px;
+      }
     }
     .postImg {
       width: 35px;
@@ -138,13 +171,18 @@ const HeaderContainer = styled.div`
   }
   a {
     line-height: 36px;
-    font-size: 1.2rem;
+    font-size: 1.9rem;
     color: #000000;
     font-family: "Inria Sans", sans-serif;
     cursor: pointer;
 
+    /* 768부터~ */
+    @media screen and (min-width: ${BREAKPOINTTABLET}px) {
+      font-size: 1.6rem;
+    }
+    /* ~767까지 */
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 0.8rem;
+      font-size: 1.2rem;
     }
   }
 `;
