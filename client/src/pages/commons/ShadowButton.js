@@ -12,7 +12,8 @@ const StyledButton = styled.button`
   font-size: 18px;
   background-color: ${(props) => props.backgroundColor};
   border: 2px solid ${PALETTE_V1.text_primary};
-  min-width: 100px;
+  min-width: 20px;
+  min-height: 20px;
   width: 100px;
   height: 40px;
   margin-right: 10px;

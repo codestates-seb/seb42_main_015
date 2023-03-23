@@ -39,6 +39,7 @@ const ModalContainer = styled.div`
     width: 70%;
     min-width: 218px;
     max-width: 299px;
+    height: 40%;
   }
 `;
 const ModalHeader = styled.div`
