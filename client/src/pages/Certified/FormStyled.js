@@ -77,7 +77,8 @@ export const LogForm = styled.form`
       }
       input {
         width: 23rem;
-        height: 2.3rem;
+        /* height: 2.3rem; */
+        height: 3rem;
         margin-top: ${(props) => (props.theme === "login" ? "3rem" : "2rem")};
         margin-bottom: 0.5rem;
         padding: 0rem 3rem;
@@ -94,6 +95,7 @@ export const LogForm = styled.form`
           font-size: 11px;
           margin-top: 1.2rem;
           margin-bottom: 0.5rem;
+          height: 3rem;
         }
       }
       .userInput {
