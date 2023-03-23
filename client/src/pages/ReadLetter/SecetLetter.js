@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import * as S from "./ReadStyled";
-import { formSchema, headers } from "../Certified/formShema";
+import { formSchema, headers, options } from "../Certified/FormSchema.js";
 
 const ReadLetter = ({ enterPassword, setEnterPassword }) => {
   const formSchema = yup.object({

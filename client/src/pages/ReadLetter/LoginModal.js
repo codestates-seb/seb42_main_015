@@ -3,14 +3,15 @@ import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as L from "./ReadStyled";
 import axios from "axios";
-import { setCookie } from "../Certified/Cookie";
+import { setCookie, getCookie } from "../Certified/Cookie";
 import { GoogleOauthLogin } from "../Certified/OauthGoogle";
-import { formSchema, headers } from "../Certified/formShema";
+import { formSchema, headers, options } from "../Certified/FormSchema.js";
 
 const LoginModal = ({ ModalRef, setIsKeeping }) => {
   //로그인되면 모달 닫기
   const CloseModal = () => {
     alert("로그인되었습니다.");
+    console.log("accesstoken", getCookie("accesstoken"));
     setIsKeeping(false);
   };
 
@@ -21,7 +22,7 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
 
   //! 로그인 제출 버튼
-  const onSubmit = async (data) => {
+  const onFormSubmit = async (data) => {
     const { email, password } = data;
     await axios
       .post(
@@ -32,7 +33,6 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
         }
       )
       .then((res) => {
-        alert("로그인되었습니다.");
         CloseModal();
         if (res.headers.getAuthorization) {
           //! refresh token은 -> local storage에 저장
@@ -42,10 +42,7 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
             "accesstoken",
             res.headers.get("Authorization").split(" ")[1],
             {
-              path: "/",
-              sucure: true,
-              sameSite: "Strict",
-              HttpOnly: " HttpOnly ",
+              options,
             }
           );
         }
@@ -66,7 +63,7 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
           onClick={GoogleOauthLogin}
         />
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onFormSubmit)}>
         <input
           className="emailInput"
           {...register("email")}

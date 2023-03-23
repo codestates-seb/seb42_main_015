@@ -15,7 +15,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh;
+  min-height: 85vh;
   padding: 3rem 2rem;
   overflow: hidden;
   padding: 3rem;

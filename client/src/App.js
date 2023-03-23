@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import SignUp from "./pages/Certified/SignUp";
-import Login from "./pages/Certified/Login";
+import Login from "./pages/Certified/Logins";
 import CompleteLogout from "./pages/Certified/CompleteLogout";
 import Main from "./pages/Main/Main";
 import MyPage from "./pages/MyPage/MyPage";
@@ -16,7 +16,7 @@ import Trash from "./pages/MyPage/TrashList";
 import CompleteSignup from "./pages/Certified/CompleteSignup";
 // ! 공백
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const displayFooter = true;
   // ! 공백
   return (

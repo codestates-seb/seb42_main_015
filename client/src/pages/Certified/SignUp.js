@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import * as S from "./FormStyled";
 import axios from "axios";
 import { GoogleOauthLogin } from "./OauthGoogle";
-import { formSchema, headers } from "./formShema";
+import { formSchema, headers, options } from "./FormSchema";
 
 function SignUp() {
   const navigate = useNavigate();

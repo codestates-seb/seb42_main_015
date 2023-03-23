@@ -19,7 +19,7 @@ export const Wrapper = styled.div`
     align-items: center;
     flex-direction: column;
     @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-      width: 25rem;
+      width: 21rem;
     }
 
     .top-sub {
@@ -28,7 +28,7 @@ export const Wrapper = styled.div`
       margin: 0 0 0 22rem;
 
       @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-        margin: 0 0 0 9rem;
+        margin: 0 0 0 5.7rem;
       }
       .soundButtons {
         display: flex;
@@ -209,7 +209,7 @@ export const FlexColunmWrapper = styled.div`
   width: fit-content;
 
   @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    width: 23rem;
+    width: 20rem;
   }
 `;
 
@@ -280,7 +280,7 @@ export const Buttons = styled.div`
   padding: 0rem 0rem 0rem 23.5rem;
 
   @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    padding: 0rem 0rem 0rem 5rem;
+    padding: 0rem 0rem 0rem 3.2rem;
   }
 
   > div {
