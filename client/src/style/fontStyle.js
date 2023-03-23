@@ -235,6 +235,10 @@ export const FONT_STYLE_LOGIN = {
       font-family: "IBM Plex Sans Thai Looped", sans-serif;
       font-size: 1.3rem;
     `,
+    button_4_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 0.4rem;
+    `,
   },
 };
 

@@ -24,7 +24,6 @@ export const Container = styled.div`
 //TODO :로그인, 회원가입 노랑 백그라운드
 export const BackgroundYellow = styled.div`
   display: flex;
-  /* position: relative; */
   position: absolute;
   border: 1px solid black;
   background: #fff59f;
@@ -51,8 +50,9 @@ export const LogForm = styled.form`
     height: ${(props) => (props.theme === "login" ? "39rem" : "40rem")};
   }
   .formLeft {
-    flex-grow: 1;
+    flex-grow: ${(props) => (props.theme === "login" ? "1rem" : "2rem")};
     border-right: 1px solid #000;
+    margin-left: ${(props) => (props.theme === "login" ? "0rem" : "1rem")};
     padding: 10px 30px 30px;
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       border-right: 0px solid #000;
@@ -68,7 +68,7 @@ export const LogForm = styled.form`
       .loginText {
         ${FONT_STYLE_LOGIN.title.title_40_medium}
         margin: ${(props) =>
-          props.theme === "login" ? "1.7rem 0px 1rem" : "1rem 0px 0px"};
+          props.theme === "login" ? "1.7rem 0px 1rem" : "1rem 0px 0.8rem"};
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           font-size: 3rem;
           margin: ${(props) =>
@@ -137,6 +137,7 @@ export const LogForm = styled.form`
         background: #fff06c;
         margin-top: ${(props) => (props.theme === "login" ? "5rem" : "3.5rem")};
         cursor: pointer;
+        margin-bottom: 1.5rem;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           width: 14rem;
           height: 2.7rem;
@@ -161,19 +162,19 @@ export const LogForm = styled.form`
       label {
         position: relative;
       }
-      .duplicate {
+      .duplicate,
+      .duplicate-check {
         position: absolute;
         top: 2.7rem;
         right: 0.7rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-family: "Pretendard-Light";
-        font-size: 0.4rem;
+        ${FONT_STYLE_LOGIN.button.button_4_light};
         border: 1px solid #505050;
         background: #ffcb12;
-        width: 3.7rem;
-        height: 1.5rem;
+        width: 4rem;
+        height: 1.8rem;
         cursor: pointer;
         border-radius: 50%;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
@@ -190,20 +191,7 @@ export const LogForm = styled.form`
         }
       }
       .duplicate-check {
-        position: absolute;
-        top: 2.4rem;
-        right: 0.7rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "Pretendard-Light";
-        font-size: 0.4rem;
-        border: 1px solid #505050;
         background: #d3d3d3;
-        width: 3.7rem;
-        height: 1.5rem;
-        cursor: pointer;
-        border-radius: 50%;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           width: 3rem;
           height: 1.3rem;
@@ -258,7 +246,9 @@ export const LogForm = styled.form`
       flex-direction: column;
       ${FONT_STYLE_LOGIN.body.body_10_light};
       margin-top: ${(props) => (props.theme === "login" ? "0" : "5rem")};
-      flex-shrink: 2;
+      > img {
+        width: 100%;
+      }
 
       .section1 {
         padding: 0rem 4rem;

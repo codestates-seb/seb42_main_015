@@ -59,7 +59,7 @@ function Login() {
           );
           console.log("accesstoken", getCookie("accesstoken"));
           console.log("refreshToken", localStorage.getItem("refreshToken"));
-          // navigate("/");
+          navigate("/");
         }
       })
       .catch((err) => {

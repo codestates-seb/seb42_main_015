@@ -367,6 +367,10 @@ export const ModalWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 10px 20px 20px;
+  background: orange;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    height: 350px;
+  }
 
   .loginText {
     ${FONT_STYLE_LOGIN.title.title_40_medium}
@@ -452,7 +456,7 @@ export const ModalWrapper = styled.div`
       }
     }
   }
-  .sub-form {
+  .sub {
     display: flex;
     ${FONT_STYLE_LOGIN.body.body_9_light}
 
