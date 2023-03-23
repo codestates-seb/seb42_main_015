@@ -43,14 +43,29 @@ export const FONT_STYLE_V1 = {
       font-size: 2rem;
       color: ${PALETTE_V1.text_primary};
     `,
+    title_25_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 2.5rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
     title_30_medium: css`
       font-family: "Pretendard-Medium";
       font-size: 3rem;
       color: ${PALETTE_V1.text_primary};
     `,
+    title_35_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 3.5rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
     title_40_medium: css`
       font-family: "Pretendard-Medium";
       font-size: 4rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    title_45_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 4.5rem;
       color: ${PALETTE_V1.text_primary};
     `,
     title_20_thin: css`
@@ -98,6 +113,61 @@ export const FONT_STYLE_V1 = {
     body_15_light: css`
       font-family: "Pretendard-Light";
       font-size: 1.5rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_16_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 1.6rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_17_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 1.7rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_18_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 1.8rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_19_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 1.9rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_20_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 2rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_21_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 2.1rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_22_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 2.2rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_24_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 2.4rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_26_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 2.6rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_28_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 2.8rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_30_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 3rem;
       color: ${PALETTE_V1.text_primary};
     `,
   },
