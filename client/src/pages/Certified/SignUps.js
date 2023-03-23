@@ -76,7 +76,7 @@ function SignUp() {
       })
       .catch((err) => {
         console.log(err);
-        alert("이미 가입된 유저입니다.");
+        alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
       });
   };
 
