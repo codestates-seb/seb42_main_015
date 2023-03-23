@@ -92,13 +92,9 @@ const HeaderComponent = styled.header`
   border-bottom: 1px solid #312f2b;
   display: flex;
   width: 100%;
-  height: 60px;
+  height: clamp(55px, 3vw, 70px);
   position: sticky;
   z-index: 90;
-  /* ~767까지 */
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    height: 50px;
-  }
 `;
 
 const HeaderContainer = styled.div`
@@ -109,11 +105,6 @@ const HeaderContainer = styled.div`
   margin: 0px 50px;
   width: 100vw;
 
-  /* 768부터~ */
-  @media screen and (min-width: ${BREAKPOINTTABLET}px) {
-    margin: 0px 40px;
-  }
-  /* ~767까지 */
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     margin: 0px 25px;
   }
@@ -124,65 +115,39 @@ const HeaderContainer = styled.div`
     align-items: center;
     justify-content: center;
     font-family: "Sriracha";
-    font-size: 3.3rem;
     padding-bottom: 4px;
-
-    /* 768부터~ */
-    @media screen and (min-width: ${BREAKPOINTTABLET}px) {
-      font-size: 2.8rem;
-    }
-    /* ~767까지 */
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 2rem;
-    }
+    font-size: clamp(2.8rem, 3vw, 3.2rem);
   }
 
   .logo-img {
     display: inline-block;
-    width: 22px;
-    height: 16px;
+    width: clamp(20px, 2vw, 25px);
+    height: clamp(14px, 2vw, 18px);
     margin-left: 3px;
-
-    /* ~767까지 */
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      width: 20px;
-      height: 14px;
-    }
   }
 
   #nav-container {
     display: flex;
     li {
       padding: 0px 20px;
-
-      /* 768부터~ */
-      @media screen and (min-width: ${BREAKPOINTTABLET}px) {
-        padding: 0px 15px;
-      }
-      /* ~767까지 */
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-        padding: 0px 10px;
+        padding: 0px 7px;
       }
     }
     .postImg {
       width: 35px;
       padding-top: 2px;
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        padding-top: 12px;
+        width: 15px;
+      }
     }
   }
   a {
     line-height: 36px;
-    font-size: 1.9rem;
     color: #000000;
     font-family: "Inria Sans", sans-serif;
     cursor: pointer;
-
-    /* 768부터~ */
-    @media screen and (min-width: ${BREAKPOINTTABLET}px) {
-      font-size: 1.6rem;
-    }
-    /* ~767까지 */
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 1.2rem;
-    }
+    font-size: clamp(1.5rem, 3vw, 1.9rem);
   }
 `;
