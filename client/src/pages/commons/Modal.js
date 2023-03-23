@@ -38,6 +38,7 @@ const ModalContainer = styled.div`
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 70%;
     min-width: 218px;
+    max-width: 299px;
     height: 40%;
   }
 `;
@@ -79,11 +80,10 @@ function Modal(props) {
   }, []);
 
   return (
-    <ModalBack>
+    <ModalBack className="modal-back">
       <ModalContainer
         ContainerHeight={props.ContainerHeight}
-        ContainerWidth={props.ContainerWidth}
-      >
+        ContainerWidth={props.ContainerWidth}>
         <ModalHeader>
           <CircleWrapper>
             <Circle backgroundColor={PALETTE_V1.red_modal_button} />

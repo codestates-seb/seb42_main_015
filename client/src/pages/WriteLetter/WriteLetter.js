@@ -137,8 +137,9 @@ function WriteLetter() {
       )}
       {openMakeLetter ? (
         <Modal
+          className="make-letter-modal"
           ContainerWidth="450px"
-          ContainerHeight="700px"
+          ContainerHeight={browserSize > 767 ? "700px" : "600px"}
           children={<MakeLetter makeLetterModalRef={makeLetterModalRef} />}
         />
       ) : (
