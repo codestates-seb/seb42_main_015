@@ -17,6 +17,7 @@ function LetterContent({
   finalTranscript,
   resetTranscript,
   currentLetterTheme,
+  browserSize,
 }) {
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
   const currentDate = `${new Date().getFullYear()}.${(
@@ -69,7 +70,7 @@ function LetterContent({
   return (
     <W.LetterBox currentLetterTheme={currentLetterTheme}>
       <W.FlexWrapper1>
-        <W.BallonWrapper>
+        <W.BallonWrapper className="to-wrapper">
           <W.NameInputWrapper>
             To
             <W.NameInput
@@ -82,9 +83,13 @@ function LetterContent({
             <W.ErrorMessage>{errors.receiverName.message}</W.ErrorMessage>
           )}
           {openExplaination ? (
-            <W.BallonBottom1 id="ballon6">
-              편지를 받을 사람 이름을 적습니다.
-            </W.BallonBottom1>
+            browserSize > 767 ? (
+              <W.BallonBottom1 id="ballon6">
+                편지를 받을 사람 이름을 적습니다.
+              </W.BallonBottom1>
+            ) : (
+              <></>
+            )
           ) : (
             <></>
           )}
@@ -97,7 +102,7 @@ function LetterContent({
             className={sendMeChecked ? "active" : ""}
             onClick={handleSendMe}></W.SendMeCheckBox>
           {sendMeChecked ? (
-            <HiOutlineCheck id="check-icon" size="25" onClick={handleSendMe} />
+            <HiOutlineCheck id="check-icon" onClick={handleSendMe} />
           ) : (
             <></>
           )}
@@ -105,9 +110,13 @@ function LetterContent({
         <W.BallonWrapper>
           <W.SendMeLabel>나에게보내기</W.SendMeLabel>
           {openExplaination ? (
-            <W.BallonLeft id="ballon1">
-              나에게 편지를 작성할 수 있습니다.
-            </W.BallonLeft>
+            browserSize > 767 ? (
+              <W.BallonLeft id="ballon1">
+                나에게 편지를 작성할 수 있습니다.
+              </W.BallonLeft>
+            ) : (
+              <W.BallonTop>나에게 편지를 작성할 수 있습니다.</W.BallonTop>
+            )
           ) : (
             <></>
           )}
@@ -127,7 +136,7 @@ function LetterContent({
         {...register("content")}
         ref={textarea}></W.ContentTextarea>
       <W.FromWrapper>
-        <W.BallonWrapper id="from-wrapper">
+        <W.BallonWrapper className="from-wrapper">
           <W.NameInputWrapper className="from-input">
             From
             <W.NameInput
@@ -142,9 +151,13 @@ function LetterContent({
             </W.ErrorMessage>
           )}
           {openExplaination ? (
-            <W.BallonBottom1 id="ballon7">
-              편지를 보내는 사람 이름을 적습니다.
-            </W.BallonBottom1>
+            browserSize > 767 ? (
+              <W.BallonBottom1 id="ballon7">
+                편지를 보내는 사람 이름을 적습니다.
+              </W.BallonBottom1>
+            ) : (
+              <></>
+            )
           ) : (
             <></>
           )}

@@ -183,9 +183,9 @@ export const FONT_STYLE_V1 = {
 };
 export const FONT_STYLE_LOGO = {
   title: {
-    title_25_medium: css`
+    title_35_medium: css`
       font-family: "Sriracha";
-      font-size: 2.5rem;
+      font-size: 3.5rem;
       color: black;
       line-height: 2rem;
     `,
@@ -299,6 +299,13 @@ export const FONT_STYLE_CONTENT = {
     line-height: 2rem;
     text-align: justify;
   `,
+  pixel_18: css`
+    font-family: "DOSSaemmul";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
+  `,
   gangwonedu_10_light: css`
     font-family: "GangwonEdu_Light";
     font-size: 1rem;
@@ -306,9 +313,23 @@ export const FONT_STYLE_CONTENT = {
     line-height: 2rem;
     text-align: justify;
   `,
+  gangwonedu_18_light: css`
+    font-family: "GangwonEdu_Light";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
+  `,
   gangwonedu_10_bold: css`
     font-family: "GangwonEdu_Bold";
     font-size: 1rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
+  `,
+  gangwonedu_18_bold: css`
+    font-family: "GangwonEdu_Bold";
+    font-size: 1.8rem;
     color: ${PALETTE_V1.text_primary};
     line-height: 2rem;
     text-align: justify;
