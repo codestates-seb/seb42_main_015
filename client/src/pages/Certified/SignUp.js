@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import * as S from "./FormStyled";
 import axios from "axios";
+import { headers } from "./FormSchema";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -47,20 +48,14 @@ function SignUp() {
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
 
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-    "ngrok-skip-browser-warning": "12",
-  };
-
   //sign up 제출 버튼
   const onSubmit = async (data) => {
     const { email, username, password } = data;
 
-    // if (!nameValid || !emailValid) {
-    //   alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
-    //   return;
-    // }
+    if (!nameValid || !emailValid) {
+      alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
+      return;
+    }
 
     await axios
       .post(
