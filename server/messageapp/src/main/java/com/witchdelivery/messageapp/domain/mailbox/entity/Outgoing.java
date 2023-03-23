@@ -29,7 +29,7 @@ public class Outgoing extends BaseTime { // 발신 (보내는 사람)
     @JoinColumn(name = "MESSAGE_ID")
     private Message message; // FK 편지식별번호
 
-    private String outgoingNickname; // 발신자 (보내는 사람) 닉네임
+    private String toName; // 받는사람 닉네임 (편지테이블의 toName)
 
     private String content; // 편지 내용
 

@@ -22,12 +22,20 @@ public class Receiving extends BaseTime { // 수신(받는 사람)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long receivingId; // PK 수신식별번호
 
-    @Column() // (nullable = false)
-    private Long toId; // 보내는사람식별번호
+//    @Column() // (nullable = false)
+//    private Long toId; // 보내는사람식별번호
 
     @ManyToOne
     @JoinColumn(name = "MESSAGE_ID")
     private Message message; // FK 편지식별번호
+
+    private String outgoingNickname; // 발신자 (보내는 사람) 닉네임
+
+    private String content; // 편지 내용
+
+    private LocalDateTime messageCreatedAt; // 편지 생성날짜
+
+    private boolean bookMark; // 북마크 여부
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")

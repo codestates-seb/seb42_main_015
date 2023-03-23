@@ -42,7 +42,7 @@ public class MessageController {
 
     @PatchMapping("/saved/{message-id}")
     public ResponseEntity updateMessageSaved(@PathVariable("message-id") Long messageId, @RequestBody MessagePatchDto messagePatchDto) {
-        messageService.updatedMessageSaved(messageId, messagePatchDto.isMessageSaved());
+        messageService.updatedMessageSaved(messageId, messagePatchDto.isMessageSaved(), messagePatchDto.getMemberId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
