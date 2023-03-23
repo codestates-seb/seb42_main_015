@@ -427,11 +427,6 @@ export const BallonBottom1 = styled.div`
   background-position: bottom;
   max-width: 100%;
   min-width: 280px;
-  &#ballon4 {
-    max-width: 280px;
-    bottom: 50px;
-    right: -170px;
-  }
   &#ballon6 {
     padding: 40px 15px;
     padding-bottom: 25px;
@@ -439,11 +434,11 @@ export const BallonBottom1 = styled.div`
     left: -40px;
   }
   &#ballon7 {
-    padding: 10px 20px 28px;
+    padding: 10px 0px 25px 20px;
     padding-top: 25px;
     top: -80px;
-    right: 10px;
-    max-width: 280px;
+    right: 00px;
+    max-width: 300px;
   }
   &.stt-button {
     top: -65px;
@@ -467,10 +462,11 @@ export const BallonBottom2 = styled.div`
   background-position: bottom;
   max-width: 100%;
   min-width: 280px;
-  &#ballon5 {
-    max-width: 280px;
-    bottom: 50px;
-    right: 20px;
+  &.make-letter-button {
+    padding: 20px 10px 27px 20px;
+    top: -80px;
+    left: -130px;
+    min-width: 300px;
   }
   @media screen and (min-width: 1024px) {
     font-size: 17px;
@@ -500,13 +496,6 @@ export const BallonWrapper = styled.div`
   &.from-wrapper {
     width: 50%;
   }
-  /* @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    &#from-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-    }
-  } */
 `;
 export const ButtonContainer = styled.div`
   max-height: 218px;
@@ -527,7 +516,7 @@ export const ModalWrapper = styled.div`
   }
 `;
 export const ModalTitle = styled.div`
-  ${FONT_STYLE_V1.title.title_14_medium}
+  ${FONT_STYLE_V1.title.title_25_medium}
   padding-top: 5px;
   padding-bottom: 30px;
 `;
@@ -553,6 +542,9 @@ export const TimeBoxWrapper = styled.div`
   }
   .react-datepicker-popper {
     width: 250px;
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      width: 200px;
+    }
   }
   .react-datepicker {
     width: 100%;
@@ -581,9 +573,9 @@ export const TimeBoxWrapper = styled.div`
   }
   .react-datepicker__day-name,
   .react-datepicker__day {
-    width: 2.3rem;
-    line-height: 2.3rem;
-    margin: 0.2rem;
+    width: 2.5rem;
+    line-height: 2.5rem;
+    margin: 0.3rem;
   }
   .react-datepicker__month {
     ${FONT_STYLE_V1.body.body_18_light}

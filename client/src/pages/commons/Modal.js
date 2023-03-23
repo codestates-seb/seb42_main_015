@@ -14,24 +14,36 @@ const ModalBack = styled.div`
   z-index: 300;
   justify-content: center;
   align-items: center;
-  min-width: 963px;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
 `;
 const ModalContainer = styled.div`
   position: absolute;
   background-color: #ffffff;
-  width: ${(props) => props.ContainerWidth || "400px"};
+  width: ${(props) => props.ContainerWidth || "40%"};
   height: ${(props) => props.ContainerHeight || "600px"};
   border: 2px solid ${PALETTE_V1.text_primary};
   z-index: 400;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    top: 30%;
-    left: 10%;
+    width: 70%;
+    min-width: 218px;
   }
 `;
 const ModalHeader = styled.div`
   position: relative;
   border-bottom: 2px solid ${PALETTE_V1.text_primary};
-  height: 2.1rem;
+  height: 3rem;
 `;
 const CircleWrapper = styled.div`
   width: 20%;
