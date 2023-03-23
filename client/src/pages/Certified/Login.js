@@ -5,6 +5,7 @@ import * as yup from "yup";
 import * as L from "./FormStyled";
 import axios from "axios";
 import { setCookie, getCookie } from "./Cookie";
+import { useEffect } from "react";
 
 function Login() {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ function Login() {
     "ngrok-skip-browser-warning": "12",
   };
 
-  //로그인 제출 버튼
+  //TODO :로그인 제출 버튼
   const onSubmit = async (data) => {
     const { email, password } = data;
     await axios
@@ -67,13 +68,29 @@ function Login() {
           );
           console.log("accesstoken", getCookie("accesstoken"));
           console.log("refreshToken", localStorage.getItem("refreshToken"));
-          navigate("/");
+          // navigate("/");
         }
       })
       .catch((err) => {
         console.log(err);
         alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
       });
+  };
+
+  //TODO : OAUTH 로그인 제출 버튼
+  const oauthURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=972730796553-kmbi1dbe3h5u0qvqbh1b8mic4mhalvrt.apps.googleusercontent.com&
+response_type=token&
+redirect_uri=http://localhost:3000&
+scope=https://www.googleapis.com/auth/userinfo.email`;
+
+  const oauthHandler = () => {
+    window.location.assign(oauthURL);
+  };
+
+  const oauthLogin = async () => {
+    const url = new URL(window.location.href);
+    const hash = url.hash;
+    console.log(hash);
   };
 
   return (
