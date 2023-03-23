@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
-import SignUp from "./pages/Certified/Signup";
+import SignUp from "./pages/Certified/SignUp";
 import Login from "./pages/Certified/Login";
 import CompleteLogout from "./pages/Certified/CompleteLogout";
 import Main from "./pages/Main/Main";
