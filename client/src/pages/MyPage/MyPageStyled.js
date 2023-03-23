@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { PALETTE_MYPAGE, PALETTE_V1 } from "../../style/color";
+import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 import sendme from "../../asset/myPage-sendme.png";
 import pwd from "../../asset/pwd.png";
@@ -21,17 +21,23 @@ export const GNBWrapper = styled.div`
   justify-content: space-around;
   padding-left: 80px;
   padding-bottom: 50px;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
     padding-left: 10vw;
     width: 70vw;
   }
-  @media screen and (max-width: 645px) {
+  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: 645px) {
     padding-left: 64.5px;
     width: 452.5px;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    width: 200px;
   }
 `;
 export const GNBMenu = styled.div`
   ${FONT_STYLE_V1.title.title_12_medium}
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 2px solid ${PALETTE_V1.text_primary};
   border-top: none;
   background-color: #ffffff;
@@ -45,6 +51,19 @@ export const GNBMenu = styled.div`
     background-color: ${PALETTE_V1.yellow_primary};
     padding-top: 1rem;
     height: 50px;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    ${FONT_STYLE_V1.title.title_8_medium}
+    border: 1px solid ${PALETTE_V1.text_primary};
+    border-top: none;
+    max-width: 80px;
+    min-width: 80px;
+    max-height: 30px;
+    &.active {
+      background-color: ${PALETTE_V1.yellow_primary};
+      padding-top: 1rem;
+      max-height: 40px;
+    }
   }
 `;
 export const FlexWrapper3 = styled.div`
@@ -63,7 +82,7 @@ export const UserInfoCard = styled.div`
   box-shadow: 15px 15px ${PALETTE_V1.yellow_primary},
     17px 17px ${PALETTE_V1.text_primary}, 13px 17px ${PALETTE_V1.text_primary},
     17px 13px ${PALETTE_V1.text_primary};
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
     max-width: 500px;
     min-width: 500px;
     max-height: 160px;
@@ -82,7 +101,7 @@ export const UserImage = styled.img`
   width: 130px;
   height: 130px;
   margin-bottom: 5px;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
     max-width: 100px;
     min-width: 100px;
     max-height: 100px;
@@ -132,7 +151,7 @@ export const EditButton = styled.div`
   right: -14px;
   bottom: -5px;
   cursor: pointer;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
     bottom: -13px;
   }
 `;
@@ -143,7 +162,7 @@ export const Sticker = styled.img.attrs({ src: `${sendme}` })`
   bottom: -80px;
   right: -100px;
   transform: rotate(-40deg);
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 170px;
     bottom: -70px;
   }

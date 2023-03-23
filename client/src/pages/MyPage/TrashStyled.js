@@ -18,7 +18,6 @@ export const TrashTable = styled.div`
 `;
 
 export const TrashTableMenu = styled.div`
-  /* position: fixed; */
   width: 80vw;
   height: 40px;
   border-top: 2px solid black;

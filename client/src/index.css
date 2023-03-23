@@ -109,3 +109,9 @@ body {
   background-color: #fcfbf4;
   position: relative;
 }
+html,
+body {
+  font-size: 62.5%;
+  line-height: 1.285;
+}
+/* 1.6rem === 16px */

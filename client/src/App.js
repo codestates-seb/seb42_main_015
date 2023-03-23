@@ -14,6 +14,7 @@ import Layout from "./components/Layout";
 import PwdChange from "./pages/MyPage/PwdChange";
 import Trash from "./pages/MyPage/TrashList";
 import CompleteSignup from "./pages/Certified/CompleteSignup";
+import Preview from "./pages/WriteLetter/Preview";
 // ! 공백
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -41,6 +42,7 @@ function App() {
             element={<ReadLetter isLogin={isLogin} />}
           />
           <Route path="/completeSignup" element={<CompleteSignup />} />
+          <Route path="/writeletter/preview" element={<Preview />} />
         </Route>
       </Routes>
     </BrowserRouter>
