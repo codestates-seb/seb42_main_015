@@ -110,6 +110,16 @@ export const FONT_STYLE_V1 = {
       font-size: 1.2rem;
       color: ${PALETTE_V1.text_primary};
     `,
+    body_13_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 1.3rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_14_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 1.4rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
     body_15_light: css`
       font-family: "Pretendard-Light";
       font-size: 1.5rem;

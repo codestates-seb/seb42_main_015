@@ -122,9 +122,12 @@ function LetterContent({
           )}
         </W.BallonWrapper>
         {sendMeChecked ? (
-          <span>{`${startDate.getFullYear()}/${
-            startDate.getMonth() + 1
-          }/${startDate.getDate()} ${startDate.getHours()}:${startDate.getMinutes()}`}</span>
+          <span>{`${startDate.getFullYear()}/${(
+            "00" +
+            (startDate.getMonth() + 1)
+          ).slice(-2)}/${("00" + startDate.getDate()).slice(-2)} ${(
+            "00" + startDate.getHours()
+          ).slice(-2)}:${("00" + startDate.getMinutes()).slice(-2)}`}</span>
         ) : (
           <></>
         )}

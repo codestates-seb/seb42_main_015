@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { BREAKPOINTMOBILE2 } from "../../breakpoint";
+import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
 import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 
@@ -25,6 +25,12 @@ const StyledButton = styled.button`
     transform: translate(3px, 3px);
     transition: transform 0s linear;
   }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    font-size: 15px;
+    min-width: 90px;
+    width: 90px;
+    height: 35px;
+  }
   @media screen and (max-width: 540px) {
     font-size: 15px;
     min-width: 80px;
@@ -46,6 +52,13 @@ const StyledShadow = styled.div`
   top: 5px;
   right: 5px;
   z-index: 50;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    min-width: 90px;
+    width: 90px;
+    height: 35px;
+    top: 4px;
+    right: 6px;
+  }
   @media screen and (max-width: 540px) {
     min-width: 80px;
     width: 80px;

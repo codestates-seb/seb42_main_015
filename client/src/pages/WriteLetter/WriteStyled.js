@@ -31,10 +31,6 @@ export const PageContainer = styled.div`
   display: flex;
   justify-content: center;
   overflow-x: none;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-  }
-  @media screen and (min-width: ${BREAKPOINTTABLET}px) {
-  }
 `;
 export const FlexRowWrapper = styled.div`
   display: flex;
@@ -43,10 +39,12 @@ export const FlexRowWrapper = styled.div`
     align-items: center;
   }
   &.URL-wrapper {
+    ${FONT_STYLE_V1.body.body_15_light}
     justify-content: space-between;
     align-items: center;
   }
   &.button-wrapper {
+    width: 100%;
     justify-content: flex-end;
   }
   #necessity {
@@ -59,6 +57,23 @@ export const FlexRowWrapper = styled.div`
     justify-content: space-evenly;
     align-items: center;
   }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    .check-button {
+      position: absolute;
+      top: 132px;
+      left: 135px;
+      min-width: 50px;
+      width: 50px;
+      height: 25px;
+    }
+    &.URL-input {
+      flex-direction: column;
+    }
+    &.button-wrapper {
+      width: 100%;
+      justify-content: space-evenly;
+    }
+  }
 `;
 export const FlexColunmWrapper = styled.div`
   display: flex;
@@ -67,7 +82,7 @@ export const FlexColunmWrapper = styled.div`
     align-items: center;
   }
   &.letter {
-    width: 70%;
+    width: 75%;
   }
 `;
 export const FlexWrapper2 = styled(FlexRowWrapper)`
@@ -233,9 +248,6 @@ export const NameInput = styled.input`
   &:focus {
     outline: none;
   }
-  /* @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    ${FONT_STYLE_V1.body.body_9_light}
-  } */
 `;
 export const Text = styled.div`
   ${FONT_STYLE_V1.body.body_20_light}
@@ -265,14 +277,6 @@ export const SendMeCheckBox = styled.div`
     content: "";
     background-color: rgb(255, 228, 157);
   }
-  /* @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    &::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border: 1px solid ${PALETTE_V1.text_primary};
-    }
-  } */
 `;
 export const SendMeLabel = styled.div`
   ${FONT_STYLE_V1.body.body_18_light}
@@ -315,7 +319,7 @@ export const TextCount = styled.div`
 export const ButtonWrapper = styled(FlexRowWrapper)`
   align-items: center;
   justify-content: flex-end;
-  padding-top: 5%;
+  padding-top: 2%;
   padding-bottom: 5%;
   width: 100%;
   .question-icon {
@@ -503,22 +507,22 @@ export const ButtonContainer = styled.div`
 export const ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 20px;
-  height: 90%;
+  padding: 4%;
   &.make-letter {
     justify-content: space-around;
     padding-left: 30px;
     padding-right: 30px;
     height: 95%;
   }
-  .make-letter-wrapper {
-    padding-top: 20px;
-  }
 `;
 export const ModalTitle = styled.div`
   ${FONT_STYLE_V1.title.title_25_medium}
   padding-top: 5px;
-  padding-bottom: 30px;
+  padding-bottom: 5%;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
 `;
 export const TimeBoxWrapper = styled.div`
   ${FONT_STYLE_V1.body.body_22_light}
@@ -533,7 +537,7 @@ export const TimeBoxWrapper = styled.div`
     border-radius: 0;
     margin-right: 10px;
     padding: 3px 8px;
-    height: 34.176px;
+    min-height: 34.176px;
     display: flex;
     align-items: center;
     #calendar-icon {
@@ -649,19 +653,20 @@ export const FontEl = styled.li`
   }
 `;
 export const Label = styled.label`
-  ${FONT_STYLE_V1.title.title_14_medium}
+  ${FONT_STYLE_V1.title.title_18_medium}
 `;
 export const MakeLetterInput = styled.input`
+  ${FONT_STYLE_V1.body.body_15_light}
   border: none;
   border-bottom: 1px solid ${PALETTE_V1.text_primary};
   height: 2.3rem;
-  width: 8rem;
+  width: 10rem;
   background-image: url(${(props) => props.backgroundImg});
   background-size: 18px;
   background-repeat: no-repeat;
   background-position: left center;
   margin-top: 3px;
-  padding: 0rem 25px;
+  padding-left: 25px;
   &:focus {
     outline: none;
     background-color: ${PALETTE_V1.yellow_light};
@@ -669,6 +674,14 @@ export const MakeLetterInput = styled.input`
   &.URL-input {
     padding: 0 5px;
     margin-right: 18px;
+  }
+  &.password-input {
+    width: 9rem;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    &.password-input {
+      background-size: 14px;
+    }
   }
 `;
 export const UploadBox = styled.div`
@@ -684,12 +697,13 @@ export const UploadBox = styled.div`
     align-items: center;
     justify-content: space-between;
     border: 2px dashed ${PALETTE_V1.text_primary};
+    margin-top: 1%;
     .image {
       width: 40px;
       height: 40px;
     }
     .message {
-      ${FONT_STYLE_V1.body.body_10_light}
+      ${FONT_STYLE_V1.body.body_15_light}
     }
     .preview-container {
       position: relative;
@@ -713,12 +727,17 @@ export const UploadBox = styled.div`
     }
   }
   .file-label {
-    ${FONT_STYLE_V1.body.body_10_light}
+    ${FONT_STYLE_V1.body.body_13_light}
     border: 2px solid ${PALETTE_V1.text_primary};
     border-radius: 0px;
     background-color: #d9d9d9;
     padding: 4px 6px;
     margin-top: 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: #989898;
+      color: #ffffff;
+    }
   }
   .file {
     display: none;

@@ -45,7 +45,7 @@ function MyPage() {
         <M.FlexWrapper3>
           <M.StickerWrapper>
             <M.Sticker></M.Sticker>
-            <M.UserInfoCard>
+            <M.UserInfoCard className="userinfo-card">
               <M.FlexWrapper2>
                 <M.UserImage></M.UserImage>
                 <M.EditButton>
