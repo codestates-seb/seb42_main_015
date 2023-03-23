@@ -5,14 +5,14 @@ import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
 
 export const PwdChangeWrap = styled.div`
   width: 100%;
-  min-height: 85vh;
   display: flex;
   flex-direction: column;
-
-  ${FONT_STYLE_V1.title.title_14_medium}
+  ${FONT_STYLE_V1.title.title_16_medium}
 `;
 
 export const PwdChangeContainer = styled.div`
+  width: 100%;
+  min-height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,8 +28,8 @@ export const CardBox = styled.div`
   margin-left: 1rem;
   z-index: -1;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 20rem;
-    height: 32rem;
+    width: 30rem;
+    height: 42rem;
   }
 `;
 
@@ -48,11 +48,11 @@ export const PwdChangeContents = styled.div`
     position: absolute;
     bottom: 20px;
     right: 20px;
-    font-size: 2rem;
+    font-size: 3rem;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 20rem;
-    height: 32rem;
+    width: 30rem;
+    height: 42rem;
   }
 `;
 
@@ -62,6 +62,7 @@ export const UserBox = styled.div`
   display: flex;
   align-items: center;
   padding-left: 1rem;
+  padding-top: 1rem;
 `;
 
 export const UserImg = styled.img`
@@ -69,16 +70,20 @@ export const UserImg = styled.img`
   height: 40px;
   border: 1px solid #ccc;
   border-radius: 50%;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 30px;
+    height: 30px;
+  }
 `;
 
 export const UserName = styled.span`
-  ${FONT_STYLE_V1.title.title_10_medium}
+  ${FONT_STYLE_V1.title.title_16_medium}
   margin-left: 1rem;
 `;
 
 export const PwdBox = styled.div`
   width: 100%;
-  height: 35rem;
+  height: 37rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -90,18 +95,16 @@ export const PwdChangeTitle = styled.div`
   color: white;
   margin-top: -5rem;
   padding-bottom: 1rem;
+  margin-top: 1rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    font-size: 3.5rem;
+    margin-top: 5rem;
   }
 `;
 
 export const Explain = styled.p`
-  ${FONT_STYLE_V1.body.body_12_light}
+  ${FONT_STYLE_V1.body.body_16_light}
   margin-bottom: 2rem;
   text-align: center;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    font-size: 1rem;
-  }
 `;
 
 export const InputContainer = styled.div`
@@ -116,7 +119,7 @@ export const InputContainer = styled.div`
 `;
 
 export const ErrorMsg = styled.div`
-  ${FONT_STYLE_V1.body.body_8_light}
+  ${FONT_STYLE_V1.body.body_10_light}
   color: red;
   text-align: center;
 `;
@@ -135,10 +138,6 @@ export const PwdInput = styled.input`
   outline: none;
   border: none;
   margin-left: 1rem;
-  font-size: 1.2rem;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    font-size: 1rem;
-  }
 `;
 
 export const PwdLabel = styled.label`
@@ -160,6 +159,11 @@ export const Button = styled.button`
   height: 40px;
   background-color: transparent;
   border: 1px solid black;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 80px;
+    height: 30px;
+    margin-top: 1rem;
+  }
 `;
 
 export const SuccessWrap = styled.div`
@@ -171,8 +175,8 @@ export const SuccessWrap = styled.div`
   margin-bottom: 2.5rem;
   display: flex;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 20rem;
-    height: 32rem;
+    width: 30rem;
+    height: 42rem;
   }
 `;
 
@@ -274,9 +278,6 @@ export const SuccessImg = styled.img`
 
 export const SuccessTitle = styled.div`
   ${FONT_STYLE_V1.title.title_30_medium}
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    font-size: 2rem;
-  }
 `;
 
 export const SuccessContent = styled.div`
@@ -285,15 +286,4 @@ export const SuccessContent = styled.div`
   line-height: 1.5;
   margin-top: 2rem;
   margin-bottom: 3.5rem;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    font-size: 1.2rem;
-  }
-`;
-
-export const SuccessButton = styled.button`
-  ${FONT_STYLE_V1.body.body_12_light}
-  padding: 0.5rem 3rem;
-  background-color: ${PALETTE_V1.background};
-  border: 1px solid black;
-  cursor: pointer;
 `;
