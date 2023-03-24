@@ -16,6 +16,17 @@ spring:
     multipart:
       max-file-size: 5MB # 단일 파일 업로드 용량 제한, default : 1mb
       max-request-size: 5MB  # 모든 파일 업로드 용량 제한, default : 1mb
+  mail:
+    host: smtp.gmail.com  # SMTP 서버 호스트, 일일 전송 제한 100개
+    port: 587 # SMTP 서버 포트
+    username: ${mail.username}  # SMTP 서버 로그인 아이디
+    password: ${mail.password}  # SMTP 서버 로그인 패스워드
+    properties:
+      mail:
+        smtp:
+          auth: true  # Socket Read Timeout 시간(ms), default : infinity
+          starttls:
+            enable: true  # StartTLS 활성화 여부, default : false
   redis:
     host: localhost
     port: 6379
@@ -30,7 +41,7 @@ spring:
             redirect-uri: http://localhost:3000/login/oauth2/code/google
 mail:
   address:
-    admin: admin@gmail.com  # 관리자 권한
+    admin: admin@gmail.com  # 관리자 권한 계정
 jwt:
   key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30
