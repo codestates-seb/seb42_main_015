@@ -99,16 +99,16 @@ export const UserImage = styled.img`
   background-color: pink;
   border: 1px solid ${PALETTE_V1.text_primary};
   border-radius: 50%;
-  width: 85%;
-  height: 85%;
+  width: 60%;
   margin-bottom: 5px;
+  aspect-ratio: 1 / 1;
 `;
 export const UserInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 70%;
   height: 80%;
-  min-width: 170px;
+  /* min-width: 170px; */
   border-left: 2px solid ${PALETTE_V1.text_primary};
 `;
 export const UserName = styled.div`
