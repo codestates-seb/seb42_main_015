@@ -20,12 +20,19 @@ function LetterBox() {
   const [select, setSelect] = useState(false);
   const [trash, setTrash] = useState(false);
   const [isSend, setIsSend] = useState(false);
-
-  const tabItem = ["최신순", "오래된 순", "북마크"];
   const [yearL, setYearL] = useState(2023);
   const [monthL, setMonthL] = useState(1);
   const [yearR, setYearR] = useState(2023);
   const [monthR, setMonthR] = useState(1);
+  const tabItem = ["최신순", "오래된 순", "북마크"];
+
+  useEffect(() => {
+    axios.get("/api/sendy/mailbox/messages/out", {
+      headers: { "ngrok-skip-browser-warning": "230324" },
+    })
+      .then((res) => console.log(res.data.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleMonthLUp = () => {
     if (+monthL > 0 && +monthL < 12) {
@@ -72,14 +79,6 @@ function LetterBox() {
     setTrash(!trash);
     setSelect(!select);
   };
-
-  useEffect(() => {
-    axios.get("/api/sendy/mailbox/messages/out", {
-      headers: { "ngrok-skip-browser-warning": "230324" },
-    })
-      .then((res) => console.log(res.data.data))
-      .catch((err) => console.log(err));
-  }, []);
 
   return (
     <L.LetterBoxWrap>
