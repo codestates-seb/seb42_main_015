@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import * as M from "../MyPage/MyPageStyled";
 import * as W from "./WriteStyled";
 import keyIcon from "../../asset/key.png";
 import RoundButton from "../commons/RoundButton";
@@ -8,7 +7,7 @@ import { FONT_STYLE_V1 } from "../../style/fontStyle";
 import { PALETTE_V1 } from "../../style/color";
 import addImage from "../../asset/add-image.png";
 import { BiX } from "react-icons/bi";
-import { tuple } from "yup";
+import axiosCall from "../../util/axiosCall";
 
 function MakeLetter({ makeLetterModalRef }) {
   const [dragOver, setDragOver] = useState(false);
@@ -94,7 +93,7 @@ function MakeLetter({ makeLetterModalRef }) {
         </W.FlexRowWrapper>
         <W.FlexRowWrapper className="URL-wrapper">
           <W.FlexRowWrapper className="align-items URL-input">
-            <div>https:/sendy/letter/</div>
+            <div>https://www.sendy.site/letter</div>
             <W.MakeLetterInput className="URL-input"></W.MakeLetterInput>
           </W.FlexRowWrapper>
           <RoundButton
