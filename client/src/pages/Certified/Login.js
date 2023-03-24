@@ -101,7 +101,7 @@ function Login() {
               />
 
               <div className="sub-form ">
-                <Link to="/setpwd">
+                <Link to="/setpwd/1">
                   <li>forget Password</li>
                 </Link>
                 <Link to="/signup">

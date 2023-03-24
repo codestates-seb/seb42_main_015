@@ -10,7 +10,7 @@ import ShadowButton from "../commons/ShadowButton";
 
 function SetPwd() {
   const navigate = useNavigate();
-  const [next, setNext] = useState(2);
+  const [next, setNext] = useState(1);
   const { page } = useParams();
   const handleNext = () => {
     setNext(next + 1);
@@ -54,7 +54,7 @@ function SetPwd() {
       {page !== "4" && (
         <C.SetPwdContainer>
           <C.LeftBox>
-            {page === undefined && (
+            {page === "1" && (
               <C.Text>
                 비밀번호 변경을 위해 <br /> 이메일 인증이 필요합니다.
               </C.Text>
@@ -68,7 +68,7 @@ function SetPwd() {
           </C.LeftBox>
           <C.RightBox>
             <C.SetPwdTitle>Password</C.SetPwdTitle>
-            {page === undefined && (
+            {page === "1" && (
               <C.InputWrap>
                 <C.EmailLabel>Email</C.EmailLabel>
                 <C.EmailInputForm onSubmit={handleSubmit(onSubmit)}>
