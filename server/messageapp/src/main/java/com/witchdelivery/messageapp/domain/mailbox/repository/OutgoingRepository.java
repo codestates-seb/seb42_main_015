@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OutgoingRepository extends JpaRepository<Outgoing, Long> { // 발신 (보내는 사람)
 
-    Page<Outgoing> findAllByOrderByOutgoingIdDesc(Pageable pageable);   // 페이지네이션 추가
+      Page<Outgoing> findAllByMember_MemberIdAndOutgoingStatusOrderByCreatedAtDesc(Long memberId, Outgoing.OutgoingStatus outgoingStatus, Pageable pageable);
+
 }

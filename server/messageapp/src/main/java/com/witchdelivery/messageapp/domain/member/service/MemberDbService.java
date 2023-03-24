@@ -45,4 +45,11 @@ public class MemberDbService {
         if (member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_NAME_EXISTS);    // 409
     }
+
+    public Member findMemberByEmail(String email) {        // 프론트와 문제 사항으로 추가 한 코드.
+        return memberRepository.findByEmail(email)
+                .orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+    }
+
+
 }

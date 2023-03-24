@@ -28,9 +28,7 @@ public class Message extends BaseTime {
     private String content; // 편지 내용
     @Column(nullable = true)
     private Long password;   // 편지 비밀번호
-    @Convert(converter = BooleanToYNConverter.class)
     private boolean messageSaved;          // 편지 저장 여부
-    @Convert(converter = BooleanToYNConverter.class)           // Boolean 값을 DB에서 Y 또는 N으로 컨버트 하는 기능
     private boolean bookMark;                // 북마크 여부
 
     @ManyToOne

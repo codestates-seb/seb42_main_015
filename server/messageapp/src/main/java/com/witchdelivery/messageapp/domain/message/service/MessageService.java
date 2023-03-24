@@ -6,7 +6,6 @@ import com.witchdelivery.messageapp.domain.mailbox.service.OutgoingService;
 import com.witchdelivery.messageapp.domain.mailbox.service.ReceivingService;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.domain.member.service.MemberDbService;
-import com.witchdelivery.messageapp.domain.member.service.MemberService;
 import com.witchdelivery.messageapp.domain.message.repository.MessageRepository;
 import com.witchdelivery.messageapp.global.exception.BusinessLogicException;
 import com.witchdelivery.messageapp.global.exception.ExceptionCode;
@@ -36,6 +35,7 @@ public class MessageService {
 
     public void updatedMessageSaved(Long messageId, boolean messageSaved, long memberId) {
         Message message = findVerifiedMessage(messageId);
+//        message.setMessageSaved(messageSaved);    // true 0r false.  추후 리팩토링
         message.setMessageSaved(true);
         Message savedMessage = messageRepository.save(message);
 
@@ -44,9 +44,6 @@ public class MessageService {
         receivingService.createReceiving(receiving);
     }
 
-    public Message findMessage(long messageId) {
-        return findVerifiedMessage(messageId);
-    }
 
     public Page<Message> findAllMessages(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
@@ -58,13 +55,6 @@ public class MessageService {
         return optionalMessage.orElseThrow(()-> new BusinessLogicException(ExceptionCode.MESSAGE_NOT_FOUND));
     }
 
-    public Message findMessageByUrlName(Long messageId, String urlName) {
-        Message message = findVerifiedMessage(messageId);
-        if (!urlName.equals(message.getUrlName())) {
-            throw new BusinessLogicException(ExceptionCode.MESSAGE_NOT_FOUND);
-        }
-        return message;
-    }
 
     public void deleteMessage(Long messageId) {
         Message message = findVerifiedMessage(messageId);
@@ -100,5 +90,14 @@ public class MessageService {
         receiving.setContent(content); // 70자 미리보기
         receiving.setMessageCreatedAt(savedMessage.getCreatedAt());
         return receiving;
+    }
+
+    public Message findMessageByUrlName(String urlName) {              //   프론트와 문제 사항으로 추가 한 코드. urlName으로 메세지 찾기
+        return messageRepository.findByUrlName(urlName)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MESSAGE_NOT_FOUND));
+    }
+
+    public boolean urlNameExists(String urlName) {                    // DB에서 urlName 중복 검사
+        return messageRepository.findByUrlName(urlName).isPresent();
     }
 }
