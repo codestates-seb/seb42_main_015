@@ -21,6 +21,7 @@ function WriteLetter() {
   const [openSendMe, setOpenSendMe] = useState(false);
   const [activeIcon, setActiveIcon] = useState("");
   const [openMakeLetter, setOpenMakeLetter] = useState(false);
+  const [isContentVaild, setIsContentVaild] = useState(false);
   const [startDate, setStartDate] = useState(
     new Date(
       new Date().getFullYear(),
@@ -270,6 +271,7 @@ function WriteLetter() {
                 resetTranscript={resetTranscript}
                 currentLetterTheme={currentLetterTheme}
                 browserSize={browserSize}
+                setIsContentVaild={setIsContentVaild}
               />
               <W.BallonWrapper>
                 <W.TextCount>{contentLength}/7000</W.TextCount>
