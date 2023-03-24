@@ -50,6 +50,4 @@ public class MemberDbService {
         return memberRepository.findByEmail(email)
                 .orElseThrow(()-> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
-
-
 }

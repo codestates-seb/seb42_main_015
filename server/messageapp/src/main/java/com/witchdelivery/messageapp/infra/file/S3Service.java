@@ -25,7 +25,7 @@ public class S3Service {
      * @return
      * @throws IOException
      */
-    public S3File s3ImageUpload(MultipartFile multipartFile, String dir) throws IOException {
+    public S3Dto s3ImageUpload(MultipartFile multipartFile, String dir) throws IOException {
 
         findVerifiedFile(multipartFile);    // 파일 검증
         verifiedExistedFile(multipartFile); // 용량 검증
@@ -37,22 +37,22 @@ public class S3Service {
 
         amazonS3Client.putObject(s3BucketName, dir + "/" + s3FileName, multipartFile.getInputStream(), objectMetadata);
 
-        S3File s3File = S3File.builder()
+        S3Dto s3Dto = S3Dto.builder()
                 .originFileName(multipartFile.getOriginalFilename())
                 .fileName(s3FileName)
                 .filePath(amazonS3Client.getUrl(s3BucketName, dir + "/" + s3FileName).toString())
                 .fileSize(multipartFile.getSize())
                 .build();
 
-        return s3File;
+        return s3Dto;
     }
 
     /**
      * 단일 파일 S3 삭제 메서드
      * @param s3FileName
      */
-    public void deleteS3(String s3FileName) {
-        amazonS3Client.deleteObject(new DeleteObjectRequest(s3BucketName, s3FileName));
+    public void s3ImageDelete(String s3FileName, String dir) {
+        amazonS3Client.deleteObject(new DeleteObjectRequest(s3BucketName, dir + "/" + s3FileName));
     }
 
 
@@ -69,7 +69,6 @@ public class S3Service {
      * 파일 용량 검증 메서드
      * @param multipartFile
      */
-    // FIXME 현재 미사용 메서드
     private void verifiedExistedFile(MultipartFile multipartFile) {
         if (multipartFile.getSize() > 1024 * 1024 * 4)
             throw new BusinessLogicException(ExceptionCode.FILE_SIZE_EXCEEDED); // 400
