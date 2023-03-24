@@ -25,7 +25,7 @@ export const BackgroundYellow = styled.div`
   background: #fff59f;
   margin: 1rem 0rem 0rem 2rem;
   width: 60rem;
-  height: ${(props) => (props.theme === "login" ? "40rem" : "41rem")};
+  height: ${(props) => (props.theme === "login" ? "40rem" : "45rem")};
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: ${(props) => (props.theme === "login" ? "29rem" : "31rem")};
     height: ${(props) => (props.theme === "login" ? "45rem" : "51rem")};
@@ -37,7 +37,7 @@ export const LogForm = styled.form`
   position: absolute;
   display: flex;
   width: 60rem;
-  height: ${(props) => (props.theme === "login" ? "41rem" : "42rem")};
+  height: ${(props) => (props.theme === "login" ? "41rem" : "45rem")};
   background-color: #fff;
   border: 1px solid black;
   margin-bottom: 2rem;
@@ -47,10 +47,9 @@ export const LogForm = styled.form`
   }
   .formLeft {
     flex-grow: 1;
+    /* width: 450px; */
     border-right: 1px solid #000;
-    /* margin-right: ${(props) =>
-      props.theme === "login" ? "0rem" : "1rem"}; */
-    padding: 10px 30px 30px;
+    padding: 10px 20px 20px;
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       border-right: 0px solid #000;
       font-size: 2rem;
@@ -63,9 +62,9 @@ export const LogForm = styled.form`
       justify-content: center;
 
       .loginText {
-        ${FONT_STYLE_LOGIN.title.title_42_medium}
+        ${FONT_STYLE_LOGIN.title.title_37_medium}
         margin: ${(props) =>
-          props.theme === "login" ? "1.7rem 0px 4rem" : "1rem 0px 2rem"};
+          props.theme === "login" ? "1.7rem 0px 4rem" : "0rem 0px 1.5rem"};
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           font-size: 3.8rem;
           margin: ${(props) =>
@@ -73,9 +72,8 @@ export const LogForm = styled.form`
         }
       }
       input {
-        width: 23rem;
-        height: 2.3rem;
-        height: 3rem;
+        width: 25rem;
+        height: 3.2rem;
         margin-bottom: ${(props) =>
           props.theme === "login" ? "3.5rem" : "2rem"};
         margin-top: 0.5rem;
@@ -88,6 +86,16 @@ export const LogForm = styled.form`
         background-position: left;
         background-size: 1.5rem;
         font-size: clamp(0.6rem, 3vw, 1rem);
+        -webkit-appearance: none;
+        /* 추가 */
+        /* height: 30px; */
+        /* width: 350px; */
+        /* background-color: rgb(251, 251, 251); */
+        /* border: 1px solid rgb(220, 220, 220); */
+        border-radius: 4px;
+        font-size: 12px;
+
+        -webkit-border-radius: 0;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           margin-bottom: ${(props) =>
             props.theme === "login" ? "3.5rem" : "2.2rem"};
@@ -116,14 +124,15 @@ export const LogForm = styled.form`
         }
       }
       p {
+        display: flex;
+        justify-content: flex-start;
         color: red;
         margin-top: ${(props) =>
           props.theme === "login" ? "-2.6rem;" : "-1.6rem;"};
         margin-bottom: ${(props) =>
           props.theme === "login" ? "0.5rem;" : "0.1rem;"};
-        padding: 0 7px;
+        padding: 1px 10px;
         font-size: clamp(0.6rem, 3vw, 1rem);
-        padding: 0 10px;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           margin-bottom: ${(props) =>
             props.theme === "login" ? "0.5rem;" : "0.4rem;"};
@@ -137,7 +146,8 @@ export const LogForm = styled.form`
         border: 1px solid #000;
         ${FONT_STYLE_LOGIN.button.button_13_light}
         background: #fff06c;
-        margin-top: ${(props) => (props.theme === "login" ? "1.5rem" : "2rem")};
+        margin-top: ${(props) =>
+          props.theme === "login" ? "1.5rem" : "0.7rem"};
         cursor: pointer;
         margin-bottom: ${(props) =>
           props.theme === "login" ? "2rem" : "1.5rem"};
@@ -167,18 +177,19 @@ export const LogForm = styled.form`
       .duplicate,
       .duplicate-check {
         position: absolute;
-        top: 1rem;
-        right: 0.7rem;
+        top: 1.1rem;
+        right: 1rem;
         display: flex;
         justify-content: center;
         align-items: center;
         ${FONT_STYLE_LOGIN.button.button_4_light};
         border: 1px solid #505050;
         background: #ffcb12;
-        width: 4rem;
-        height: 1.8rem;
+        width: 4.3rem;
+        height: 1.9rem;
         cursor: pointer;
-        border-radius: 50%;
+        -webkit-box-pack: center;
+        border-radius: 9999px;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           width: 5.5rem;
           height: 2.3rem;

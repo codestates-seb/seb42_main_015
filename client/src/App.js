@@ -35,6 +35,10 @@ function App() {
     initializeUserInfo();
   }, [isLogin]);
 
+  /*액세스 토큰 만료시 리프레시 토큰으로 재발급
+  액세스 -> 만료기간 : 60분
+  리프레시 -> 하루
+  */
   const currentDate = `${new Date().getFullYear()}.${(
     "00" +
     (new Date().getMonth() + 1)

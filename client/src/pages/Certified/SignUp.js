@@ -13,6 +13,8 @@ function SignUp() {
   const [nameValid, setNameValid] = useState(false);
   //이메일 중복검사
   const [emailValid, setEmailValid] = useState(false);
+  //이에밀 인증번호
+  const [isEmailCode, setEmailCode] = useState(false);
 
   const FormSchema = yup.object({
     username: yup
@@ -28,6 +30,7 @@ function SignUp() {
       .string()
       .required("이메일을 입력해주세요")
       .email("이메일 형식이 아닙니다."),
+    code: yup.string().required("이메일로 발송된 인증코드를 입력해주세요."),
     password: yup
       .string()
       .required("영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요.")
@@ -160,7 +163,11 @@ function SignUp() {
                   {...register("email")}
                 />
                 {emailValid ? (
-                  <button className="duplicate-check">체크완료</button>
+                  isEmailCode ? (
+                    <button className="duplicate">다시 받기</button>
+                  ) : (
+                    <button className="duplicate">코드 받기</button>
+                  )
                 ) : (
                   <button className="duplicate" onClick={emailCheck}>
                     중복체크
@@ -168,21 +175,40 @@ function SignUp() {
                 )}
               </label>
               {errors.email && <p>{errors.email.message}</p>}
-              <input
-                className="pwdInput"
-                name="password"
-                type="password"
-                placeholder="Password"
-                {...register("password")}
-              />
+              <label>
+                <input
+                  className="code"
+                  name="code"
+                  type="code"
+                  placeholder="Enter code"
+                  {...register("code")}
+                />
+                {errors.code && <p>{errors.code.message}</p>}
+                <input
+                  className="pwdInput"
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  {...register("password")}
+                />
+                {isEmailCode ? (
+                  <button className="duplicate-check">완료</button>
+                ) : (
+                  <button className="duplicate" onClick={usernameCheck}>
+                    확인
+                  </button>
+                )}
+              </label>
               {errors.password && <p>{errors.password.message}</p>}
-              <input
-                className="pwdInput"
-                type="password"
-                name="passwordConfirm"
-                placeholder="Confirm Password"
-                {...register("passwordConfirm")}
-              />
+              <label>
+                <input
+                  className="pwdInput"
+                  type="password"
+                  name="passwordConfirm"
+                  placeholder="Confirm Password"
+                  {...register("passwordConfirm")}
+                />
+              </label>
               {errors.passwordConfirm && (
                 <p>{errors.passwordConfirm.message}</p>
               )}

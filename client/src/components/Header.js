@@ -3,7 +3,7 @@ import { BREAKPOINTMOBILE } from "../../src/breakpoint";
 import { Link, useNavigate } from "react-router-dom";
 import postbox from "../asset/postbox.svg";
 import axios from "axios";
-import { getCookie } from "../pages/Certified/Cookie";
+import { getCookie, removeCookie } from "../pages/Certified/Cookie";
 import useStore from "../store/store";
 
 function Header() {
@@ -12,22 +12,23 @@ function Header() {
 
   //로그아웃 제출 버튼
   const onLogout = async () => {
-    await axios
-      .post(`/api/sendy/auth/logout`, {
-        headers: {
-          "ngrok-skip-browser-warning": "12",
-          Authorization: `${getCookie("accesstoken")}`,
-          Refresh: `${localStorage.getItem("refreshToken")}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.body);
+    axios({
+      method: "post",
+      url: `/api/sendy/auth/logout`,
+      headers: {
+        "ngrok-skip-browser-warning": "12",
+        Authorization: getCookie("accesstoken"),
+        Refresh: localStorage.getItem("refreshToken"),
+      },
+    })
+      .then(() => {
+        localStorage.clear();
+        removeCookie("accesstoken");
         navigate("/completeLogout");
-        setIsLogin(false);
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
-        alert("로그아웃에 실패하였습니다.");
       });
   };
 
