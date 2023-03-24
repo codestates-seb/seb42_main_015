@@ -82,7 +82,8 @@ function Modal(props) {
     <ModalBack className="modal-back">
       <ModalContainer
         ContainerHeight={props.ContainerHeight}
-        ContainerWidth={props.ContainerWidth}>
+        ContainerWidth={props.ContainerWidth}
+      >
         <ModalHeader>
           <CircleWrapper>
             <Circle backgroundColor={PALETTE_V1.red_modal_button} />
