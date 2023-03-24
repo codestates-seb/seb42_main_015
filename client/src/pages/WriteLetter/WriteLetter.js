@@ -130,6 +130,8 @@ function WriteLetter() {
               setStartDate={setStartDate}
               setOpenSendMe={setOpenSendMe}
               setSendMeChecked={setSendMeChecked}
+              browserSize={browserSize}
+              setBrowserSize={setBrowserSize}
             />
           }
         />
@@ -139,7 +141,7 @@ function WriteLetter() {
       {openMakeLetter ? (
         <Modal
           className="make-letter-modal"
-          ContainerWidth="450px"
+          ContainerWidth={browserSize > 767 ? "400px" : "300px"}
           ContainerHeight={browserSize > 767 ? "700px" : "600px"}
           children={<MakeLetter makeLetterModalRef={makeLetterModalRef} />}
         />
