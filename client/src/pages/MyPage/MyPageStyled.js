@@ -3,7 +3,11 @@ import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 import sendme from "../../asset/myPage-sendme.png";
 import pwd from "../../asset/pwd.png";
-import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
+import {
+  BREAKPOINTMOBILE,
+  BREAKPOINTMOBILE2,
+  BREAKPOINTTABLET,
+} from "../../breakpoint";
 
 export const MyPageContainer = styled.div`
   height: 100vh;
@@ -12,6 +16,8 @@ export const MyPageContainer = styled.div`
 export const FlexWrapper1 = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 50%;
 `;
 export const GNBWrapper = styled.div`
   display: flex;
@@ -67,6 +73,9 @@ export const GNBMenu = styled.div`
 export const FlexWrapper3 = styled.div`
   display: flex;
   justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
 `;
 export const UserInfoCard = styled.div`
   display: flex;
@@ -76,40 +85,43 @@ export const UserInfoCard = styled.div`
   background-color: white;
   border: 2px solid ${PALETTE_V1.text_primary};
   aspect-ratio: 4/1;
-  min-width: 200px;
   width: 100%;
+  height: 100%;
   box-shadow: 15px 15px ${PALETTE_V1.yellow_primary},
     17px 17px ${PALETTE_V1.text_primary}, 13px 17px ${PALETTE_V1.text_primary},
     17px 13px ${PALETTE_V1.text_primary};
-  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-    max-width: 500px;
-    min-width: 500px;
-    max-height: 160px;
-    min-height: 160px;
+  @media screen and (max-width: 1023px) {
+    flex-direction: column;
+    aspect-ratio: 1/4;
   }
 `;
 export const FlexWrapper2 = styled.div`
   display: flex;
   flex-direction: row;
   position: relative;
-  width: 100%;
+  width: 30%;
   height: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 export const UserImage = styled.img`
   background-color: pink;
   border: 1px solid ${PALETTE_V1.text_primary};
   border-radius: 50%;
-  width: 60%;
+  width: 85%;
+  height: 85%;
   margin-bottom: 5px;
   aspect-ratio: 1 / 1;
 `;
 export const UserInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 70%;
-  height: 80%;
-  /* min-width: 170px; */
   border-left: 2px solid ${PALETTE_V1.text_primary};
+  width: 70%;
+  height: 90%;
+  @media screen and (max-width: 1023px) {
+    border-left: none;
+  }
 `;
 export const UserName = styled.div`
   ${FONT_STYLE_V1.title.title_20_medium}
@@ -123,6 +135,10 @@ export const NameDateWrapper = styled(FlexWrapper2)`
   border-bottom: 2px solid ${PALETTE_V1.text_primary};
   justify-content: space-between;
   align-items: center;
+  width: 95%;
+  @media screen and (max-width: 1023px) {
+    /* border-bottom: none; */
+  }
 `;
 export const UserEmail = styled.div`
   ${FONT_STYLE_V1.body.body_15_light}
@@ -132,19 +148,23 @@ export const ReadletterLink = styled.a`
   ${FONT_STYLE_V1.body.body_13_light}
   border-bottom:1px solid ${PALETTE_V1.text_primary};
   margin-right: 10px;
+  white-space: nowrap;
   cursor: pointer;
+  margin: 0.8rem 1rem;
 `;
 export const EmailWrapper = styled(FlexWrapper2)`
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  width: 95%;
 `;
 export const EditButton = styled.div`
   ${FONT_STYLE_V1.body.body_12_light}
   margin-bottom: 5px;
   margin-right: 3px;
   position: absolute;
-  right: -14px;
-  bottom: -5px;
+  right: 5px;
+  bottom: 5px;
   cursor: pointer;
   @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
     bottom: -13px;
@@ -154,9 +174,15 @@ export const Sticker = styled.img.attrs({ src: `${sendme}` })`
   position: absolute;
   width: 200px;
   z-index: 200;
-  bottom: -80px;
-  right: -100px;
+  bottom: 90px;
+  right: 160px;
   transform: rotate(-40deg);
+  @media screen and (max-width: 1023px) {
+    width: 180px;
+    bottom: 10px;
+    right: 110px;
+    transform: rotate(-30deg);
+  }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 100px;
     bottom: -55px;
@@ -169,8 +195,21 @@ export const Sticker = styled.img.attrs({ src: `${sendme}` })`
   } */
 `;
 export const StickerWrapper = styled.div`
-  position: relative;
-  width: 85%;
+  width: 70%;
+  height: 55%;
+  max-width: 720px;
+  /* @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 70%;
+    height: 45%;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    width: 70%;
+    height: 35%;
+  } */
+  @media screen and (max-width: 1023px) {
+    width: 55%;
+    height: 80%;
+  }
 `;
 export const ResignationWrapper = styled.div`
   border-top: 2px solid ${PALETTE_V1.text_primary};
