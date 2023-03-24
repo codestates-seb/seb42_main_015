@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MessagePatchDto {
-    private long memberId; // 사용자
+//    private long memberId; // 사용자
     private boolean messageSaved;
 
 }
