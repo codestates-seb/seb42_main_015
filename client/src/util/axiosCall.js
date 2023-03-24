@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie } from "../Certified/Cookie";
+import { getCookie } from "../pages/Certified/Cookie";
 
 const axiosCall = async (call) => {
   const { method, url, data } = call;
