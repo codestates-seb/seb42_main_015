@@ -39,7 +39,6 @@ const ModalContainer = styled.div`
     width: 70%;
     min-width: 218px;
     max-width: 299px;
-    height: 40%;
   }
 `;
 const ModalHeader = styled.div`
@@ -48,12 +47,12 @@ const ModalHeader = styled.div`
   height: 3rem;
 `;
 const CircleWrapper = styled.div`
-  width: 20%;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   padding-left: 8px;
 `;
 const Circle = styled.div`
@@ -62,8 +61,8 @@ const Circle = styled.div`
   height: 50%;
   aspect-ratio: 1/1;
   background-color: ${(props) => props.backgroundColor || "none"};
+  margin-right: 2%;
 `;
-
 function Modal(props) {
   //모달 열리면 뒤에 배경 스크롤 못하게 막음
   useEffect(() => {
