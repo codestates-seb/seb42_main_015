@@ -367,15 +367,21 @@ export const ModalWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 10px 20px 20px;
-  /* background: orange; */
 
   .loginText {
-    ${FONT_STYLE_LOGIN.title.title_42_medium}
-    margin:1rem 0px 2rem;
+    ${FONT_STYLE_LOGIN.title.title_37_medium}
+    margin: 0.5rem 0px 1.5rem;
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      ${FONT_STYLE_LOGIN.title.title_42_medium}
+      margin: 1rem 0px 3rem;
+    }
   }
   .oauth {
     justify-content: space-around;
     margin-bottom: 0.7rem;
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      margin-bottom: 1.5rem;
+    }
 
     img {
       width: 3rem;
