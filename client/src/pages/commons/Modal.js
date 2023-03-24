@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
-import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
+import { BREAKPOINTMOBILE } from "../../breakpoint";
 
 const ModalBack = styled.div`
   position: fixed;

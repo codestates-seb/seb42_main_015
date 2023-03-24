@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import TrashItem from "./TrashItem";
 import GNB from "./GNB";
 import * as M from "./TrashStyled";
@@ -6,47 +6,39 @@ import { AiOutlineCheck } from "react-icons/ai";
 import Modal from "../commons/Modal";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { RiUserReceivedLine, RiUserSharedLine } from "react-icons/ri";
+import * as W from "../WriteLetter/WriteStyled";
 
 function TrashList() {
   const [checked, setChecked] = useState(false);
   const [isSend, setIsSend] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  // const modalRef = useRef();
+  const modalRef = useRef();
 
-  // const handleModal = (e) => {
-  //   if (openModal && !modalRef.current.contains(e.target)) {
-  //     setOpenModal(false);
-  //   }
-  // };
-
-  // const onRemove = () => {
-  //   if (
-  //     window.confirm(
-  //       "정말로 삭제하시겠습니까?\n삭제된 편지는 [마이페이지-휴지통]에서 확인할 수 있습니다."
-  //     )
-  //   ) {
-  //     alert("삭제되었습니다.");
-  //   } else {
-  //     return;
-  //   }
-  // };
+  const handleModal = (e) => {
+    if (openModal && !modalRef.current.contains(e.target)) {
+      setOpenModal(false);
+    } 
+  };
 
   return (
-    <M.TrashWrap>
+    <M.TrashWrap onClick={handleModal}>
+      {openModal ? <W.ExplainationBackground /> : <></>}
+      {openModal && (
+        <Modal ContainerHeight="280px" ContainerWidth="300px">
+          <M.ModalBox ref={modalRef} >
+            <img src={require("../../asset/Sad.png")} alt="" />
+            <M.ModalText>삭제하면 다시는 편지를 보지 못해요</M.ModalText>
+            <M.ButtonBox>
+              <M.ModalButton onClick={() => setOpenModal(!openModal)}>
+                취소
+              </M.ModalButton>
+              <M.ModalButton>잘 가</M.ModalButton>
+            </M.ButtonBox>
+          </M.ModalBox>
+        </Modal>
+      )}
       <GNB />
       <M.TrashContainer>
-        {openModal && (
-          <Modal ContainerHeight="280px" ContainerWidth="300px">
-            <M.ModalBox>
-              <img src={require("../../asset/Sad.png")} alt="" />
-              <M.ModalText>삭제하면 다시는 편지를 보지 못해요</M.ModalText>
-              <M.ButtonBox>
-                <M.ModalButton onClick={() => setOpenModal(!openModal)}>취소</M.ModalButton>
-                <M.ModalButton>잘 가</M.ModalButton>
-              </M.ButtonBox>
-            </M.ModalBox>
-          </Modal>
-        )}
         <M.TrashTable>
           <M.TrashTableMenu>
             <M.CheckBox
