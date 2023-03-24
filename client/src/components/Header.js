@@ -111,6 +111,9 @@ const HeaderContainer = styled.div`
     font-family: "Sriracha";
     padding-bottom: 4px;
     font-size: clamp(2.6rem, 3vw, 2.8rem);
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      font-size: 24px;
+    }
   }
 
   .logo-img {
@@ -143,5 +146,8 @@ const HeaderContainer = styled.div`
     font-family: "Inria Sans", sans-serif;
     cursor: pointer;
     font-size: clamp(1.6rem, 3vw, 1.6rem);
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      font-size: 15px;
+    }
   }
 `;

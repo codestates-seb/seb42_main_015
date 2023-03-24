@@ -47,7 +47,7 @@ function Login() {
       )
       .then((res) => {
         alert("로그인되었습니다.");
-        console.log(res.headers.date);
+        console.log(res.headers.get("Date"));
         if (res.headers.getAuthorization) {
           //! refresh token은 -> local storage에 저장
           localStorage.setItem("refreshToken", res.headers.get("Refresh"));

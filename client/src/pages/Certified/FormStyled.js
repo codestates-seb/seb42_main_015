@@ -11,10 +11,9 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 85vh;
-  padding: 3rem 2rem;
+  min-height: 75vh;
+  padding: 0rem 2rem 0rem;
   overflow: hidden;
-  padding-bottom: 70px;
 `;
 
 //TODO :로그인, 회원가입 노랑 백그라운드
@@ -23,12 +22,12 @@ export const BackgroundYellow = styled.div`
   position: absolute;
   border: 1px solid black;
   background: #fff59f;
-  margin: 1rem 0rem 0rem 2rem;
+  margin: 0rem 0rem 0rem 2rem;
   width: 60rem;
   height: ${(props) => (props.theme === "login" ? "40rem" : "45rem")};
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: ${(props) => (props.theme === "login" ? "29rem" : "31rem")};
-    height: ${(props) => (props.theme === "login" ? "45rem" : "51rem")};
+    width: ${(props) => (props.theme === "login" ? "29rem" : "33rem")};
+    height: ${(props) => (props.theme === "login" ? "45rem" : "58.5rem")};
   }
 `;
 
@@ -42,18 +41,18 @@ export const LogForm = styled.form`
   border: 1px solid black;
   margin-bottom: 2rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: ${(props) => (props.theme === "login" ? "29rem" : "31rem")};
-    height: ${(props) => (props.theme === "login" ? "45rem" : "51rem")};
+    width: ${(props) => (props.theme === "login" ? "29rem" : "33rem")};
+    height: ${(props) => (props.theme === "login" ? "45rem" : "58.5rem")};
   }
   .formLeft {
     flex-grow: 1;
-    /* width: 450px; */
+    width: ${(props) => (props.theme === "login" ? "360px" : "490px")};
     border-right: 1px solid #000;
-    padding: 10px 20px 20px;
+    padding: 10px 20px 10px;
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       border-right: 0px solid #000;
       font-size: 2rem;
-      padding: 10px 20px 30px;
+      padding: 10px 20px 10px;
     }
     .login-form {
       flex-direction: column;
@@ -64,7 +63,7 @@ export const LogForm = styled.form`
       .loginText {
         ${FONT_STYLE_LOGIN.title.title_37_medium}
         margin: ${(props) =>
-          props.theme === "login" ? "1.7rem 0px 4rem" : "0rem 0px 1.5rem"};
+          props.theme === "login" ? "3rem 0px 3rem" : "0rem 0px 1.8rem"};
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           font-size: 3.8rem;
           margin: ${(props) =>
@@ -84,43 +83,30 @@ export const LogForm = styled.form`
         border-bottom: 1px solid #000;
         background-repeat: no-repeat;
         background-position: left;
-        background-size: 1.5rem;
-        font-size: clamp(0.6rem, 3vw, 1rem);
-        -webkit-appearance: none;
-        /* 추가 */
-        /* height: 30px; */
-        /* width: 350px; */
-        /* background-color: rgb(251, 251, 251); */
-        /* border: 1px solid rgb(220, 220, 220); */
-        border-radius: 4px;
-        font-size: 12px;
-
+        background-size: 21px;
+        font-size: 15px;
+        border-radius: 1px;
         -webkit-border-radius: 0;
+        -webkit-appearance: none;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+          background-size: 15px;
+          font-size: 11px;
           margin-bottom: ${(props) =>
-            props.theme === "login" ? "3.5rem" : "2.2rem"};
-          width: ${(props) => (props.theme === "login" ? "20rem" : "23rem")};
+            props.theme === "login" ? "3.5rem" : "2.5rem"};
+          width: ${(props) => (props.theme === "login" ? "21rem" : "25rem")};
         }
       }
       .userInput {
         background-image: url("${user1}");
-        background-size: 1.3rem;
-        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          background-size: 1.2rem;
-        }
       }
       .emailInput {
         background-image: url("${email}");
-        background-size: 1.4rem;
-        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          background-size: 1.2rem;
-        }
       }
       .pwdInput {
         background-image: url("${pwd}");
-        background-size: 1.5rem;
+        background-size: 23px;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          background-size: 1.3rem;
+          background-size: 17px;
         }
       }
       p {
@@ -132,17 +118,21 @@ export const LogForm = styled.form`
         margin-bottom: ${(props) =>
           props.theme === "login" ? "0.5rem;" : "0.1rem;"};
         padding: 1px 10px;
-        font-size: clamp(0.6rem, 3vw, 1rem);
+        font-size: 12px;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           margin-bottom: ${(props) =>
-            props.theme === "login" ? "0.5rem;" : "0.4rem;"};
+            props.theme === "login" ? "0.5rem;" : "0rem;"};
           padding: 0 12px;
+          font-size: 7.5px;
         }
       }
 
       .btn {
         width: 17rem;
         height: 3.2rem;
+        border-radius: 1px;
+        -webkit-border-radius: 0;
+        -webkit-appearance: none;
         border: 1px solid #000;
         ${FONT_STYLE_LOGIN.button.button_13_light}
         background: #fff06c;
@@ -152,10 +142,10 @@ export const LogForm = styled.form`
         margin-bottom: ${(props) =>
           props.theme === "login" ? "2rem" : "1.5rem"};
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          font-size: 12px;
-          margin-top: ${(props) =>
-            props.theme === "login" ? "2rem" : "1.5rem"};
-          margin-bottom: 1rem;
+          margin: ${(props) =>
+            props.theme === "login" ? "1.5rem 0 1rem " : "1rem 0 1rem "};
+          width: ${(props) => (props.theme === "login" ? "21rem" : "25rem")};
+          height: 4rem;
         }
       }
       .sub-form {
@@ -175,14 +165,16 @@ export const LogForm = styled.form`
         position: relative;
       }
       .duplicate,
-      .duplicate-check {
+      .duplicate-check,
+      .code-check {
         position: absolute;
         top: 1.1rem;
-        right: 1rem;
+        right: 0.7rem;
         display: flex;
         justify-content: center;
         align-items: center;
         ${FONT_STYLE_LOGIN.button.button_4_light};
+        font-size: 12px;
         border: 1px solid #505050;
         background: #ffcb12;
         width: 4.3rem;
@@ -193,7 +185,8 @@ export const LogForm = styled.form`
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           width: 5.5rem;
           height: 2.3rem;
-          top: 0.7rem;
+          top: 0.9rem;
+          font-size: 9px;
         }
 
         :hover {
@@ -204,12 +197,10 @@ export const LogForm = styled.form`
       }
       .duplicate-check {
         background: #d3d3d3;
-        @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          width: 3rem;
-          height: 1.3rem;
-          font-size: 6px;
-          top: 1.7rem;
-        }
+      }
+      .code-check {
+        background: rgb(241, 67, 67);
+        color: white;
       }
     }
     .oauth-form {
