@@ -6,9 +6,11 @@ import * as L from "./FormStyled";
 import axios from "axios";
 import { setCookie, getCookie } from "./Cookie";
 import { headers, options, GoogleOauthLogin } from "./setupCertified";
+import useStore from "../../store/store";
 
 function Login() {
   const navigate = useNavigate();
+  const { memberId, setMemberId } = useStore((state) => state);
 
   const FormSchema = yup.object({
     email: yup
@@ -29,7 +31,6 @@ function Login() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
@@ -101,7 +102,7 @@ function Login() {
               />
 
               <div className="sub-form ">
-                <Link to="/setpwd">
+                <Link to="/setpwd/1">
                   <li>forget Password</li>
                 </Link>
                 <Link to="/signup">

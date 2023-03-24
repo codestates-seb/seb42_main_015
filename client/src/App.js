@@ -25,7 +25,8 @@ function App() {
   const initializeUserInfo = async () => {
     const loggedInfo = getCookie("accesstoken");
     if (loggedInfo) {
-      setIsLogin(!isLogin);
+      setIsLogin(true);
+      console.log(getCookie("accesstoken"));
     }
   };
 

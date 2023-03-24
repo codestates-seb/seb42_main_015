@@ -4,9 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import postbox from "../asset/postbox.svg";
 import axios from "axios";
 import { getCookie } from "../pages/Certified/Cookie";
+import useStore from "../store/store";
 
-function Header({ isLogin }) {
+function Header() {
   const navigate = useNavigate();
+  const { isLogin, setIsLogin } = useStore((state) => state);
 
   //로그아웃 제출 버튼
   const onLogout = async () => {
@@ -14,8 +16,8 @@ function Header({ isLogin }) {
       .post(
         `/api/sendy/auth/logout`,
         {
-          Authorization: `Bearer ${getCookie("jwtToken")}`,
-          Refresh: localStorage.getItem("refreshToken"),
+          Authorization: `${getCookie("jwtToken")}`,
+          Refresh: `${localStorage.getItem("refreshToken")}`,
         },
         {
           "Access-Control-Allow-Origin": "*",
@@ -26,6 +28,7 @@ function Header({ isLogin }) {
       .then((res) => {
         console.log(res.body);
         navigate("/completeLogout");
+        setIsLogin(false);
       })
       .catch((err) => {
         console.log(err);
