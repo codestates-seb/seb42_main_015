@@ -60,14 +60,15 @@ export const FlexRowWrapper = styled.div`
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     .check-button {
       position: absolute;
-      top: 132px;
-      left: 135px;
+      top: 125px;
+      left: 190px;
       min-width: 50px;
       width: 50px;
       height: 25px;
     }
     &.URL-input {
       flex-direction: column;
+      align-items: flex-start;
     }
     &.button-wrapper {
       width: 100%;
@@ -109,7 +110,7 @@ export const LetterWrapper = styled.div`
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     .microphone-icon,
     .font-icon {
-      font-size: 25px;
+      font-size: 30px;
       margin-right: 15px;
       margin-bottom: 5px;
     }
@@ -117,7 +118,7 @@ export const LetterWrapper = styled.div`
   @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
     .microphone-icon,
     .font-icon {
-      font-size: 20px;
+      font-size: 25px;
       margin-right: 15px;
       margin-bottom: 5px;
     }

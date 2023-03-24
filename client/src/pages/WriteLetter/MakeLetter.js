@@ -94,7 +94,7 @@ function MakeLetter({ makeLetterModalRef }) {
         </W.FlexRowWrapper>
         <W.FlexRowWrapper className="URL-wrapper">
           <W.FlexRowWrapper className="align-items URL-input">
-            <div>https:/sendy/letter/</div>
+            <div>https://www.sendy.site/letter</div>
             <W.MakeLetterInput className="URL-input"></W.MakeLetterInput>
           </W.FlexRowWrapper>
           <RoundButton
