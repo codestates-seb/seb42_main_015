@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
-import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
+import { BREAKPOINTMOBILE } from "../../breakpoint";
 
 const ModalBack = styled.div`
   position: fixed;
@@ -38,6 +38,7 @@ const ModalContainer = styled.div`
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 70%;
     min-width: 218px;
+    max-width: 299px;
   }
 `;
 const ModalHeader = styled.div`
@@ -46,12 +47,12 @@ const ModalHeader = styled.div`
   height: 3rem;
 `;
 const CircleWrapper = styled.div`
-  width: 20%;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   padding-left: 8px;
 `;
 const Circle = styled.div`
@@ -60,8 +61,8 @@ const Circle = styled.div`
   height: 50%;
   aspect-ratio: 1/1;
   background-color: ${(props) => props.backgroundColor || "none"};
+  margin-right: 2%;
 `;
-
 function Modal(props) {
   //모달 열리면 뒤에 배경 스크롤 못하게 막음
   useEffect(() => {
@@ -78,7 +79,7 @@ function Modal(props) {
   }, []);
 
   return (
-    <ModalBack>
+    <ModalBack className="modal-back">
       <ModalContainer
         ContainerHeight={props.ContainerHeight}
         ContainerWidth={props.ContainerWidth}

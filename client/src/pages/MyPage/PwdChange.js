@@ -75,7 +75,7 @@ function PwdChange() {
                     />
                     <AiOutlineEnter />
                   </M.PwdForm>
-                  <M.ErrorMsg>비밀번호를 틀렸습니다.</M.ErrorMsg>
+                  <M.ErrorMsg>비밀번호가 일치하지 않습니다.</M.ErrorMsg>
                   <AiOutlineArrowRight className="next" onClick={handleNext} />
                 </M.InputContainer>
               )}

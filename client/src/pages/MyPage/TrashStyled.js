@@ -108,6 +108,9 @@ export const ModalBox = styled.div`
     width: 50%;
     margin-bottom: 1.5rem;
   }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 224px;
+  }
 `;
 export const ModalText = styled.div`
   margin-bottom: 1rem;
@@ -122,6 +125,9 @@ export const ModalButton = styled.div`
   align-items: center;
   &:nth-child(1) {
     margin-right: 1rem;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    margin-top: 3rem;
   }
 `;
 
