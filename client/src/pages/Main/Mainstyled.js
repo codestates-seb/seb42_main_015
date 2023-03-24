@@ -226,6 +226,10 @@ export const IntroImgbox = styled.div`
     height: 400px;
     margin-top: 4rem;
   }
+  @media screen and (max-height: 667px) {
+    width: 180px;
+    height: 300px;
+  }
 `;
 
 export const Title = styled.div`
@@ -286,12 +290,6 @@ export const Textbox = styled.div`
   flex-direction: column;
   justify-content: center;
   position: relative;
-  .flower {
-    width: 100px;
-    position: absolute;
-    top: -50px;
-    left: -20px;
-  }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     align-items: center;
     text-align: center;
@@ -318,11 +316,89 @@ export const SubContents = styled.div`
 
 export const Imgbox = styled.div`
   width: 600px;
-  height: 500px;
-  background-color: #ccc;
+  height: 600px;
+  background-color: #fff;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  .main {
+    width: 100%;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    margin-bottom: 3rem;
+  }
+  .main-sticker1 {
+    width: 300px;
+    position: absolute;
+    top: -5rem;
+    left: -5rem;
+  }
+  .main-sticker2 {
+    width: 200px;
+    position: absolute;
+    bottom: -5rem;
+    left: -5rem;
+  }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 280px;
-    height: 400px;
+    height: 300px;
+    .main-sticker1 {
+      width: 180px;
+      position: absolute;
+      top: -5rem;
+      left: -5rem;
+    }
+    .main-sticker2 {
+      width: 100px;
+      position: absolute;
+      bottom: -3rem;
+      left: -4rem;
+    }
+  }
+  @media screen and (max-height: 667px) {
+    width: 300px;
+    height: 300px;
+  }
+`;
+
+export const Theme = styled.div`
+  width: 600px;
+  height: 670px;
+  background-color: #fff;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  .main {
+    width: 100%;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    margin-bottom: 3rem;
+  }
+  .flower {
+    width: 12rem;
+    position: absolute;
+    top: -5rem;
+    right: -5rem;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 280px;
+    height: 300px;
+    .main {
+      margin-bottom: 1rem;
+    }
+    .flower {
+    width: 9rem;
+    top: -3rem;
+    right: -4rem;
+  }
+  }
+  @media screen and (max-height: 667px) {
+    width: 250px;
+    height: 280px;
   }
 `;
 

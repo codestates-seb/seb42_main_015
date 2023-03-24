@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import * as M from "./Mainstyled";
 import { SectionsContainer, Section } from "react-fullpage";
 import { BsEnvelope } from "react-icons/bs";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 // ! 공백
 let options = {
   anchors: ["sendyOne", "sendyTwo", "sendyThree", "sendyFour", "sendyFive"],
@@ -11,6 +11,7 @@ let options = {
 // ! 공백
 function Main() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -83,7 +84,7 @@ function Main() {
                   <div className="high-light"></div>
                 </M.Title>
                 <M.Contents>따뜻한 마음을 전해보세요.</M.Contents>
-                <M.Button>
+                <M.Button onClick={() => navigate("/writeletter")}>
                   <BsEnvelope className="button-icon" />
                   편지 작성하러 가기
                 </M.Button>
@@ -95,30 +96,50 @@ function Main() {
         <Section>
           <M.Column2>
             <M.Textbox>
+              <M.SubTitle>원하는 테마를 고르고 편지를 작성하세요.</M.SubTitle>
+              <M.SubContents>
+                편지지를 넘겨 원하는 테마를 골라보세요. <br /> 편지 작성이 완료
+                되었다면, 원하는 주소명으로 <br /> 만들어집니다. <br />
+                <p className="ex">예시) https://sendy/letter/happy-birthday</p>
+              </M.SubContents>
+              <M.Button onClick={() => navigate("/writeletter")}>
+                <BsEnvelope className="button-icon" />
+                편지 작성하러 가기
+              </M.Button>
+            </M.Textbox>
+            <M.Theme>
+              <img
+                className="main"
+                src={require("../../asset/theme.gif")}
+                alt=""
+              />
               <img
                 className="flower"
                 src={require("../../asset/mainImg/right3.png")}
                 alt=""
               />
-              <M.SubTitle>원하는 테마를 고르고 편지를 작성하세요.</M.SubTitle>
-              <M.SubContents>
-                편지지를 넘겨 원하는 테마를 골라보세요. <br /> 편지 작성이 완료
-                되었다면, 원하는 주소명으로 <br /> 만들어집니다. <br />
-                <p className="ex">
-                  예시) https://sendy/letter/happy-birthday
-                </p>
-              </M.SubContents>
-              <M.Button>
-                <BsEnvelope className="button-icon" />
-                편지 작성하러 가기
-              </M.Button>
-            </M.Textbox>
-            <M.Imgbox></M.Imgbox>
+            </M.Theme>
           </M.Column2>
         </Section>
         <Section>
           <M.Column3>
-            <M.Imgbox></M.Imgbox>
+            <M.Imgbox>
+              <img
+                className="main"
+                src={require("../../asset/mainImg/self.png")}
+                alt=""
+              />
+              <img
+                className="main-sticker1"
+                src={require("../../asset/mainImg/masking-tape.png")}
+                alt=""
+              />
+              <img
+                className="main-sticker2"
+                src={require("../../asset/mainImg/main3.png")}
+                alt=""
+              />
+            </M.Imgbox>
             <M.Textbox>
               <M.SubTitle>나에게 편지를 보내보세요.</M.SubTitle>
               <M.SubContents>
@@ -126,7 +147,7 @@ function Main() {
                 원하는 시간에 편지를 받아보세요! <br />
                 스스로에게 위로와 사랑을 전해보세요.💕
               </M.SubContents>
-              <M.Button>
+              <M.Button onClick={() => navigate("/writeletter")}>
                 <BsEnvelope className="button-icon" />
                 편지 작성하러 가기
               </M.Button>
@@ -143,7 +164,7 @@ function Main() {
                 받은 편지와 보낸 편지를 우편함에서 확인할 수 있어요! <br />
                 (해당 서비스는 회원가입 후 이용이 가능합니다.)
               </M.SubContents>
-              <M.Button>
+              <M.Button onClick={() => navigate("/writeletter")}>
                 <BsEnvelope className="button-icon" />
                 편지 작성하러 가기
               </M.Button>
@@ -178,7 +199,7 @@ function Main() {
                   sendy에서 편지를 작성하고, <br />
                   주고 받은 편지를 보며 추억해봐요!
                 </M.LastTitle>
-                <M.Button>
+                <M.Button onClick={() => navigate("/writeletter")}>
                   <BsEnvelope className="button-icon" />
                   편지 작성하러 가기
                 </M.Button>

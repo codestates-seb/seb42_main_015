@@ -17,7 +17,6 @@ export const FlexWrapper1 = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 50%;
 `;
 export const GNBWrapper = styled.div`
   display: flex;
@@ -75,7 +74,7 @@ export const FlexWrapper3 = styled.div`
   justify-content: center;
   position: relative;
   width: 100%;
-  height: 100%;
+  height: max-content;
 `;
 export const UserInfoCard = styled.div`
   display: flex;
@@ -87,39 +86,74 @@ export const UserInfoCard = styled.div`
   aspect-ratio: 4/1;
   width: 100%;
   height: 100%;
+  min-width: 137px;
   box-shadow: 15px 15px ${PALETTE_V1.yellow_primary},
     17px 17px ${PALETTE_V1.text_primary}, 13px 17px ${PALETTE_V1.text_primary},
     17px 13px ${PALETTE_V1.text_primary};
   @media screen and (max-width: 1023px) {
     flex-direction: column;
     aspect-ratio: 1/4;
+    justify-content: center;
   }
 `;
 export const FlexWrapper2 = styled.div`
   display: flex;
   flex-direction: row;
   position: relative;
-  width: 30%;
-  height: 100%;
+  width: max-content;
+  height: max-content;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    margin-top: 5%;
+    margin-bottom: 2%;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) and (min-width: 481px) {
+    margin-top: 7%;
+    margin-bottom: 8%;
+  }
+  @media screen and (max-width: 480px) {
+    margin-top: 8%;
+    margin-bottom: 10%;
+  }
 `;
 export const UserImage = styled.img`
   background-color: pink;
   border: 1px solid ${PALETTE_V1.text_primary};
   border-radius: 50%;
-  width: 85%;
-  height: 85%;
+  width: 180px;
+  height: 180px;
   margin-bottom: 5px;
   aspect-ratio: 1 / 1;
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    width: 130px;
+    height: 130px;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) and (min-width: 481px) {
+    width: 100px;
+    height: 100px;
+  }
+  @media screen and (max-width: 480px) {
+    width: 85px;
+    height: 85px;
+  }
 `;
 export const UserInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   border-left: 2px solid ${PALETTE_V1.text_primary};
   width: 70%;
-  height: 90%;
-  @media screen and (max-width: 1023px) {
+  height: max-content;
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    border-left: none;
+    width: 80%;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) and (min-width: 481px) {
+    border-left: none;
+    height: max-content;
+  }
+  @media screen and (max-width: 480px) {
     border-left: none;
   }
 `;
@@ -136,8 +170,12 @@ export const NameDateWrapper = styled(FlexWrapper2)`
   justify-content: space-between;
   align-items: center;
   width: 95%;
+  margin-bottom: 5%;
   @media screen and (max-width: 1023px) {
-    /* border-bottom: none; */
+    border-bottom: none;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
   }
 `;
 export const UserEmail = styled.div`
@@ -157,65 +195,84 @@ export const EmailWrapper = styled(FlexWrapper2)`
   justify-content: space-evenly;
   align-items: flex-start;
   width: 95%;
+  margin-top: 0;
+  @media screen and (max-width: 1023px) {
+    align-items: center;
+  }
 `;
 export const EditButton = styled.div`
-  ${FONT_STYLE_V1.body.body_12_light}
+  ${FONT_STYLE_V1.body.body_13_light}
   margin-bottom: 5px;
   margin-right: 3px;
   position: absolute;
-  right: 5px;
-  bottom: 5px;
+  right: -8px;
+  bottom: -12px;
   cursor: pointer;
-  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-    bottom: -13px;
-  }
 `;
 export const Sticker = styled.img.attrs({ src: `${sendme}` })`
   position: absolute;
   width: 200px;
   z-index: 200;
-  bottom: 90px;
-  right: 160px;
+  bottom: -70px;
+  right: -100px;
   transform: rotate(-40deg);
   @media screen and (max-width: 1023px) {
     width: 180px;
-    bottom: 10px;
-    right: 110px;
+    bottom: -80px;
+    right: -80px;
     transform: rotate(-30deg);
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 100px;
-    bottom: -55px;
-    right: -40px;
+    width: 150px;
+    bottom: -70px;
+    right: -70px;
     transform: rotate(-30deg);
   }
-  /* @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 170px;
-    bottom: -70px;
-  } */
+  @media screen and (max-width: 480px) {
+    width: 120px;
+    bottom: -60px;
+    right: -60px;
+    transform: rotate(-30deg);
+  }
+  @media screen and (max-width: 370px) {
+    width: 110px;
+    bottom: -55px;
+    right: -55px;
+    transform: rotate(-30deg);
+  }
 `;
 export const StickerWrapper = styled.div`
   width: 70%;
-  height: 55%;
+  height: 25vh;
   max-width: 720px;
-  /* @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 70%;
-    height: 45%;
-  }
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    width: 70%;
-    height: 35%;
-  } */
-  @media screen and (max-width: 1023px) {
+  min-width: 149px;
+  min-height: 216px;
+  position: relative;
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
     width: 55%;
+    height: 50vh;
+    min-height: 350px;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) and (min-width: 481px) {
     height: 80%;
+    height: 40vh;
+    min-height: 342px;
+  }
+  @media screen and (max-width: 480px) {
+    height: 70%;
+    height: 35vh;
+    min-height: 280px;
   }
 `;
 export const ResignationWrapper = styled.div`
+  position: relative;
   border-top: 2px solid ${PALETTE_V1.text_primary};
-  margin-top: 100px;
   display: flex;
   justify-content: flex-end;
+  margin-top: 20%;
+  @media screen and (max-width: 480px) {
+    margin-top: 50%;
+  }
 `;
 export const ResignLink = styled(ReadletterLink)`
   border-bottom: none;
