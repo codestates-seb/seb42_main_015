@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "MEMBER_PROFILE_IMAGE")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

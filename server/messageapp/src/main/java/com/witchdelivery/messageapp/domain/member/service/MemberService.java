@@ -3,7 +3,7 @@ package com.witchdelivery.messageapp.domain.member.service;
 import com.witchdelivery.messageapp.domain.member.dto.MemberResponseDto;
 import com.witchdelivery.messageapp.domain.member.entity.MemberFile;
 import com.witchdelivery.messageapp.domain.member.repository.MemberFileRepository;
-import com.witchdelivery.messageapp.infra.file.S3File;
+import com.witchdelivery.messageapp.infra.file.S3Dto;
 import com.witchdelivery.messageapp.infra.file.S3Service;
 import com.witchdelivery.messageapp.security.utils.CustomAuthorityUtils;
 import com.witchdelivery.messageapp.domain.member.dto.MemberPostDto;
@@ -32,6 +32,8 @@ public class MemberService {
     private final S3Service s3Service;
     private final MemberFileRepository memberFileRepository;
 
+//    @Value("${default.image.address}")
+//    private String defaultImageAddress;
 
     /**
      * 사용자 등록(회원가입) 메서드
@@ -50,6 +52,12 @@ public class MemberService {
 
         member.passwordEncode(passwordEncoder);
         member.authorizeUser(customAuthorityUtils);
+
+//        MemberFile memberFile = MemberFile.builder()
+//                .filePath(defaultImageAddress)
+//                .build();
+//        member.addMemberFile(memberFile);
+
         return memberRepository.save(member);
     }
 
@@ -91,19 +99,27 @@ public class MemberService {
         return memberRepository.findAllByOrderByMemberIdDesc(pageRequest);
     }
 
-    // TODO 닉네임 수정 메서드
-    // TODO 패스워드 수정 메서드
     /**
-     * 사용자 정보 수정 메서드
+     * 사용자 패스워드 변경 메서드
      * @param member
      * @return
      */
-    public Member updateMember(Member member) {
+    public Member updatePassword(Member member) {
         Member findMember = memberDbService.findVerifiedMember(member.getMemberId());   // 사용자 검증
+        member.passwordEncode(passwordEncoder); // 패스워드 암호화
         Member updateMember = customBeanUtils.copyNonNullProperties(member, findMember);  // copyNonNullProperties(원본 객체, 복사 객체)
+        return memberRepository.save(updateMember);
+    }
 
-        memberDbService.verifiedExistedName(member.getNickname());    // 닉네임 검증
-        member.passwordEncode(passwordEncoder);
+    /**
+     * 사용자 닉네임 변경 메서드
+     * @param member
+     * @return
+     */
+    public Member updateNickname(Member member) {
+        Member findMember = memberDbService.findVerifiedMember(member.getMemberId());   // 사용자 검증
+        memberDbService.verifiedExistedName(member.getNickname());  // 닉네임 검증
+        Member updateMember = customBeanUtils.copyNonNullProperties(member, findMember);    // copyNonNullProperties(원본 객체, 복사 객체)
         return memberRepository.save(updateMember);
     }
 
@@ -126,17 +142,14 @@ public class MemberService {
     public void updateProfileS3(Long memberId, MultipartFile multipartFile) throws IOException {
         Member findMember = memberDbService.findVerifiedMember(memberId);   // 사용자 검증
 
-        // TODO customBeanUtils을 이용한 코드 리팩토링
-        // TODO 파일 존재 시, 기존 파일 삭제
-
         String dir = "memberImage"; // 사용자 프로필 이미지 디렉토리 지정
-        S3File s3File = s3Service.s3ImageUpload(multipartFile, dir);
+        S3Dto s3Dto = s3Service.s3ImageUpload(multipartFile, dir);
 
         MemberFile memberFile = MemberFile.builder()
-                .originFileName(s3File.getOriginFileName())
-                .fileName(s3File.getFileName())
-                .filePath(s3File.getFilePath())
-                .fileSize(s3File.getFileSize())
+                .originFileName(s3Dto.getOriginFileName())
+                .fileName(s3Dto.getFileName())
+                .filePath(s3Dto.getFilePath())
+                .fileSize(s3Dto.getFileSize())
                 .build();
 
         findMember.addMemberFile(memberFile);

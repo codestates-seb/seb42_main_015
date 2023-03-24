@@ -1,10 +1,7 @@
 package com.witchdelivery.messageapp.domain.member.controller;
 
-import com.witchdelivery.messageapp.domain.member.dto.VerifiedExistedDto;
-import com.witchdelivery.messageapp.domain.member.dto.MemberResponseDto;
+import com.witchdelivery.messageapp.domain.member.dto.*;
 import com.witchdelivery.messageapp.domain.member.mapper.MemberMapper;
-import com.witchdelivery.messageapp.domain.member.dto.MemberPatchDto;
-import com.witchdelivery.messageapp.domain.member.dto.MemberPostDto;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.domain.member.service.MemberDbService;
 import com.witchdelivery.messageapp.domain.member.service.MemberService;
@@ -20,8 +17,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.io.IOException;
 
-@RestController
 @RequestMapping("/sendy/users")
+@RestController
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberDbService memberDbService;
@@ -39,25 +36,26 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    // TODO 이메일 인증코드 발송 메서드로 대체
     /**
      * 이메일 중복 검증 컨트롤러 메서드
-     * @param emailDto
+     * @param postUsernameDto
      * @return
      */
-    @PostMapping("/email")
-    public ResponseEntity postEmail(@Valid @RequestBody VerifiedExistedDto.EmailDto emailDto) {
-        memberDbService.verifiedExistedEmail(emailDto.getEmail());
+    @PostMapping("/verify/email")
+    public ResponseEntity postVerifyEmail(@Valid @RequestBody PostUsernameDto postUsernameDto) {
+        memberDbService.verifiedExistedEmail(postUsernameDto.getEmail());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
      * 닉네임 중복 검증 컨트롤러 메서드
-     * @param nicknameDto
+     * @param postNicknameDto
      * @return
      */
-    @PostMapping("/nickname")
-    public ResponseEntity postNickname(@Valid @RequestBody VerifiedExistedDto.NicknameDto nicknameDto) {
-        memberDbService.verifiedExistedName(nicknameDto.getNickname());
+    @PostMapping("/verify/nickname")
+    public ResponseEntity postVerifyNickname(@Valid @RequestBody PostNicknameDto postNicknameDto) {
+        memberDbService.verifiedExistedName(postNicknameDto.getNickname());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -85,18 +83,31 @@ public class MemberController {
         return new ResponseEntity<>(new PageResponseDto<>(memberMapper.membersToMemberResponseDtos(members.getContent()), members), HttpStatus.OK);
     }
 
-    // TODO 닉네임 수정 메서드
-    // TODO 패스워드 수정 메서드
     /**
-     * 사용자 정보 수정 컨트롤러 메서드
+     * 사용자 패스워드 변경 컨트롤러 메서드
      * @param memberId
-     * @param memberPatchDto
+     * @param patchPasswordDto
      * @return
      */
-    @PatchMapping("/edit/{member-id}")
-    public ResponseEntity patchMember(@PathVariable("member-id") Long memberId, @RequestBody MemberPatchDto memberPatchDto) {
-        memberPatchDto.setMemberId(memberId);
-        Member response = memberService.updateMember(memberMapper.memberPatchDtoToMember(memberPatchDto));
+    @PatchMapping("/edit/password/{member-id}")
+    public ResponseEntity patchPassword(@PathVariable("member-id") Long memberId,
+                                        @Valid @RequestBody PatchPasswordDto patchPasswordDto) {
+        patchPasswordDto.setMemberId(memberId);
+        Member response = memberService.updatePassword(memberMapper.patchPasswordDtoToMember(patchPasswordDto));
+        return new ResponseEntity<>(memberMapper.memberToMemberResponseDto(response), HttpStatus.OK);
+    }
+
+    /**
+     * 사용자 닉네임 변경 컨트롤러 메서드
+     * @param memberId
+     * @param patchNicknameDto
+     * @return
+     */
+    @PatchMapping("/edit/nickname/{member-id}")
+    public ResponseEntity patchNickname(@PathVariable("member-id") Long memberId,
+                                        @Valid @RequestBody PatchNicknameDto patchNicknameDto) {
+        patchNicknameDto.setMemberId(memberId);
+        Member response = memberService.updateNickname(memberMapper.patchNicknameDtoToMember(patchNicknameDto));
         return new ResponseEntity<>(memberMapper.memberToMemberResponseDto(response), HttpStatus.OK);
     }
 
@@ -106,9 +117,9 @@ public class MemberController {
      * @param multipartFile
      * @throws IOException
      */
-    @PostMapping("/profile/{member-id}")
-    public void postFile(@PathVariable("member-id") Long memberId,
-                         @RequestParam(value = "image") MultipartFile multipartFile) throws IOException {
+    @PostMapping("/edit/profile/{member-id}")
+    public void postProfileImage(@PathVariable("member-id") Long memberId,
+                                 @RequestParam(value = "image") MultipartFile multipartFile) throws IOException {
         memberService.updateProfileS3(memberId, multipartFile);
     }
 
