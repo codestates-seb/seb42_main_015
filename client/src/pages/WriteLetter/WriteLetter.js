@@ -21,6 +21,7 @@ function WriteLetter() {
   const [openSendMe, setOpenSendMe] = useState(false);
   const [activeIcon, setActiveIcon] = useState("");
   const [openMakeLetter, setOpenMakeLetter] = useState(false);
+  const [isContentVaild, setIsContentVaild] = useState(false);
   const [startDate, setStartDate] = useState(
     new Date(
       new Date().getFullYear(),
@@ -129,6 +130,8 @@ function WriteLetter() {
               setStartDate={setStartDate}
               setOpenSendMe={setOpenSendMe}
               setSendMeChecked={setSendMeChecked}
+              browserSize={browserSize}
+              setBrowserSize={setBrowserSize}
             />
           }
         />
@@ -138,7 +141,7 @@ function WriteLetter() {
       {openMakeLetter ? (
         <Modal
           className="make-letter-modal"
-          ContainerWidth="450px"
+          ContainerWidth={browserSize > 767 ? "400px" : "300px"}
           ContainerHeight={browserSize > 767 ? "700px" : "600px"}
           children={<MakeLetter makeLetterModalRef={makeLetterModalRef} />}
         />
@@ -270,6 +273,7 @@ function WriteLetter() {
                 resetTranscript={resetTranscript}
                 currentLetterTheme={currentLetterTheme}
                 browserSize={browserSize}
+                setIsContentVaild={setIsContentVaild}
               />
               <W.BallonWrapper>
                 <W.TextCount>{contentLength}/7000</W.TextCount>
