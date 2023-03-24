@@ -7,6 +7,8 @@ const useStore = create((set) => ({
   setIsLogin: (loginState) => set((state) => ({ isLogin: loginState })),
   contentFont: "프리텐다드",
   changeContentFont: (font) => set((state) => ({ contentFont: font })),
+  memberId: null,
+  setMemberId: (memberId) => set((state) => ({ memberId: memberId })),
 }));
 
 export default useStore;

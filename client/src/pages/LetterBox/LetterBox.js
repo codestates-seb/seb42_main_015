@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as L from "./LetterBoxStyled";
 import LetterView from "./LetterView";
 import { GrSearch } from "react-icons/gr";
@@ -11,6 +11,7 @@ import {
   RiUserReceivedLine,
   RiUserSharedLine,
 } from "react-icons/ri";
+import axios from "axios";
 
 function LetterBox() {
   const [lefttTab, setleftTab] = useState(false);
@@ -71,6 +72,14 @@ function LetterBox() {
     setTrash(!trash);
     setSelect(!select);
   };
+
+  useEffect(() => {
+    axios.get("/api/sendy/mailbox/messages/out", {
+      headers: { "ngrok-skip-browser-warning": "230324" },
+    })
+      .then((res) => console.log(res.data.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <L.LetterBoxWrap>

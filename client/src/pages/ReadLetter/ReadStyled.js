@@ -367,20 +367,29 @@ export const ModalWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 10px 20px 20px;
-  /* background: orange; */
 
   .loginText {
-    ${FONT_STYLE_LOGIN.title.title_42_medium}
-    margin:1rem 0px 2rem;
+    ${FONT_STYLE_LOGIN.title.title_34_medium}
+    margin: 0em 0px 1.5rem;
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      ${FONT_STYLE_LOGIN.title.title_42_medium}
+      margin: 1rem 0px 3rem;
+    }
   }
   .oauth {
     justify-content: space-around;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.5rem;
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      margin-bottom: 1.5rem;
+    }
 
     img {
-      width: 3rem;
+      width: 2.5rem;
       margin: 0 10px;
       cursor: pointer;
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        width: 3rem;
+      }
     }
   }
   form {
@@ -401,10 +410,10 @@ export const ModalWrapper = styled.div`
       background-repeat: no-repeat;
       background-position: left;
       font-size: 0.8rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.4rem;
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
         width: 23rem;
-        margin-bottom: 1.2rem;
+        margin-bottom: 2rem;
       }
     }
     .emailInput {
@@ -425,7 +434,7 @@ export const ModalWrapper = styled.div`
       margin: 1.5rem 0;
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
         height: 3.3rem;
-        margin: 2rem 0;
+        margin: 4rem 0 2rem;
       }
     }
     p {

@@ -215,6 +215,12 @@ export const FONT_STYLE_LOGIN = {
       -webkit-text-stroke: 1px #000;
       color: ${PALETTE_LOGIN.loginText};
     `,
+    title_34_medium: css`
+      font-family: "Sriracha";
+      font-size: 3.4rem;
+      -webkit-text-stroke: 1px #000;
+      color: ${PALETTE_LOGIN.loginText};
+    `,
     title_25_medium: css`
       font-family: "Raleway", sans-serif;
       font-size: 2.5rem;
