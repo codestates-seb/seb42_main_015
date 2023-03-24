@@ -9,4 +9,6 @@ public interface OutgoingRepository extends JpaRepository<Outgoing, Long> { // �
 
       Page<Outgoing> findAllByMember_MemberIdAndOutgoingStatusOrderByCreatedAtDesc(Long memberId, Outgoing.OutgoingStatus outgoingStatus, Pageable pageable);
 
+      Page<Outgoing> findAllByMember_MemberIdAndOutgoingStatusOrderByDeletedAtDesc(Long memberId, Outgoing.OutgoingStatus outgoingStatus, Pageable pageable); // 휴지통 페이지네이션
+
 }

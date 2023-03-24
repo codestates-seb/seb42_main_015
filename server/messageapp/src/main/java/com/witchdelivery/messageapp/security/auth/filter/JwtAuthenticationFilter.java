@@ -1,12 +1,14 @@
 package com.witchdelivery.messageapp.security.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.witchdelivery.messageapp.security.auth.dto.LoginDto;
 import com.witchdelivery.messageapp.security.auth.jwt.JwtTokenizer;
 import com.witchdelivery.messageapp.security.auth.service.RedisService;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -65,8 +67,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String accessToken = delegateAccessToken(member);   // Access Token 생성
         String refreshToken = delegateRefreshToken(member); // Refresh Token 생성
 
+        // 유저정보
+        Map<String, Object> responseBody = new HashMap<>();
+        responseBody.put("memberId", member.getMemberId());
+        responseBody.put("email", member.getEmail());
+        responseBody.put("nickname", member.getNickname());
+//        responseBody.put("memberFile", member.getMemberFile().getFilePath()); // 이미지 없으면 NPE 뜸
+
+        Gson gson = new Gson();
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
+        response.getWriter().write(gson.toJson(responseBody, Map.class));
 
         /*현재 refresh token을 키로 하는 데이터가 없으면 refresh token 레디스에 저장*/
         if (redisService.getRefreshToken(refreshToken) == null) {
