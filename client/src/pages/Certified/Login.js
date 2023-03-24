@@ -47,6 +47,7 @@ function Login() {
       )
       .then((res) => {
         alert("로그인되었습니다.");
+        console.log(res.headers.date);
         if (res.headers.getAuthorization) {
           //! refresh token은 -> local storage에 저장
           localStorage.setItem("refreshToken", res.headers.get("Refresh"));
@@ -58,8 +59,8 @@ function Login() {
               options,
             }
           );
-          console.log("accesstoken : ", getCookie("accesstoken"));
-          console.log("refreshToken : ", localStorage.getItem("refreshToken"));
+          // console.log("accesstoken : ", getCookie("accesstoken"));
+          // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
           navigate("/");
         }
       })
@@ -68,6 +69,8 @@ function Login() {
         alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
       });
   };
+
+  // console.log("현재시간", new Date().getTime());
 
   return (
     <>

@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import * as S from "./ReadStyled";
-import { headers, options } from "../Certified/setupCertified";
+import axios from "axios";
+import { getCookie } from "../Certified/Cookie";
 
 const ReadLetter = ({ enterPassword, setEnterPassword }) => {
   const FormSchema = yup.object({
@@ -22,10 +23,28 @@ const ReadLetter = ({ enterPassword, setEnterPassword }) => {
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
-  const onSubmit = (data) => {
-    alert("비밀번호가 일치합니다! 어떤 편지가 왔을까요?");
-    setEnterPassword(!enterPassword);
-    //! 추후 비밀번호가 맞는지 검증절차 필요
+  // alert("비밀번호가 일치합니다! 어떤 편지가 왔을까요?");
+  // setEnterPassword(!enterPassword);
+  // //! 추후 비밀번호가 맞는지 검증절차 필요
+
+  const onSubmit = async (data) => {
+    const { numberpassword } = data;
+    await axios
+      //! 현재 /messages/<메세지id>/<urlName> => /messages/<urlName>로 변경 예정
+      .get(`/api/sendy/messages/2/hi`, {
+        headers: {
+          "ngrok-skip-browser-warning": "12",
+          Authorization: `${getCookie("accesstoken")}`,
+          Refresh: `${localStorage.getItem("refreshToken")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.body);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("비밀번호가 일치하지 않습니다.");
+      });
   };
 
   return (

@@ -13,18 +13,13 @@ function Header() {
   //로그아웃 제출 버튼
   const onLogout = async () => {
     await axios
-      .post(
-        `/api/sendy/auth/logout`,
-        {
-          Authorization: `${getCookie("jwtToken")}`,
+      .post(`/api/sendy/auth/logout`, {
+        headers: {
+          "ngrok-skip-browser-warning": "12",
+          Authorization: `${getCookie("accesstoken")}`,
           Refresh: `${localStorage.getItem("refreshToken")}`,
         },
-        {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          "ngrok-skip-browser-warning": "12",
-        }
-      )
+      })
       .then((res) => {
         console.log(res.body);
         navigate("/completeLogout");
@@ -63,7 +58,7 @@ function Header() {
                 <Link to="/mypage">mypage</Link>
               </li>
               <li>
-                <a onClick={() => onLogout}>Logout</a>
+                <a onClick={onLogout}>Logout</a>
               </li>
             </div>
           ) : (

@@ -26,13 +26,21 @@ function App() {
     const loggedInfo = getCookie("accesstoken");
     if (loggedInfo) {
       setIsLogin(true);
-      console.log(getCookie("accesstoken"));
+      // console.log("accesstoken : ", getCookie("accesstoken"));
+      // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
     }
   };
 
   useEffect(() => {
     initializeUserInfo();
   }, [isLogin]);
+
+  const currentDate = `${new Date().getFullYear()}.${(
+    "00" +
+    (new Date().getMonth() + 1)
+  ).slice(-2)}.${("00" + new Date().getDate()).slice(-2)}`;
+  // console.log(currentDate);
+  // console.log(new Date().getTime());
 
   // ! 공백
   return (
