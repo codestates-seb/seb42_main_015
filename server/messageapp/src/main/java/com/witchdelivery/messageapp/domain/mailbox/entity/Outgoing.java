@@ -23,8 +23,8 @@ public class Outgoing extends BaseTime { // 발신 (보내는 사람)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long outgoingId; // PK 발신식별번호
 
-    @Column()
-    private Long fromId; // 받는사람식별번호, 비회원 가능
+//    @Column()
+//    private Long fromId; // 받는사람식별번호, 비회원 가능
 
     @ManyToOne
     @JoinColumn(name = "MESSAGE_ID")

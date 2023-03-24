@@ -48,6 +48,8 @@ public class MemberUserDetailsService implements UserDetailsService {
             setEmail(member.getEmail());
             setPassword(member.getPassword());
             setRoles(member.getRoles());
+            setNickname(member.getNickname());
+//            setMemberFile(member.getMemberFile());
         }
 
         @Override
