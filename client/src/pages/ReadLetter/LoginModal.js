@@ -112,7 +112,7 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
             disabled={isSubmitting}
           />
           <div className="sub">
-            <Link to="/setpwd">
+            <Link to="/setpwd/1">
               <li>forget Password</li>
             </Link>
             <Link to="/signup">

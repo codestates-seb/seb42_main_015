@@ -31,6 +31,11 @@ export const PageContainer = styled.div`
   display: flex;
   justify-content: center;
   overflow-x: none;
+  /* .make-letter-modal{
+    .modal-container{
+      min-width: ;
+    }
+  } */
 `;
 export const FlexRowWrapper = styled.div`
   display: flex;
@@ -57,17 +62,27 @@ export const FlexRowWrapper = styled.div`
     justify-content: space-evenly;
     align-items: center;
   }
+  @media screen and (max-width: 1024px) {
+    .check-button {
+      position: absolute;
+      left: 350px;
+      min-width: 50px;
+      width: 50px;
+      height: 25px;
+    }
+  }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     .check-button {
       position: absolute;
-      top: 132px;
-      left: 135px;
+      top: 140px;
+      left: 130px;
       min-width: 50px;
       width: 50px;
       height: 25px;
     }
     &.URL-input {
       flex-direction: column;
+      align-items: flex-start;
     }
     &.button-wrapper {
       width: 100%;
@@ -109,7 +124,7 @@ export const LetterWrapper = styled.div`
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     .microphone-icon,
     .font-icon {
-      font-size: 25px;
+      font-size: 30px;
       margin-right: 15px;
       margin-bottom: 5px;
     }
@@ -117,7 +132,7 @@ export const LetterWrapper = styled.div`
   @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
     .microphone-icon,
     .font-icon {
-      font-size: 20px;
+      font-size: 25px;
       margin-right: 15px;
       margin-bottom: 5px;
     }
@@ -331,7 +346,7 @@ export const ButtonWrapper = styled(FlexRowWrapper)`
       font-size: 23px;
     }
   }
-  &#sendMeModalButton {
+  &#sendme-modal-button-wrapper {
     justify-content: center;
     padding-bottom: 10px;
     padding-top: 30px;
@@ -508,11 +523,15 @@ export const ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 4%;
+  height: 95%;
   &.make-letter {
     justify-content: space-around;
     padding-left: 30px;
     padding-right: 30px;
-    height: 95%;
+  }
+  &.sendme-modal {
+    align-items: center;
+    justify-content: space-around;
   }
 `;
 export const ModalTitle = styled.div`
@@ -545,7 +564,7 @@ export const TimeBoxWrapper = styled.div`
     }
   }
   .react-datepicker-popper {
-    width: 250px;
+    width: 300px;
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       width: 200px;
     }
@@ -622,6 +641,7 @@ export const TimeBox = styled.select`
 export const TimeOption = styled.option``;
 export const ReservationText = styled.div`
   ${FONT_STYLE_V1.body.body_15_light}
+  text-align: center;
 `;
 export const ErrorMessage = styled.p`
   ${FONT_STYLE_V1.body.body_15_light}
@@ -689,6 +709,9 @@ export const UploadBox = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  .high-light {
+    background-color: ${PALETTE_V1.yellow_button};
+  }
   .drag-file {
     width: 100%;
     height: 200px;

@@ -52,13 +52,13 @@ function Login() {
           //! access token은 -> cookie에 저장
           setCookie(
             "accesstoken",
-            res.headers.get("Authorization").split(" ")[1],
+            `Bearer ${res.headers.get("Authorization").split(" ")[1]}`,
             {
               options,
             }
           );
-          console.log("accesstoken", getCookie("accesstoken"));
-          console.log("refreshToken", localStorage.getItem("refreshToken"));
+          console.log("accesstoken : ", getCookie("accesstoken"));
+          console.log("refreshToken : ", localStorage.getItem("refreshToken"));
           navigate("/");
         }
       })
@@ -101,7 +101,7 @@ function Login() {
               />
 
               <div className="sub-form ">
-                <Link to="/setpwd">
+                <Link to="/setpwd/1">
                   <li>forget Password</li>
                 </Link>
                 <Link to="/signup">

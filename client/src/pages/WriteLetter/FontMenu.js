@@ -14,13 +14,15 @@ function FontMenu() {
       <W.FontEl
         font={FONT_STYLE_V1.body.body_18_light}
         onClick={handleChangeContentFont}
-        className={contentFont === "프리텐다드" ? "active" : ""}>
+        className={contentFont === "프리텐다드" ? "active" : ""}
+      >
         프리텐다드
       </W.FontEl>
       <W.FontEl
         font={FONT_STYLE_CONTENT.pixel_18}
         onClick={handleChangeContentFont}
-        className={contentFont === "도스샘물" ? "active" : ""}>
+        className={contentFont === "도스샘물" ? "active" : ""}
+      >
         도스샘물
       </W.FontEl>
       <W.FontEl
@@ -30,7 +32,8 @@ function FontMenu() {
           contentFont === "강원교육모두체"
             ? "zero-padding active"
             : "zero-padding"
-        }>
+        }
+      >
         강원교육모두체
       </W.FontEl>
     </W.FontContainer>

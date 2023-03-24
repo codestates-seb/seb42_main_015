@@ -15,7 +15,7 @@ function GNB() {
         break;
       case "비밀번호 수정":
         changeCurrentPage("PwdChange");
-        navigate("/pwdchange");
+        navigate("/pwdchange/1");
         break;
       case "휴지통":
         changeCurrentPage("Trash");
