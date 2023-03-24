@@ -2,11 +2,14 @@ package com.witchdelivery.messageapp.domain.mailbox.service;
 
 import com.witchdelivery.messageapp.domain.mailbox.entity.Outgoing;
 import com.witchdelivery.messageapp.domain.mailbox.repository.OutgoingRepository;
+import com.witchdelivery.messageapp.domain.member.entity.Member;
+import com.witchdelivery.messageapp.domain.member.repository.MemberRepository;
 import com.witchdelivery.messageapp.global.exception.BusinessLogicException;
 import com.witchdelivery.messageapp.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,6 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OutgoingService { // 발신 (보내는 사람)
     private final OutgoingRepository outgoingRepository;
+    private final MemberRepository memberRepository;
 
     public Outgoing createOutgoing(Outgoing outgoing) {
         return outgoingRepository.save(outgoing); // outgoing 정보 저장
@@ -34,7 +38,7 @@ public class OutgoingService { // 발신 (보내는 사람)
         Optional<Outgoing> optionalOutgoing =
                 outgoingRepository.findById(outgoingId);
         Outgoing findOutgoing =
-                optionalOutgoing.orElseThrow(()->
+                optionalOutgoing.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.OUTGOING_NOT_FOUND));
         return findOutgoing;
     }
@@ -45,9 +49,25 @@ public class OutgoingService { // 발신 (보내는 사람)
         outgoingRepository.save(outgoing);
     }
 
-    public Page<Outgoing> findAllMessages(int page, int size) {
+
+
+    public Page<Outgoing> findAllMessages(int page, int size, Authentication authentication) {    // 인증된 사용자의 memberId 기반으로 발신함 목록 조회, memberId 값 검색을 위해 findMemberIdByAuthenticatedUser 사용
+        Long memberId = findMemberIdByAuthenticatedUser(authentication);
         PageRequest pageRequest = PageRequest.of(page, size);
-        return outgoingRepository.findAllByOrderByOutgoingIdDesc(pageRequest);
+        return outgoingRepository.findAllByMember_MemberIdAndOutgoingStatusOrderByCreatedAtDesc(memberId, Outgoing.OutgoingStatus.OUTGOING_STORE, pageRequest);
+
+
+    }
+
+    public Long findMemberIdByAuthenticatedUser(Authentication authentication) {  // 이메일 주소를 기반으로 DB에서 인증된 사용자의 memberId 값 검색, memberId 찾지 못할 시에 BusinessLogicException
+        String username = authentication.getName();
+        Optional<Member> optionalMember = memberRepository.findByEmail(username);
+        if (optionalMember.isPresent()) {
+            return optionalMember.get().getMemberId();
+        } else {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
+        }
     }
 
 }
+

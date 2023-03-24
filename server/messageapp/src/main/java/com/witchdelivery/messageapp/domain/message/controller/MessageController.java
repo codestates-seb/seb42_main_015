@@ -5,6 +5,7 @@ import com.witchdelivery.messageapp.domain.member.service.MemberDbService;
 import com.witchdelivery.messageapp.domain.member.service.MemberService;
 import com.witchdelivery.messageapp.domain.message.dto.MessagePatchDto;
 import com.witchdelivery.messageapp.domain.message.dto.MessagePostDto;
+import com.witchdelivery.messageapp.domain.message.dto.MessageResponseDto;
 import com.witchdelivery.messageapp.domain.message.dto.PasswordInputDto;
 import com.witchdelivery.messageapp.domain.message.service.MessageService;
 import com.witchdelivery.messageapp.domain.message.entity.Message;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,26 +31,48 @@ public class MessageController {
     private final MessageMapper messageMapper;
     private final MemberDbService memberDbService;
 
-    @PostMapping("/write")
-    public ResponseEntity postMessage(@Valid @RequestBody MessagePostDto messagePostDto) {
+    @PostMapping("/write")                        // 사용자 인증 기반, 요청 body에 memberId 작성 삭제, urlName 중복 시 conflict 에러
+    public ResponseEntity postMessage(@Valid @RequestBody MessagePostDto messagePostDto, Principal principal) {
+        if (messageService.urlNameExists(messagePostDto.getUrlName())) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
         Message message = messageMapper.messagePostDtoToMessage(messagePostDto);
 
-        Member member = memberDbService.findVerifiedMember(messagePostDto.getMemberId());
+        Member member = memberDbService.findMemberByEmail(principal.getName());
         message.setMember(member);
 
-        messageService.createMessage(message);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        Message createdMessage = messageService.createMessage(message);
+        MessageResponseDto responseDto = messageMapper.messageToMessageResponseDto(createdMessage);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/saved/{message-id}")
-    public ResponseEntity updateMessageSaved(@PathVariable("message-id") Long messageId, @RequestBody MessagePatchDto messagePatchDto) {
-        messageService.updatedMessageSaved(messageId, messagePatchDto.isMessageSaved(), messagePatchDto.getMemberId());
+    @PostMapping("/{urlName}")    //      편지 비밀번호 조회
+    public ResponseEntity getMessage(@PathVariable("urlName") String urlName,
+                                     @Valid @RequestBody PasswordInputDto passwordInputDto) {
+        Message message = messageService.findMessageByUrlName(urlName);
+
+        if (!passwordInputDto.getPassword().equals(message.getPassword())) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(messageMapper.messageToMessageResponseDto(message), HttpStatus.OK);
+    }
+
+
+    @PatchMapping("/saved/{urlName}")                   // 편지 저장
+    public ResponseEntity updateMessageSaved(@PathVariable("urlName") String urlName, @RequestBody MessagePatchDto messagePatchDto,
+                                             Principal principal) {
+        Message message = messageService.findMessageByUrlName(urlName);
+        Long memberId = memberDbService.findMemberByEmail(principal.getName()).getMemberId();
+
+        messageService.updatedMessageSaved(message.getMessageId(), messagePatchDto.isMessageSaved(), memberId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/{message-id}/{urlName}")
-    public ResponseEntity getMessage(@PathVariable("message-id") Long messageId, @PathVariable("urlName") String urlName) {
-        Message message = messageService.findMessageByUrlName(messageId, urlName);
+
+    @GetMapping("/{urlName}")                                // 편지 단일 조회
+    public ResponseEntity getMessage(@PathVariable("urlName") String urlName) {
+        Message message = messageService.findMessageByUrlName(urlName);
         return new ResponseEntity<>(messageMapper.messageToMessageResponseDto(message), HttpStatus.OK);
     }
 
@@ -65,17 +89,7 @@ public class MessageController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/{message-id}/{urlName}")
-    public ResponseEntity getMessage(@PathVariable("message-id") Long messageId,
-                                     @PathVariable("urlName") String urlName,
-                                     @Valid @RequestBody PasswordInputDto passwordInputDto) {
-        Message message = messageService.findMessageByUrlName(messageId, urlName);
 
-        if (!passwordInputDto.getPassword().equals(message.getPassword())) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-        return new ResponseEntity<>(messageMapper.messageToMessageResponseDto(message), HttpStatus.OK);
-    }
 }
 
 
