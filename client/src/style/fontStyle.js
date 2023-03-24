@@ -8,6 +8,11 @@ export const FONT_STYLE_V1 = {
       font-size: 0.8rem;
       color: ${PALETTE_V1.text_primary};
     `,
+    title_9_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 0.9rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
     title_10_medium: css`
       font-family: "Pretendard-Medium";
       font-size: 1rem;
@@ -38,14 +43,29 @@ export const FONT_STYLE_V1 = {
       font-size: 2rem;
       color: ${PALETTE_V1.text_primary};
     `,
+    title_25_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 2.5rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
     title_30_medium: css`
       font-family: "Pretendard-Medium";
       font-size: 3rem;
       color: ${PALETTE_V1.text_primary};
     `,
+    title_35_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 3.5rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
     title_40_medium: css`
       font-family: "Pretendard-Medium";
       font-size: 4rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    title_45_medium: css`
+      font-family: "Pretendard-Medium";
+      font-size: 4.5rem;
       color: ${PALETTE_V1.text_primary};
     `,
     title_20_thin: css`
@@ -90,9 +110,74 @@ export const FONT_STYLE_V1 = {
       font-size: 1.2rem;
       color: ${PALETTE_V1.text_primary};
     `,
+    body_13_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 1.3rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_14_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 1.4rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
     body_15_light: css`
       font-family: "Pretendard-Light";
       font-size: 1.5rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_16_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 1.6rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_17_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 1.7rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_18_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 1.8rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_19_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 1.9rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_20_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 2rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_21_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 2.1rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_22_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 2.2rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_24_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 2.4rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_26_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 2.6rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_28_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 2.8rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
+    body_30_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 3rem;
       color: ${PALETTE_V1.text_primary};
     `,
   },
@@ -108,9 +193,9 @@ export const FONT_STYLE_V1 = {
 };
 export const FONT_STYLE_LOGO = {
   title: {
-    title_25_medium: css`
+    title_35_medium: css`
       font-family: "Sriracha";
-      font-size: 2.5rem;
+      font-size: 3.5rem;
       color: black;
       line-height: 2rem;
     `,
@@ -118,9 +203,21 @@ export const FONT_STYLE_LOGO = {
 };
 export const FONT_STYLE_LOGIN = {
   title: {
-    title_40_medium: css`
+    title_42_medium: css`
       font-family: "Sriracha";
       font-size: 4.2rem;
+      -webkit-text-stroke: 1px #000;
+      color: ${PALETTE_LOGIN.loginText};
+    `,
+    title_37_medium: css`
+      font-family: "Sriracha";
+      font-size: 3.7rem;
+      -webkit-text-stroke: 1px #000;
+      color: ${PALETTE_LOGIN.loginText};
+    `,
+    title_34_medium: css`
+      font-family: "Sriracha";
+      font-size: 3.4rem;
       -webkit-text-stroke: 1px #000;
       color: ${PALETTE_LOGIN.loginText};
     `,
@@ -154,6 +251,10 @@ export const FONT_STYLE_LOGIN = {
       font-family: "IBM Plex Sans Thai Looped", sans-serif;
       font-size: 1.3rem;
     `,
+    button_4_light: css`
+      font-family: "Pretendard-Light";
+      font-size: 0.4rem;
+    `,
   },
 };
 
@@ -166,28 +267,32 @@ export const FONT_STYLE_LOGOUT = {
     font-family: "Caveat", cursive;
     font-size: 2rem;
   `,
+  title_18_medium: css`
+    font-family: "Pretendard-Light";
+    font-size: 1.8rem;
+  `,
   title_15_medium: css`
-    font-family: "Caveat", cursive;
+    font-family: "Pretendard-Light";
     font-size: 1.5rem;
   `,
   title_14_medium: css`
     font-family: "B612", sans-serif;
     font-size: 1.4rem;
   `,
-  title_9_medium: css`
+  title_10_medium: css`
     font-family: "B612", sans-serif;
     font-size: 0.9rem;
   `,
-  title_11_medium: css`
+  button_14_san: css`
     font-family: "B612", sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.4rem;
   `,
 };
 
 export const FONT_STYLE_READ = {
-  title_20_medium: css`
+  title_19_medium: css`
     font-family: "Pretendard-Light";
-    font-size: 1.7rem;
+    font-size: 1.9rem;
   `,
   body_9_Medium: css`
     font-family: "Pretendard-Medium";
@@ -202,9 +307,17 @@ export const FONT_STYLE_READ = {
     font-size: 1rem;
     text-align: justify;
   `,
+  body_9_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 0.9rem;
+  `,
   body_8_light: css`
     font-family: "Pretendard-Light";
     font-size: 0.8rem;
+  `,
+  body_7_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 0.7rem;
   `,
   btn_8_light: css`
     font-family: "B612", sans-serif;
@@ -224,6 +337,13 @@ export const FONT_STYLE_CONTENT = {
     line-height: 2rem;
     text-align: justify;
   `,
+  pixel_18: css`
+    font-family: "DOSSaemmul";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
+  `,
   gangwonedu_10_light: css`
     font-family: "GangwonEdu_Light";
     font-size: 1rem;
@@ -231,9 +351,23 @@ export const FONT_STYLE_CONTENT = {
     line-height: 2rem;
     text-align: justify;
   `,
+  gangwonedu_18_light: css`
+    font-family: "GangwonEdu_Light";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
+  `,
   gangwonedu_10_bold: css`
     font-family: "GangwonEdu_Bold";
     font-size: 1rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
+  `,
+  gangwonedu_18_bold: css`
+    font-family: "GangwonEdu_Bold";
+    font-size: 1.8rem;
     color: ${PALETTE_V1.text_primary};
     line-height: 2rem;
     text-align: justify;

@@ -1,2 +1,3 @@
 export const BREAKPOINTMOBILE = 767;
-export const BREAKPOINTMOBILE2 = 361;
+export const BREAKPOINTMOBILE2 = 420;
+export const BREAKPOINTTABLET = 768;

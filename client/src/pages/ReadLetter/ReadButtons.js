@@ -14,6 +14,7 @@ const ReadButtons = ({
   onDownloadBtn,
 }) => {
   //'보관하기' 버튼 누르면 모달 나오는 이벤트 핸들러
+
   const handleKeeping = () => {
     setIsKeeping(!isKeeping);
   };
@@ -45,6 +46,7 @@ const ReadButtons = ({
           <></>
         )}
         <ShadowButton
+          className="button"
           backgroundColor={PALETTE_V1.yellow_button}
           state="none-block"
           onClick={onDownloadBtn}
@@ -53,6 +55,7 @@ const ReadButtons = ({
         </ShadowButton>
         {isLogin ? (
           <ShadowButton
+            className="button"
             backgroundColor={PALETTE_V1.aready_keep_button}
             state="block"
           >
@@ -60,6 +63,7 @@ const ReadButtons = ({
           </ShadowButton>
         ) : (
           <ShadowButton
+            className="button"
             backgroundColor={PALETTE_V1.yellow_button}
             state="none-block"
             onClick={handleKeeping}
@@ -71,7 +75,8 @@ const ReadButtons = ({
           <R.ModalBackground>
             <Modal
               ModalRef={ModalRef}
-              ContainerHeight={"500px"}
+              ContainerHeight={"420px"}
+              ContainerWidth={"370px"}
               children={
                 <LoginModal ModalRef={ModalRef} setIsKeeping={setIsKeeping} />
               }

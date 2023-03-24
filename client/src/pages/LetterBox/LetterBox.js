@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as L from "./LetterBoxStyled";
 import LetterView from "./LetterView";
 import { GrSearch } from "react-icons/gr";
@@ -8,7 +8,10 @@ import {
   RiArrowDropDownLine,
   RiArrowUpSLine,
   RiArrowDownSLine,
+  RiUserReceivedLine,
+  RiUserSharedLine,
 } from "react-icons/ri";
+import axios from "axios";
 
 function LetterBox() {
   const [lefttTab, setleftTab] = useState(false);
@@ -16,6 +19,7 @@ function LetterBox() {
   const [currentTab, setCurrentTab] = useState("최신순");
   const [select, setSelect] = useState(false);
   const [trash, setTrash] = useState(false);
+  const [isSend, setIsSend] = useState(false);
 
   const tabItem = ["최신순", "오래된 순", "북마크"];
   const [yearL, setYearL] = useState(2023);
@@ -68,6 +72,14 @@ function LetterBox() {
     setTrash(!trash);
     setSelect(!select);
   };
+
+  useEffect(() => {
+    axios.get("/api/sendy/mailbox/messages/out", {
+      headers: { "ngrok-skip-browser-warning": "230324" },
+    })
+      .then((res) => console.log(res.data.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <L.LetterBoxWrap>
@@ -147,6 +159,15 @@ function LetterBox() {
         <L.DeleteButtonOff onClick={handleDelete}>
           <HiOutlineTrash />
         </L.DeleteButtonOff>
+      )}
+      {isSend ? (
+        <L.SendButton onClick={() => setIsSend(!isSend)}>
+          <RiUserSharedLine />
+        </L.SendButton>
+      ) : (
+        <L.ReceiveButton onClick={() => setIsSend(!isSend)}>
+          <RiUserReceivedLine />
+        </L.ReceiveButton>
       )}
     </L.LetterBoxWrap>
   );

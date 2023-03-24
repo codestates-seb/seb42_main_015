@@ -10,8 +10,16 @@ const StyledRoundButton = styled.button`
   width: ${(props) => props.width || "100px"};
   height: ${(props) => props.height || "40px"};
   margin-right: 10px;
-  ${FONT_STYLE_V1.body.body_10_light}
+  cursor: pointer;
+  ${FONT_STYLE_V1.body.body_18_light}
   ${(props) => props.fontStyle}
+  &:hover {
+    background-color: ${PALETTE_V1.yellow_button};
+  }
+  &:active {
+    background-color: #a8982b;
+    color: ${PALETTE_V1.yellow_button};
+  }
 `;
 
 function RoundButton({ children, ...rest }) {

@@ -14,7 +14,7 @@ import ShadowButton from "../commons/ShadowButton";
 
 function PwdChange() {
   const navigate = useNavigate();
-  const [next, setNext] = useState(2);
+  const [next, setNext] = useState(1);
   const { page } = useParams();
   const handleNext = () => {
     setNext(next + 1);
@@ -60,7 +60,7 @@ function PwdChange() {
             </M.UserBox>
             <M.PwdBox>
               <M.PwdChangeTitle>Password</M.PwdChangeTitle>
-              {page === undefined && (
+              {page === '1' && (
                 <M.InputContainer>
                   <M.Explain>
                     비밀번호 변경을 위해 <br /> 기존 비밀번호 확인이 필요합니다.
@@ -75,7 +75,7 @@ function PwdChange() {
                     />
                     <AiOutlineEnter />
                   </M.PwdForm>
-                  <M.ErrorMsg>비밀번호를 틀렸습니다.</M.ErrorMsg>
+                  <M.ErrorMsg>비밀번호가 일치하지 않습니다.</M.ErrorMsg>
                   <AiOutlineArrowRight className="next" onClick={handleNext} />
                 </M.InputContainer>
               )}

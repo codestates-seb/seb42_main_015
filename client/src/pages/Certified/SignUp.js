@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import * as S from "./FormStyled";
 import axios from "axios";
-import { GoogleOauthLogin } from "./OauthGoogle";
-import { formSchema, headers } from "./formShema";
+import { headers, GoogleOauthLogin } from "./setupCertified";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -14,91 +14,114 @@ function SignUp() {
   //이메일 중복검사
   const [emailValid, setEmailValid] = useState(false);
 
+  const FormSchema = yup.object({
+    username: yup
+      .string()
+      .required("한글, 영문, 숫자로 이루어진 2~10자리를 입력해주세요.")
+      .min(2, "최소 2자리 이상 입력해주세요.")
+      .max(10, "최대 10자까지 가능합니다.")
+      .matches(
+        /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,10}$/,
+        "한글, 영문, 숫자로 이루어진 2~10자리를 입력해주세요."
+      ),
+    email: yup
+      .string()
+      .required("이메일을 입력해주세요")
+      .email("이메일 형식이 아닙니다."),
+    password: yup
+      .string()
+      .required("영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요.")
+      .min(8, "최소 8자리 이상 입력해주세요.")
+      .max(16, "최대 16자까지 가능합니다.")
+      .matches(
+        /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,16}$/,
+        "영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요."
+      ),
+    passwordConfirm: yup
+      .string()
+      .oneOf([yup.ref("password")], "비밀번호가 일치하지 않습니다."),
+  });
+
   const {
     register,
     handleSubmit,
+    watch,
+    getValues,
     formState: { isSubmitting, errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
   //sign up 제출 버튼
   const onSubmit = async (data) => {
     const { email, username, password } = data;
 
-    // if (!nameValid || !emailValid) {
-    //   alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
-    //   return;
-    // }
-
-    await axios
-      .post(
-        `/api/sendy/users/signup`,
-        { email: email, nickname: username, password: password },
-        {
-          headers,
-        }
-      )
-      .then(() => {
-        alert("회원가입 되었습니다.");
-        navigate("/completesignup");
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
-      });
-  };
-
-  //유저네임 중복체크
-  const usernameCheck = async (data) => {
-    const { username } = data;
-    if (username) {
-      axios
+    if (!nameValid && !emailValid) {
+      alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
+      return;
+    } else {
+      await axios
         .post(
           `/api/sendy/users/signup`,
+          { email: email, nickname: username, password: password },
           {
-            nickname: username,
+            headers,
+          }
+        )
+        .then(() => {
+          alert("회원가입 되었습니다.");
+          navigate("/completesignup");
+        })
+        .catch((err) => {
+          console.log(err);
+          // alert("이미 가입된 유저입니다.");
+        });
+    }
+  };
+  //유저네임 중복체크
+  const usernameCheck = async () => {
+    if (watch("username")) {
+      axios
+        .post(
+          `/api/sendy/users/nickname`,
+          {
+            nickname: watch("username"),
           },
           {
             headers,
           }
         )
         .then((res) => {
-          if (res.status === 409) {
-            alert("이미 존재하는 유저네임입니다.");
-          } else {
+          if (res.status === 200) {
             alert("사용 가능한 유저네임입니다.");
-            setNameValid(!nameValid);
           }
+          setNameValid(!nameValid);
         })
-        .catch((res) => {
-          console.log(res.data);
+        .catch(() => {
+          alert("이미 존재하는 유저네임입니다.");
         });
     }
   };
 
   //이메일 중복체크
-  const emailCheck = async (data) => {
-    const { email } = data;
-    if (email) {
+  const emailCheck = async () => {
+    if (watch("email")) {
       axios
         .post(
-          `/api/sendy/users/signup`,
+          `/api/sendy/users/email`,
           {
-            email: email,
+            email: watch("email"),
           },
           {
             headers,
           }
         )
         .then((res) => {
-          if (res.status === 409) {
-            alert("이미 존재하는 이메일입니다.");
-          } else {
+          if (res.status === 200) {
             alert("사용 가능한 이메일입니다.");
-            setEmailValid(!emailValid);
           }
+          setEmailValid(!emailValid);
         })
-        .catch((res) => {
-          console.log(res.data);
+        .catch(() => {
+          alert("이미 존재하는 이메일입니다.");
         });
     }
   };
@@ -137,7 +160,7 @@ function SignUp() {
                   {...register("email")}
                 />
                 {emailValid ? (
-                  <button className="duplicate">체크완료</button>
+                  <button className="duplicate-check">체크완료</button>
                 ) : (
                   <button className="duplicate" onClick={emailCheck}>
                     중복체크
@@ -172,7 +195,7 @@ function SignUp() {
               />
               <div className="sub-form ">
                 <Link to="/login">
-                  <li>Log in</li>
+                  <div>Log in</div>
                 </Link>
               </div>
               <div className="oauth-form">

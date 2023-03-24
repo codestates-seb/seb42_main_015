@@ -3,18 +3,18 @@ import { Link, useParams } from "react-router-dom";
 import * as R from "./ReadStyled";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
-import SecretLetter from "./SecetLetter";
+import SecretLetter from "./SecretLetter";
 import { AiOutlineSound } from "react-icons/ai";
 import { HiPause } from "react-icons/hi2";
 import { getSpeech, pauseSpeech } from "./GetSpeech";
 import ReadButtons from "./ReadButtons";
 import axios from "axios";
+import { headers, options } from "../Certified/setupCertified";
 
 const ReadLetter = ({ isLogin }) => {
   const url = new URL(window.location.href);
   const urlParams = url.searchParams.get("password"); //url파라미터값
   const { id } = useParams();
-  console.log(id);
 
   //todo: useState
   //비밀번호 쳤는지 안쳤는지
@@ -61,27 +61,21 @@ const ReadLetter = ({ isLogin }) => {
     window.speechSynthesis.getVoices();
   }, []);
 
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-    "ngrok-skip-browser-warning": "12",
-  };
-
   //! 전체 편지정보 가져오기
-  useEffect(() => {
-    const getLetterData = async () => {
-      await axios
-        .get(`/api/sendy/messages/${id}/${urlParams}`, { headers })
-        .then((res) => {
-          setData(res.body);
-        })
-        .catch((err) => {
-          // alert(err);
-          // console.log(err);
-        });
-    };
-    getLetterData();
-  }, [data]);
+  // useEffect(() => {
+  //   const getLetterData = async () => {
+  //     await axios
+  //       .get(`/api/sendy/messages/${id}/${urlParams}`, { headers })
+  //       .then((res) => {
+  //         setData(res.body);
+  //       })
+  //       .catch((err) => {
+  //         // alert(err);
+  //         // console.log(err);
+  //       });
+  //   };
+  //   getLetterData();
+  // }, [data]);
 
   return (
     <>
@@ -103,7 +97,7 @@ const ReadLetter = ({ isLogin }) => {
               </div>
               <R.EnterSeret>
                 비밀번호
-                <input placeholder="****" />
+                <p>****</p>
               </R.EnterSeret>
             </div>
             <R.Letterpaper ref={LetterRef}>

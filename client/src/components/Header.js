@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
 import styled from "styled-components";
-import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../src/breakpoint";
+import { BREAKPOINTMOBILE } from "../../src/breakpoint";
 import { Link, useNavigate } from "react-router-dom";
 import postbox from "../asset/postbox.svg";
 import axios from "axios";
@@ -88,7 +87,7 @@ const HeaderComponent = styled.header`
   border-bottom: 1px solid #312f2b;
   display: flex;
   width: 100%;
-  height: 60px;
+  height: clamp(58px, 3vw, 65px);
   position: sticky;
   z-index: 90;
 `;
@@ -102,7 +101,7 @@ const HeaderContainer = styled.div`
   width: 100vw;
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    margin: 0px 30px;
+    margin: 0px 25px;
   }
 
   .logo {
@@ -111,18 +110,14 @@ const HeaderContainer = styled.div`
     align-items: center;
     justify-content: center;
     font-family: "Sriracha";
-    font-size: 2.1rem;
     padding-bottom: 4px;
-
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 1.4rem;
-    }
+    font-size: clamp(2.6rem, 3vw, 2.8rem);
   }
 
   .logo-img {
     display: inline-block;
-    width: 22px;
-    height: 16px;
+    width: clamp(20px, 2vw, 25px);
+    height: clamp(14px, 2vw, 18px);
     margin-left: 3px;
   }
 
@@ -130,21 +125,24 @@ const HeaderContainer = styled.div`
     display: flex;
     li {
       padding: 0px 20px;
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        padding: 0px 7px;
+      }
     }
     .postImg {
-      width: 35px;
+      width: 2.8rem;
       padding-top: 2px;
+      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+        padding-top: 12px;
+        width: 1.8rem;
+      }
     }
   }
   a {
     line-height: 36px;
-    font-size: 1.2rem;
     color: #000000;
     font-family: "Inria Sans", sans-serif;
     cursor: pointer;
-
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 0.8rem;
-    }
+    font-size: clamp(1.6rem, 3vw, 1.6rem);
   }
 `;

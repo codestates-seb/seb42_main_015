@@ -6,8 +6,13 @@ import Ballon2 from "../../asset/ballon2.png";
 import Ballon3 from "../../asset/ballon3.png";
 import Ballon4 from "../../asset/ballon4.png";
 import Ballon5 from "../../asset/ballon5.png";
+import ballonSmall from "../../asset/ballon-small.png";
 import transparentImg from "../../asset/transparent-background.png";
-import { BREAKPOINTMOBILE, BREAKPOINTMOBILE2 } from "../../breakpoint";
+import {
+  BREAKPOINTMOBILE,
+  BREAKPOINTTABLET,
+  BREAKPOINTMOBILE2,
+} from "../../breakpoint";
 import 군대 from "../../asset/letterTheme/군대-theme.png";
 import 냥냥편지 from "../../asset/letterTheme/냥냥편지-theme.png";
 import 리본 from "../../asset/letterTheme/리본-theme.png";
@@ -21,14 +26,11 @@ import 오리 from "../../asset/letterTheme/오리-theme.png";
 
 export const PageContainer = styled.div`
   background-color: ${PALETTE_V1.background};
-  min-width: max-content;
+  min-width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   overflow-x: none;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: ${BREAKPOINTMOBILE}px;
-  }
 `;
 export const FlexRowWrapper = styled.div`
   display: flex;
@@ -37,14 +39,16 @@ export const FlexRowWrapper = styled.div`
     align-items: center;
   }
   &.URL-wrapper {
+    ${FONT_STYLE_V1.body.body_15_light}
     justify-content: space-between;
     align-items: center;
   }
   &.button-wrapper {
+    width: 100%;
     justify-content: flex-end;
   }
   #necessity {
-    ${FONT_STYLE_V1.body.body_9_light}
+    ${FONT_STYLE_V1.body.body_12_light}
     padding-left: 10px;
   }
   &.upload-box {
@@ -53,33 +57,81 @@ export const FlexRowWrapper = styled.div`
     justify-content: space-evenly;
     align-items: center;
   }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    .check-button {
+      position: absolute;
+      top: 132px;
+      left: 135px;
+      min-width: 50px;
+      width: 50px;
+      height: 25px;
+    }
+    &.URL-input {
+      flex-direction: column;
+    }
+    &.button-wrapper {
+      width: 100%;
+      justify-content: space-evenly;
+    }
+  }
 `;
 export const FlexColunmWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: fit-content;
   &.align-center {
     align-items: center;
+  }
+  &.letter {
+    width: 75%;
   }
 `;
 export const FlexWrapper2 = styled(FlexRowWrapper)`
   justify-content: center;
+  width: 100%;
+  min-width: 329px;
+  max-width: 1077px;
 `;
 export const PageWrapper = styled(FlexColunmWrapper)`
-  padding: 70px 30px 0 30px;
+  padding-top: 5%;
   width: 100%;
+  align-items: center;
+  @media screen and (min-width: 1095px) {
+    padding-top: 54px;
+  }
 `;
 export const LetterWrapper = styled.div`
-  max-height: 1154px;
+  width: 100%;
+  height: auto;
+  .active-icon {
+    background-color: ${PALETTE_V1.yellow_modal_button};
+    border-radius: 50%;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    .microphone-icon,
+    .font-icon {
+      font-size: 25px;
+      margin-right: 15px;
+      margin-bottom: 5px;
+    }
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    .microphone-icon,
+    .font-icon {
+      font-size: 20px;
+      margin-right: 15px;
+      margin-bottom: 5px;
+    }
+  }
 `;
 export const LetterBox = styled(FlexColunmWrapper)`
-  aspect-ratio: 3/5;
-  min-height: 1129px;
+  aspect-ratio: 676/1129;
   justify-content: space-between;
   border: 2px solid #000000;
-  padding: 3rem 5rem 3rem 5rem;
-  min-width: 680px;
-  max-width: 680px;
+  padding: 7% 10% 6% 10%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-width: 230px;
+  max-width: 754px;
   ${(props) => {
     switch (props.currentLetterTheme) {
       case "군대":
@@ -126,20 +178,13 @@ export const LetterBox = styled(FlexColunmWrapper)`
         break;
     }
   }};
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    max-width: 65vw;
-    min-width: 450px;
-    max-height: 108.3vw;
-    min-height: 750px;
-    padding: 2rem 4rem 2rem 4rem;
-    background-size: cover;
+  @media screen and (min-width: 1097px) {
+    padding: 52.906px 75.594px 45.359px 75.594px;
   }
 `;
 export const FlexWrapper1 = styled(FlexRowWrapper)`
   justify-content: space-between;
-  padding-top: 0.8rem;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-  }
+  width: 100%;
 `;
 export const IconWrapper = styled.div`
   display: flex;
@@ -156,57 +201,61 @@ export const IconWrapper = styled.div`
     background-color: ${PALETTE_V1.yellow_modal_button};
     border-radius: 50%;
   }
+  @media screen and (min-width: ${BREAKPOINTTABLET}px) {
+    .microphone-icon,
+    .font-icon {
+      font-size: 50px;
+    }
+  }
 `;
 export const ThemeIcon = styled.div`
   display: flex;
   align-items: center;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 1.5%;
+  padding-right: 1.5%;
   .arrow-backward-icon,
   .arrow-forward-icon {
     color: ${PALETTE_V1.text_primary};
+    font-size: 40px;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    .arrow-backward-icon,
+    .arrow-forward-icon {
+      font-size: 30px;
+    }
+  }
+  @media screen and (min-width: ${BREAKPOINTTABLET}px) {
+    .arrow-backward-icon,
+    .arrow-forward-icon {
+      font-size: 50px;
+    }
   }
 `;
 export const NameInputWrapper = styled.div`
-  ${FONT_STYLE_V1.body.body_12_light}
+  ${FONT_STYLE_V1.body.body_22_light}
   display: flex;
   flex-direction: row;
   border-bottom: 2px solid ${PALETTE_V1.text_primary};
-  max-width: 250px;
-  min-width: 250px;
-  width: 250px;
-  height: 2rem;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    max-width: 160px;
-    min-width: 160px;
-  }
+  height: 100%;
 `;
 export const NameInput = styled.input`
-  ${FONT_STYLE_V1.body.body_10_light}
+  ${FONT_STYLE_V1.body.body_20_light}
   border: none;
   background-color: transparent;
   margin-left: 5px;
   margin-bottom: 6px;
+  overflow: hidden;
   &:focus {
     outline: none;
   }
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    max-width: 80%;
-    min-width: 80%;
-    &#from-input {
-      max-width: 70%;
-      min-width: 70%;
-    }
-  }
 `;
 export const Text = styled.div`
-  ${FONT_STYLE_V1.body.body_12_light}
+  ${FONT_STYLE_V1.body.body_20_light}
 `;
 export const Date = styled(Text)`
   height: fit-content;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    ${FONT_STYLE_V1.body.body_10_light}
-    white-space: nowrap;
+  white-space: nowrap;
+  @media screen and (min-width: 344px) {
   }
 `;
 export const SendMeWrapper = styled(FlexRowWrapper)`
@@ -230,6 +279,7 @@ export const SendMeCheckBox = styled.div`
   }
 `;
 export const SendMeLabel = styled.div`
+  ${FONT_STYLE_V1.body.body_18_light}
   color: ${PALETTE_V1.text_primary};
   vertical-align: middle;
   max-height: 21px;
@@ -244,11 +294,11 @@ export const ContentTextarea = styled.textarea`
   ${(props) => {
     switch (props.font) {
       case "프리텐다드":
-        return FONT_STYLE_V1.content.content_10_light;
+        return FONT_STYLE_V1.body.body_18_light;
       case "도스샘물":
-        return FONT_STYLE_CONTENT.pixel_10;
+        return FONT_STYLE_CONTENT.pixel_18;
       case "강원교육모두체":
-        return FONT_STYLE_CONTENT.gangwonedu_10_bold;
+        return FONT_STYLE_CONTENT.gangwonedu_18_bold;
       default:
         break;
     }
@@ -258,20 +308,28 @@ export const ContentTextarea = styled.textarea`
   }
 `;
 export const FromWrapper = styled(FlexRowWrapper)`
+  width: 100%;
+  display: flex;
   justify-content: flex-end;
   padding-bottom: 0.8rem;
 `;
-export const TextCount = styled.div``;
+export const TextCount = styled.div`
+  ${FONT_STYLE_V1.body.body_17_light}
+`;
 export const ButtonWrapper = styled(FlexRowWrapper)`
   align-items: center;
   justify-content: flex-end;
-  padding-top: 20px;
-  padding-bottom: 30px;
+  padding-top: 2%;
+  padding-bottom: 5%;
   width: 100%;
   .question-icon {
     color: ${PALETTE_V1.text_primary};
     margin-right: 10px;
-    z-index: 110;
+    z-index: 200;
+    font-size: 30px;
+    @media screen and (max-width: 540px) {
+      font-size: 23px;
+    }
   }
   &#sendMeModalButton {
     justify-content: center;
@@ -290,24 +348,34 @@ export const ExplainationBackground = styled.div`
   z-index: 100;
 `;
 export const BallonLeft = styled.div`
-  ${FONT_STYLE_V1.body.body_10_light};
+  ${FONT_STYLE_V1.body.body_17_light};
   position: absolute;
   z-index: 200;
   padding: 15px 20px;
-  padding-left: 50px;
+  padding-left: 30px;
   background-image: url(${Ballon1});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   min-width: 300px;
-  max-width: 100%;
   &#ballon1 {
+    top: -10px;
+    left: 125px;
+    padding: 10px 0px 10px 50px;
+  }
+  &.change-font {
+    min-width: 210px;
+    background-image: url(${ballonSmall});
+    padding-left: 35px;
     top: -15px;
-    left: 110px;
+    right: -200px;
+  }
+  @media screen and (min-width: 1024px) {
+    font-size: 17px;
   }
 `;
 export const BallonTop = styled.div`
-  ${FONT_STYLE_V1.body.body_10_light};
+  ${FONT_STYLE_V1.body.body_17_light};
   position: absolute;
   z-index: 200;
   padding: 20px 20px;
@@ -318,7 +386,8 @@ export const BallonTop = styled.div`
   background-repeat: no-repeat;
   background-position: top;
   max-width: 300px;
-  &#ballon2 {
+  white-space: nowrap;
+  &.ballon2 {
     background-image: url(${Ballon5});
     height: 110px;
     padding-top: 82px;
@@ -332,9 +401,26 @@ export const BallonTop = styled.div`
     left: -30px;
     width: 240px;
   }
+  @media screen and (min-width: 1024px) {
+    font-size: 17px;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    &.ballon2 {
+      top: 22px;
+      left: -60px;
+      padding-top: 60px;
+      padding-left: 70px;
+      background-size: 200px;
+    }
+    &.stt-button {
+      padding: 20px 10px 20px 10px;
+      left: -35px;
+      top: 22px;
+    }
+  }
 `;
 export const BallonBottom1 = styled.div`
-  ${FONT_STYLE_V1.body.body_10_light};
+  ${FONT_STYLE_V1.body.body_17_light};
   position: absolute;
   z-index: 200;
   padding: 20px 20px;
@@ -345,11 +431,6 @@ export const BallonBottom1 = styled.div`
   background-position: bottom;
   max-width: 100%;
   min-width: 280px;
-  &#ballon4 {
-    max-width: 280px;
-    bottom: 50px;
-    right: -170px;
-  }
   &#ballon6 {
     padding: 40px 15px;
     padding-bottom: 25px;
@@ -357,15 +438,24 @@ export const BallonBottom1 = styled.div`
     left: -40px;
   }
   &#ballon7 {
-    padding: 10px 20px 28px;
+    padding: 10px 0px 25px 20px;
     padding-top: 25px;
     top: -80px;
-    right: 10px;
-    max-width: 280px;
+    right: 00px;
+    max-width: 300px;
+  }
+  &.stt-button {
+    top: -65px;
+    left: -30px;
+    padding: 20px 10px 25px 10px;
+    min-width: 300px;
+  }
+  @media screen and (min-width: 1024px) {
+    font-size: 17px;
   }
 `;
 export const BallonBottom2 = styled.div`
-  ${FONT_STYLE_V1.body.body_10_light};
+  ${FONT_STYLE_V1.body.body_17_light};
   position: absolute;
   z-index: 200;
   padding: 20px 30px;
@@ -376,10 +466,22 @@ export const BallonBottom2 = styled.div`
   background-position: bottom;
   max-width: 100%;
   min-width: 280px;
-  &#ballon5 {
-    max-width: 280px;
-    bottom: 50px;
-    right: 20px;
+  &.make-letter-button {
+    padding: 20px 10px 27px 20px;
+    top: -80px;
+    left: -130px;
+    min-width: 300px;
+  }
+  @media screen and (min-width: 1024px) {
+    font-size: 17px;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    &.make-letter-button {
+      min-width: 243px;
+      padding: 10px 0px 23px 20px;
+      top: -50px;
+      left: -160px;
+    }
   }
 `;
 export const BallonWrapper = styled.div`
@@ -392,7 +494,11 @@ export const BallonWrapper = styled.div`
     color: ${PALETTE_V1.text_primary};
   }
   &.button {
-    padding-left: 20px;
+    padding-left: 5%;
+  }
+  &.to-wrapper,
+  &.from-wrapper {
+    width: 50%;
   }
 `;
 export const ButtonContainer = styled.div`
@@ -401,44 +507,51 @@ export const ButtonContainer = styled.div`
 export const ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 20px;
-  height: 90%;
+  padding: 4%;
   &.make-letter {
     justify-content: space-around;
     padding-left: 30px;
     padding-right: 30px;
     height: 95%;
   }
-  .make-letter-wrapper {
-    padding-top: 20px;
-  }
 `;
 export const ModalTitle = styled.div`
-  ${FONT_STYLE_V1.title.title_14_medium}
+  ${FONT_STYLE_V1.title.title_25_medium}
   padding-top: 5px;
-  padding-bottom: 30px;
+  padding-bottom: 5%;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
 `;
 export const TimeBoxWrapper = styled.div`
-  ${FONT_STYLE_V1.body.body_12_light}
+  ${FONT_STYLE_V1.body.body_22_light}
   display: flex;
   flex-direction: row;
   justify-content: center;
   padding-bottom: 30px;
   .custom-input {
     background-color: #ffffff;
-    ${FONT_STYLE_V1.body.body_12_light}
+    ${FONT_STYLE_V1.body.body_22_light}
     border: 2px solid ${PALETTE_V1.text_primary};
     border-radius: 0;
     margin-right: 10px;
     padding: 3px 8px;
-    height: 34.176px;
+    min-height: 34.176px;
     display: flex;
     align-items: center;
     #calendar-icon {
       margin-left: 10px;
     }
   }
+  .react-datepicker-popper {
+    width: 250px;
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      width: 200px;
+    }
+  }
   .react-datepicker {
+    width: 100%;
     border-radius: 0px;
     border: 2px solid ${PALETTE_V1.text_primary};
   }
@@ -453,14 +566,23 @@ export const TimeBoxWrapper = styled.div`
   .react-datepicker__header {
     border-bottom: 2px solid ${PALETTE_V1.text_primary};
     .react-datepicker__current-month {
-      ${FONT_STYLE_V1.body.body_10_light}
+      ${FONT_STYLE_V1.body.body_20_light}
     }
     .react-datepicker__day-name {
-      ${FONT_STYLE_V1.body.body_8_light}
+      ${FONT_STYLE_V1.body.body_18_light}
     }
   }
+  .react-datepicker__month-container {
+    width: 100%;
+  }
+  .react-datepicker__day-name,
+  .react-datepicker__day {
+    width: 2.5rem;
+    line-height: 2.5rem;
+    margin: 0.3rem;
+  }
   .react-datepicker__month {
-    ${FONT_STYLE_V1.body.body_8_light}
+    ${FONT_STYLE_V1.body.body_18_light}
     .react-datepicker__day--selected,
     .react-datepicker__day--keyboard-selected {
       background-color: ${PALETTE_V1.yellow_primary};
@@ -469,11 +591,11 @@ export const TimeBoxWrapper = styled.div`
   }
   .react-datepicker__input-time-container {
     .react-datepicker-time__caption {
-      ${FONT_STYLE_V1.body.body_9_light}
+      ${FONT_STYLE_V1.body.body_19_light}
     }
   }
   .react-datepicker-time__input {
-    ${FONT_STYLE_V1.body.body_8_light}
+    ${FONT_STYLE_V1.body.body_18_light}
   }
 `;
 export const DateBox = styled.div`
@@ -488,7 +610,7 @@ export const DateBox = styled.div`
   }
 `;
 export const TimeBox = styled.select`
-  ${FONT_STYLE_V1.body.body_12_light}
+  ${FONT_STYLE_V1.body.body_22_light}
   border: 2px solid ${PALETTE_V1.text_primary};
   border-radius: 0;
   margin-right: 10px;
@@ -499,28 +621,29 @@ export const TimeBox = styled.select`
 `;
 export const TimeOption = styled.option``;
 export const ReservationText = styled.div`
-  ${FONT_STYLE_V1.body.body_9_light}
+  ${FONT_STYLE_V1.body.body_15_light}
 `;
 export const ErrorMessage = styled.p`
-  ${FONT_STYLE_V1.body.body_9_light}
+  ${FONT_STYLE_V1.body.body_15_light}
+  position: absolute;
   padding-top: 2px;
   color: grey;
   width: fit-content;
 `;
 export const FontContainer = styled.ul`
   position: absolute;
+  z-index: 100;
   background-color: white;
   border: 2px solid ${PALETTE_V1.text_primary};
   width: 120px;
   top: 40px;
+  @media screen and (min-width: 1024px) {
+    width: 150px;
+  }
 `;
 export const FontEl = styled.li`
   ${(props) => props.font};
   padding: 5px;
-  &.zero-padding {
-    padding: 0px;
-    padding-left: 5px;
-  }
   &:hover {
     background-color: ${PALETTE_V1.yellow_button};
   }
@@ -530,19 +653,20 @@ export const FontEl = styled.li`
   }
 `;
 export const Label = styled.label`
-  ${FONT_STYLE_V1.title.title_14_medium}
+  ${FONT_STYLE_V1.title.title_18_medium}
 `;
 export const MakeLetterInput = styled.input`
+  ${FONT_STYLE_V1.body.body_15_light}
   border: none;
   border-bottom: 1px solid ${PALETTE_V1.text_primary};
   height: 2.3rem;
-  width: 8rem;
+  width: 10rem;
   background-image: url(${(props) => props.backgroundImg});
   background-size: 18px;
   background-repeat: no-repeat;
   background-position: left center;
   margin-top: 3px;
-  padding: 0rem 25px;
+  padding-left: 25px;
   &:focus {
     outline: none;
     background-color: ${PALETTE_V1.yellow_light};
@@ -550,6 +674,14 @@ export const MakeLetterInput = styled.input`
   &.URL-input {
     padding: 0 5px;
     margin-right: 18px;
+  }
+  &.password-input {
+    width: 9rem;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    &.password-input {
+      background-size: 14px;
+    }
   }
 `;
 export const UploadBox = styled.div`
@@ -565,12 +697,13 @@ export const UploadBox = styled.div`
     align-items: center;
     justify-content: space-between;
     border: 2px dashed ${PALETTE_V1.text_primary};
+    margin-top: 1%;
     .image {
       width: 40px;
       height: 40px;
     }
     .message {
-      ${FONT_STYLE_V1.body.body_10_light}
+      ${FONT_STYLE_V1.body.body_15_light}
     }
     .preview-container {
       position: relative;
@@ -594,12 +727,17 @@ export const UploadBox = styled.div`
     }
   }
   .file-label {
-    ${FONT_STYLE_V1.body.body_10_light}
+    ${FONT_STYLE_V1.body.body_13_light}
     border: 2px solid ${PALETTE_V1.text_primary};
     border-radius: 0px;
     background-color: #d9d9d9;
     padding: 4px 6px;
     margin-top: 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: #989898;
+      color: #ffffff;
+    }
   }
   .file {
     display: none;

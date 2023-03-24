@@ -12,27 +12,28 @@ function FontMenu() {
   return (
     <W.FontContainer>
       <W.FontEl
-        font={FONT_STYLE_V1.body.body_10_light}
+        font={FONT_STYLE_V1.body.body_18_light}
         onClick={handleChangeContentFont}
-        className={contentFont === "프리텐다드" ? "active" : ""}>
+        className={contentFont === "프리텐다드" ? "active" : ""}
+      >
         프리텐다드
       </W.FontEl>
       <W.FontEl
-        font={FONT_STYLE_CONTENT.pixel_10}
+        font={FONT_STYLE_CONTENT.pixel_18}
         onClick={handleChangeContentFont}
-        className={
-          contentFont === "도스샘물" ? "zero-padding active" : "zero-padding"
-        }>
+        className={contentFont === "도스샘물" ? "active" : ""}
+      >
         도스샘물
       </W.FontEl>
       <W.FontEl
-        font={FONT_STYLE_CONTENT.gangwonedu_10_bold}
+        font={FONT_STYLE_CONTENT.gangwonedu_18_bold}
         onClick={handleChangeContentFont}
         className={
           contentFont === "강원교육모두체"
             ? "zero-padding active"
             : "zero-padding"
-        }>
+        }
+      >
         강원교육모두체
       </W.FontEl>
     </W.FontContainer>
