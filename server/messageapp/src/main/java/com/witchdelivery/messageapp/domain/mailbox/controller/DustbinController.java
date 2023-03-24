@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
@@ -29,11 +30,11 @@ public class DustbinController {
 
     private final ReceivingMapper receivingMapper;
 
-    @GetMapping("/dustbin/outgoing/{member-id}") //발신 (보낸 편지) 휴지통
-    public ResponseEntity getAllOutgoingMessages(@PathVariable("member-id") long memberId ,
-                                                 @Positive @RequestParam(required = false, defaultValue = "1") int page,
-                                                 @Positive @RequestParam(required = false, defaultValue = "15") int size) {
-        Page<Outgoing> outgoingDusts = dustbinService.findAllOutgoingMessages(memberId,page - 1, size);
+    @GetMapping("/dustbin/outgoing") //발신 (보낸 편지) 휴지통
+    public ResponseEntity getAllOutgoingMessages(@Positive @RequestParam(required = false, defaultValue = "1") int page,
+                                                 @Positive @RequestParam(required = false, defaultValue = "15") int size,
+                                                 Authentication authentication) {
+        Page<Outgoing> outgoingDusts = dustbinService.findAllOutgoingMessages(page - 1, size, authentication);
         List<OutgoingResponseDto> outgoingResponseDtos = new ArrayList<>();
         for (Outgoing outgoing : outgoingDusts.getContent()) {
             outgoingResponseDtos.add(outgoingMapper.outgoingToOutgoingResponse(outgoing));
@@ -42,22 +43,28 @@ public class DustbinController {
         return new ResponseEntity<>(new PageResponseDto<>(outgoingResponseDtos, outgoingDusts), HttpStatus.OK);
     }
 
-    @PatchMapping("/dustbin/outgoing/restore")
+    @PatchMapping("/dustbin/outgoing/restore") // 발신 (보낸 편지) restore상태변경
     public ResponseEntity patchOutgoingStatus(@RequestBody DustbinMultiCheck dustbinMultiCheck) {
         dustbinService.updateOutgoingDustStatus(dustbinMultiCheck.getIds());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/dustbin/receiving/{member-id}") //수신 (받은 편지) 휴지통
-    public ResponseEntity getAllReceivingMessages(@PathVariable("member-id") long memberId ,
-                                                 @Positive @RequestParam(required = false, defaultValue = "1") int page,
-                                                 @Positive @RequestParam(required = false, defaultValue = "15") int size) {
-        Page<Receiving> receivingDusts = dustbinService.findAllReceivingMessages(memberId,page - 1, size);
+    @GetMapping("/dustbin/receiving") //수신 (받은 편지) 휴지통
+    public ResponseEntity getAllReceivingMessages(@Positive @RequestParam(required = false, defaultValue = "1") int page,
+                                                  @Positive @RequestParam(required = false, defaultValue = "15") int size,
+                                                  Authentication authentication) {
+        Page<Receiving> receivingDusts = dustbinService.findAllReceivingMessages(page - 1, size, authentication);
         List<ReceivingResponseDto> receivingResponseDtos = new ArrayList<>();
         for (Receiving receiving : receivingDusts.getContent()) {
             receivingResponseDtos.add(receivingMapper.receivingToReceivingResponse(receiving));
         }
 
         return new ResponseEntity<>(new PageResponseDto<>(receivingResponseDtos, receivingDusts), HttpStatus.OK);
+    }
+
+    @PatchMapping("/dustbin/receiving/restore") // 수신 (받은 편지) restore상태변경
+    public ResponseEntity patchReceivingStatus(@RequestBody DustbinMultiCheck dustbinMultiCheck) {
+        dustbinService.updateReceivingDustStatus(dustbinMultiCheck.getIds());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
