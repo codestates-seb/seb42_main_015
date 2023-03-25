@@ -44,8 +44,8 @@ mail:
     admin: admin@gmail.com  # 관리자 권한 계정
 jwt:
   key: ${JWT_SECRET_KEY}
-  access-token-expiration-minutes: 30
-  refresh-token-expiration-minutes: 420
+  access-token-expiration-minutes: ${access.token.expired}
+  refresh-token-expiration-minutes: ${refresh.token.expired}
 cloud:
   aws:
     credentials:
@@ -54,6 +54,9 @@ cloud:
     s3.bucket: ${s3.bucket}
     region.static: ${s3.region}
     stack.auto: false
+default:
+  image:
+    address: ${default.profile.image}
 logging:
   level:
     com:

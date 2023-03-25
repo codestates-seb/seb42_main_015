@@ -1,9 +1,9 @@
 package com.witchdelivery.messageapp.domain.member.service;
 
 import com.witchdelivery.messageapp.domain.member.dto.MemberResponseDto;
-import com.witchdelivery.messageapp.domain.member.entity.MemberFile;
-import com.witchdelivery.messageapp.domain.member.repository.MemberFileRepository;
-import com.witchdelivery.messageapp.infra.file.S3Dto;
+import com.witchdelivery.messageapp.domain.member.entity.MemberImage;
+import com.witchdelivery.messageapp.domain.member.repository.MemberImageRepository;
+import com.witchdelivery.messageapp.infra.file.S3Info;
 import com.witchdelivery.messageapp.infra.file.S3Service;
 import com.witchdelivery.messageapp.security.utils.CustomAuthorityUtils;
 import com.witchdelivery.messageapp.domain.member.dto.MemberPostDto;
@@ -11,6 +11,7 @@ import com.witchdelivery.messageapp.domain.member.repository.MemberRepository;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.global.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,10 +31,9 @@ public class MemberService {
     private final CustomAuthorityUtils customAuthorityUtils;    // 사용자 권한 설정
     private final CustomBeanUtils<Member> customBeanUtils;    // FIXME 미사용으로 인한 삭제
     private final S3Service s3Service;
-    private final MemberFileRepository memberFileRepository;
 
-//    @Value("${default.image.address}")
-//    private String defaultImageAddress;
+    @Value("${default.image.address}")
+    private String defaultImageAddress;   // 사용자 프로필 기본 이미지
 
     /**
      * 사용자 등록(회원가입) 메서드
@@ -53,10 +53,11 @@ public class MemberService {
         member.passwordEncode(passwordEncoder);
         member.authorizeUser(customAuthorityUtils);
 
-//        MemberFile memberFile = MemberFile.builder()
-//                .filePath(defaultImageAddress)
-//                .build();
-//        member.addMemberFile(memberFile);
+        // 사용자 프로필 기본 이미지 설정
+        MemberImage memberImage = MemberImage.builder()
+                .filePath(defaultImageAddress)
+                .build();
+        member.addMemberFile(memberImage);
 
         return memberRepository.save(member);
     }
@@ -67,25 +68,15 @@ public class MemberService {
      * @return
      */
     public MemberResponseDto findMember(Long memberId) {
-        memberDbService.findVerifiedMember(memberId);       // 사용자 검증
         Member findMember = memberDbService.findVerifiedMember(memberId);
 
-        if (findMember.getMemberFile() != null) {   // 사용자 프로필 이미지 설정 시
-            return MemberResponseDto.builder()
-                    .memberId(findMember.getMemberId())
-                    .email(findMember.getEmail())
-                    .nickname(findMember.getNickname())
-                    .profileImage(findMember.getMemberFile().getFilePath())
-                    .createdAt(findMember.getCreatedAt())
-                    .build();
-        } else {
-            return MemberResponseDto.builder()
-                    .memberId(findMember.getMemberId())
-                    .email(findMember.getEmail())
-                    .nickname(findMember.getNickname())
-                    .createdAt(findMember.getCreatedAt())
-                    .build();
-        }
+        return MemberResponseDto.builder()
+                .memberId(findMember.getMemberId())
+                .email(findMember.getEmail())
+                .nickname(findMember.getNickname())
+                .profileImage(findMember.getMemberImage().getFilePath())
+                .createdAt(findMember.getCreatedAt())
+                .build();
     }
 
     /**
@@ -143,16 +134,21 @@ public class MemberService {
         Member findMember = memberDbService.findVerifiedMember(memberId);   // 사용자 검증
 
         String dir = "memberImage"; // 사용자 프로필 이미지 디렉토리 지정
-        S3Dto s3Dto = s3Service.s3ImageUpload(multipartFile, dir);
+        S3Info s3Info = s3Service.s3ImageUpload(multipartFile, dir);    // 이미지 업로드
 
-        MemberFile memberFile = MemberFile.builder()
-                .originFileName(s3Dto.getOriginFileName())
-                .fileName(s3Dto.getFileName())
-                .filePath(s3Dto.getFilePath())
-                .fileSize(s3Dto.getFileSize())
+        if (!findMember.getMemberImage().getFilePath().equals(defaultImageAddress)) {
+            s3Service.s3ImageDelete(findMember.getMemberImage().getFileName(), dir);
+        }
+
+        MemberImage memberImage = MemberImage.builder()
+                .originFileName(s3Info.getOriginFileName())
+                .fileName(s3Info.getFileName())
+                .filePath(s3Info.getFilePath())
+                .fileSize(s3Info.getFileSize())
                 .build();
 
-        findMember.addMemberFile(memberFile);
+        findMember.addMemberFile(memberImage);  // FK 저장
+
         memberRepository.save(findMember);
     }
 }

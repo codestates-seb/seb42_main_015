@@ -1,6 +1,6 @@
 package com.witchdelivery.messageapp.infra.file;
 
-import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.witchdelivery.messageapp.global.exception.BusinessLogicException;
@@ -17,7 +17,7 @@ import java.io.IOException;
 public class S3Service {
     @Value("${cloud.aws.s3.bucket}")
     private String s3BucketName;
-    private final AmazonS3Client amazonS3Client;
+    private final AmazonS3 amazonS3;
 
     /**
      * 단일 파일 S3 업로드 메서드
@@ -25,7 +25,7 @@ public class S3Service {
      * @return
      * @throws IOException
      */
-    public S3Dto s3ImageUpload(MultipartFile multipartFile, String dir) throws IOException {
+    public S3Info s3ImageUpload(MultipartFile multipartFile, String dir) throws IOException {
 
         findVerifiedFile(multipartFile);    // 파일 검증
         verifiedExistedFile(multipartFile); // 용량 검증
@@ -35,16 +35,16 @@ public class S3Service {
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(multipartFile.getInputStream().available());
 
-        amazonS3Client.putObject(s3BucketName, dir + "/" + s3FileName, multipartFile.getInputStream(), objectMetadata);
+        amazonS3.putObject(s3BucketName, dir + "/" + s3FileName, multipartFile.getInputStream(), objectMetadata);
 
-        S3Dto s3Dto = S3Dto.builder()
+        S3Info s3Info = S3Info.builder()
                 .originFileName(multipartFile.getOriginalFilename())
                 .fileName(s3FileName)
-                .filePath(amazonS3Client.getUrl(s3BucketName, dir + "/" + s3FileName).toString())
+                .filePath(amazonS3.getUrl(s3BucketName, dir + "/" + s3FileName).toString())
                 .fileSize(multipartFile.getSize())
                 .build();
 
-        return s3Dto;
+        return s3Info;
     }
 
     /**
@@ -52,7 +52,7 @@ public class S3Service {
      * @param s3FileName
      */
     public void s3ImageDelete(String s3FileName, String dir) {
-        amazonS3Client.deleteObject(new DeleteObjectRequest(s3BucketName, dir + "/" + s3FileName));
+        amazonS3.deleteObject(new DeleteObjectRequest(s3BucketName, dir + "/" + s3FileName));
     }
 
 
