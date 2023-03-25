@@ -29,9 +29,9 @@ const ReadLetter = ({ enterPassword, setEnterPassword }) => {
 
   const onSubmit = async (data) => {
     const { numberpassword } = data;
+    console.log(numberpassword);
     await axios
-      //! 현재 /messages/<메세지id>/<urlName> => /messages/<urlName>로 변경 예정
-      .get(`/api/sendy/messages/2/hi`, {
+      .get(`/api/sendy/messages/hi`, {
         headers: {
           "ngrok-skip-browser-warning": "12",
           Authorization: `${getCookie("accesstoken")}`,
@@ -40,6 +40,10 @@ const ReadLetter = ({ enterPassword, setEnterPassword }) => {
       })
       .then((res) => {
         console.log(res.body);
+        if (res.body.password === numberpassword) {
+          alert("비밀번호가 일치합니다! 어떤 편지가 왔을까요?");
+          setEnterPassword(!enterPassword);
+        }
       })
       .catch((err) => {
         console.log(err);

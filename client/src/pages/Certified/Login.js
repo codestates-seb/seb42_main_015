@@ -47,6 +47,7 @@ function Login() {
       )
       .then((res) => {
         alert("로그인되었습니다.");
+        //! 엑세스 토큰 유효시간 가져오기
         console.log(res.headers.get("Date"));
         if (res.headers.getAuthorization) {
           //! refresh token은 -> local storage에 저장
@@ -61,8 +62,8 @@ function Login() {
           );
           // console.log("accesstoken : ", getCookie("accesstoken"));
           // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
-          navigate("/");
-          window.location.reload();
+          // navigate("/");
+          // window.location.reload();
         }
       })
       .catch((err) => {

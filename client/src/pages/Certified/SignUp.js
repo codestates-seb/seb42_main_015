@@ -63,6 +63,8 @@ function SignUp() {
     if (!nameValid && !emailValid) {
       alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
       return;
+    } else if (!isEmailCode) {
+      alert("인증을 완료해주세요.");
     } else {
       await axios
         .post(
