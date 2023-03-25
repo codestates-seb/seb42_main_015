@@ -154,7 +154,8 @@ export const Secretform = styled.form`
     }
     @media screen and (max-width: 1024px) {
       height: 25px;
-      font-size: 12px;
+      font-size: 13px;
+      height: 2.8rem;
     }
   }
   p {
@@ -352,7 +353,7 @@ export const Buttons = styled.div`
       margin: 0.2rem 35rem 0 -37rem;
     }
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      margin: 0.2rem 7.5rem 0 -9rem;
+      margin: 0.2rem 10rem 0 -9rem;
       width: 2.8rem;
       height: 2.8rem;
     }

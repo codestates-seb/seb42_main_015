@@ -9,7 +9,6 @@ import { HiPause } from "react-icons/hi2";
 import { getSpeech, pauseSpeech } from "./GetSpeech";
 import ReadButtons from "./ReadButtons";
 import axios from "axios";
-import { headers, options } from "../Certified/setupCertified";
 import { getCookie } from "../Certified/Cookie";
 
 const ReadLetter = ({ isLogin }) => {
@@ -18,6 +17,8 @@ const ReadLetter = ({ isLogin }) => {
   const { id } = useParams();
 
   //todo: useState
+  //비밀번호가 있는지 없는지
+  const [isPassword, setIsPassword] = useState(false);
   //비밀번호 쳤는지 안쳤는지
   const [enterPassword, setEnterPassword] = useState(false);
   //보관하기를 클릭했을 때 비로그인(저장X)인지 로그인(저장준비 완료)아닌지
@@ -78,9 +79,44 @@ const ReadLetter = ({ isLogin }) => {
   //   getLetterData();
   // }, [data]);
 
+  const getLetter = async () => {
+    await axios
+      //hisdf -> {urlName}
+      .get(`/api/sendy/messages/hisdf`, {
+        headers: {
+          "ngrok-skip-browser-warning": "12",
+          Authorization: `${getCookie("accesstoken")}`,
+        },
+      })
+      .then((res) => {
+        setData(res.data);
+        //편지 정보 담기
+        if (res.data.password !== null) {
+          setIsPassword(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err);
+      });
+  };
+
+  useEffect(() => {
+    getLetter();
+  }, [data]);
+  //! data --> 몇번 렌더링 되는지 확인!
+
+  const weekday = ["일", "월", "화", "수", "목", "금", "토"];
+  const LetterDate = `${new Date(`${data.createdAt}`).getFullYear()}.${(
+    "00" +
+    (new Date().getMonth() + 1)
+  ).slice(-2)}.${("00" + new Date().getDate()).slice(-2)} ${
+    weekday[new Date().getDay()]
+  }`;
+
   return (
     <>
-      {isLogin || enterPassword ? (
+      {isLogin || isPassword ? (
         <R.Wrapper>
           <div className="ReadContainer" onClick={handleModal}>
             <div className="top-sub">
@@ -98,16 +134,16 @@ const ReadLetter = ({ isLogin }) => {
               </div>
               <R.EnterSeret>
                 비밀번호
-                <p>****</p>
+                <p>{data.password}</p>
               </R.EnterSeret>
             </div>
             <R.Letterpaper ref={LetterRef}>
               <div className="top">
-                <div className="to">To. 김햄찌</div>
-                <div className="date">2023.03.17 금</div>
+                <div className="to">To. {data.toName}</div>
+                <div className="date">{LetterDate}</div>
               </div>
-              <div className="content">{R.LetterEx}</div>
-              <div className="from">From. 오디토</div>
+              <div className="content">{data.content}</div>
+              <div className="from">From. {data.fromName}</div>
             </R.Letterpaper>
             <ReadButtons
               ModalRef={ModalRef}
@@ -166,3 +202,20 @@ export default ReadLetter;
   //1) 이미지 저장 -> 이미지를 저장할 수 있음
   //2) 보관완료 버튼 -> 클릭 안됨
 */
+
+/*
+if (res.body.password === numberpassword) {
+          alert("비밀번호가 일치합니다! 어떤 편지가 왔을까요?");
+          //todo : numberpassword -> Zstand에 넣어서 readletter에게 전달
+          setEnterPassword(!enterPassword);
+        } else {
+          alert("비밀번호가 일치하지 않습니다. 편지를 열 수 없어요.");
+        }
+
+*/
+//비밀번호가 있으면 -> 1)시크릿레터로 이동하고, 2)해당 비밀번호도 props로 함께 전달
+//보관여부 -> 보관완료/보관하기 버튼 바꾸기
+//보관하기(messageSaved) 어떻게 할건지 -> 월요일 회의때 논의 !
+//비밀번호 있으면 -> 보여주고, 없으면 ---- 표시로 바꿔주기.
+//폰트랑 테마는 어떻게 전달할거 ???
+//url 정보 어떻게 받아올꺼 ?

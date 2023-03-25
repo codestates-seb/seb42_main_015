@@ -20,7 +20,8 @@ const ReadLetter = ({ enterPassword, setEnterPassword }) => {
     const { numberpassword } = data;
     console.log(numberpassword);
     await axios
-      .get(`/api/sendy/messages/hi`, {
+      //hisdf -> {urlName}
+      .get(`/api/sendy/messages/hisdf`, {
         headers: {
           "ngrok-skip-browser-warning": "12",
           Authorization: `${getCookie("accesstoken")}`,
