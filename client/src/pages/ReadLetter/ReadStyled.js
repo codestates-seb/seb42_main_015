@@ -1,12 +1,9 @@
 import styled from "styled-components";
-import {
-  BREAKPOINTMOBILE,
-  BREAKPOINTMOBILE2,
-  BREAKPOINTTABLET,
-} from "../../breakpoint";
+import { BREAKPOINTMOBILE } from "../../breakpoint";
 import { FONT_STYLE_READ, FONT_STYLE_LOGIN } from "../../style/fontStyle";
 import pwd from "../../asset/pwd.png";
 import email from "../../asset/mail.png";
+import { PALETTE_V1 } from "../../style/color";
 
 //todo : 전체 편지지 wrapper
 export const Wrapper = styled.div`
@@ -98,7 +95,7 @@ export const Secretform = styled.form`
     ${FONT_STYLE_READ.title_19_medium}
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 1.7rem;
+      font-size: 16px;
     }
   }
   .pwdInput {
@@ -106,7 +103,7 @@ export const Secretform = styled.form`
     width: 27rem;
     height: 2.7rem;
     background-size: 1.5rem;
-    padding: 1rem 3rem;
+    padding: 1rem 4rem;
     border-top: none;
     border-left: none;
     border-right: none;
@@ -115,7 +112,8 @@ export const Secretform = styled.form`
     background-color: initial;
     background-repeat: no-repeat;
     background-position: left;
-    background-size: 1.5rem;
+    background-size: 21px;
+    letter-spacing: 3px;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       width: 22rem;
@@ -131,11 +129,14 @@ export const Secretform = styled.form`
     border: 1.2px solid #000;
     background-color: #fcfbf4;
     ${FONT_STYLE_READ.btn_8_light}
-    margin-left: 58%;
+    font-size: 15px;
+    margin-left: 75%;
     cursor: pointer;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 0.5rem;
+      width: 60px;
+      height: 23px;
+      font-size: 12px;
       margin-left: 65%;
     }
   }
@@ -192,7 +193,6 @@ export const FlexColunmWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: fit-content;
-  background: skyblue;
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 39rem;
@@ -208,6 +208,19 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   padding: 2.5rem 2.5rem;
   min-width: 680px;
   max-width: 680px;
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #d9d9d9;
+    border-radius: 7px;
+    border: 1.5px solid;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: ${PALETTE_V1.background};
+    border-radius: 7px;
+    border: 1.5px solid;
+  }
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     min-width: 18rem;

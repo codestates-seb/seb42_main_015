@@ -24,7 +24,7 @@ export const BackgroundYellow = styled.div`
   background: #fff59f;
   margin: 0rem 0rem 0rem 2rem;
   width: 60rem;
-  height: ${(props) => (props.theme === "login" ? "40rem" : "45rem")};
+  height: ${(props) => (props.theme === "login" ? "41rem" : "45rem")};
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: ${(props) => (props.theme === "login" ? "29rem" : "33rem")};
     height: ${(props) => (props.theme === "login" ? "45rem" : "58.5rem")};
@@ -63,7 +63,7 @@ export const LogForm = styled.form`
       .loginText {
         ${FONT_STYLE_LOGIN.title.title_37_medium}
         margin: ${(props) =>
-          props.theme === "login" ? "1.5rem 0px 4rem" : "0rem 0px 1.8rem"};
+          props.theme === "login" ? "1.5rem 0px 4.5rem" : "0rem 0px 1.8rem"};
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           font-size: 3.8rem;
           margin: ${(props) =>
@@ -116,12 +116,14 @@ export const LogForm = styled.form`
         margin-top: ${(props) =>
           props.theme === "login" ? "-2.6rem;" : "-1.6rem;"};
         margin-bottom: ${(props) =>
-          props.theme === "login" ? "0.5rem;" : "0.1rem;"};
+          props.theme === "login" ? "1.4rem;" : "0.4rem;"};
         /* padding: 1px 10px; */
         font-size: 12px;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+          margin-top: ${(props) =>
+            props.theme === "login" ? "-3rem;" : "-2.1rem;"};
           margin-bottom: ${(props) =>
-            props.theme === "login" ? "0.5rem;" : "0rem;"};
+            props.theme === "login" ? "0.6rem;" : "0.1rem;"};
           padding: 0 6px 0 12px;
           font-size: 7.5px;
         }
@@ -151,6 +153,7 @@ export const LogForm = styled.form`
       .sub-form {
         display: flex;
         ${FONT_STYLE_LOGIN.body.body_9_light}
+        font-size: 12px;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           font-size: 7px;
         }
@@ -228,7 +231,7 @@ export const LogForm = styled.form`
   }
 
   .formRight {
-    flex-grow: ${(props) => (props.theme === "login" ? "1" : "0")};
+    flex-grow: 1;
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       display: none;
     }
@@ -291,6 +294,7 @@ export const LogForm = styled.form`
       align-items: center;
       .oauth-head {
         ${FONT_STYLE_LOGIN.body.body_8_light}
+        font-size: 12px;
         padding: ${(props) =>
           props.theme === "login" ? "48px 20px 5px" : "70px 20px 5px"};
       }
