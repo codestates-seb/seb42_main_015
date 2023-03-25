@@ -5,14 +5,34 @@ import GNB from "./GNB";
 import useStore from "../../store/store";
 import Modal from "../commons/Modal";
 import ResignModal from "./ResignModal";
+import axiosCall from "../../util/axiosCall";
+import { useQuery, useQueryClient } from "react-query";
 
 function MyPage() {
   const { currentPage, changeCurrentPage } = useStore((state) => state);
   const [openResignModal, setOpenResignModal] = useState(false);
+  const [isEditable, setIsEditable] = useState(false);
+  const [userinfo, setUserInfo] = useState({
+    nickName: null,
+    email: null,
+    createdAt: null,
+  });
+  const queryClient = useQueryClient();
+  const info = useQuery(
+    "nickName",
+    axiosCall({
+      method: "GET",
+      url: "/api/sendy/users/2",
+    })
+  );
   const modalRef = useRef();
+
   useEffect(() => {
     changeCurrentPage("MyPage");
   }, []);
+  useEffect(() => {
+    console.log(info);
+  }, [info]);
 
   const handleModal = (e) => {
     if (openResignModal && !modalRef.current.contains(e.target)) {
@@ -21,6 +41,9 @@ function MyPage() {
   };
   const handleOpenResignModal = () => {
     setOpenResignModal(!openResignModal);
+  };
+  const handleIsEditable = () => {
+    setIsEditable(!isEditable);
   };
 
   return (
@@ -48,19 +71,27 @@ function MyPage() {
             <M.UserInfoCard className="userinfo-card">
               <M.FlexWrapper2>
                 <M.UserImage></M.UserImage>
-                <M.EditButton>
+                <M.EditButton onClick={handleIsEditable}>
                   edit
                   <BiEditAlt></BiEditAlt>
                 </M.EditButton>
               </M.FlexWrapper2>
               <M.UserInfoWrapper>
                 <M.NameDateWrapper>
-                  <M.UserName>김햄찌</M.UserName>
+                  {isEditable ? (
+                    <input
+                      className="username-input"
+                      placeholder={userinfo.nickName}></input>
+                  ) : (
+                    <M.UserName>김햄찌</M.UserName>
+                  )}
                   <M.SignUpDate>가입일: 2022.06.19</M.SignUpDate>
                 </M.NameDateWrapper>
                 <M.EmailWrapper>
                   <M.UserEmail>kimhamjji@gmail.com</M.UserEmail>
-                  <M.ReadletterLink>내 편지 보러가기👉</M.ReadletterLink>
+                  <M.ReadletterLink href="/letterbox">
+                    내 편지 보러가기👉
+                  </M.ReadletterLink>
                 </M.EmailWrapper>
               </M.UserInfoWrapper>
             </M.UserInfoCard>

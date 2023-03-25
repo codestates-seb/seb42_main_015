@@ -71,7 +71,14 @@ function WriteLetter() {
         SpeechRecognition.startListening({ continuous: true, language: "ko" });
       }
     } else if (e.currentTarget.id === "폰트변경") {
-      setActiveIcon("폰트변경");
+      if (activeIcon === "폰트변경") {
+        setActiveIcon("");
+      } else {
+        if (listening) {
+          SpeechRecognition.stopListening();
+        }
+        setActiveIcon("폰트변경");
+      }
     }
   };
   const handleModal = (e) => {
@@ -141,8 +148,8 @@ function WriteLetter() {
       {openMakeLetter ? (
         <Modal
           className="make-letter-modal"
-          ContainerWidth={browserSize > 767 ? "400px" : "300px"}
-          ContainerHeight={browserSize > 767 ? "700px" : "600px"}
+          ContainerWidth={browserSize > 767 ? "500px" : "300px"}
+          ContainerHeight={browserSize > 767 ? "800px" : "600px"}
           children={<MakeLetter makeLetterModalRef={makeLetterModalRef} />}
         />
       ) : (
@@ -159,7 +166,7 @@ function WriteLetter() {
                   <BiMicrophone
                     onClick={handleActiveIcon}
                     className={
-                      listening
+                      listening && activeIcon === "음성인식"
                         ? "active-icon microphone-icon"
                         : "microphone-icon"
                     }
