@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 //yup.object
-const FormSchema = yup.object({
+export const FormSchema = yup.object({
   username: yup
     .string()
     .required("한글, 영문, 숫자로 이루어진 2~10자리를 입력해주세요.")
@@ -35,7 +35,6 @@ const FormSchema = yup.object({
       "숫자로 이루어진 비밀번호 4자리를 입력해주세요."
     ),
 });
-export default FormSchema;
 
 //axios headers
 export const headers = {

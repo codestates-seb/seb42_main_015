@@ -10,6 +10,7 @@ import { getSpeech, pauseSpeech } from "./GetSpeech";
 import ReadButtons from "./ReadButtons";
 import axios from "axios";
 import { headers, options } from "../Certified/setupCertified";
+import { getCookie } from "../Certified/Cookie";
 
 const ReadLetter = ({ isLogin }) => {
   const url = new URL(window.location.href);
