@@ -39,6 +39,7 @@ function TrashList() {
       )}
       <GNB />
       <M.TrashContainer>
+        <M.Warning>30일 뒤에 영구 삭제 됩니다.</M.Warning>
         <M.TrashTable>
           <M.TrashTableMenu>
             <M.CheckBox

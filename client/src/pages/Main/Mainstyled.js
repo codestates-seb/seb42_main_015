@@ -24,6 +24,10 @@ export const Column2 = styled.div`
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     flex-direction: column;
   }
+  @media screen and (max-height: 667px) {
+    justify-content: flex-start;
+    padding-top: 5rem;
+  }
 `;
 
 export const Column3 = styled.div`
@@ -49,6 +53,10 @@ export const Column4 = styled.div`
   align-items: center;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     flex-direction: column;
+  }
+  @media screen and (max-height: 667px) {
+    justify-content: flex-start;
+    padding-top: 5rem;
   }
 `;
 
@@ -285,7 +293,7 @@ export const Button = styled.div`
 
 export const Textbox = styled.div`
   /* border: 1px solid black; */
-  padding: 5rem;
+  padding: 4rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
