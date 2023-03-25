@@ -6,11 +6,9 @@ import * as L from "./FormStyled";
 import axios from "axios";
 import { setCookie, getCookie } from "./Cookie";
 import { headers, options, GoogleOauthLogin } from "./setupCertified";
-import useStore from "../../store/store";
 
 function Login() {
   const navigate = useNavigate();
-  const { memberId, setMemberId } = useStore((state) => state);
 
   const FormSchema = yup.object({
     email: yup
@@ -47,11 +45,12 @@ function Login() {
       )
       .then((res) => {
         alert("로그인되었습니다.");
-        setMemberId(res.data.memberId); //멤버Id 저장
+        //! 멤버Id -> 세션 스토리지에 저장
+        sessionStorage.setItem("memberId", res.data.memberId);
         if (res.headers.getAuthorization) {
-          //! refreshToken은 -> local storage에 저장
+          //! refreshToken -> local storage에 저장
           localStorage.setItem("refreshToken", res.headers.get("Refresh"));
-          //! accessToken은 -> cookie에 저장
+          //! accessToken -> cookie에 저장
           setCookie(
             "accesstoken",
             `Bearer ${res.headers.get("Authorization").split(" ")[1]}`,
@@ -59,13 +58,10 @@ function Login() {
               options,
             }
           );
-          //! accessToken expire 저장(60분)
+          //! accessToken expire  -> cookie에 저장(60분)
           setCookie("accesstoken_expire", `${res.headers.get("Date")}`, {
             options,
           });
-          // console.log("accesstoken : ", getCookie("accesstoken"));
-          // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
-          // console.log(res.headers.get("Date"));
           navigate("/");
           window.location.reload();
         }
