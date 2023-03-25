@@ -10,7 +10,6 @@ import {
 } from "../../breakpoint";
 
 export const MyPageContainer = styled.div`
-  height: 100vh;
   overflow-x: hidden;
 `;
 export const FlexWrapper1 = styled.div`
@@ -21,20 +20,20 @@ export const FlexWrapper1 = styled.div`
 export const GNBWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  width: 30%;
   justify-content: space-around;
   padding-left: 80px;
   padding-bottom: 50px;
+  width: 45rem;
   @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-    padding-left: 10vw;
-    width: 70vw;
-  }
-  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: 645px) {
-    padding-left: 64.5px;
-    width: 452.5px;
+    padding-left: 60px;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    width: 200px;
+    padding-left: 25px;
+    width: 40rem;
+  }
+  @media screen and (max-width: 320px) {
+    padding-left: 20px;
+    width: 32rem;
   }
 `;
 export const GNBMenu = styled.div`
@@ -42,31 +41,22 @@ export const GNBMenu = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid ${PALETTE_V1.text_primary};
+  border: 0.2rem solid ${PALETTE_V1.text_primary};
   border-top: none;
   background-color: #ffffff;
   padding: 0.8rem 0.6rem;
-  height: 37px;
-  width: 135px;
+  height: 3.5rem;
+  width: 11rem;
   text-align: center;
   cursor: pointer;
-  min-width: 125px;
+  /* min-width: 125px; */
   &.active {
     background-color: ${PALETTE_V1.yellow_primary};
     padding-top: 1rem;
-    height: 50px;
+    height: 5rem;
   }
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    border: 1px solid ${PALETTE_V1.text_primary};
-    border-top: none;
-    max-width: 80px;
-    min-width: 80px;
-    max-height: 30px;
-    &.active {
-      background-color: ${PALETTE_V1.yellow_primary};
-      padding-top: 1rem;
-      max-height: 40px;
-    }
+  @media screen and (max-width: 320px) {
+    width: 9rem;
   }
 `;
 export const FlexWrapper3 = styled.div`
@@ -82,18 +72,25 @@ export const UserInfoCard = styled.div`
   align-items: center;
   justify-content: space-evenly;
   background-color: white;
-  border: 2px solid ${PALETTE_V1.text_primary};
+  border: 0.2rem solid ${PALETTE_V1.text_primary};
   aspect-ratio: 4/1;
   width: 100%;
   height: 100%;
   min-width: 137px;
-  box-shadow: 15px 15px ${PALETTE_V1.yellow_primary},
-    17px 17px ${PALETTE_V1.text_primary}, 13px 17px ${PALETTE_V1.text_primary},
-    17px 13px ${PALETTE_V1.text_primary};
+  box-shadow: 1.5rem 1.5rem ${PALETTE_V1.yellow_primary},
+    1.7rem 1.7rem ${PALETTE_V1.text_primary},
+    1.3rem 1.7rem ${PALETTE_V1.text_primary},
+    1.7rem 1.3rem ${PALETTE_V1.text_primary};
   @media screen and (max-width: 1023px) {
     flex-direction: column;
     aspect-ratio: 1/4;
     justify-content: center;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    box-shadow: 1.4rem 1.5rem ${PALETTE_V1.yellow_primary},
+      1.7rem 1.7rem ${PALETTE_V1.text_primary},
+      1.3rem 1.7rem ${PALETTE_V1.text_primary},
+      1.7rem 1.3rem ${PALETTE_V1.text_primary};
   }
 `;
 export const FlexWrapper2 = styled.div`
@@ -104,17 +101,17 @@ export const FlexWrapper2 = styled.div`
   height: max-content;
   justify-content: center;
   align-items: center;
-  @media screen and (max-width: 1023px) and (min-width: 768px) {
+  @media screen and (max-width: 1023px) and (min-width: 767px) {
     margin-top: 5%;
     margin-bottom: 2%;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) and (min-width: 481px) {
-    margin-top: 7%;
-    margin-bottom: 8%;
+    margin-top: 4%;
+    margin-bottom: 7%;
   }
-  @media screen and (max-width: 480px) {
-    margin-top: 8%;
-    margin-bottom: 10%;
+  @media screen and (max-width: 481px) {
+    margin-top: 4%;
+    margin-bottom: 7%;
   }
 `;
 export const UserImage = styled.img`
@@ -125,7 +122,7 @@ export const UserImage = styled.img`
   height: 180px;
   margin-bottom: 5px;
   aspect-ratio: 1 / 1;
-  @media screen and (max-width: 1023px) and (min-width: 768px) {
+  @media screen and (max-width: 1023px) and (min-width: 767px) {
     width: 130px;
     height: 130px;
   }
@@ -133,7 +130,7 @@ export const UserImage = styled.img`
     width: 100px;
     height: 100px;
   }
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 481px) {
     width: 85px;
     height: 85px;
   }
@@ -145,7 +142,7 @@ export const UserInfoWrapper = styled.div`
   border-left: 2px solid ${PALETTE_V1.text_primary};
   width: 70%;
   height: max-content;
-  @media screen and (max-width: 1023px) and (min-width: 768px) {
+  @media screen and (max-width: 1023px) and (min-width: 767px) {
     border-left: none;
     width: 80%;
   }
@@ -153,7 +150,7 @@ export const UserInfoWrapper = styled.div`
     border-left: none;
     height: max-content;
   }
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 481px) {
     border-left: none;
   }
 `;
@@ -171,6 +168,11 @@ export const NameDateWrapper = styled(FlexWrapper2)`
   align-items: center;
   width: 95%;
   margin-bottom: 5%;
+  .username-input {
+    border: none;
+    border-bottom: 0.1rem solid ${PALETTE_V1.text_primary};
+    margin: 1rem 1rem;
+  }
   @media screen and (max-width: 1023px) {
     border-bottom: none;
     width: 100%;
@@ -228,7 +230,7 @@ export const Sticker = styled.img.attrs({ src: `${sendme}` })`
     right: -70px;
     transform: rotate(-30deg);
   }
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 481px) {
     width: 120px;
     bottom: -60px;
     right: -60px;
@@ -248,7 +250,7 @@ export const StickerWrapper = styled.div`
   min-width: 149px;
   min-height: 216px;
   position: relative;
-  @media screen and (max-width: 1023px) and (min-width: 768px) {
+  @media screen and (max-width: 1023px) and (min-width: 767px) {
     width: 55%;
     height: 50vh;
     min-height: 350px;
@@ -258,7 +260,7 @@ export const StickerWrapper = styled.div`
     height: 40vh;
     min-height: 342px;
   }
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 481px) {
     height: 70%;
     height: 35vh;
     min-height: 280px;

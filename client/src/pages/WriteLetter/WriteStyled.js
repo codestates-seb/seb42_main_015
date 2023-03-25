@@ -98,6 +98,7 @@ export const FlexColunmWrapper = styled.div`
   }
   &.letter {
     width: 75%;
+    max-width: 756px;
   }
 `;
 export const FlexWrapper2 = styled(FlexRowWrapper)`
@@ -147,6 +148,7 @@ export const LetterBox = styled(FlexColunmWrapper)`
   background-size: cover;
   min-width: 230px;
   max-width: 754px;
+  width: 100%;
   ${(props) => {
     switch (props.currentLetterTheme) {
       case "군대":
@@ -320,6 +322,19 @@ export const ContentTextarea = styled.textarea`
   }}
   &:focus {
     outline: none;
+  }
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #d9d9d9;
+    border-radius: 7px;
+    border: 1.5px solid;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: ${PALETTE_V1.background};
+    border-radius: 7px;
+    border: 1.5px solid;
   }
 `;
 export const FromWrapper = styled(FlexRowWrapper)`
