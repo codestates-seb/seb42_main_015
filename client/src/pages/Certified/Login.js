@@ -88,7 +88,9 @@ function Login() {
                 name="email"
                 placeholder="email address"
               />
-              {errors.email && <p>{errors.email.message}</p>}
+              {errors.email && (
+                <div className="err">{errors.email.message}</div>
+              )}
               <input
                 className="pwdInput"
                 {...register("password")}
@@ -97,7 +99,9 @@ function Login() {
                 placeholder="Password"
                 {...register("password")}
               />
-              {errors.password && <p>{errors.password.message}</p>}
+              {errors.password && (
+                <div className="err">{errors.password.message}</div>
+              )}
               <input
                 className="btn"
                 type="submit"

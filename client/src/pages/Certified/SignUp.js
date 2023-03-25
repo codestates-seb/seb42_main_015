@@ -154,7 +154,8 @@ function SignUp() {
         }
       )
       .then((res) => {
-        setCode(res.body.code);
+        // setCode(res.body.get("code"));
+        setCode(res.body);
         alert("인증코드가 발송되었습니다. 이메일을 확인해주세요 !");
         setSendCode(true);
       })
@@ -187,7 +188,9 @@ function SignUp() {
                   </button>
                 )}
               </label>
-              {errors.nickname && <p>{errors.nickname.message}</p>}
+              {errors.nickname && (
+                <div className="err">{errors.nickname.message}</div>
+              )}
               <label>
                 <input
                   className="emailInput"
@@ -212,7 +215,9 @@ function SignUp() {
                   </button>
                 )}
               </label>
-              {errors.email && <p>{errors.email.message}</p>}
+              {errors.email && (
+                <div className="err">{errors.email.message}</div>
+              )}
               <label>
                 <input
                   className="emailInput"
@@ -229,7 +234,7 @@ function SignUp() {
                   </button>
                 )}
               </label>
-              {errors.code && <p>{errors.code.message}</p>}
+              {errors.code && <div className="err">{errors.code.message}</div>}
               <input
                 className="pwdInput"
                 name="password"
@@ -238,7 +243,9 @@ function SignUp() {
                 {...register("password")}
               />
 
-              {errors.password && <p>{errors.password.message}</p>}
+              {errors.password && (
+                <div className="err">{errors.password.message}</div>
+              )}
               <label>
                 <input
                   className="pwdInput"
@@ -249,7 +256,7 @@ function SignUp() {
                 />
               </label>
               {errors.passwordConfirm && (
-                <p>{errors.passwordConfirm.message}</p>
+                <div className="err">{errors.passwordConfirm.message}</div>
               )}
               {/* 로그인버튼의 disabled 속성에 isSubmitting값을 부여하면 -> 제출 처리가 끝날 때까지 버튼이 비활성화 된다. */}
               <input

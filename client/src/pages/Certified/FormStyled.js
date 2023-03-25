@@ -63,7 +63,7 @@ export const LogForm = styled.form`
       .loginText {
         ${FONT_STYLE_LOGIN.title.title_37_medium}
         margin: ${(props) =>
-          props.theme === "login" ? "3rem 0px 3rem" : "0rem 0px 1.8rem"};
+          props.theme === "login" ? "1.5rem 0px 4rem" : "0rem 0px 1.8rem"};
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           font-size: 3.8rem;
           margin: ${(props) =>
@@ -109,7 +109,7 @@ export const LogForm = styled.form`
           background-size: 17px;
         }
       }
-      p {
+      .err {
         display: flex;
         justify-content: flex-start;
         color: red;
@@ -117,12 +117,12 @@ export const LogForm = styled.form`
           props.theme === "login" ? "-2.6rem;" : "-1.6rem;"};
         margin-bottom: ${(props) =>
           props.theme === "login" ? "0.5rem;" : "0.1rem;"};
-        padding: 1px 10px;
+        /* padding: 1px 10px; */
         font-size: 12px;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           margin-bottom: ${(props) =>
             props.theme === "login" ? "0.5rem;" : "0rem;"};
-          padding: 0 12px;
+          padding: 0 6px 0 12px;
           font-size: 7.5px;
         }
       }
