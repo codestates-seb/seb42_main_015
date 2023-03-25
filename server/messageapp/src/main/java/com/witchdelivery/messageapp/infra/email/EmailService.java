@@ -1,5 +1,6 @@
 package com.witchdelivery.messageapp.infra.email;
 
+import com.witchdelivery.messageapp.global.utils.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Random;
 
@@ -15,24 +17,28 @@ import java.util.Random;
 public class EmailService {
     private final JavaMailSender javaMailSender;
     private final SpringTemplateEngine templateEngine;
+    private final RedisUtil redisUtil;
 
     /**
-     * 랜덤 인증코드 발송 메서드
-     * @param emailDto
+     * 랜덤 인증코드 이메일 발송 메서드
+     * @param emailInfo
      * @param type
      * @return
      * @throws Exception
      */
-    public String sendEmail(EmailDto emailDto, String type) throws Exception {
+    public String sendEmail(EmailInfo emailInfo, String type) throws MessagingException {
         String code = createCode(); // 랜덤 인증코드 생성
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
-        mimeMessageHelper.setTo(emailDto.getTo()); // 메일 수신자
-        mimeMessageHelper.setSubject(emailDto.getSubject()); // 메일 제목
+        mimeMessageHelper.setTo(emailInfo.getTo()); // 메일 수신자
+        mimeMessageHelper.setSubject(emailInfo.getSubject()); // 메일 제목
         mimeMessageHelper.setText(setContext(code, type), true); // 메일 내용, HTML 사용 여부
 
         javaMailSender.send(mimeMessage);   // 이메일 전송
+
+        // 유효 시간(10분) 동안 저장
+        redisUtil.setDataExpire(code, type, 60 * 10L);
         return code;
     }
 
