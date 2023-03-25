@@ -24,6 +24,10 @@ export const Column2 = styled.div`
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     flex-direction: column;
   }
+  @media screen and (max-height: 667px) {
+    justify-content: flex-start;
+    padding-top: 5rem;
+  }
 `;
 
 export const Column3 = styled.div`
@@ -49,6 +53,10 @@ export const Column4 = styled.div`
   align-items: center;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     flex-direction: column;
+  }
+  @media screen and (max-height: 667px) {
+    justify-content: flex-start;
+    padding-top: 5rem;
   }
 `;
 
@@ -285,7 +293,7 @@ export const Button = styled.div`
 
 export const Textbox = styled.div`
   /* border: 1px solid black; */
-  padding: 5rem;
+  padding: 4rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -391,10 +399,10 @@ export const Theme = styled.div`
       margin-bottom: 1rem;
     }
     .flower {
-    width: 9rem;
-    top: -3rem;
-    right: -4rem;
-  }
+      width: 9rem;
+      top: -3rem;
+      right: -4rem;
+    }
   }
   @media screen and (max-height: 667px) {
     width: 250px;
@@ -448,22 +456,21 @@ export const SendyBottom = styled.div`
 `;
 
 export const Track = styled.div`
-  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
   overflow: hidden;
   padding: 0.5rem 0;
   position: absolute;
+  display: flex;
 `;
 
 export const TrackImg = styled.span`
   animation: ${flowAnimation} 5s linear infinite;
-  align-items: center;
-  display: inline-flex;
 `;
 
 export const TrackImgReverse = styled.span`
   animation: ${flowAnimation} 5s linear infinite reverse;
-  align-items: center;
-  display: inline-flex;
 `;
 
 export const LastTextBox = styled.div`
