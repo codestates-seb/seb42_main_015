@@ -38,7 +38,7 @@ public class Member extends BaseTime implements Principal {
 
     // 연관관계 매핑 목록
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
-    private MemberFile memberFile;
+    private MemberImage memberImage;
 
     @OneToMany(mappedBy = "member")
     private List<Outgoing> outgoing = new ArrayList<>();
@@ -69,12 +69,12 @@ public class Member extends BaseTime implements Principal {
 
     /**
      * 연관관계 매핑 메서드
-     * @param memberFile
+     * @param memberImage
      */
-    public void addMemberFile(MemberFile memberFile) {
-        if (memberFile.getMember() != this) {
-            memberFile.setMember(this);
+    public void addMemberFile(MemberImage memberImage) {
+        if (memberImage.getMember() != this) {
+            memberImage.setMember(this);
         }
-        this.memberFile = memberFile;
+        this.memberImage = memberImage;
     }
 }

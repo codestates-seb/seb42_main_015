@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 @Builder
-public class S3Dto {
+public class S3Info {
     private String originFileName;    // 파일 원본 이름
 
     private String fileName;    // 업로드시 파일 이름

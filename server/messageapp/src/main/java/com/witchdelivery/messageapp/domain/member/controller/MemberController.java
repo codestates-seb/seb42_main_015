@@ -36,26 +36,25 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    // TODO 이메일 인증코드 발송 메서드로 대체
     /**
      * 이메일 중복 검증 컨트롤러 메서드
-     * @param postUsernameDto
+     * @param verifyEmailDto
      * @return
      */
     @PostMapping("/verify/email")
-    public ResponseEntity postVerifyEmail(@Valid @RequestBody PostUsernameDto postUsernameDto) {
-        memberDbService.verifiedExistedEmail(postUsernameDto.getEmail());
+    public ResponseEntity postVerifyEmail(@Valid @RequestBody VerifyEmailDto verifyEmailDto) {
+        memberDbService.verifiedExistedEmail(verifyEmailDto.getEmail());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
      * 닉네임 중복 검증 컨트롤러 메서드
-     * @param postNicknameDto
+     * @param verifyNicknameDto
      * @return
      */
     @PostMapping("/verify/nickname")
-    public ResponseEntity postVerifyNickname(@Valid @RequestBody PostNicknameDto postNicknameDto) {
-        memberDbService.verifiedExistedName(postNicknameDto.getNickname());
+    public ResponseEntity postVerifyNickname(@Valid @RequestBody VerifyNicknameDto verifyNicknameDto) {
+        memberDbService.verifiedExistedName(verifyNicknameDto.getNickname());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -70,6 +69,7 @@ public class MemberController {
         return new ResponseEntity<>(memberResponseDto, HttpStatus.OK);
     }
 
+    // 인터페이스 미구현 예정
     /**
      * 전체 사용자 조회 컨트롤러 메서드
      * @param page
@@ -118,9 +118,10 @@ public class MemberController {
      * @throws IOException
      */
     @PostMapping("/edit/profile/{member-id}")
-    public void postProfileImage(@PathVariable("member-id") Long memberId,
-                                 @RequestParam(value = "image") MultipartFile multipartFile) throws IOException {
+    public ResponseEntity postProfileImage(@PathVariable("member-id") Long memberId,
+                                           @RequestParam(value = "image") MultipartFile multipartFile) throws IOException {
         memberService.updateProfileS3(memberId, multipartFile);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**

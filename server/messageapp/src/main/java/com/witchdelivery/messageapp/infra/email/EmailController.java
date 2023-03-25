@@ -16,12 +16,12 @@ public class EmailController {
 
     @PostMapping("/send-code-email")
     public ResponseEntity postCodeMail(@RequestBody EmailPostDto emailPostDto) throws Exception {
-        EmailDto emailMessage = EmailDto.builder()
+        EmailInfo emailInfo = EmailInfo.builder()
                 .to(emailPostDto.getEmail())
-                .subject("SENDY 인증 코드 입니다.")
+                .subject("📮SENDY 인증 코드 입니다.")
                 .build();
 
-        String code = emailService.sendEmail(emailMessage, "email");
+        String code = emailService.sendEmail(emailInfo, "email");
 
         EmailResponseDto emailResponseDto = new EmailResponseDto();
         emailResponseDto.setCode(code);
