@@ -13,6 +13,12 @@ function SignUp() {
   const [nameValid, setNameValid] = useState(false);
   //이메일 중복검사
   const [emailValid, setEmailValid] = useState(false);
+  //이메일 인증번호 발송
+  const [isSendCode, setSendCode] = useState(false);
+  //이메일 인증코드
+  const [isCode, setCode] = useState("");
+  //이메일 인증번호 일치
+  const [isEmailCode, setEmailCode] = useState(false);
 
   const FormSchema = yup.object({
     username: yup
@@ -28,6 +34,7 @@ function SignUp() {
       .string()
       .required("이메일을 입력해주세요")
       .email("이메일 형식이 아닙니다."),
+    code: yup.string().required("이메일로 발송된 인증코드를 입력해주세요."),
     password: yup
       .string()
       .required("영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요.")
@@ -46,7 +53,6 @@ function SignUp() {
     register,
     handleSubmit,
     watch,
-    getValues,
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
@@ -81,7 +87,7 @@ function SignUp() {
     if (watch("username")) {
       axios
         .post(
-          `/api/sendy/users/nickname`,
+          `/api/sendy/users/verify/nickname`,
           {
             nickname: watch("username"),
           },
@@ -106,7 +112,7 @@ function SignUp() {
     if (watch("email")) {
       axios
         .post(
-          `/api/sendy/users/email`,
+          `/api/sendy/users/verify/email`,
           {
             email: watch("email"),
           },
@@ -124,6 +130,38 @@ function SignUp() {
           alert("이미 존재하는 이메일입니다.");
         });
     }
+  };
+
+  //인증코드 확인
+  const handleCheckCode = () => {
+    if (watch("code") === isCode) {
+      setEmailCode(true);
+    } else {
+      alert("올바른 인증코드를 입력해주세요.");
+    }
+  };
+
+  //인증 코드 발송
+  const handleSendCode = async () => {
+    axios
+      .post(
+        `/api/sendy/users/verify/email`,
+        {
+          email: watch("email"),
+        },
+        {
+          headers,
+        }
+      )
+      .then((res) => {
+        // setCode(res.body.get("code"));
+        setCode(res.body);
+        alert("인증코드가 발송되었습니다. 이메일을 확인해주세요 !");
+        setSendCode(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -150,7 +188,9 @@ function SignUp() {
                   </button>
                 )}
               </label>
-              {errors.nickname && <p>{errors.nickname.message}</p>}
+              {errors.nickname && (
+                <div className="err">{errors.nickname.message}</div>
+              )}
               <label>
                 <input
                   className="emailInput"
@@ -160,14 +200,41 @@ function SignUp() {
                   {...register("email")}
                 />
                 {emailValid ? (
-                  <button className="duplicate-check">체크완료</button>
+                  isSendCode ? (
+                    <button className="code-check" onClick={handleSendCode}>
+                      다시 받기
+                    </button>
+                  ) : (
+                    <button className="code-check" onClick={handleSendCode}>
+                      코드 받기
+                    </button>
+                  )
                 ) : (
                   <button className="duplicate" onClick={emailCheck}>
                     중복체크
                   </button>
                 )}
               </label>
-              {errors.email && <p>{errors.email.message}</p>}
+              {errors.email && (
+                <div className="err">{errors.email.message}</div>
+              )}
+              <label>
+                <input
+                  className="emailInput"
+                  name="code"
+                  type="code"
+                  placeholder="Enter code"
+                  {...register("code")}
+                />
+                {isEmailCode ? (
+                  <button className="duplicate-check">완료</button>
+                ) : (
+                  <button className="duplicate" onClick={handleCheckCode}>
+                    확인
+                  </button>
+                )}
+              </label>
+              {errors.code && <div className="err">{errors.code.message}</div>}
               <input
                 className="pwdInput"
                 name="password"
@@ -175,16 +242,21 @@ function SignUp() {
                 placeholder="Password"
                 {...register("password")}
               />
-              {errors.password && <p>{errors.password.message}</p>}
-              <input
-                className="pwdInput"
-                type="password"
-                name="passwordConfirm"
-                placeholder="Confirm Password"
-                {...register("passwordConfirm")}
-              />
+
+              {errors.password && (
+                <div className="err">{errors.password.message}</div>
+              )}
+              <label>
+                <input
+                  className="pwdInput"
+                  type="password"
+                  name="passwordConfirm"
+                  placeholder="Confirm Password"
+                  {...register("passwordConfirm")}
+                />
+              </label>
               {errors.passwordConfirm && (
-                <p>{errors.passwordConfirm.message}</p>
+                <div className="err">{errors.passwordConfirm.message}</div>
               )}
               {/* 로그인버튼의 disabled 속성에 isSubmitting값을 부여하면 -> 제출 처리가 끝날 때까지 버튼이 비활성화 된다. */}
               <input

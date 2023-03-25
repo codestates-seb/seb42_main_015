@@ -6,9 +6,11 @@ import * as L from "./FormStyled";
 import axios from "axios";
 import { setCookie, getCookie } from "./Cookie";
 import { headers, options, GoogleOauthLogin } from "./setupCertified";
+import useStore from "../../store/store";
 
 function Login() {
   const navigate = useNavigate();
+  const { memberId, setMemberId } = useStore((state) => state);
 
   const FormSchema = yup.object({
     email: yup
@@ -29,7 +31,6 @@ function Login() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
@@ -46,6 +47,7 @@ function Login() {
       )
       .then((res) => {
         alert("로그인되었습니다.");
+        console.log(res.headers.get("Date"));
         if (res.headers.getAuthorization) {
           //! refresh token은 -> local storage에 저장
           localStorage.setItem("refreshToken", res.headers.get("Refresh"));
@@ -57,9 +59,10 @@ function Login() {
               options,
             }
           );
-          console.log("accesstoken : ", getCookie("accesstoken"));
-          console.log("refreshToken : ", localStorage.getItem("refreshToken"));
+          // console.log("accesstoken : ", getCookie("accesstoken"));
+          // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
           navigate("/");
+          window.location.reload();
         }
       })
       .catch((err) => {
@@ -67,6 +70,8 @@ function Login() {
         alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
       });
   };
+
+  // console.log("현재시간", new Date().getTime());
 
   return (
     <>
@@ -83,7 +88,9 @@ function Login() {
                 name="email"
                 placeholder="email address"
               />
-              {errors.email && <p>{errors.email.message}</p>}
+              {errors.email && (
+                <div className="err">{errors.email.message}</div>
+              )}
               <input
                 className="pwdInput"
                 {...register("password")}
@@ -92,7 +99,9 @@ function Login() {
                 placeholder="Password"
                 {...register("password")}
               />
-              {errors.password && <p>{errors.password.message}</p>}
+              {errors.password && (
+                <div className="err">{errors.password.message}</div>
+              )}
               <input
                 className="btn"
                 type="submit"

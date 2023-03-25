@@ -8,12 +8,42 @@ import { PALETTE_V1 } from "../../style/color";
 import addImage from "../../asset/add-image.png";
 import { BiX } from "react-icons/bi";
 import axiosCall from "../../util/axiosCall";
+import useStore from "../../store/store";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 function MakeLetter({ makeLetterModalRef }) {
+  const formSchema = yup.object({
+    urlName: yup
+      .string()
+      .required(
+        "영문 소문자 또는 숫자를 반드시 포함하고 -가 있을 수 있는 1 ~ 15자를 입력해주세요."
+      )
+      .min(1, "최소 1자리 이상 입력해주세요.")
+      .max(15, "최대 15자까지 가능합니다.")
+      .matches(
+        /^[a-z][0-9][-].{1,15}$/,
+        "url은 영문 소문자나 숫자를 포함하고 1~15자리입니다."
+      ),
+    password: yup
+      .string()
+      .required("비밀번호는 숫자 4자리입니다.")
+      .min(4, "4자리를 입력해주세요.")
+      .max(4, "4자리를 입력해주세요")
+      .matches(/[0-9]{4}/, "숫자 4자리를 입력해주세요"),
+  });
+  const {
+    register,
+    watch,
+    formState: { errors, isValid },
+  } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
   const [dragOver, setDragOver] = useState(false);
   const [hasFile, setHasFile] = useState(false);
   const [image, setImage] = useState(null);
   const selectFileRef = useRef();
+  const { letterContents, setLetterContents } = useStore((state) => state);
+
   const renderFile = (file) => {
     let reader = new FileReader();
     reader.readAsDataURL(file);
@@ -34,6 +64,7 @@ function MakeLetter({ makeLetterModalRef }) {
   const handleDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    setDragOver(false);
     if (e.dataTransfer.items) {
       if (e.dataTransfer.items.length > 1) {
         alert("사진은 하나만 업로드 가능합니다.");
@@ -70,6 +101,9 @@ function MakeLetter({ makeLetterModalRef }) {
     e.stopPropagation();
     setDragOver(true);
   };
+  const handleDragleave = (e) => {
+    setDragOver(false);
+  };
   const handleFile = (e) => {
     if (e.target.files && e.target.files[0]) {
       if (checkFileSize(e.target.files[0])) {
@@ -77,11 +111,20 @@ function MakeLetter({ makeLetterModalRef }) {
       }
     }
   };
-
   const handleDeleteFlie = (e) => {
     setHasFile(false);
     setImage(null);
   };
+
+  useEffect(() => {
+    if (isValid) {
+      setLetterContents({
+        ...letterContents,
+        password: watch("password"),
+        urlName: watch("urlName"),
+      });
+    }
+  }, [isValid]);
 
   return (
     <W.ModalWrapper className="make-letter" ref={makeLetterModalRef}>
@@ -94,8 +137,13 @@ function MakeLetter({ makeLetterModalRef }) {
         <W.FlexRowWrapper className="URL-wrapper">
           <W.FlexRowWrapper className="align-items URL-input">
             <div>https://www.sendy.site/letter</div>
-            <W.MakeLetterInput className="URL-input"></W.MakeLetterInput>
+            <W.MakeLetterInput
+              className="URL-input"
+              {...register("urlName")}></W.MakeLetterInput>
           </W.FlexRowWrapper>
+          {errors.urlName && (
+            <W.ErrorMessage>{errors.urlName.message}</W.ErrorMessage>
+          )}
           <RoundButton
             className="check-button"
             width="65px"
@@ -110,11 +158,15 @@ function MakeLetter({ makeLetterModalRef }) {
         <W.FlexRowWrapper className="align-items">
           <W.Label>편지 비밀번호</W.Label>
           <p id="necessity">(선택) </p>
+          {errors.password && (
+            <W.ErrorMessage>{errors.password.message}</W.ErrorMessage>
+          )}
         </W.FlexRowWrapper>
         <W.MakeLetterInput
           className="password-input"
           backgroundImg={keyIcon}
-          placeholder=" * * * *"></W.MakeLetterInput>
+          placeholder=" * * * *"
+          {...register("password")}></W.MakeLetterInput>
       </W.FlexColunmWrapper>
       <div>
         <W.FlexRowWrapper className="align-items">
@@ -125,6 +177,7 @@ function MakeLetter({ makeLetterModalRef }) {
           <div
             onDrop={handleDrop}
             onDragOver={handleDragOver}
+            onDragLeave={handleDragleave}
             className={dragOver ? "drag-file high-light" : "drag-file"}>
             <W.FlexRowWrapper className="upload-box">
               <W.FlexColunmWrapper className="align-center">

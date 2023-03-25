@@ -21,6 +21,7 @@ function LetterContent({
   setIsContentVaild,
 }) {
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
+  const [contentError, setContentError] = useState("");
   const [content, setContent] = useState("");
   const currentDate = `${new Date().getFullYear()}.${(
     "00" +
@@ -28,18 +29,15 @@ function LetterContent({
   ).slice(-2)}.${("00" + new Date().getDate()).slice(-2)} ${
     weekday[new Date().getDay()]
   }`;
-  const { contentFont } = useStore((state) => state);
+  const { contentFont, letterContents, setLetterContents } = useStore(
+    (state) => state
+  );
   const formSchema = yup.object({
     receiverName: yup
       .string()
       .required("1 ~ 15자를 입력해주세요.")
       .min(1, "최소 1자리 이상 입력해주세요.")
       .max(15, "최대 15자까지 가능합니다."),
-    content: yup
-      .string()
-      .required("7000자 미만으로 입력해주세요.")
-      .min(0, "")
-      .max(7000, "최대 7000자까지 가능합니다."),
     senderName: yup
       .string()
       .required("1 ~ 15자를 입력해주세요.")
@@ -49,8 +47,7 @@ function LetterContent({
   const {
     register,
     watch,
-    getValues,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
 
   const textarea = useRef();
@@ -58,10 +55,16 @@ function LetterContent({
     textarea.current.focus();
   }, []);
   useEffect(() => {
-    // if(watch("receiverName").length > 0 && watch("receiverName"))
-    setIsContentVaild();
-    console.log(errors, watch("content"), getValues("content"));
-  }, [watch("receiverName"), watch("content"), watch("senderName")]);
+    if (isValid) {
+      setIsContentVaild(true);
+      setLetterContents({
+        ...letterContents,
+        toName: watch("receiverName"),
+        fromName: watch("senderName"),
+        content,
+      });
+    }
+  }, [isValid]);
 
   useEffect(() => {
     textarea.current.value += " " + finalTranscript;
@@ -73,11 +76,15 @@ function LetterContent({
     setSendMeChecked(true);
   };
   const handleContentLength = (e) => {
+    if (e.target.value.length > 7000) {
+      setContentError("최대 7000자까지 작성할 수 있습니다.");
+    } else {
+      setContentError("");
+    }
     setContentLength(e.target.value.length);
+    setContent(e.target.value);
   };
-  const handleContent = (e) => {
-    setContent(e.target.textarea);
-  };
+
   return (
     <W.LetterBox currentLetterTheme={currentLetterTheme}>
       <W.FlexWrapper1>
@@ -146,14 +153,10 @@ function LetterContent({
       <W.ContentTextarea
         font={contentFont}
         name="content"
-        value={content}
-        onChange={handleContent}
         onInput={handleContentLength}
         {...register("content")}
-        ref={textarea}></W.ContentTextarea>
-      {errors.content && (
-        <W.ErrorMessage>{errors.content.message}</W.ErrorMessage>
-      )}
+        ref={textarea}
+        maxLength={7000}></W.ContentTextarea>
       <W.FromWrapper>
         <W.BallonWrapper className="from-wrapper">
           <W.NameInputWrapper className="from-input">
