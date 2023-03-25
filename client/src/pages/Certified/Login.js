@@ -47,12 +47,11 @@ function Login() {
       )
       .then((res) => {
         alert("로그인되었습니다.");
-        //! 엑세스 토큰 유효시간 가져오기
-        console.log(res.headers.get("Date"));
+        setMemberId(res.data.memberId); //멤버Id 저장
         if (res.headers.getAuthorization) {
-          //! refresh token은 -> local storage에 저장
+          //! refreshToken은 -> local storage에 저장
           localStorage.setItem("refreshToken", res.headers.get("Refresh"));
-          //! access token은 -> cookie에 저장
+          //! accessToken은 -> cookie에 저장
           setCookie(
             "accesstoken",
             `Bearer ${res.headers.get("Authorization").split(" ")[1]}`,
@@ -60,10 +59,15 @@ function Login() {
               options,
             }
           );
+          //! accessToken expire 저장(60분)
+          setCookie("accesstoken_expire", `${res.headers.get("Date")}`, {
+            options,
+          });
           // console.log("accesstoken : ", getCookie("accesstoken"));
           // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
-          // navigate("/");
-          // window.location.reload();
+          // console.log(res.headers.get("Date"));
+          navigate("/");
+          window.location.reload();
         }
       })
       .catch((err) => {
@@ -71,8 +75,6 @@ function Login() {
         alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
       });
   };
-
-  // console.log("현재시간", new Date().getTime());
 
   return (
     <>
