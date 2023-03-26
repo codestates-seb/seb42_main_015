@@ -1,8 +1,9 @@
 package com.witchdelivery.messageapp.domain.message.entity;
 
+import com.witchdelivery.messageapp.domain.font.entity.Font;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
+import com.witchdelivery.messageapp.domain.thema.entitiy.Theme;
 import com.witchdelivery.messageapp.global.audit.BaseTime;
-import com.witchdelivery.messageapp.global.utils.BooleanToYNConverter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,6 +35,14 @@ public class Message extends BaseTime {
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member; // FK 사용자식별번호(사용자와 연관관계 매핑)
+
+    @OneToOne
+    @JoinColumn(name = "THEME_ID")
+    private Theme theme;   // FK 테마 식별번호(테마 연관관계 매핑)
+
+    @OneToOne
+    @JoinColumn(name = "FONT_ID")
+    private Font font;   // FK 폰트 식별번호(폰트 연관관계 매핑)
 
 //    @Column(nullable = false)
 //    private Long outgoingId; // 보내는 사람 Id즉 사용자 Id 두번 받는거 맞음...

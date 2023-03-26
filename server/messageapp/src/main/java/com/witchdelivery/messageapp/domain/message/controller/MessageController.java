@@ -42,7 +42,7 @@ public class MessageController {
         Member member = memberDbService.findMemberByEmail(principal.getName());
         message.setMember(member);
 
-        Message createdMessage = messageService.createMessage(message);
+        Message createdMessage = messageService.createMessage(message, messagePostDto.getThemeName(), messagePostDto.getFontName());   // 테마, 폰트 추가
         MessageResponseDto responseDto = messageMapper.messageToMessageResponseDto(createdMessage);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
