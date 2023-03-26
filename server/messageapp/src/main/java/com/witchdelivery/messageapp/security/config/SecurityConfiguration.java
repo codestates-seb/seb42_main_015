@@ -81,6 +81,7 @@ public class SecurityConfiguration {
                         // mailbox
                         .antMatchers(HttpMethod.PATCH, "/*/mailbox/**").hasRole("USER")
                         .antMatchers(HttpMethod.GET, "/*/mailbox/**").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/*/mailbox/**").hasRole("USER")
                         .anyRequest().permitAll())
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberRepository, redisService)));
