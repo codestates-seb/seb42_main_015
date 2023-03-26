@@ -14,7 +14,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -36,12 +38,37 @@ public class DustbinService {
         return outgoingRepository.findAllByMember_MemberIdAndOutgoingStatusOrderByDeletedAtDesc(memberId, Outgoing.OutgoingStatus.OUTGOING_DELETE, pageRequest);
     }
 
-    public void updateOutgoingDustStatus(List<Long> ids) { // outgoing 상태 OUTGOING_STORE변경
-        for (Long id : ids) {
-            Outgoing findOutgoing = outgoingService.findVerifiedOutgoing(id);
+    @Transactional
+    public void updateOutgoingDustStatus(List<Long> ids, Authentication authentication) { // outgoing 상태 OUTGOING_STORE변경
+        Long memberId = findMemberIdByAuthenticatedUser(authentication);
+
+        for (Long outgoingId : ids) {
+            Outgoing findOutgoing = outgoingService.findVerifiedOutgoing(outgoingId);
+
+            // 보낸 편지와 로그인한 memberId가 같지 않거나(OR) 받은 편지의 상태가 DELETE가 아니면 예외 처리
+            if (!Objects.equals(findOutgoing.getMember().getMemberId(), memberId) || findOutgoing.getOutgoingStatus() != Outgoing.OutgoingStatus.OUTGOING_DELETE) {
+                throw new BusinessLogicException(ExceptionCode.DUSTBIN_OUTGOING_NOT_FOUND);
+            }
+
             findOutgoing.setOutgoingStatus(Outgoing.OutgoingStatus.OUTGOING_STORE);
             findOutgoing.setDeletedAt(null);
             outgoingRepository.save(findOutgoing);
+        }
+    }
+
+    @Transactional
+    public void deleteOutgoing(List<Long> ids, Authentication authentication) {// 발신 (보낸 편지) 영구삭제
+        Long memberId = findMemberIdByAuthenticatedUser(authentication);
+
+        for (Long outgoingId : ids) {
+            Outgoing findOutgoing = outgoingService.findVerifiedOutgoing(outgoingId);
+
+            // 보낸 편지와 로그인한 memberId가 같지 않거나(OR) 받은 편지의 상태가 DELETE가 아니면 예외 처리
+            if (!Objects.equals(findOutgoing.getMember().getMemberId(), memberId) || findOutgoing.getOutgoingStatus() != Outgoing.OutgoingStatus.OUTGOING_DELETE) {
+                throw new BusinessLogicException(ExceptionCode.DUSTBIN_OUTGOING_NOT_FOUND);
+            }
+
+            outgoingRepository.delete(findOutgoing);
         }
     }
 
@@ -51,12 +78,37 @@ public class DustbinService {
         return receivingRepository.findAllByMember_MemberIdAndReceivingStatusOrderByDeletedAtDesc(memberId, Receiving.ReceivingStatus.RECEIVING_DELETE, pageRequest);
     }
 
-    public void updateReceivingDustStatus(List<Long> ids) { // receiving 상태 RECEIVING_STORE변경
-        for (Long id : ids) {
-            Receiving findReceiving = receivingService.findVerifiedReceiving(id);
+    @Transactional
+    public void updateReceivingDustStatus(List<Long> ids, Authentication authentication) { // receiving 상태 RECEIVING_STORE변경
+        Long memberId = findMemberIdByAuthenticatedUser(authentication);
+
+        for (Long receivingId : ids) {
+            Receiving findReceiving = receivingService.findVerifiedReceiving(receivingId);
+
+            // 받은 편지와 로그인한 memberId가 같지 않거나(OR) 받은 편지의 상태가 DELETE가 아니면 예외 처리
+            if (!Objects.equals(findReceiving.getMember().getMemberId(), memberId) || findReceiving.getReceivingStatus() != Receiving.ReceivingStatus.RECEIVING_DELETE) {
+                throw new BusinessLogicException(ExceptionCode.DUSTBIN_RECEIVING_NOT_FOUND);
+            }
+
             findReceiving.setReceivingStatus(Receiving.ReceivingStatus.RECEIVING_STORE);
             findReceiving.setDeletedAt(null);
             receivingRepository.save(findReceiving);
+        }
+    }
+
+    @Transactional
+    public void deleteReceiving(List<Long> ids, Authentication authentication) { // 수신 (받은 편지) 영구삭제
+        Long memberId = findMemberIdByAuthenticatedUser(authentication);
+
+        for (Long id : ids) {
+            Receiving findReceiving = receivingService.findVerifiedReceiving(id);
+
+            // 받은 편지와 로그인한 memberId가 같지 않거나(OR) 받은 편지의 상태가 DELETE가 아니면 예외 처리
+            if (!Objects.equals(findReceiving.getMember().getMemberId(), memberId) || findReceiving.getReceivingStatus() != Receiving.ReceivingStatus.RECEIVING_DELETE) {
+                throw new BusinessLogicException(ExceptionCode.DUSTBIN_RECEIVING_NOT_FOUND);
+            }
+
+            receivingRepository.delete(findReceiving);
         }
     }
 

@@ -44,9 +44,17 @@ public class DustbinController {
     }
 
     @PatchMapping("/dustbin/outgoing/restore") // 발신 (보낸 편지) restore상태변경
-    public ResponseEntity patchOutgoingStatus(@RequestBody DustbinMultiCheck dustbinMultiCheck) {
-        dustbinService.updateOutgoingDustStatus(dustbinMultiCheck.getIds());
+    public ResponseEntity patchOutgoingStatus(@RequestBody DustbinMultiCheck dustbinMultiCheck,
+                                              Authentication authentication) {
+        dustbinService.updateOutgoingDustStatus(dustbinMultiCheck.getIds(), authentication);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/dustbin/outgoing/delete") // 발신 (보낸 편지) 영구삭제
+    public ResponseEntity deleteOutgoing(@RequestBody DustbinMultiCheck dustbinMultiCheck,
+                                         Authentication authentication) {
+        dustbinService.deleteOutgoing(dustbinMultiCheck.getIds(), authentication);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/dustbin/receiving") //수신 (받은 편지) 휴지통
@@ -63,8 +71,16 @@ public class DustbinController {
     }
 
     @PatchMapping("/dustbin/receiving/restore") // 수신 (받은 편지) restore상태변경
-    public ResponseEntity patchReceivingStatus(@RequestBody DustbinMultiCheck dustbinMultiCheck) {
-        dustbinService.updateReceivingDustStatus(dustbinMultiCheck.getIds());
+    public ResponseEntity patchReceivingStatus(@RequestBody DustbinMultiCheck dustbinMultiCheck,
+                                               Authentication authentication) {
+        dustbinService.updateReceivingDustStatus(dustbinMultiCheck.getIds(), authentication);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/dustbin/receiving/delete") // 수신 (받은 편지) 영구삭제
+    public ResponseEntity deleteReceiving(@RequestBody DustbinMultiCheck dustbinMultiCheck,
+                                          Authentication authentication) {
+        dustbinService.deleteReceiving(dustbinMultiCheck.getIds(), authentication);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
