@@ -25,4 +25,7 @@ public class MessagePostDto {
     @Size(min = 1, max = 20, message = "영문과 숫자 최소 1글자에서 최대 20글자까지 입력 가능합니다.")
     @Pattern(regexp = "^[A-Za-z0-9\\\\-]+$", message = "특수기호는 - 만 허용됩니다.")
     private String urlName;  // url 이름
+    private String themeName;   // 테마 추가
+    private String fontName;    // 폰트 추가
+
 }
