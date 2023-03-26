@@ -42,7 +42,7 @@ public class MessageController {
         Member member = memberDbService.findMemberByEmail(principal.getName());
         message.setMember(member);
 
-        Message createdMessage = messageService.createMessage(message, messagePostDto.getThemeName(), messagePostDto.getFontName());   // 테마, 폰트 추가
+        Message createdMessage = messageService.createMessage(message);   // 테마, 폰트 추가
         MessageResponseDto responseDto = messageMapper.messageToMessageResponseDto(createdMessage);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
@@ -65,7 +65,7 @@ public class MessageController {
         Message message = messageService.findMessageByUrlName(urlName);
         Long memberId = memberDbService.findMemberByEmail(principal.getName()).getMemberId();
 
-        messageService.updatedMessageSaved(message.getMessageId(), messagePatchDto.isMessageSaved(), memberId);
+        messageService.updatedMessageSaved(message, messagePatchDto.isMessageSaved(), memberId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

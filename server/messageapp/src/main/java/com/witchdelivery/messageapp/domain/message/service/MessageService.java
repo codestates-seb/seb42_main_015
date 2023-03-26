@@ -1,7 +1,5 @@
 package com.witchdelivery.messageapp.domain.message.service;
 
-import com.witchdelivery.messageapp.domain.font.entity.Font;
-import com.witchdelivery.messageapp.domain.font.repository.FontRepository;
 import com.witchdelivery.messageapp.domain.mailbox.entity.Outgoing;
 import com.witchdelivery.messageapp.domain.mailbox.entity.Receiving;
 import com.witchdelivery.messageapp.domain.mailbox.service.OutgoingService;
@@ -9,8 +7,6 @@ import com.witchdelivery.messageapp.domain.mailbox.service.ReceivingService;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.domain.member.service.MemberDbService;
 import com.witchdelivery.messageapp.domain.message.repository.MessageRepository;
-import com.witchdelivery.messageapp.domain.thema.entitiy.Theme;
-import com.witchdelivery.messageapp.domain.thema.repository.ThemeRepository;
 import com.witchdelivery.messageapp.global.exception.BusinessLogicException;
 import com.witchdelivery.messageapp.global.exception.ExceptionCode;
 import com.witchdelivery.messageapp.domain.message.entity.Message;
@@ -29,18 +25,8 @@ public class MessageService {
     private final OutgoingService outgoingService;
     private final ReceivingService receivingService;
     private final MemberDbService memberDbService;
-    private final ThemeRepository themeRepository;
-    private final FontRepository fontRepository;
 
-    public Message createMessage(Message message, String themeName, String fontName) {
-
-        Theme theme = themeRepository.findByThemeName(themeName)                       // 테마 추가
-                .orElseGet(() -> themeRepository.save(new Theme(themeName)));
-        message.setTheme(theme);
-
-        Font font = fontRepository.findByFontName(fontName)                            // 폰트 추가
-                .orElseGet(() -> fontRepository.save(new Font(fontName)));
-        message.setFont(font);
+    public Message createMessage(Message message) {
 
         Message savedMessage = messageRepository.save(message);
         Outgoing outgoing = outgoingJoinMessage(savedMessage);
@@ -48,8 +34,8 @@ public class MessageService {
         return savedMessage;
     }
 
-    public void updatedMessageSaved(Long messageId, boolean messageSaved, long memberId) {
-        Message message = findVerifiedMessage(messageId);
+    public void updatedMessageSaved(Message message, boolean messageSaved, long memberId) {
+//        Message message = findVerifiedMessage(messageId);
 //        message.setMessageSaved(messageSaved);    // true 0r false.  추후 리팩토링
         message.setMessageSaved(true);
         Message savedMessage = messageRepository.save(message);
