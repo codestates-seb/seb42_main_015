@@ -1,7 +1,6 @@
-import React, { forwardRef, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as W from "./WriteStyled";
 import { BiMicrophone, BiFontColor } from "react-icons/bi";
-import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { SlQuestion } from "react-icons/sl";
 import { PALETTE_V1 } from "../../style/color";

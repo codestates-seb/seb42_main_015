@@ -7,6 +7,7 @@ import axios from "axios";
 import { setCookie, getCookie } from "./Cookie";
 import { headers, options, GoogleOauthLogin } from "./setupCertified";
 import useStore from "../../store/store";
+import { useEffect } from "react";
 
 function Login() {
   const navigate = useNavigate();
@@ -139,8 +140,7 @@ function Login() {
               <div className="section1">
                 <img
                   src={require("../../asset/해바라기.png")}
-                  alt="Sunflower"
-                ></img>
+                  alt="Sunflower"></img>
                 <span className="box">sunflower</span>
               </div>
               <div className="section2">

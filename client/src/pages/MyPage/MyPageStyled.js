@@ -11,6 +11,10 @@ import {
 
 export const MyPageContainer = styled.div`
   overflow-x: hidden;
+  height: 105vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 export const FlexWrapper1 = styled.div`
   display: flex;
@@ -87,10 +91,10 @@ export const UserInfoCard = styled.div`
     justify-content: center;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    box-shadow: 1.4rem 1.5rem ${PALETTE_V1.yellow_primary},
-      1.7rem 1.7rem ${PALETTE_V1.text_primary},
-      1.3rem 1.7rem ${PALETTE_V1.text_primary},
-      1.7rem 1.3rem ${PALETTE_V1.text_primary};
+    box-shadow: 1.3rem 1.3rem ${PALETTE_V1.yellow_primary},
+      1.5rem 1.5rem ${PALETTE_V1.text_primary},
+      1.1rem 1.5rem ${PALETTE_V1.text_primary},
+      1.5rem 1.1rem ${PALETTE_V1.text_primary};
   }
 `;
 export const FlexWrapper2 = styled.div`
@@ -101,6 +105,16 @@ export const FlexWrapper2 = styled.div`
   height: max-content;
   justify-content: center;
   align-items: center;
+  .image-icon {
+    color: rgba(0, 0, 0, 50%);
+    font-size: 5rem;
+  }
+  .file-label {
+    position: absolute;
+  }
+  #chooseFile {
+    display: none;
+  }
   @media screen and (max-width: 1023px) and (min-width: 767px) {
     margin-top: 5%;
     margin-bottom: 2%;
@@ -169,9 +183,21 @@ export const NameDateWrapper = styled(FlexWrapper2)`
   width: 95%;
   margin-bottom: 5%;
   .username-input {
+    ${FONT_STYLE_V1.body.body_15_light}
     border: none;
     border-bottom: 0.1rem solid ${PALETTE_V1.text_primary};
     margin: 1rem 1rem;
+    height: 2.3rem;
+    width: 10rem;
+    background-color: ${PALETTE_V1.yellow_light};
+    &:focus {
+      outline: none;
+      background-color: ${PALETTE_V1.yellow_light};
+    }
+    &::-webkit-input-placeholder {
+      ${FONT_STYLE_V1.body.body_15_light}
+      color: gray;
+    }
   }
   @media screen and (max-width: 1023px) {
     border-bottom: none;
@@ -186,11 +212,29 @@ export const UserEmail = styled.div`
 `;
 export const ReadletterLink = styled.a`
   ${FONT_STYLE_V1.body.body_13_light}
-  border-bottom:1px solid ${PALETTE_V1.text_primary};
+  border-bottom: 1px solid ${PALETTE_V1.text_primary};
   margin-right: 10px;
   white-space: nowrap;
   cursor: pointer;
   margin: 0.8rem 1rem;
+  z-index: 20;
+  &.hover-effect {
+    ::before {
+      content: "";
+      position: absolute;
+      width: 0rem;
+      transition: width 0.3s ease-out;
+    }
+    &:hover::before {
+      content: "";
+      position: absolute;
+      top: 3.2rem;
+      z-index: -10;
+      height: 0.8rem;
+      width: 10.3rem;
+      background-color: ${PALETTE_V1.yellow_basic};
+    }
+  }
 `;
 export const EmailWrapper = styled(FlexWrapper2)`
   flex-direction: column;
@@ -198,6 +242,9 @@ export const EmailWrapper = styled(FlexWrapper2)`
   align-items: flex-start;
   width: 95%;
   margin-top: 0;
+  .position-relative {
+    position: relative;
+  }
   @media screen and (max-width: 1023px) {
     align-items: center;
   }
@@ -207,9 +254,55 @@ export const EditButton = styled.div`
   margin-bottom: 5px;
   margin-right: 3px;
   position: absolute;
-  right: -8px;
-  bottom: -12px;
+  right: 20px;
+  bottom: 0px;
   cursor: pointer;
+  z-index: 250;
+  display: flex;
+  align-items: center;
+  padding: 0.3rem;
+  &.cancel {
+    right: 7rem;
+    &:hover::before {
+      width: 2.2rem;
+    }
+  }
+  &.edit-done {
+    ::before {
+      content: "";
+      z-index: -10;
+      width: 0rem;
+      transition: width 0.3s ease-out;
+    }
+    &:hover::before {
+      content: "";
+      position: absolute;
+      top: 1rem;
+      height: 0.8rem;
+      width: 4.6rem;
+      background-color: ${PALETTE_V1.yellow_basic};
+    }
+  }
+  ::before {
+    content: "";
+    z-index: -10;
+    width: 0rem;
+    transition: width 0.3s ease-out;
+  }
+  &:hover::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    height: 0.8rem;
+    width: 3rem;
+    background-color: ${PALETTE_V1.yellow_basic};
+  }
+  @media screen and (max-width: 1023px) {
+    bottom: -30px;
+    right: 0px;
+    &.cancel {
+    }
+  }
 `;
 export const Sticker = styled.img.attrs({ src: `${sendme}` })`
   position: absolute;
@@ -244,6 +337,7 @@ export const Sticker = styled.img.attrs({ src: `${sendme}` })`
   }
 `;
 export const StickerWrapper = styled.div`
+  margin-top: 10%;
   width: 70%;
   height: 25vh;
   max-width: 720px;
@@ -263,7 +357,7 @@ export const StickerWrapper = styled.div`
   @media screen and (max-width: 481px) {
     height: 70%;
     height: 35vh;
-    min-height: 280px;
+    min-height: 300px;
   }
 `;
 export const ResignationWrapper = styled.div`
@@ -271,10 +365,6 @@ export const ResignationWrapper = styled.div`
   border-top: 2px solid ${PALETTE_V1.text_primary};
   display: flex;
   justify-content: flex-end;
-  margin-top: 20%;
-  @media screen and (max-width: 480px) {
-    margin-top: 50%;
-  }
 `;
 export const ResignLink = styled(ReadletterLink)`
   border-bottom: none;
@@ -308,6 +398,13 @@ export const ModalWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+  .input-wrapper {
+    .align-center {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
   }
 `;
 export const ModalTitle = styled.div`

@@ -10,11 +10,11 @@ const useStore = create((set) => ({
   memberId: null,
   setMemberId: (memberId) => set((state) => ({ memberId: memberId })),
   letterContents: {
-    toName: null,
-    fromName: null,
-    content: null,
-    password: null,
-    urlName: null,
+    toName: "",
+    fromName: "",
+    content: "",
+    password: "",
+    urlName: "",
   },
   setLetterContents: (contents) =>
     set((state) => ({ letterContents: contents })),
