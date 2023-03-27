@@ -16,6 +16,7 @@ import javax.persistence.*;
 public class MemberImage extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MEMBER_PROFILE_IMAGE_ID")
     private Long FileId;    // PK
 
     @Column
