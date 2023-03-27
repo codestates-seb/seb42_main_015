@@ -30,14 +30,18 @@ public class Message extends BaseTime {
     private boolean messageSaved;          // 편지 저장 여부
     private boolean bookMark;                // 북마크 여부
 
-    @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
-    private Member member; // FK 사용자식별번호(사용자와 연관관계 매핑)
+//    @ManyToOne
+//    @JoinColumn(name = "MEMBER_ID")
+    @Column(nullable = false)
+    private Long memberId; // 사용자 식별번호(편지 작성자 즉, 보낸 사람(발신자Id))
 
-    private String theme;   // FK 테마 식별번호(테마 연관관계 매핑)
+    @Column(nullable = false)
+    private String outgoingNickname; // 보낸 사람 nickname
 
-    private String font;   // FK 폰트 식별번호(폰트 연관관계 매핑)
+    @Column(nullable = false)
+    private String themeName;   // FK 테마 식별번호(테마 연관관계 매핑)
 
-//    @Column(nullable = false)
-//    private Long outgoingId; // 보내는 사람 Id즉 사용자 Id 두번 받는거 맞음...
+    @Column(nullable = false)
+    private String fontName;   // FK 폰트 식별번호(폰트 연관관계 매핑)
+
 }
