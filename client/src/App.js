@@ -27,7 +27,7 @@ function App() {
     const loggedInfo = getCookie("accesstoken");
     if (loggedInfo) {
       setIsLogin(true);
-      // console.log("accesstoken : ", getCookie("accesstoken"));
+      console.log("accesstoken : ", getCookie("accesstoken"));
       // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
     }
   };
@@ -53,7 +53,7 @@ function App() {
           <Route path="/writeletter" element={<WriteLetter />} />
           <Route path="/completeLogout" element={<CompleteLogout />} />
           <Route
-            path="/readletter"
+            path="/readletter/:urlName"
             element={<ReadLetter isLogin={isLogin} />}
           />
           <Route path="/completeSignup" element={<CompleteSignup />} />

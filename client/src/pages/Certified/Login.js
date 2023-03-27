@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,7 +12,7 @@ import { useEffect } from "react";
 
 function Login() {
   const navigate = useNavigate();
-  const { memberId, setMemberId } = useStore((state) => state);
+  const { isLogin, setIsLogin } = useStore((state) => state);
 
   const FormSchema = yup.object({
     email: yup
@@ -48,11 +49,12 @@ function Login() {
       )
       .then((res) => {
         alert("로그인되었습니다.");
-        setMemberId(res.data.memberId); //멤버Id 저장
+        //! 멤버Id -> 세션 스토리지에 저장
+        sessionStorage.setItem("memberId", res.data.memberId);
         if (res.headers.getAuthorization) {
-          //! refreshToken은 -> local storage에 저장
+          //! refreshToken -> local storage에 저장
           localStorage.setItem("refreshToken", res.headers.get("Refresh"));
-          //! accessToken은 -> cookie에 저장
+          //! accessToken -> cookie에 저장
           setCookie(
             "accesstoken",
             `Bearer ${res.headers.get("Authorization").split(" ")[1]}`,
@@ -60,13 +62,10 @@ function Login() {
               options,
             }
           );
-          //! accessToken expire 저장(60분)
+          //! accessToken expire  -> cookie에 저장(60분)
           setCookie("accesstoken_expire", `${res.headers.get("Date")}`, {
             options,
           });
-          // console.log("accesstoken : ", getCookie("accesstoken"));
-          // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
-          // console.log(res.headers.get("Date"));
           navigate("/");
           window.location.reload();
         }
@@ -76,6 +75,19 @@ function Login() {
         alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
       });
   };
+
+  const initializeUserInfo = async () => {
+    const loggedInfo = getCookie("accesstoken");
+    if (loggedInfo) {
+      setIsLogin(true);
+      // console.log("accesstoken : ", getCookie("accesstoken"));
+      // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
+    }
+  };
+
+  useEffect(() => {
+    initializeUserInfo();
+  }, [isLogin]);
 
   return (
     <>
