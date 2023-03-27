@@ -167,7 +167,7 @@ export const Secretform = styled.form`
       font-size: 13px;
     }
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      margin: -5rem 0 -2rem;
+      margin: -3rem 0 -2rem;
       font-size: 7px;
     }
   }

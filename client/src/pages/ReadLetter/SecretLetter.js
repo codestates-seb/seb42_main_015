@@ -5,7 +5,12 @@ import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
 import FormScheme from "../Certified/FormScheme";
 
-const ReadLetter = ({ enterPassword, setEnterPassword }) => {
+const ReadLetter = ({
+  isPassword,
+  setIsPassword,
+  enterPassword,
+  setEnterPassword,
+}) => {
   const {
     register,
     handleSubmit,
@@ -16,31 +21,41 @@ const ReadLetter = ({ enterPassword, setEnterPassword }) => {
   // setEnterPassword(!enterPassword);
   // //! 추후 비밀번호가 맞는지 검증절차 필요
 
+  // const onSubmit = async (data) => {
+  //   const { numberpassword } = data;
+  //   console.log(numberpassword);
+  //   await axios
+  //     //hisdf -> {urlName}
+  //     .get(`/api/sendy/messages/hisdf`, {
+  //       headers: {
+  //         "ngrok-skip-browser-warning": "12",
+  //         Authorization: `${getCookie("accesstoken")}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log(res.body);
+  //       if (res.body.password === numberpassword) {
+  //         alert("비밀번호가 일치합니다! 어떤 편지가 왔을까요?");
+  //         //todo : numberpassword -> Zstand에 넣어서 readletter에게 전달
+  //         setEnterPassword(!enterPassword);
+  //       } else {
+  //         alert("비밀번호가 일치하지 않습니다. 편지를 열 수 없어요.");
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       alert(err);
+  //     });
+  // };
+
   const onSubmit = async (data) => {
     const { numberpassword } = data;
-    console.log(numberpassword);
-    await axios
-      //hisdf -> {urlName}
-      .get(`/api/sendy/messages/hisdf`, {
-        headers: {
-          "ngrok-skip-browser-warning": "12",
-          Authorization: `${getCookie("accesstoken")}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.body);
-        if (res.body.password === numberpassword) {
-          alert("비밀번호가 일치합니다! 어떤 편지가 왔을까요?");
-          //todo : numberpassword -> Zstand에 넣어서 readletter에게 전달
-          setEnterPassword(!enterPassword);
-        } else {
-          alert("비밀번호가 일치하지 않습니다. 편지를 열 수 없어요.");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err);
-      });
+    if (isPassword === numberpassword) {
+      alert("비밀번호가 일치합니다! 어떤 편지가 왔을까요?");
+      setEnterPassword(!enterPassword);
+    } else {
+      alert("비밀번호가 일치하지 않습니다. 편지를 열 수 없어요.");
+    }
   };
 
   return (

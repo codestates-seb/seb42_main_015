@@ -26,7 +26,7 @@ function App() {
     const loggedInfo = getCookie("accesstoken");
     if (loggedInfo) {
       setIsLogin(true);
-      // console.log("accesstoken : ", getCookie("accesstoken"));
+      console.log("accesstoken : ", getCookie("accesstoken"));
       // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
     }
   };

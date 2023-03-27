@@ -111,7 +111,7 @@ const ReadLetter = ({ isLogin }) => {
     "00" +
     (new Date(`${data.createdAt}`).getMonth() + 1)
   ).slice(-2)}.${("00" + new Date(`${data.createdAt}`).getDate()).slice(-2)} ${
-    weekday[new Date(`${data.createdAt}`).getDay()]
+    weekday[new Date().getDay()]
   }`;
 
   return (
@@ -156,6 +156,8 @@ const ReadLetter = ({ isLogin }) => {
         </R.Wrapper>
       ) : (
         <SecretLetter
+          isPassword={isPassword}
+          setIsPassword={setIsPassword}
           enterPassword={enterPassword}
           setEnterPassword={setEnterPassword}
         />
