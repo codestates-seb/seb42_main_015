@@ -47,7 +47,7 @@ const ReadLetter = ({ isLogin }) => {
 
   //! 음성 tts api
   //음성 value 상태
-  const voiceValue = `${R.LetterEx}`;
+  const voiceValue = `${data.content}`;
 
   //음성tts speech 버튼
   const handleSpeechButton = () => {
@@ -109,9 +109,9 @@ const ReadLetter = ({ isLogin }) => {
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
   const LetterDate = `${new Date(`${data.createdAt}`).getFullYear()}.${(
     "00" +
-    (new Date().getMonth() + 1)
-  ).slice(-2)}.${("00" + new Date().getDate()).slice(-2)} ${
-    weekday[new Date().getDay()]
+    (new Date(`${data.createdAt}`).getMonth() + 1)
+  ).slice(-2)}.${("00" + new Date(`${data.createdAt}`).getDate()).slice(-2)} ${
+    weekday[new Date(`${data.createdAt}`).getDay()]
   }`;
 
   return (
