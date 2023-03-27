@@ -52,7 +52,7 @@ function App() {
           <Route path="/writeletter" element={<WriteLetter />} />
           <Route path="/completeLogout" element={<CompleteLogout />} />
           <Route
-            path="/readletter"
+            path="/readletter/:urlName"
             element={<ReadLetter isLogin={isLogin} />}
           />
           <Route path="/completeSignup" element={<CompleteSignup />} />

@@ -219,12 +219,7 @@ function SignUp() {
                 )}
                 {emailValid ? (
                   isCode ? (
-                    <button
-                      className="duplicate-check"
-                      onClick={handleSendCode}
-                    >
-                      발송 완료
-                    </button>
+                    <button className="duplicate-check">발송 완료</button>
                   ) : (
                     <button className="code-check" onClick={handleSendCode}>
                       코드 받기

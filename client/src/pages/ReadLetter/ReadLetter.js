@@ -12,9 +12,7 @@ import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
 
 const ReadLetter = ({ isLogin }) => {
-  const url = new URL(window.location.href);
-  const urlParams = url.searchParams.get("password"); //url파라미터값
-  const { id } = useParams();
+  const { urlName } = useParams();
 
   //todo: useState
   //비밀번호가 있는지 없는지
@@ -81,8 +79,7 @@ const ReadLetter = ({ isLogin }) => {
 
   const getLetter = async () => {
     await axios
-      //hisdf -> {urlName}
-      .get(`/api/sendy/messages/hisdf`, {
+      .get(`/api/sendy/messages/${urlName}`, {
         headers: {
           "ngrok-skip-browser-warning": "12",
           Authorization: `${getCookie("accesstoken")}`,
@@ -103,15 +100,14 @@ const ReadLetter = ({ isLogin }) => {
 
   useEffect(() => {
     getLetter();
-  }, [data]);
-  //! data --> 몇번 렌더링 되는지 확인!
+  }, []);
 
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
   const LetterDate = `${new Date(`${data.createdAt}`).getFullYear()}.${(
     "00" +
     (new Date(`${data.createdAt}`).getMonth() + 1)
   ).slice(-2)}.${("00" + new Date(`${data.createdAt}`).getDate()).slice(-2)} ${
-    weekday[new Date().getDay()]
+    weekday[new Date(`${data.createdAt}`).getDay()]
   }`;
 
   return (
