@@ -14,7 +14,7 @@ import {
 import axios from "axios";
 
 function LetterBox() {
-  const [lefttTab, setleftTab] = useState(false);
+  const [leftTab, setleftTab] = useState(false);
   const [rightTab, setRightTab] = useState(false);
   const [currentTab, setCurrentTab] = useState("최신순");
   const [select, setSelect] = useState(false);
@@ -27,9 +27,10 @@ function LetterBox() {
   const tabItem = ["최신순", "오래된 순", "북마크"];
 
   useEffect(() => {
-    axios.get("/api/sendy/mailbox/messages/out", {
-      headers: { "ngrok-skip-browser-warning": "230324" },
-    })
+    axios
+      .get("/api/sendy/mailbox/messages/out", {
+        headers: { "ngrok-skip-browser-warning": "230324" },
+      })
       .then((res) => console.log(res.data.data))
       .catch((err) => console.log(err));
   }, []);
@@ -88,9 +89,9 @@ function LetterBox() {
           <L.Search />
           <AiOutlineCalendar
             className="icon"
-            onClick={() => setleftTab(!lefttTab)}
+            onClick={() => setleftTab(!leftTab)}
           />
-          {lefttTab ? (
+          {leftTab ? (
             <L.PeriodBox>
               <L.Line />
               <L.Date>

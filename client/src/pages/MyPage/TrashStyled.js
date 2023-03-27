@@ -11,13 +11,22 @@ export const TrashWrap = styled.div`
 
 export const TrashContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin-top: 5rem;
+  align-items: center;
 `;
 
 export const TrashTable = styled.div`
   width: 80vw;
 `;
+
+export const Warning = styled.div`
+  width: 80vw;
+  display: flex;
+  justify-content: flex-end;
+  color: red;
+  padding-bottom: 2rem;
+`
 
 export const TrashTableMenu = styled.div`
   ${FONT_STYLE_V1.title.title_16_medium}
@@ -146,6 +155,7 @@ export const TopButton = styled.div`
   background-color: white;
   color: ${PALETTE_V1.orange_dark};
   cursor: pointer;
+  z-index: 99;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 50px;
     height: 50px;
@@ -169,6 +179,7 @@ export const ReceiveButton = styled.div`
   background-color: white;
   color: ${PALETTE_V1.orange_dark};
   cursor: pointer;
+  z-index: 99;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 50px;
     height: 50px;
@@ -192,6 +203,7 @@ export const SendButton = styled.div`
   background-color: ${PALETTE_V1.orange_dark};
   color: white;
   cursor: pointer;
+  z-index: 99;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 50px;
     height: 50px;
