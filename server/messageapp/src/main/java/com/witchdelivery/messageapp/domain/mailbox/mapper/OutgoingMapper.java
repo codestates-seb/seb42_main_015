@@ -12,6 +12,8 @@ public interface OutgoingMapper {
         OutgoingResponseDto responseDto = new OutgoingResponseDto(
                 outgoing.getOutgoingId(),
                 outgoing.getMessage().getMessageId(),
+                outgoing.getUrlName(),
+                outgoing.getThemeName(),
                 outgoing.getMessage().getToName(),
                 outgoing.getContent(),
                 outgoing.getMessageCreatedAt(),

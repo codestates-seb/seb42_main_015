@@ -29,6 +29,12 @@ public class Receiving extends BaseTime { // 수신(받는 사람)
     @JoinColumn(name = "MESSAGE_ID")
     private Message message; // FK 편지식별번호
 
+    @Column(name = "URL_NAME" , nullable = false)
+    private String urlName;     // 편지 url 이름
+
+    @Column(nullable = false)
+    private String themeName;   // 테마
+
     private String outgoingNickname; // 발신자 (보내는 사람) 닉네임
 
     private String content; // 편지 내용

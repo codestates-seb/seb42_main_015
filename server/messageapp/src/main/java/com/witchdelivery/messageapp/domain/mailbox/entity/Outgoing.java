@@ -30,6 +30,12 @@ public class Outgoing extends BaseTime { // 발신 (보내는 사람)
     @JoinColumn(name = "MESSAGE_ID")
     private Message message; // FK 편지식별번호
 
+    @Column(name = "URL_NAME" , nullable = false)
+    private String urlName;     // 편지 url 이름
+
+    @Column(nullable = false)
+    private String themeName;   // 테마
+
     private String toName; // 받는사람 닉네임 (편지테이블의 toName)
 
     private String content; // 편지 내용

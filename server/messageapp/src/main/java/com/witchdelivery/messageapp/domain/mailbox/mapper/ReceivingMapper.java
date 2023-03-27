@@ -16,6 +16,8 @@ public interface ReceivingMapper {
         ReceivingResponseDto responseDto = new ReceivingResponseDto(
                 receiving.getReceivingId(),
                 receiving.getMessage().getMessageId(),
+                receiving.getUrlName(),
+                receiving.getThemeName(),
                 receiving.getOutgoingNickname(),
                 receiving.getContent(),
                 receiving.getMessageCreatedAt(),
