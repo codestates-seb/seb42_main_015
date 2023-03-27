@@ -106,7 +106,7 @@ public class MessageController {
      * @throws IOException
      */
     @PostMapping("/write/image/{message-id}")
-    public ResponseEntity postProfileImage(@PathVariable("message-id") Long messageId,
+    public ResponseEntity postMessageImage(@PathVariable("message-id") Long messageId,
                                            @RequestParam(value = "image") MultipartFile multipartFile) throws IOException {
         messageService.uploadMessageS3(messageId, multipartFile);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -118,7 +118,7 @@ public class MessageController {
      * @return
      */
     @GetMapping("read/image/{url-name}")
-    public ResponseEntity getMember(@PathVariable("url-name") String urlName) {
+    public ResponseEntity getMessageImage(@PathVariable("url-name") String urlName) {
         MessageImageDto messageImageDto = messageService.findMessageS3(urlName);
         return new ResponseEntity<>(messageImageDto, HttpStatus.OK);
     }
