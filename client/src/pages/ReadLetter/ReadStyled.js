@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { BREAKPOINTMOBILE } from "../../breakpoint";
+import {
+  BREAKPOINTMOBILE,
+  BREAKPOINTMOBILE2,
+  BREAKPOINTTABLET,
+} from "../../breakpoint";
 import { FONT_STYLE_READ, FONT_STYLE_LOGIN } from "../../style/fontStyle";
 import pwd from "../../asset/pwd.png";
 import email from "../../asset/mail.png";
@@ -91,13 +95,13 @@ export const SWrapper = styled.div`
 export const Secretform = styled.form`
   display: flex;
   padding: 5rem 5rem;
-  height: 60vh;
+  height: 50vh;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
   @media screen and (max-width: 1024px) {
-    height: 50vh;
+    height: 40vh;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     height: 40vh;
@@ -160,14 +164,14 @@ export const Secretform = styled.form`
   }
   p {
     color: red;
-    margin: -5rem 0 -2rem;
+    margin: -9rem 0 -2rem;
     font-size: 14px;
     @media screen and (max-width: 1024px) {
-      margin: -5.5rem 0 -2rem;
+      margin: -100px 0 -30px;
       font-size: 13px;
     }
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      margin: -3rem 0 -2rem;
+      margin: -20px 0 0px;
       font-size: 7px;
     }
   }
@@ -316,12 +320,15 @@ export const Buttons = styled.div`
   justify-content: space-around;
   height: 8rem;
   padding: 0rem 0rem 0rem 32rem;
+
   @media screen and (max-width: 1024px) {
     padding: 0rem 0rem 0rem 38rem;
   }
-
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    padding: 0rem 0rem 0rem 10rem;
+    padding: 0rem 0rem 0rem 9.2rem;
+  }
+  @media screen and (min-width: 420px) and (max-width: ${BREAKPOINTTABLET}px) {
+    padding: 0rem 0rem 0rem 5rem;
   }
 
   .button {
@@ -349,6 +356,8 @@ export const Buttons = styled.div`
     display: flex;
     margin: 0.2rem 20rem 0 -31rem;
     cursor: pointer;
+    visibility: ${(props) => props.visibility};
+
     @media screen and (max-width: 1024px) {
       margin: 0.2rem 35rem 0 -37rem;
     }
@@ -358,10 +367,12 @@ export const Buttons = styled.div`
       height: 2.8rem;
     }
   }
+
   .trash {
     display: flex;
     margin-right: 8px;
     cursor: pointer;
+    visibility: ${(props) => props.visibility};
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       width: 3rem;
       height: 3rem;

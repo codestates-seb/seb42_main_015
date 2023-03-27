@@ -20,6 +20,7 @@ const ReadButtons = ({
   };
 
   //! 휴지통 alert
+  //outgoing 인지 receiving인지 우편함에서 상태 받아와야함 !
   const onRemove = () => {
     if (
       window.confirm(
@@ -38,12 +39,28 @@ const ReadButtons = ({
         {isLogin ? (
           <>
             <Link to="/letterbox">
-              <HiOutlineArrowUturnLeft size="30" className="goback" />
+              <HiOutlineArrowUturnLeft
+                size="30"
+                className="goback"
+                visibility="visible"
+              />
             </Link>
-            <HiOutlineTrash size="30" className="trash" onClick={onRemove} />
+            <HiOutlineTrash
+              size="30"
+              className="trash"
+              onClick={onRemove}
+              visibility="visible"
+            />
           </>
         ) : (
-          <></>
+          <>
+            <HiOutlineArrowUturnLeft
+              size="30"
+              className="goback"
+              visibility="hidden"
+            />
+            <HiOutlineTrash size="30" className="trash" visibility="hidden" />
+          </>
         )}
         <ShadowButton
           className="button"
@@ -60,6 +77,15 @@ const ReadButtons = ({
             state="block"
           >
             보관완료
+          </ShadowButton>
+        ) : isKeeping ? (
+          <ShadowButton
+            className="button"
+            backgroundColor={PALETTE_V1.yellow_button}
+            state="none-block"
+            onClick={handleKeeping}
+          >
+            보관하기
           </ShadowButton>
         ) : (
           <ShadowButton

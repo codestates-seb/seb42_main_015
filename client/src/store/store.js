@@ -1,3 +1,4 @@
+import { set } from "date-fns";
 import { create } from "zustand";
 
 const useStore = create((set) => ({
@@ -18,6 +19,9 @@ const useStore = create((set) => ({
     set((state) => ({ letterContents: contents })),
   acessTokenExpire: false,
   setAcessTokenExpire: (token) => set((state) => ({ acessTokenExpire: token })),
+  letterPassword: "",
+  setLetterPassword: (password) =>
+    set((state) => ({ letterPassword: password })),
 }));
 
 export default useStore;

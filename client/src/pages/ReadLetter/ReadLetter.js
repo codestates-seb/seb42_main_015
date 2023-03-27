@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as R from "./ReadStyled";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
@@ -10,13 +10,14 @@ import { getSpeech, pauseSpeech } from "./GetSpeech";
 import ReadButtons from "./ReadButtons";
 import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
+import useStore from "../../store/store";
 
+//{isLogin} props 제거
 const ReadLetter = ({ isLogin }) => {
   const { urlName } = useParams();
+  const { letterPassword, setLetterPassword } = useStore((state) => state);
 
   //todo: useState
-  //비밀번호가 있는지 없는지
-  const [isPassword, setIsPassword] = useState(false);
   //비밀번호 쳤는지 안쳤는지
   const [enterPassword, setEnterPassword] = useState(false);
   //보관하기를 클릭했을 때 비로그인(저장X)인지 로그인(저장준비 완료)아닌지
@@ -61,22 +62,6 @@ const ReadLetter = ({ isLogin }) => {
     window.speechSynthesis.getVoices();
   }, []);
 
-  //! 전체 편지정보 가져오기
-  // useEffect(() => {
-  //   const getLetterData = async () => {
-  //     await axios
-  //       .get(`/api/sendy/messages/${id}/${urlParams}`, { headers })
-  //       .then((res) => {
-  //         setData(res.body);
-  //       })
-  //       .catch((err) => {
-  //         // alert(err);
-  //         // console.log(err);
-  //       });
-  //   };
-  //   getLetterData();
-  // }, [data]);
-
   const getLetter = async () => {
     await axios
       .get(`/api/sendy/messages/${urlName}`, {
@@ -86,10 +71,15 @@ const ReadLetter = ({ isLogin }) => {
         },
       })
       .then((res) => {
-        setData(res.data);
         //편지 정보 담기
-        if (res.data.password !== null) {
-          setIsPassword(true);
+        setData(res.data);
+        //편지 비밀번호가 없다면(null이라면) -> setEnterPassword(true)처리해서 SecretLetter로 안가겠금
+        if (res.data.password === null) {
+          setEnterPassword(true);
+        }
+        //편지 비밀번호가 있다면(null이 아니라면) -> setLetterPassword에 패스워드 저장
+        else if (res.data.password !== null) {
+          setLetterPassword(res.data.password);
         }
       })
       .catch((err) => {
@@ -112,7 +102,7 @@ const ReadLetter = ({ isLogin }) => {
 
   return (
     <>
-      {isLogin || isPassword ? (
+      {isLogin || enterPassword ? (
         <R.Wrapper>
           <div className="ReadContainer" onClick={handleModal}>
             <div className="top-sub">
@@ -151,12 +141,7 @@ const ReadLetter = ({ isLogin }) => {
           </div>
         </R.Wrapper>
       ) : (
-        <SecretLetter
-          isPassword={isPassword}
-          setIsPassword={setIsPassword}
-          enterPassword={enterPassword}
-          setEnterPassword={setEnterPassword}
-        />
+        <SecretLetter setEnterPassword={setEnterPassword} />
       )}
     </>
   );
@@ -201,16 +186,6 @@ export default ReadLetter;
   //2) 보관완료 버튼 -> 클릭 안됨
 */
 
-/*
-if (res.body.password === numberpassword) {
-          alert("비밀번호가 일치합니다! 어떤 편지가 왔을까요?");
-          //todo : numberpassword -> Zstand에 넣어서 readletter에게 전달
-          setEnterPassword(!enterPassword);
-        } else {
-          alert("비밀번호가 일치하지 않습니다. 편지를 열 수 없어요.");
-        }
-
-*/
 //비밀번호가 있으면 -> 1)시크릿레터로 이동하고, 2)해당 비밀번호도 props로 함께 전달
 //보관여부 -> 보관완료/보관하기 버튼 바꾸기
 //보관하기(messageSaved) 어떻게 할건지 -> 월요일 회의때 논의 !
