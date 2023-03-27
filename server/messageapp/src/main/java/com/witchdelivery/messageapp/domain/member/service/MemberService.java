@@ -2,7 +2,6 @@ package com.witchdelivery.messageapp.domain.member.service;
 
 import com.witchdelivery.messageapp.domain.member.dto.MemberResponseDto;
 import com.witchdelivery.messageapp.domain.member.entity.MemberImage;
-import com.witchdelivery.messageapp.domain.member.repository.MemberImageRepository;
 import com.witchdelivery.messageapp.infra.file.S3Info;
 import com.witchdelivery.messageapp.infra.file.S3Service;
 import com.witchdelivery.messageapp.security.utils.CustomAuthorityUtils;
@@ -27,9 +26,9 @@ import java.io.IOException;
 public class MemberService {
     private final MemberDbService memberDbService;
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;  // 패스워드 암호화
-    private final CustomAuthorityUtils customAuthorityUtils;    // 사용자 권한 설정
-    private final CustomBeanUtils<Member> customBeanUtils;    // FIXME 미사용으로 인한 삭제
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils customAuthorityUtils;
+    private final CustomBeanUtils<Member> customBeanUtils;
     private final S3Service s3Service;
 
     @Value("${default.image.address}")
@@ -110,7 +109,7 @@ public class MemberService {
     public Member updateNickname(Member member) {
         Member findMember = memberDbService.findVerifiedMember(member.getMemberId());   // 사용자 검증
         memberDbService.verifiedExistedName(member.getNickname());  // 닉네임 검증
-        Member updateMember = customBeanUtils.copyNonNullProperties(member, findMember);    // copyNonNullProperties(원본 객체, 복사 객체)
+        Member updateMember = customBeanUtils.copyNonNullProperties(member, findMember);
         return memberRepository.save(updateMember);
     }
 
@@ -120,7 +119,7 @@ public class MemberService {
      */
     public void deleteMember(Long memberId) {
         Member findMember = memberDbService.findVerifiedMember(memberId);  // 사용자 검증
-        memberRepository.delete(findMember);    // TODO 로직 수정
+        memberRepository.delete(findMember);
     }
 
     /**
