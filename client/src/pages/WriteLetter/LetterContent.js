@@ -51,6 +51,7 @@ function LetterContent({
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
 
   const textarea = useRef();
+
   useEffect(() => {
     textarea.current.focus();
   }, []);
@@ -63,8 +64,10 @@ function LetterContent({
         fromName: watch("senderName"),
         content,
       });
+    } else {
+      setIsContentVaild(false);
     }
-  }, [isValid]);
+  }, [isValid, watch("senderName"), watch("receiverName")]);
 
   useEffect(() => {
     textarea.current.value += " " + finalTranscript;

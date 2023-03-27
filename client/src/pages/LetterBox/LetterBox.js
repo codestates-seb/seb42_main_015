@@ -12,26 +12,53 @@ import {
   RiUserSharedLine,
 } from "react-icons/ri";
 import axios from "axios";
+import { getCookie } from "../Certified/Cookie";
+import useStore from "../../store/store";
+
+const getPageLettersOut = async () => {
+  return axios({
+    method: "get",
+    url: "/api/sendy/mailbox/messages/out",
+    headers: {
+      "ngrok-skip-browser-warning": "230325",
+      Authorization: getCookie("accesstoken"),
+    },
+  });
+};
+// console.log(getCookie("accesstoken"))
+
+const getPageLettersIn = async () => {
+  return axios({
+    method: "get",
+    url: "/api/sendy/mailbox/messages/in",
+    headers: {
+      "ngrok-skip-browser-warning": "230325",
+      Authorization: getCookie("accesstoken"),
+    },
+  });
+};
 
 function LetterBox() {
-  const [lefttTab, setleftTab] = useState(false);
+  const [leftTab, setleftTab] = useState(false);
   const [rightTab, setRightTab] = useState(false);
   const [currentTab, setCurrentTab] = useState("최신순");
   const [select, setSelect] = useState(false);
   const [trash, setTrash] = useState(false);
-  const [isSend, setIsSend] = useState(false);
   const [yearL, setYearL] = useState(2023);
   const [monthL, setMonthL] = useState(1);
   const [yearR, setYearR] = useState(2023);
   const [monthR, setMonthR] = useState(1);
+  const { outLetters, setOutLetters } = useStore((state) => state);
+  const { inLetters, setInLetters } = useStore((state) => state);
+  const { isSend, setIsSend } = useStore((state) => state);
+  const [isSearchOut, setIsSearchOut] = useState(outLetters);
+  const [isSearchIn, setIsSearchIn] = useState(inLetters);
+  const [isFocus, setIsFocus] = useState(false);
   const tabItem = ["최신순", "오래된 순", "북마크"];
 
   useEffect(() => {
-    axios.get("/api/sendy/mailbox/messages/out", {
-      headers: { "ngrok-skip-browser-warning": "230324" },
-    })
-      .then((res) => console.log(res.data.data))
-      .catch((err) => console.log(err));
+    getPageLettersOut().then((res) => setOutLetters(res.data.data));
+    getPageLettersIn().then((res) => setInLetters(res.data.data));
   }, []);
 
   const handleMonthLUp = () => {
@@ -80,17 +107,47 @@ function LetterBox() {
     setSelect(!select);
   };
 
+  const handleSearch = (e) => {
+    if (isSend === true) {
+      return setIsSearchOut(
+        outLetters.filter((letter) => letter.toName.includes(e.target.value))
+      );
+    }
+    if (isSend === false) {
+      return setIsSearchIn(
+        inLetters.filter((letter) =>
+          letter.outgoingNickname.includes(e.target.value)
+        )
+      );
+    }
+  };
+  // console.log(isFocus)
+
+  const handleDate = () => {
+    if (isSend === true) {
+      return;
+    }
+    if (isSend === false) {
+      return;
+    }
+  }
+
   return (
     <L.LetterBoxWrap>
       <L.FilterContainer>
         <L.SearchContainer>
           <GrSearch className="icon" />
-          <L.Search />
+          <L.Search
+            type="text"
+            placeholder="Search..."
+            onChange={handleSearch}
+            onFocus={() => setIsFocus(true)}
+          />
           <AiOutlineCalendar
             className="icon"
-            onClick={() => setleftTab(!lefttTab)}
+            onClick={() => setleftTab(!leftTab)}
           />
-          {lefttTab ? (
+          {leftTab ? (
             <L.PeriodBox>
               <L.Line />
               <L.Date>
@@ -140,7 +197,13 @@ function LetterBox() {
         </L.DropdownContainer>
       </L.FilterContainer>
       <L.ViewWrap>
-        <LetterView select={select} trash={trash} />
+        <LetterView
+          isSearchOut={isSearchOut}
+          isSearchIn={isSearchIn}
+          isFocus={isFocus}
+          select={select}
+          trash={trash}
+        />
         <L.Gradient />
       </L.ViewWrap>
       <L.TopButton

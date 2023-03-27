@@ -19,14 +19,10 @@ function MakeLetter({ makeLetterModalRef }) {
     urlName: yup
       .string()
       .required(
-        "영문 소문자 또는 숫자를 반드시 포함하고 -가 있을 수 있는 1 ~ 15자를 입력해주세요."
+        "url은 영문 소문자 또는 숫자가 포함되고 문자 구분자로 -를 사용할 수 있습니다."
       )
       .min(1, "최소 1자리 이상 입력해주세요.")
-      .max(15, "최대 15자까지 가능합니다.")
-      .matches(
-        /^[a-z][0-9][-].{1,15}$/,
-        "url은 영문 소문자나 숫자를 포함하고 1~15자리입니다."
-      ),
+      .max(15, "최대 15자까지 가능합니다."),
     password: yup
       .string()
       .required("비밀번호는 숫자 4자리입니다.")
@@ -50,6 +46,7 @@ function MakeLetter({ makeLetterModalRef }) {
     reader.onloadend = () => {
       setImage(reader.result);
       setHasFile(true);
+      // setLetterContents({...letterContents, })
     };
   };
   const checkFileSize = (file) => {
@@ -116,6 +113,7 @@ function MakeLetter({ makeLetterModalRef }) {
     setImage(null);
   };
   const handleMakeLetter = () => {
+    console.log(letterContents);
     return axios({
       method: "post",
       url: "/api/sendy/messages/write",
@@ -123,13 +121,23 @@ function MakeLetter({ makeLetterModalRef }) {
         "ngrok-skip-browser-warning": "12",
         Authorization: getCookie("accesstoken"),
       },
-      body: letterContents,
+      body: JSON.stringify({ ...letterContents }),
     });
   };
   const handlePreview = () => {
+    sessionStorage.setItem(
+      "preview",
+      JSON.stringify({ ...letterContents, image })
+    );
     window.open("/writeletter/preview");
   };
-
+  const handleUrlReg = (e) => {
+    e.target.value = e.target.value.replace(
+      /[ㄱ-힣~!@#$%^&*()_+|<>?:{}=\\`"';\.\,\[\]/]/g,
+      ""
+    );
+    setLetterContents({ ...letterContents, urlName: e.target.value });
+  };
   useEffect(() => {
     if (isValid) {
       setLetterContents({
@@ -150,14 +158,20 @@ function MakeLetter({ makeLetterModalRef }) {
         </W.FlexRowWrapper>
         <W.FlexRowWrapper className="URL-wrapper">
           <W.FlexRowWrapper className="align-items URL-input">
-            <div>https://www.sendy.site/letter</div>
-            <W.MakeLetterInput
-              className="URL-input"
-              {...register("urlName")}></W.MakeLetterInput>
+            <div className="position-relative">
+              <div>https://www.sendy.site/letter</div>
+              <W.MakeLetterInput
+                className="URL-input"
+                onKeyUp={handleUrlReg}
+                {...register("urlName")}
+              />
+              {errors.urlName && (
+                <W.ErrorMessage className="make-letter">
+                  {errors.urlName.message}
+                </W.ErrorMessage>
+              )}
+            </div>
           </W.FlexRowWrapper>
-          {errors.urlName && (
-            <W.ErrorMessage>{errors.urlName.message}</W.ErrorMessage>
-          )}
           <RoundButton
             className="check-button"
             width="65px"
@@ -180,6 +194,9 @@ function MakeLetter({ makeLetterModalRef }) {
           className="password-input"
           backgroundImg={keyIcon}
           placeholder=" * * * *"
+          onKeyUp={(e) =>
+            setLetterContents({ ...letterContents, password: e.target.value })
+          }
           {...register("password")}></W.MakeLetterInput>
       </W.FlexColunmWrapper>
       <div>
@@ -229,6 +246,11 @@ function MakeLetter({ makeLetterModalRef }) {
       </div>
 
       <W.FlexRowWrapper className="button-wrapper">
+        {/* <Link to="preview" state={{ ...letterContents }} target="_blank">
+          <ShadowButton backgroundColor={PALETTE_V1.yellow_basic}>
+            미리보기
+          </ShadowButton>
+        </Link> */}
         <ShadowButton
           onClick={handlePreview}
           backgroundColor={PALETTE_V1.yellow_basic}>
