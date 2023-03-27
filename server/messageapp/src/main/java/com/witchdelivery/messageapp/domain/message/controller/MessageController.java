@@ -2,7 +2,6 @@ package com.witchdelivery.messageapp.domain.message.controller;
 
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.domain.member.service.MemberDbService;
-import com.witchdelivery.messageapp.domain.member.service.MemberService;
 import com.witchdelivery.messageapp.domain.message.dto.MessagePatchDto;
 import com.witchdelivery.messageapp.domain.message.dto.MessagePostDto;
 import com.witchdelivery.messageapp.domain.message.dto.MessageResponseDto;
@@ -47,9 +46,9 @@ public class MessageController {
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
-    @PostMapping("/{urlName}")    //      편지 비밀번호 조회
-    public ResponseEntity getMessage(@PathVariable("urlName") String urlName,
-                                     @Valid @RequestBody PasswordInputDto passwordInputDto) {
+    @PostMapping("/{URL-Name}")    //      편지 비밀번호 조회
+    public ResponseEntity<?> getMessage(@PathVariable("URL-Name") String urlName,
+                                        @Valid @RequestBody PasswordInputDto passwordInputDto) {
         Message message = messageService.findMessageByUrlName(urlName);
 
         if (!passwordInputDto.getPassword().equals(message.getPassword())) {
@@ -59,8 +58,9 @@ public class MessageController {
     }
 
 
-    @PatchMapping("/saved/{urlName}")                   // 편지 저장
-    public ResponseEntity updateMessageSaved(@PathVariable("urlName") String urlName, @RequestBody MessagePatchDto messagePatchDto,
+
+    @PatchMapping("/saved/{URL-Name}")                   // 편지 저장
+    public ResponseEntity updateMessageSaved(@PathVariable("URL-Name") String urlName, @RequestBody MessagePatchDto messagePatchDto,
                                              Principal principal) {
         Message message = messageService.findMessageByUrlName(urlName);
         Long memberId = memberDbService.findMemberByEmail(principal.getName()).getMemberId();
@@ -70,8 +70,8 @@ public class MessageController {
     }
 
 
-    @GetMapping("/{urlName}")                                // 편지 단일 조회
-    public ResponseEntity getMessage(@PathVariable("urlName") String urlName) {
+    @GetMapping("/{URL-Name}")                                // 편지 단일 조회
+    public ResponseEntity getMessage(@PathVariable("URL-Name") String urlName) {
         Message message = messageService.findMessageByUrlName(urlName);
         return new ResponseEntity<>(messageMapper.messageToMessageResponseDto(message), HttpStatus.OK);
     }
@@ -81,6 +81,15 @@ public class MessageController {
                                          @Positive @RequestParam(required = false, defaultValue = "15") int size) {
         Page<Message> messages = messageService.findAllMessages(page -1, size);
         return new ResponseEntity<>(new PageResponseDto<>(messageMapper.messageToMessageResponseDtos(messages.getContent()), messages), HttpStatus.OK);
+    }
+    @GetMapping("/exists/{URL-Name}")                                                   // url 중복 체크 api 추가
+    public ResponseEntity<Boolean> checkUrlNameExists(@PathVariable("URL-Name") String urlName) {
+        boolean exists = messageService.urlNameExists(urlName);
+        if (exists) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        } else {
+            return ResponseEntity.ok().build();
+        }
     }
 
     @DeleteMapping
