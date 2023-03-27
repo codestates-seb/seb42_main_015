@@ -36,11 +36,13 @@ function ResignModal({ setOpenResignModal, modalRef }) {
     formState: { isValid, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
 
-  const handleStage = () => {
-    if (modalStage === 0 && isValid) {
-      setModalStage(modalStage + 1);
-    } else if (modalStage !== 0) {
-      setModalStage(modalStage + 1);
+  const handleStage = (e) => {
+    if (isValid) {
+      if (e._reactName === "onKeyUp" && e.key === "Enter") {
+        setModalStage(modalStage + 1);
+      } else if (e._reactName === "onClick") {
+        setModalStage(modalStage + 1);
+      }
     }
   };
   const handleQuit = () => {
@@ -59,10 +61,14 @@ function ResignModal({ setOpenResignModal, modalRef }) {
         ))}
       </div>
       {modalStage === 0 ? (
-        <div>
-          <M.PwdInput
-            placeholder="Password"
-            {...register("password")}></M.PwdInput>
+        <div className="input-wrapper">
+          <div className="align-center">
+            <M.PwdInput
+              placeholder="Password"
+              {...register("password")}
+              onKeyUp={handleStage}></M.PwdInput>
+          </div>
+
           {errors.password && (
             <M.PwdError>{errors.password.message}</M.PwdError>
           )}

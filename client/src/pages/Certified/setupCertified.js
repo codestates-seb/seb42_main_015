@@ -1,3 +1,5 @@
+import { setCookie, getCookie } from "./Cookie";
+
 //axios headers
 export const headers = {
   "Access-Control-Allow-Origin": "*",
@@ -15,4 +17,20 @@ export const options = {
 
 export const GoogleOauthLogin = () => {
   window.location.href = `api/oauth2/authorization/google`;
+  // //! refreshToken -> local storage에 저장
+  // localStorage.setItem("refreshToken", res.headers.get("Refresh"));
+  // //! accessToken -> cookie에 저장
+  // setCookie(
+  //   "accesstoken",
+  //   `Bearer ${res.headers.get("Authorization").split(" ")[1]}`,
+  //   {
+  //     options,
+  //   }
+  // );
+  // //! accessToken expire  -> cookie에 저장(60분)
+  // setCookie("accesstoken_expire", `${res.headers.get("Date")}`, {
+  //   options,
+  // });
+  // navigate("/");
+  // window.location.reload();
 };

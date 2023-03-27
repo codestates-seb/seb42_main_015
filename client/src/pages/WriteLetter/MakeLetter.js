@@ -7,11 +7,12 @@ import { FONT_STYLE_V1 } from "../../style/fontStyle";
 import { PALETTE_V1 } from "../../style/color";
 import addImage from "../../asset/add-image.png";
 import { BiX } from "react-icons/bi";
-import axiosCall from "../../util/axiosCall";
 import useStore from "../../store/store";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
+import { getCookie } from "../Certified/Cookie";
 
 function MakeLetter({ makeLetterModalRef }) {
   const formSchema = yup.object({
@@ -41,7 +42,6 @@ function MakeLetter({ makeLetterModalRef }) {
   const [dragOver, setDragOver] = useState(false);
   const [hasFile, setHasFile] = useState(false);
   const [image, setImage] = useState(null);
-  const selectFileRef = useRef();
   const { letterContents, setLetterContents } = useStore((state) => state);
 
   const renderFile = (file) => {
@@ -114,6 +114,20 @@ function MakeLetter({ makeLetterModalRef }) {
   const handleDeleteFlie = (e) => {
     setHasFile(false);
     setImage(null);
+  };
+  const handleMakeLetter = () => {
+    return axios({
+      method: "post",
+      url: "/api/sendy/messages/write",
+      headers: {
+        "ngrok-skip-browser-warning": "12",
+        Authorization: getCookie("accesstoken"),
+      },
+      body: letterContents,
+    });
+  };
+  const handlePreview = () => {
+    window.open("/writeletter/preview");
   };
 
   useEffect(() => {
@@ -208,7 +222,6 @@ function MakeLetter({ makeLetterModalRef }) {
             id="chooseFile"
             type="file"
             onChange={handleFile}
-            ref={selectFileRef}
             accept="image/png, image/jpeg, image/gif"
             multiple={false}
           />
@@ -216,10 +229,14 @@ function MakeLetter({ makeLetterModalRef }) {
       </div>
 
       <W.FlexRowWrapper className="button-wrapper">
-        <ShadowButton backgroundColor={PALETTE_V1.yellow_basic}>
+        <ShadowButton
+          onClick={handlePreview}
+          backgroundColor={PALETTE_V1.yellow_basic}>
           미리보기
         </ShadowButton>
-        <ShadowButton backgroundColor={PALETTE_V1.yellow_basic}>
+        <ShadowButton
+          backgroundColor={PALETTE_V1.yellow_basic}
+          onClick={handleMakeLetter}>
           완료
         </ShadowButton>
       </W.FlexRowWrapper>

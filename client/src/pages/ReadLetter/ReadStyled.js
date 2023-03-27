@@ -27,9 +27,11 @@ export const Wrapper = styled.div`
       display: flex;
       justify-content: space-evenly;
       margin: 0 0 0 32rem;
-
+      @media screen and (max-width: 1024px) {
+        margin: 0 0 0 44rem;
+      }
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-        margin: 0 0 0 15.5rem;
+        margin: 0 0 0 15rem;
       }
       .soundButtons {
         display: flex;
@@ -41,6 +43,12 @@ export const Wrapper = styled.div`
         height: 3rem;
         margin-top: 0.2rem;
         cursor: pointer;
+        @media screen and (max-width: 1024px) {
+          margin-top: 0rem;
+          width: 9rem;
+          height: 3.6rem;
+          padding: 3px 4px 20px 5px;
+        }
 
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           margin-top: -0.1rem;
@@ -54,6 +62,7 @@ export const Wrapper = styled.div`
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           padding: 6px;
         }
+
         &:hover {
           padding: 3px;
           background: white;
@@ -82,14 +91,18 @@ export const SWrapper = styled.div`
 export const Secretform = styled.form`
   display: flex;
   padding: 5rem 5rem;
-  height: 40vh;
+  height: 60vh;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
+  @media screen and (max-width: 1024px) {
+    height: 50vh;
+  }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     height: 40vh;
   }
+
   div {
     display: flex;
     ${FONT_STYLE_READ.title_19_medium}
@@ -116,7 +129,7 @@ export const Secretform = styled.form`
     letter-spacing: 3px;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      width: 22rem;
+      width: 24rem;
       font-size: 1.5rem;
     }
   }
@@ -139,13 +152,22 @@ export const Secretform = styled.form`
       font-size: 12px;
       margin-left: 65%;
     }
+    @media screen and (max-width: 1024px) {
+      height: 25px;
+      font-size: 13px;
+      height: 2.8rem;
+    }
   }
   p {
     color: red;
-    margin: -5.3rem 0 -1rem;
+    margin: -5rem 0 -2rem;
     font-size: 14px;
+    @media screen and (max-width: 1024px) {
+      margin: -5.5rem 0 -2rem;
+      font-size: 13px;
+    }
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      margin: -3rem 0 -1rem;
+      margin: -3rem 0 -2rem;
       font-size: 7px;
     }
   }
@@ -161,6 +183,11 @@ export const EnterSeret = styled.div`
   ${FONT_STYLE_READ.body_8_Medium}
   font-size : 1rem;
   margin: 0.2rem 0 2rem 2rem;
+  @media screen and (max-width: 1024px) {
+    width: 13rem;
+    font-size: 1.2rem;
+    padding: 0.7rem 0.5rem 0.7rem 0.5rem;
+  }
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     margin: 0rem 0 1.2rem 2rem;
@@ -208,19 +235,6 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   padding: 2.5rem 2.5rem;
   min-width: 680px;
   max-width: 680px;
-  &::-webkit-scrollbar {
-    width: 1rem;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #d9d9d9;
-    border-radius: 7px;
-    border: 1.5px solid;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: ${PALETTE_V1.background};
-    border-radius: 7px;
-    border: 1.5px solid;
-  }
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     min-width: 18rem;
@@ -235,10 +249,13 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     padding: 1rem 2rem 1rem 1rem;
     ${FONT_STYLE_READ.body_9_Medium}
     font-size: 1.5rem;
+    @media screen and (max-width: 1024px) {
+      font-size: 1.7rem;
+    }
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       padding: 0.5rem 1.2rem 1rem 1rem;
-      font-size: 0.9rem;
+      font-size: 11px;
     }
   }
 
@@ -250,10 +267,28 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     aspect-ratio: 3/5;
     overflow: auto;
     font-size: 1.3rem;
+    &::-webkit-scrollbar {
+      width: 1rem;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #d9d9d9;
+      border-radius: 7px;
+      border: 1.5px solid;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: ${PALETTE_V1.background};
+      border-radius: 7px;
+      border: 1.5px solid;
+    }
+    @media screen and (max-width: 1024px) {
+      line-height: 2.8rem;
+      font-size: 16px;
+    }
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       padding: 0.7rem 1.2rem 1.5rem 1.2rem;
-      font-size: 0.9rem;
+      font-size: 11px;
+      line-height: 2.2rem;
     }
   }
 
@@ -263,10 +298,13 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     justify-content: flex-end;
     padding: 1rem 2rem 1rem 1rem;
     font-size: 1.5rem;
+    @media screen and (max-width: 1024px) {
+      font-size: 1.7rem;
+    }
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       padding: 1.4rem 1.2rem 0.5rem 0rem;
-      font-size: 0.8rem;
+      font-size: 11px;
     }
   }
 `;
@@ -278,9 +316,12 @@ export const Buttons = styled.div`
   justify-content: space-around;
   height: 8rem;
   padding: 0rem 0rem 0rem 32rem;
+  @media screen and (max-width: 1024px) {
+    padding: 0rem 0rem 0rem 38rem;
+  }
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    padding: 0rem 0rem 0rem 14rem;
+    padding: 0rem 0rem 0rem 10rem;
   }
 
   .button {
@@ -288,11 +329,17 @@ export const Buttons = styled.div`
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       font-size: 1.4rem;
     }
+    @media screen and (max-width: 1024px) {
+      font-size: 1.4rem;
+    }
   }
 
   > div {
     display: flex;
     padding-left: 1.5rem;
+    @media screen and (max-width: 1024px) {
+      padding-left: 1.6rem;
+    }
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       padding-left: 0.9rem;
@@ -300,10 +347,13 @@ export const Buttons = styled.div`
   }
   .goback {
     display: flex;
-    margin: 0.2rem 10rem 0 -31rem;
+    margin: 0.2rem 20rem 0 -31rem;
     cursor: pointer;
+    @media screen and (max-width: 1024px) {
+      margin: 0.2rem 35rem 0 -37rem;
+    }
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      margin: 0.2rem 0rem 0 -13rem;
+      margin: 0.2rem 10rem 0 -9rem;
       width: 2.8rem;
       height: 2.8rem;
     }
