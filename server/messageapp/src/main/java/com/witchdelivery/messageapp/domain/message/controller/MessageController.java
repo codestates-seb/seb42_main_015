@@ -39,9 +39,10 @@ public class MessageController {
         Message message = messageMapper.messagePostDtoToMessage(messagePostDto);
 
         Member member = memberDbService.findMemberByEmail(principal.getName());
-        message.setMember(member);
+        message.setMemberId(member.getMemberId());
+        message.setOutgoingNickname(member.getNickname());
 
-        Message createdMessage = messageService.createMessage(message);   // 테마, 폰트 추가
+        Message createdMessage = messageService.createMessage(message, member.getMemberId());   // 테마, 폰트 추가
         MessageResponseDto responseDto = messageMapper.messageToMessageResponseDto(createdMessage);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }

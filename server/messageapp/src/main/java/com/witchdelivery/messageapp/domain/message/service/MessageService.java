@@ -26,10 +26,10 @@ public class MessageService {
     private final ReceivingService receivingService;
     private final MemberDbService memberDbService;
 
-    public Message createMessage(Message message) {
+    public Message createMessage(Message message, long memberId) {
 
         Message savedMessage = messageRepository.save(message);
-        Outgoing outgoing = outgoingJoinMessage(savedMessage);
+        Outgoing outgoing = outgoingJoinMessage(savedMessage, memberId);
         outgoingService.createOutgoing(outgoing);
         return savedMessage;
     }
@@ -62,10 +62,12 @@ public class MessageService {
         messageRepository.delete(message);
     }
 
-    private Outgoing outgoingJoinMessage(Message savedMessage) {
+    private Outgoing outgoingJoinMessage(Message savedMessage, long memberId) {
+        Member member = memberDbService.findVerifiedMember(memberId); // 사용자랑 outgoing 연관관계매핑용
+
         Outgoing outgoing = new Outgoing();
         outgoing.setMessage(savedMessage);
-        outgoing.setMember(savedMessage.getMember()); // outgoing(n)-member(1) 연관관계매핑, member는 사용자
+        outgoing.setMember(member); // outgoing(n)-member(1) 연관관계매핑, member는 사용자
         outgoing.setToName(savedMessage.getToName());
         String content = savedMessage.getContent();
         if (content.length() > 70) {
@@ -83,7 +85,7 @@ public class MessageService {
         receiving.setMessage(savedMessage);
         receiving.setMember(member); // receiving(n)-member(1) 연관관계매핑, member는 사용자
 //        Member outgoingMember = memberService.findVerifiedMember(savedMessage.getOutgoingId); // 보낸사람의 닉네임 찾기
-        receiving.setOutgoingNickname(savedMessage.getMember().getNickname());
+        receiving.setOutgoingNickname(savedMessage.getOutgoingNickname());
         String content = savedMessage.getContent();
         if (content.length() > 70) {
             content = content.substring(0,70);
