@@ -243,7 +243,7 @@ export const NameInputWrapper = styled.div`
   border-bottom: 2px solid ${PALETTE_V1.text_primary};
   height: 100%;
 `;
-export const NameInput = styled.input`
+export const NameInput = styled.input.attrs({ autoComplete: "off" })`
   ${FONT_STYLE_V1.body.body_20_light}
   border: none;
   background-color: transparent;
@@ -645,11 +645,14 @@ export const ReservationText = styled.div`
   text-align: center;
 `;
 export const ErrorMessage = styled.p`
-  ${FONT_STYLE_V1.body.body_15_light}
+  ${FONT_STYLE_V1.body.body_13_light}
   position: absolute;
   padding-top: 2px;
   color: grey;
   width: fit-content;
+  &.make-letter {
+    top: 250px;
+  }
 `;
 export const FontContainer = styled.ul`
   position: absolute;
@@ -695,6 +698,9 @@ export const MakeLetterInput = styled.input`
   &.URL-input {
     padding: 0 5px;
     margin-right: 18px;
+    .position-relative {
+      position: relative;
+    }
   }
   &.password-input {
     width: 9rem;
