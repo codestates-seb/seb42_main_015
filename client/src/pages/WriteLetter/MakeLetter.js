@@ -13,7 +13,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
-import { Link } from "react-router-dom";
 
 function MakeLetter({ makeLetterModalRef }) {
   const formSchema = yup.object({
@@ -122,11 +121,14 @@ function MakeLetter({ makeLetterModalRef }) {
         "ngrok-skip-browser-warning": "12",
         Authorization: getCookie("accesstoken"),
       },
-      body: JSON.stringify(letterContents),
+      body: JSON.stringify({ ...letterContents }),
     });
   };
   const handlePreview = () => {
-    sessionStorage.setItem("preview", JSON.stringify({ ...letterContents }));
+    sessionStorage.setItem(
+      "preview",
+      JSON.stringify({ ...letterContents, image })
+    );
     window.open("/writeletter/preview");
   };
   const handleUrlReg = (e) => {

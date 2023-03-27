@@ -192,6 +192,15 @@ export const LetterBox = styled(FlexColunmWrapper)`
   @media screen and (min-width: 1097px) {
     padding: 52.906px 75.594px 45.359px 75.594px;
   }
+  &.back {
+    justify-content: space-evenly;
+    .preview-back-content {
+      height: 14%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+  }
 `;
 export const FlexWrapper1 = styled(FlexRowWrapper)`
   justify-content: space-between;
@@ -777,7 +786,7 @@ export const UploadBox = styled.div`
   }
 `;
 export const PreviewContent = styled.div`
-  aspect-ratio: 1/1.5;
+  aspect-ratio: 1/1.6;
   ${(props) => {
     switch (props.font) {
       case "프리텐다드":
@@ -790,4 +799,7 @@ export const PreviewContent = styled.div`
         break;
     }
   }}
+`;
+export const BackImg = styled.img`
+  border: 2px solid;
 `;
