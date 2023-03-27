@@ -15,7 +15,7 @@ import PwdChange from "./pages/MyPage/PwdChange";
 import Trash from "./pages/MyPage/TrashList";
 import CompleteSignup from "./pages/Certified/CompleteSignup";
 import Preview from "./pages/WriteLetter/Preview";
-import { getCookie } from "./pages/Certified/Cookie";
+import { getCookie, removeCookie } from "./pages/Certified/Cookie";
 import useStore from "./store/store";
 import NotFound from "./pages/NotFound";
 // ! 공백
@@ -28,7 +28,7 @@ function App() {
     if (loggedInfo) {
       setIsLogin(true);
       console.log("accesstoken : ", getCookie("accesstoken"));
-      // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
+      console.log("refreshToken : ", localStorage.getItem("refreshToken"));
     }
   };
 

@@ -186,10 +186,10 @@ export const LogForm = styled.form`
         -webkit-box-pack: center;
         border-radius: 9999px;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          width: 5.5rem;
+          width: 5.7rem;
           height: 2.3rem;
           top: 0.9rem;
-          font-size: 9px;
+          font-size: 8px;
         }
 
         :hover {

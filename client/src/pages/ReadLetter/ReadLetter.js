@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as R from "./ReadStyled";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
@@ -10,19 +10,22 @@ import { getSpeech, pauseSpeech } from "./GetSpeech";
 import ReadButtons from "./ReadButtons";
 import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
+import useStore from "../../store/store";
 
+//{isLogin} props 제거
 const ReadLetter = ({ isLogin }) => {
   const { urlName } = useParams();
+  const { letterPassword, setLetterPassword } = useStore((state) => state);
 
   //todo: useState
-  //비밀번호가 있는지 없는지
-  const [isPassword, setIsPassword] = useState(false);
   //비밀번호 쳤는지 안쳤는지
   const [enterPassword, setEnterPassword] = useState(false);
   //보관하기를 클릭했을 때 비로그인(저장X)인지 로그인(저장준비 완료)아닌지
-  const [isKeeping, setIsKeeping] = useState(false);
+  const [isKeeping, setIsKeeping] = useState("");
   //편지 정보 가져오기
   const [data, setData] = useState([]);
+  //모달 클릭
+  const [isClickModal, setIsClickModal] = useState(false);
 
   //! 이미지 저장 기능
   //useRef로 -> DOM 선택
@@ -38,8 +41,8 @@ const ReadLetter = ({ isLogin }) => {
   //! 모달 영역 밖 클릭 시 모달 닫기
   const ModalRef = useRef();
   const handleModal = (e) => {
-    if (isKeeping && !ModalRef.current.contains(e.target)) {
-      setIsKeeping(false);
+    if (isClickModal && !ModalRef.current.contains(e.target)) {
+      setIsClickModal(false);
     }
   };
 
@@ -61,22 +64,6 @@ const ReadLetter = ({ isLogin }) => {
     window.speechSynthesis.getVoices();
   }, []);
 
-  //! 전체 편지정보 가져오기
-  // useEffect(() => {
-  //   const getLetterData = async () => {
-  //     await axios
-  //       .get(`/api/sendy/messages/${id}/${urlParams}`, { headers })
-  //       .then((res) => {
-  //         setData(res.body);
-  //       })
-  //       .catch((err) => {
-  //         // alert(err);
-  //         // console.log(err);
-  //       });
-  //   };
-  //   getLetterData();
-  // }, [data]);
-
   const getLetter = async () => {
     await axios
       .get(`/api/sendy/messages/${urlName}`, {
@@ -86,10 +73,17 @@ const ReadLetter = ({ isLogin }) => {
         },
       })
       .then((res) => {
-        setData(res.data);
         //편지 정보 담기
-        if (res.data.password !== null) {
-          setIsPassword(true);
+        setData(res.data);
+        //messageSaved 정보 담기
+        setIsKeeping(res.data.messageSaved);
+        //편지 비밀번호가 없다면(null이라면) -> setEnterPassword(true)처리해서 SecretLetter로 안가겠금
+        if (res.data.password === null) {
+          setEnterPassword(true);
+        }
+        //편지 비밀번호가 있다면(null이 아니라면) -> setLetterPassword에 패스워드 저장
+        else if (res.data.password !== null) {
+          setLetterPassword(res.data.password);
         }
       })
       .catch((err) => {
@@ -110,9 +104,15 @@ const ReadLetter = ({ isLogin }) => {
     weekday[new Date(`${data.createdAt}`).getDay()]
   }`;
 
+  //편지 넘기기
+  const [rotate, setRotate] = useState(false);
+  const handleRotate = () => {
+    setRotate(!rotate);
+  };
+
   return (
     <>
-      {isLogin || isPassword ? (
+      {isLogin || enterPassword ? (
         <R.Wrapper>
           <div className="ReadContainer" onClick={handleModal}>
             <div className="top-sub">
@@ -133,87 +133,42 @@ const ReadLetter = ({ isLogin }) => {
                 <p>{data.password}</p>
               </R.EnterSeret>
             </div>
-            <R.Letterpaper ref={LetterRef}>
-              <div className="top">
-                <div className="to">To. {data.toName}</div>
-                <div className="date">{LetterDate}</div>
-              </div>
-              <div className="content">{data.content}</div>
-              <div className="from">From. {data.fromName}</div>
-            </R.Letterpaper>
+            <R.Card className={rotate ? "active-rotate" : ""}>
+              <R.Letterpaper
+                className="front"
+                ref={LetterRef}
+                LetterTheme={data.themeName}
+                onClick={handleRotate}
+              >
+                <div className="top">
+                  <div className="to">To. {data.toName}</div>
+                  <div className="date">{LetterDate}</div>
+                </div>
+                <div className="content" font={data.fontName}>
+                  {data.content}
+                </div>
+                <div className="from">From. {data.fromName}</div>
+              </R.Letterpaper>
+              <R.Letterpaper className="back" onClick={handleRotate}>
+                <div>뒷장</div>
+              </R.Letterpaper>
+            </R.Card>
             <ReadButtons
               ModalRef={ModalRef}
               isKeeping={isKeeping}
               setIsKeeping={setIsKeeping}
               isLogin={isLogin}
               onDownloadBtn={onDownloadBtn}
+              isClickModal={isClickModal}
+              setIsClickModal={setIsClickModal}
             />
           </div>
         </R.Wrapper>
       ) : (
-        <SecretLetter
-          isPassword={isPassword}
-          setIsPassword={setIsPassword}
-          enterPassword={enterPassword}
-          setEnterPassword={setEnterPassword}
-        />
+        <SecretLetter setEnterPassword={setEnterPassword} />
       )}
     </>
   );
 };
 
 export default ReadLetter;
-
-/*
-! 서버 오픈 후 할일
-1. 비밀번호 검증
-  - 편지 비밀번호 인증
-2. get 요청으로 해당 편지 정보 가져오기
-  - 비밀번호 input placeholder로 넣어주기
-  - 테마
-  - 폰트
-  - 편지 to
-  - 날짜
-  - content
-  - 이미지
-  - 편지 from
-3. 로그인 모달
-  - 로그인 처리
-  - 로그인되면 로그인 상태로 변환 (헤더 등)
-  - 로그인 후 보관하기 버튼 누르면 -> 보관 모드로 상태 변경
-  - 왼쪽 되돌아가기 버튼 -> 우편함으로 이동 "/letterbox"
-
-
-! 로그인 / 비로그인 시 로직
-? 비회원일시
-//1. 비밀번호 입력 페이지가 나옴
-2. 버튼
-  // 1) 이미지 저장 -> 이미지를 저장할 수 있음
-  // 2) 보관하기를 누르면 -> 로그인 모달이 뜸 
-    -> 로그인 버튼을 통해 로그인 화면으로 로딩, setIsLogin으로 상태 변경
-  3) 보관하기를 누르면 보관처리 -> 이건 백이랑 의논필요
-  // 4) 보관하기가 처리되면 '보관완료'로 이름 변경 및 클릭 안됨
-
-? 회원일 시
-//1. 비밀번호 입력 페이지가 안나옴
-2. 버튼
-  //1) 이미지 저장 -> 이미지를 저장할 수 있음
-  //2) 보관완료 버튼 -> 클릭 안됨
-*/
-
-/*
-if (res.body.password === numberpassword) {
-          alert("비밀번호가 일치합니다! 어떤 편지가 왔을까요?");
-          //todo : numberpassword -> Zstand에 넣어서 readletter에게 전달
-          setEnterPassword(!enterPassword);
-        } else {
-          alert("비밀번호가 일치하지 않습니다. 편지를 열 수 없어요.");
-        }
-
-*/
-//비밀번호가 있으면 -> 1)시크릿레터로 이동하고, 2)해당 비밀번호도 props로 함께 전달
-//보관여부 -> 보관완료/보관하기 버튼 바꾸기
-//보관하기(messageSaved) 어떻게 할건지 -> 월요일 회의때 논의 !
-//비밀번호 있으면 -> 보여주고, 없으면 ---- 표시로 바꿔주기.
-//폰트랑 테마는 어떻게 전달할거 ???
-//url 정보 어떻게 받아올꺼 ?

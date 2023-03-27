@@ -12,7 +12,7 @@ function Header() {
 
   //로그아웃 제출 버튼
   const onLogout = async () => {
-    axios({
+    await axios({
       method: "post",
       url: `/api/sendy/auth/logout`,
       headers: {

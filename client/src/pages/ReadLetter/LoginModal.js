@@ -5,13 +5,13 @@ import * as L from "./ReadStyled";
 import * as yup from "yup";
 import axios from "axios";
 import { setCookie } from "../Certified/Cookie";
-import { header, GoogleOauthLogin, options } from "../Certified/setupCertified";
+import { GoogleOauthLogin, options } from "../Certified/setupCertified";
 
-const LoginModal = ({ ModalRef, setIsKeeping }) => {
+const LoginModal = ({ ModalRef, setIsKeeping, setIsClickModal }) => {
   //로그인되면 모달 닫기
   const CloseModal = () => {
     alert("로그인되었습니다.");
-    setIsKeeping(false);
+    setIsClickModal(false);
   };
 
   const FormSchema = yup.object({
@@ -36,12 +36,6 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-    "ngrok-skip-browser-warning": "12",
-  };
-
   //! 로그인 제출 버튼
   const onSubmit = async (data) => {
     const { email, password } = data;
@@ -50,26 +44,30 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
         `/api/sendy/auth/login`,
         { username: email, password: password },
         {
-          headers,
+          "ngrok-skip-browser-warning": "12",
         }
       )
       .then((res) => {
-        CloseModal();
         if (res.headers.getAuthorization) {
           //! refresh token은 -> local storage에 저장
           localStorage.setItem("refreshToken", res.headers.get("Refresh"));
           //! access token은 -> cookie에 저장
           setCookie(
             "accesstoken",
-            res.headers.get("Authorization").split(" ")[1],
+            `Bearer ${res.headers.get("Authorization").split(" ")[1]}`,
             {
-              path: "/",
-              sucure: true,
-              sameSite: "Strict",
-              HttpOnly: " HttpOnly ",
+              options,
             }
           );
+          //! accessToken expire  -> cookie에 저장(60분)
+          setCookie("accesstoken_expire", `${res.headers.get("Date")}`, {
+            options,
+          });
+          //! 멤버Id -> 세션 스토리지에 저장
+          sessionStorage.setItem("memberId", res.data.memberId);
         }
+        window.location.reload();
+        CloseModal();
       })
       .catch((err) => {
         console.log(err);
