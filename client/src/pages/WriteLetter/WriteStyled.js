@@ -26,16 +26,11 @@ import 오리 from "../../asset/letterTheme/오리-theme.png";
 
 export const PageContainer = styled.div`
   background-color: ${PALETTE_V1.background};
-  min-width: 100%;
+  width: 100vw;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   overflow-x: none;
-  /* .make-letter-modal{
-    .modal-container{
-      min-width: ;
-    }
-  } */
 `;
 export const FlexRowWrapper = styled.div`
   display: flex;
@@ -97,15 +92,17 @@ export const FlexColunmWrapper = styled.div`
     align-items: center;
   }
   &.letter {
-    width: 75%;
     max-width: 756px;
+    width: 82%;
   }
 `;
 export const FlexWrapper2 = styled(FlexRowWrapper)`
   justify-content: center;
-  width: 100%;
-  min-width: 329px;
   max-width: 1077px;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 `;
 export const PageWrapper = styled(FlexColunmWrapper)`
   padding-top: 5%;
@@ -116,8 +113,6 @@ export const PageWrapper = styled(FlexColunmWrapper)`
   }
 `;
 export const LetterWrapper = styled.div`
-  width: 100%;
-  height: auto;
   .active-icon {
     background-color: ${PALETTE_V1.yellow_modal_button};
     border-radius: 50%;
@@ -140,15 +135,14 @@ export const LetterWrapper = styled.div`
   }
 `;
 export const LetterBox = styled(FlexColunmWrapper)`
-  aspect-ratio: 676/1129;
+  aspect-ratio: 680/1133;
   justify-content: space-between;
   border: 2px solid #000000;
   padding: 7% 10% 6% 10%;
   background-repeat: no-repeat;
   background-size: cover;
-  min-width: 230px;
+  min-height: 0;
   max-width: 754px;
-  width: 100%;
   ${(props) => {
     switch (props.currentLetterTheme) {
       case "군대":
@@ -228,23 +222,17 @@ export const IconWrapper = styled.div`
 export const ThemeIcon = styled.div`
   display: flex;
   align-items: center;
-  padding-left: 1.5%;
-  padding-right: 1.5%;
+  margin-left: 1%;
+  margin-right: 1%;
   .arrow-backward-icon,
   .arrow-forward-icon {
     color: ${PALETTE_V1.text_primary};
-    font-size: 40px;
+    font-size: 4rem;
   }
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+  @media screen and (max-width: 420px) {
     .arrow-backward-icon,
     .arrow-forward-icon {
-      font-size: 30px;
-    }
-  }
-  @media screen and (min-width: ${BREAKPOINTTABLET}px) {
-    .arrow-backward-icon,
-    .arrow-forward-icon {
-      font-size: 50px;
+      font-size: 3rem;
     }
   }
 `;
@@ -272,13 +260,11 @@ export const Text = styled.div`
 export const Date = styled(Text)`
   height: fit-content;
   white-space: nowrap;
-  @media screen and (min-width: 344px) {
-  }
 `;
 export const SendMeWrapper = styled(FlexRowWrapper)`
   align-items: center;
   padding-bottom: 0.5rem;
-  padding-top: 20px;
+  padding-top: 2rem;
 `;
 export const SendMeCheckBox = styled.div`
   cursor: pointer;
@@ -307,7 +293,7 @@ export const ContentTextarea = styled.textarea`
   background-color: transparent;
   border: none;
   resize: none;
-  aspect-ratio: 1/1.6;
+  aspect-ratio: 1/1.5;
   ${(props) => {
     switch (props.font) {
       case "프리텐다드":
