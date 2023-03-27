@@ -9,11 +9,13 @@ const useStore = create((set) => ({
   contentFont: "프리텐다드",
   changeContentFont: (font) => set((state) => ({ contentFont: font })),
   letterContents: {
-    toName: "",
-    fromName: "",
-    content: "",
-    password: "",
-    urlName: "",
+    toName: null,
+    fromName: null,
+    content: null,
+    password: null,
+    urlName: null,
+    font: "프리텐다드",
+    theme: null,
   },
   setLetterContents: (contents) =>
     set((state) => ({ letterContents: contents })),

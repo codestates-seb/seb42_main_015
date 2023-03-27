@@ -98,7 +98,6 @@ export const FlexColunmWrapper = styled.div`
 `;
 export const FlexWrapper2 = styled(FlexRowWrapper)`
   justify-content: center;
-  max-width: 1077px;
   width: 100vw;
   display: flex;
   flex-direction: row;
@@ -143,6 +142,7 @@ export const LetterBox = styled(FlexColunmWrapper)`
   background-size: cover;
   min-height: 0;
   max-width: 754px;
+  background-color: #ffffff;
   ${(props) => {
     switch (props.currentLetterTheme) {
       case "군대":
@@ -191,6 +191,15 @@ export const LetterBox = styled(FlexColunmWrapper)`
   }};
   @media screen and (min-width: 1097px) {
     padding: 52.906px 75.594px 45.359px 75.594px;
+  }
+  &.back {
+    justify-content: space-evenly;
+    .preview-back-content {
+      height: 14%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
   }
 `;
 export const FlexWrapper1 = styled(FlexRowWrapper)`
@@ -242,8 +251,11 @@ export const NameInputWrapper = styled.div`
   flex-direction: row;
   border-bottom: 2px solid ${PALETTE_V1.text_primary};
   height: 100%;
+  &.preview {
+    border: none;
+  }
 `;
-export const NameInput = styled.input`
+export const NameInput = styled.input.attrs({ autoComplete: "off" })`
   ${FONT_STYLE_V1.body.body_20_light}
   border: none;
   background-color: transparent;
@@ -645,11 +657,14 @@ export const ReservationText = styled.div`
   text-align: center;
 `;
 export const ErrorMessage = styled.p`
-  ${FONT_STYLE_V1.body.body_15_light}
+  ${FONT_STYLE_V1.body.body_13_light}
   position: absolute;
   padding-top: 2px;
   color: grey;
   width: fit-content;
+  &.make-letter {
+    top: 250px;
+  }
 `;
 export const FontContainer = styled.ul`
   position: absolute;
@@ -695,6 +710,9 @@ export const MakeLetterInput = styled.input`
   &.URL-input {
     padding: 0 5px;
     margin-right: 18px;
+    .position-relative {
+      position: relative;
+    }
   }
   &.password-input {
     width: 9rem;
@@ -766,4 +784,22 @@ export const UploadBox = styled.div`
   .file {
     display: none;
   }
+`;
+export const PreviewContent = styled.div`
+  aspect-ratio: 1/1.6;
+  ${(props) => {
+    switch (props.font) {
+      case "프리텐다드":
+        return FONT_STYLE_V1.body.body_18_light;
+      case "도스샘물":
+        return FONT_STYLE_CONTENT.pixel_18;
+      case "강원교육모두체":
+        return FONT_STYLE_CONTENT.gangwonedu_18_bold;
+      default:
+        break;
+    }
+  }}
+`;
+export const BackImg = styled.img`
+  border: 2px solid;
 `;
