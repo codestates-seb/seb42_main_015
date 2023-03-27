@@ -56,6 +56,7 @@ public class MemberService {
         MemberImage memberImage = MemberImage.builder()
                 .filePath(defaultImageAddress)
                 .build();
+
         member.addMemberFile(memberImage);
 
         return memberRepository.save(member);
@@ -123,7 +124,7 @@ public class MemberService {
     }
 
     /**
-     * 사용자 프로필 이미지 S3 업로드/수정 메서드
+     * S3 사용자 프로필 이미지 업로드/수정 메서드
      * @param memberId
      * @param multipartFile
      * @return
@@ -147,6 +148,28 @@ public class MemberService {
                 .build();
 
         findMember.addMemberFile(memberImage);  // FK 저장
+
+        memberRepository.save(findMember);
+    }
+
+    /**
+     * S3 사용자 프로필 기본 이미지 재설정 메서드
+     * @param memberId
+     */
+    public void deleteProfileS3(Long memberId) {
+        Member findMember = memberDbService.findVerifiedMember(memberId);   // 사용자 검증
+
+        String dir = "memberImage"; // 사용자 프로필 이미지 디렉토리 지정
+
+        if (!findMember.getMemberImage().getFilePath().equals(defaultImageAddress)) {
+            s3Service.s3ImageDelete(findMember.getMemberImage().getFileName(), dir);
+        }
+
+        MemberImage memberImage = MemberImage.builder()
+                .filePath(defaultImageAddress)
+                .build();
+
+        findMember.addMemberFile(memberImage);
 
         memberRepository.save(findMember);
     }
