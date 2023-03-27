@@ -10,8 +10,11 @@ import {
 } from "../../breakpoint";
 
 export const MyPageContainer = styled.div`
-  height: 100vh;
   overflow-x: hidden;
+  height: 105vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 export const FlexWrapper1 = styled.div`
   display: flex;
@@ -21,20 +24,20 @@ export const FlexWrapper1 = styled.div`
 export const GNBWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  width: 30%;
   justify-content: space-around;
   padding-left: 80px;
   padding-bottom: 50px;
+  width: 45rem;
   @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: ${BREAKPOINTMOBILE}px) {
-    padding-left: 10vw;
-    width: 70vw;
-  }
-  @media screen and (min-width: ${BREAKPOINTMOBILE2}px) and (max-width: 645px) {
-    padding-left: 64.5px;
-    width: 452.5px;
+    padding-left: 60px;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    width: 200px;
+    padding-left: 25px;
+    width: 40rem;
+  }
+  @media screen and (max-width: 320px) {
+    padding-left: 20px;
+    width: 32rem;
   }
 `;
 export const GNBMenu = styled.div`
@@ -42,31 +45,22 @@ export const GNBMenu = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid ${PALETTE_V1.text_primary};
+  border: 0.2rem solid ${PALETTE_V1.text_primary};
   border-top: none;
   background-color: #ffffff;
   padding: 0.8rem 0.6rem;
-  height: 37px;
-  width: 135px;
+  height: 3.5rem;
+  width: 11rem;
   text-align: center;
   cursor: pointer;
-  min-width: 125px;
+  /* min-width: 125px; */
   &.active {
     background-color: ${PALETTE_V1.yellow_primary};
     padding-top: 1rem;
-    height: 50px;
+    height: 5rem;
   }
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    border: 1px solid ${PALETTE_V1.text_primary};
-    border-top: none;
-    max-width: 80px;
-    min-width: 80px;
-    max-height: 30px;
-    &.active {
-      background-color: ${PALETTE_V1.yellow_primary};
-      padding-top: 1rem;
-      max-height: 40px;
-    }
+  @media screen and (max-width: 320px) {
+    width: 9rem;
   }
 `;
 export const FlexWrapper3 = styled.div`
@@ -82,18 +76,25 @@ export const UserInfoCard = styled.div`
   align-items: center;
   justify-content: space-evenly;
   background-color: white;
-  border: 2px solid ${PALETTE_V1.text_primary};
+  border: 0.2rem solid ${PALETTE_V1.text_primary};
   aspect-ratio: 4/1;
   width: 100%;
   height: 100%;
   min-width: 137px;
-  box-shadow: 15px 15px ${PALETTE_V1.yellow_primary},
-    17px 17px ${PALETTE_V1.text_primary}, 13px 17px ${PALETTE_V1.text_primary},
-    17px 13px ${PALETTE_V1.text_primary};
+  box-shadow: 1.5rem 1.5rem ${PALETTE_V1.yellow_primary},
+    1.7rem 1.7rem ${PALETTE_V1.text_primary},
+    1.3rem 1.7rem ${PALETTE_V1.text_primary},
+    1.7rem 1.3rem ${PALETTE_V1.text_primary};
   @media screen and (max-width: 1023px) {
     flex-direction: column;
     aspect-ratio: 1/4;
     justify-content: center;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    box-shadow: 1.3rem 1.3rem ${PALETTE_V1.yellow_primary},
+      1.5rem 1.5rem ${PALETTE_V1.text_primary},
+      1.1rem 1.5rem ${PALETTE_V1.text_primary},
+      1.5rem 1.1rem ${PALETTE_V1.text_primary};
   }
 `;
 export const FlexWrapper2 = styled.div`
@@ -104,17 +105,27 @@ export const FlexWrapper2 = styled.div`
   height: max-content;
   justify-content: center;
   align-items: center;
-  @media screen and (max-width: 1023px) and (min-width: 768px) {
+  .image-icon {
+    color: rgba(0, 0, 0, 50%);
+    font-size: 5rem;
+  }
+  .file-label {
+    position: absolute;
+  }
+  #chooseFile {
+    display: none;
+  }
+  @media screen and (max-width: 1023px) and (min-width: 767px) {
     margin-top: 5%;
     margin-bottom: 2%;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) and (min-width: 481px) {
-    margin-top: 7%;
-    margin-bottom: 8%;
+    margin-top: 4%;
+    margin-bottom: 7%;
   }
-  @media screen and (max-width: 480px) {
-    margin-top: 8%;
-    margin-bottom: 10%;
+  @media screen and (max-width: 481px) {
+    margin-top: 4%;
+    margin-bottom: 7%;
   }
 `;
 export const UserImage = styled.img`
@@ -125,7 +136,7 @@ export const UserImage = styled.img`
   height: 180px;
   margin-bottom: 5px;
   aspect-ratio: 1 / 1;
-  @media screen and (max-width: 1023px) and (min-width: 768px) {
+  @media screen and (max-width: 1023px) and (min-width: 767px) {
     width: 130px;
     height: 130px;
   }
@@ -133,7 +144,7 @@ export const UserImage = styled.img`
     width: 100px;
     height: 100px;
   }
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 481px) {
     width: 85px;
     height: 85px;
   }
@@ -145,7 +156,7 @@ export const UserInfoWrapper = styled.div`
   border-left: 2px solid ${PALETTE_V1.text_primary};
   width: 70%;
   height: max-content;
-  @media screen and (max-width: 1023px) and (min-width: 768px) {
+  @media screen and (max-width: 1023px) and (min-width: 767px) {
     border-left: none;
     width: 80%;
   }
@@ -153,7 +164,7 @@ export const UserInfoWrapper = styled.div`
     border-left: none;
     height: max-content;
   }
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 481px) {
     border-left: none;
   }
 `;
@@ -171,6 +182,23 @@ export const NameDateWrapper = styled(FlexWrapper2)`
   align-items: center;
   width: 95%;
   margin-bottom: 5%;
+  .username-input {
+    ${FONT_STYLE_V1.body.body_15_light}
+    border: none;
+    border-bottom: 0.1rem solid ${PALETTE_V1.text_primary};
+    margin: 1rem 1rem;
+    height: 2.3rem;
+    width: 10rem;
+    background-color: ${PALETTE_V1.yellow_light};
+    &:focus {
+      outline: none;
+      background-color: ${PALETTE_V1.yellow_light};
+    }
+    &::-webkit-input-placeholder {
+      ${FONT_STYLE_V1.body.body_15_light}
+      color: gray;
+    }
+  }
   @media screen and (max-width: 1023px) {
     border-bottom: none;
     width: 100%;
@@ -184,11 +212,29 @@ export const UserEmail = styled.div`
 `;
 export const ReadletterLink = styled.a`
   ${FONT_STYLE_V1.body.body_13_light}
-  border-bottom:1px solid ${PALETTE_V1.text_primary};
+  border-bottom: 1px solid ${PALETTE_V1.text_primary};
   margin-right: 10px;
   white-space: nowrap;
   cursor: pointer;
   margin: 0.8rem 1rem;
+  z-index: 20;
+  &.hover-effect {
+    ::before {
+      content: "";
+      position: absolute;
+      width: 0rem;
+      transition: width 0.3s ease-out;
+    }
+    &:hover::before {
+      content: "";
+      position: absolute;
+      top: 3.2rem;
+      z-index: -10;
+      height: 0.8rem;
+      width: 10.3rem;
+      background-color: ${PALETTE_V1.yellow_basic};
+    }
+  }
 `;
 export const EmailWrapper = styled(FlexWrapper2)`
   flex-direction: column;
@@ -196,6 +242,9 @@ export const EmailWrapper = styled(FlexWrapper2)`
   align-items: flex-start;
   width: 95%;
   margin-top: 0;
+  .position-relative {
+    position: relative;
+  }
   @media screen and (max-width: 1023px) {
     align-items: center;
   }
@@ -205,9 +254,55 @@ export const EditButton = styled.div`
   margin-bottom: 5px;
   margin-right: 3px;
   position: absolute;
-  right: -8px;
-  bottom: -12px;
+  right: 20px;
+  bottom: 0px;
   cursor: pointer;
+  z-index: 250;
+  display: flex;
+  align-items: center;
+  padding: 0.3rem;
+  &.cancel {
+    right: 7rem;
+    &:hover::before {
+      width: 2.2rem;
+    }
+  }
+  &.edit-done {
+    ::before {
+      content: "";
+      z-index: -10;
+      width: 0rem;
+      transition: width 0.3s ease-out;
+    }
+    &:hover::before {
+      content: "";
+      position: absolute;
+      top: 1rem;
+      height: 0.8rem;
+      width: 4.6rem;
+      background-color: ${PALETTE_V1.yellow_basic};
+    }
+  }
+  ::before {
+    content: "";
+    z-index: -10;
+    width: 0rem;
+    transition: width 0.3s ease-out;
+  }
+  &:hover::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    height: 0.8rem;
+    width: 3rem;
+    background-color: ${PALETTE_V1.yellow_basic};
+  }
+  @media screen and (max-width: 1023px) {
+    bottom: -30px;
+    right: 0px;
+    &.cancel {
+    }
+  }
 `;
 export const Sticker = styled.img.attrs({ src: `${sendme}` })`
   position: absolute;
@@ -228,7 +323,7 @@ export const Sticker = styled.img.attrs({ src: `${sendme}` })`
     right: -70px;
     transform: rotate(-30deg);
   }
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 481px) {
     width: 120px;
     bottom: -60px;
     right: -60px;
@@ -242,13 +337,14 @@ export const Sticker = styled.img.attrs({ src: `${sendme}` })`
   }
 `;
 export const StickerWrapper = styled.div`
+  margin-top: 10%;
   width: 70%;
   height: 25vh;
   max-width: 720px;
   min-width: 149px;
   min-height: 216px;
   position: relative;
-  @media screen and (max-width: 1023px) and (min-width: 768px) {
+  @media screen and (max-width: 1023px) and (min-width: 767px) {
     width: 55%;
     height: 50vh;
     min-height: 350px;
@@ -258,10 +354,10 @@ export const StickerWrapper = styled.div`
     height: 40vh;
     min-height: 342px;
   }
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 481px) {
     height: 70%;
     height: 35vh;
-    min-height: 280px;
+    min-height: 300px;
   }
 `;
 export const ResignationWrapper = styled.div`
@@ -269,10 +365,6 @@ export const ResignationWrapper = styled.div`
   border-top: 2px solid ${PALETTE_V1.text_primary};
   display: flex;
   justify-content: flex-end;
-  margin-top: 20%;
-  @media screen and (max-width: 480px) {
-    margin-top: 50%;
-  }
 `;
 export const ResignLink = styled(ReadletterLink)`
   border-bottom: none;
@@ -306,6 +398,13 @@ export const ModalWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+  .input-wrapper {
+    .align-center {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
   }
 `;
 export const ModalTitle = styled.div`

@@ -17,6 +17,7 @@ import CompleteSignup from "./pages/Certified/CompleteSignup";
 import Preview from "./pages/WriteLetter/Preview";
 import { getCookie } from "./pages/Certified/Cookie";
 import useStore from "./store/store";
+import NotFound from "./pages/NotFound";
 // ! 공백
 function App() {
   const displayFooter = true;
@@ -26,6 +27,8 @@ function App() {
     const loggedInfo = getCookie("accesstoken");
     if (loggedInfo) {
       setIsLogin(true);
+      console.log("accesstoken : ", getCookie("accesstoken"));
+      // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
     }
   };
 
@@ -50,11 +53,12 @@ function App() {
           <Route path="/writeletter" element={<WriteLetter />} />
           <Route path="/completeLogout" element={<CompleteLogout />} />
           <Route
-            path="/readletter"
+            path="/readletter/:urlName"
             element={<ReadLetter isLogin={isLogin} />}
           />
           <Route path="/completeSignup" element={<CompleteSignup />} />
           <Route path="/writeletter/preview" element={<Preview />} />
+          <Route path="/*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

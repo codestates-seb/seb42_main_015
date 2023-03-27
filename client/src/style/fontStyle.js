@@ -78,6 +78,12 @@ export const FONT_STYLE_V1 = {
       font-size: 4rem;
       color: ${PALETTE_V1.text_primary};
     `,
+    title_100_bold: css`
+      font-family: "Pretendard-ExtraBold";
+      font-size: 10rem;
+      line-height: 8rem;
+      color: ${PALETTE_V1.text_primary};
+    `,
   },
   body: {
     body_4_light: css`

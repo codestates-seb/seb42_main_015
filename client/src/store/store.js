@@ -7,17 +7,17 @@ const useStore = create((set) => ({
   setIsLogin: (loginState) => set((state) => ({ isLogin: loginState })),
   contentFont: "프리텐다드",
   changeContentFont: (font) => set((state) => ({ contentFont: font })),
-  memberId: null,
-  setMemberId: (memberId) => set((state) => ({ memberId: memberId })),
   letterContents: {
-    toName: null,
-    fromName: null,
-    content: null,
-    password: null,
-    urlName: null,
+    toName: "",
+    fromName: "",
+    content: "",
+    password: "",
+    urlName: "",
   },
   setLetterContents: (contents) =>
     set((state) => ({ letterContents: contents })),
+  acessTokenExpire: false,
+  setAcessTokenExpire: (token) => set((state) => ({ acessTokenExpire: token })),
 }));
 
 export default useStore;
