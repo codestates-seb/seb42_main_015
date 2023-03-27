@@ -12,9 +12,7 @@ import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
 
 function MyPage() {
-  const { currentPage, changeCurrentPage, memberId, setMemberId } = useStore(
-    (state) => state
-  );
+  const { currentPage, changeCurrentPage } = useStore((state) => state);
   const [openResignModal, setOpenResignModal] = useState(false);
   const [isEditable, setIsEditable] = useState(false);
   const [createdAtLocale, setCreatedAtLocale] = useState(null);
@@ -26,6 +24,8 @@ function MyPage() {
   const [hasFile, setHasFile] = useState(false);
   const [image, setImage] = useState(null);
   const modalRef = useRef();
+  const memberId = sessionStorage.getItem("memberId");
+  console.log(sessionStorage.getItem("memberId"));
   // const queryClient = useQueryClient();
   // const info = useQuery(
   //   "nickName",
@@ -37,7 +37,7 @@ function MyPage() {
   const getUserInfo = async () => {
     return axios({
       method: "get",
-      url: `/api/sendy/users/12`,
+      url: `/api/sendy/users/{memberId}`,
       headers: {
         "ngrok-skip-browser-warning": "230325",
         Authorization: getCookie("accesstoken"),

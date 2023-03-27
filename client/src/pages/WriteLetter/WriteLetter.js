@@ -13,6 +13,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import MakeLetter from "./MakeLetter";
+import useStore from "../../store/store";
 
 function WriteLetter() {
   const [openExplaination, setOpenExplaination] = useState(false);
@@ -43,6 +44,9 @@ function WriteLetter() {
     "오리",
   ];
   const [browserSize, setBrowserSize] = useState();
+
+  const { letterContents, setLetterContents } = useStore((state) => state);
+
   const sendMeModalRef = useRef();
   const makeLetterModalRef = useRef();
   const {
@@ -93,19 +97,33 @@ function WriteLetter() {
   const handleThemeLeft = () => {
     if (letterTheme.indexOf(currentLetterTheme) === 0) {
       setCurrentLetterTheme(letterTheme[letterTheme.length - 1]);
+      setLetterContents({
+        ...letterContents,
+        theme: letterTheme[letterTheme.length - 1],
+      });
     } else {
-      setCurrentLetterTheme(
-        letterTheme[letterTheme.indexOf(currentLetterTheme) - 1]
-      );
+      setCurrentLetterTheme({
+        ...letterContents,
+        theme: letterTheme[letterTheme.indexOf(currentLetterTheme) - 1],
+      });
+      setLetterContents({
+        ...letterContents,
+        theme: letterTheme[letterTheme.indexOf(currentLetterTheme) - 1],
+      });
     }
   };
   const handleThemeRight = () => {
     if (letterTheme.indexOf(currentLetterTheme) === letterTheme.length - 1) {
       setCurrentLetterTheme(letterTheme[0]);
+      setLetterContents({ ...letterContents, theme: letterTheme[0] });
     } else {
       setCurrentLetterTheme(
         letterTheme[letterTheme.indexOf(currentLetterTheme) + 1]
       );
+      setLetterContents({
+        ...letterContents,
+        theme: letterTheme[letterTheme.indexOf(currentLetterTheme) + 1],
+      });
     }
   };
   const handleOpenMakeLetter = (e) => {
@@ -114,11 +132,15 @@ function WriteLetter() {
   const getBrowserSize = () => {
     setBrowserSize(window.innerWidth);
   };
+
   window.addEventListener("resize", getBrowserSize);
   useEffect(() => {
     setBrowserSize(window.innerWidth);
   }, []);
 
+  useEffect(() => {
+    setLetterContents({ ...letterContents, theme: letterTheme[contentLength] });
+  }, []);
   return (
     <W.PageContainer onClick={handleModal}>
       {openExplaination || openSendMe || openMakeLetter ? (
@@ -316,8 +338,10 @@ function WriteLetter() {
                   <></>
                 )}
                 <ShadowButton
-                  onClick={handleOpenMakeLetter}
-                  backgroundColor={PALETTE_V1.yellow_button}>
+                  onClick={isContentVaild ? handleOpenMakeLetter : () => {}}
+                  backgroundColor={
+                    isContentVaild ? PALETTE_V1.yellow_button : "#d9d9d9"
+                  }>
                   편지생성
                 </ShadowButton>
               </W.BallonWrapper>
