@@ -31,6 +31,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -99,11 +100,14 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-
-        configuration.setExposedHeaders(Arrays.asList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowedOrigins(Arrays.asList("*")); // 모든 출처(Origin)에 대해 스크립트 기반의 HTTP통신 허용
-        configuration.setAllowedMethods(Arrays.asList("OPTIONS","GET","POST", "PATCH", "DELETE")); // 파라미터로 지정한 HTTP Method에 대한 HTTP통신 허용
+//        configuration.setAllowedOrigins(Arrays.asList("*")); // 모든 출처(Origin)에 대해 스크립트 기반의 HTTP통신 허용
+        // 허용할 Origins 골라서 넣어주려면 위에 꺼 써도 됨
+        configuration.setAllowedOriginPatterns(List.of("*")); // setAllowCredentials(true)로 설정하면 setAllowedOrigins("*")를 사용할 수 없어서 대신 사용함
+        configuration.setExposedHeaders(List.of("Authorization", "Refresh")); // 서버 -> 클라이언트로 보내는 response Header
+        configuration.setAllowedHeaders(List.of("*")); // 클라이언트 -> 서버 허용할 request Header
+        configuration.setAllowedMethods(List.of("OPTIONS","GET","POST", "PATCH", "DELETE", "HEAD")); // 파라미터로 지정한 HTTP Method에 대한 HTTP통신 허용
+        configuration.setAllowCredentials(true); // 쿠키 요청 허용
+        configuration.setMaxAge(3000L); // 원하는 시간만큼 pre-flight 리퀘스트를 캐싱
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(); // CorsConfigurationSource 인터페이스의 구현 클래스인 UrlBasedCorsConfigurationSource 클래스의 객체를 생성
         source.registerCorsConfiguration("/**", configuration); // 모든 URL 앞에서 구성한 CORS정책(CorsConfiguration)을 적용
