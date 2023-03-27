@@ -123,7 +123,7 @@ export const Secretform = styled.form`
   .pwdInput {
     display: flex;
     width: 27rem;
-    height: 2.7rem;
+    height: 3rem;
     background-size: 1.5rem;
     padding: 1rem 4rem;
     border-top: none;

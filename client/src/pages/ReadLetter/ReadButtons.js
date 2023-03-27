@@ -137,7 +137,7 @@
 
 // export default ReadButtons;
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import * as R from "./ReadStyled";
 import { PALETTE_V1 } from "../../style/color";
 import ShadowButton from "../commons/ShadowButton";
@@ -151,10 +151,14 @@ const ReadButtons = ({
   setIsKeeping,
   ModalRef,
   onDownloadBtn,
+  isClickModal,
+  setIsClickModal,
 }) => {
+  const { urlName } = useParams();
+
   //'보관하기' 버튼 누르면 모달 나오는 이벤트 핸들러
   const handleKeeping = () => {
-    setIsKeeping(!isKeeping);
+    setIsClickModal(!isClickModal);
   };
 
   //! 휴지통 alert
@@ -170,7 +174,7 @@ const ReadButtons = ({
     }
   };
 
-  console.log(isKeeping);
+  console.log(isClickModal);
 
   return (
     <>
@@ -234,14 +238,18 @@ const ReadButtons = ({
             보관하기
           </ShadowButton>
         )}
-        {isKeeping ? (
+        {isClickModal ? (
           <R.ModalBackground>
             <Modal
               ModalRef={ModalRef}
               ContainerHeight={"420px"}
               ContainerWidth={"370px"}
               children={
-                <LoginModal ModalRef={ModalRef} setIsKeeping={setIsKeeping} />
+                <LoginModal
+                  ModalRef={ModalRef}
+                  setIsKeeping={setIsKeeping}
+                  setIsClickModal={setIsClickModal}
+                />
               }
             />
           </R.ModalBackground>

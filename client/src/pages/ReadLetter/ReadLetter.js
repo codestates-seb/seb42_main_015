@@ -24,6 +24,8 @@ const ReadLetter = ({ isLogin }) => {
   const [isKeeping, setIsKeeping] = useState("");
   //편지 정보 가져오기
   const [data, setData] = useState([]);
+  //모달 클릭
+  const [isClickModal, setIsClickModal] = useState(false);
 
   //! 이미지 저장 기능
   //useRef로 -> DOM 선택
@@ -39,8 +41,8 @@ const ReadLetter = ({ isLogin }) => {
   //! 모달 영역 밖 클릭 시 모달 닫기
   const ModalRef = useRef();
   const handleModal = (e) => {
-    if (isKeeping && !ModalRef.current.contains(e.target)) {
-      setIsKeeping(false);
+    if (isClickModal && !ModalRef.current.contains(e.target)) {
+      setIsClickModal(false);
     }
   };
 
@@ -157,6 +159,8 @@ const ReadLetter = ({ isLogin }) => {
               setIsKeeping={setIsKeeping}
               isLogin={isLogin}
               onDownloadBtn={onDownloadBtn}
+              isClickModal={isClickModal}
+              setIsClickModal={setIsClickModal}
             />
           </div>
         </R.Wrapper>
