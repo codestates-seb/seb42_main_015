@@ -13,6 +13,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
+import { Link } from "react-router-dom";
 
 function MakeLetter({ makeLetterModalRef }) {
   const formSchema = yup.object({
@@ -125,6 +126,7 @@ function MakeLetter({ makeLetterModalRef }) {
     });
   };
   const handlePreview = () => {
+    sessionStorage.setItem("preview", JSON.stringify({ ...letterContents }));
     window.open("/writeletter/preview");
   };
   const handleUrlReg = (e) => {
@@ -242,6 +244,11 @@ function MakeLetter({ makeLetterModalRef }) {
       </div>
 
       <W.FlexRowWrapper className="button-wrapper">
+        {/* <Link to="preview" state={{ ...letterContents }} target="_blank">
+          <ShadowButton backgroundColor={PALETTE_V1.yellow_basic}>
+            미리보기
+          </ShadowButton>
+        </Link> */}
         <ShadowButton
           onClick={handlePreview}
           backgroundColor={PALETTE_V1.yellow_basic}>

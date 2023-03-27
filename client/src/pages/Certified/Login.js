@@ -8,7 +8,6 @@ import axios from "axios";
 import { setCookie, getCookie } from "./Cookie";
 import { headers, options, GoogleOauthLogin } from "./setupCertified";
 import useStore from "../../store/store";
-import { useEffect } from "react";
 
 function Login() {
   const navigate = useNavigate();

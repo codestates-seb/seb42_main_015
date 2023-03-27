@@ -98,7 +98,6 @@ export const FlexColunmWrapper = styled.div`
 `;
 export const FlexWrapper2 = styled(FlexRowWrapper)`
   justify-content: center;
-  max-width: 1077px;
   width: 100vw;
   display: flex;
   flex-direction: row;
@@ -143,6 +142,7 @@ export const LetterBox = styled(FlexColunmWrapper)`
   background-size: cover;
   min-height: 0;
   max-width: 754px;
+  background-color: #ffffff;
   ${(props) => {
     switch (props.currentLetterTheme) {
       case "군대":
@@ -242,6 +242,9 @@ export const NameInputWrapper = styled.div`
   flex-direction: row;
   border-bottom: 2px solid ${PALETTE_V1.text_primary};
   height: 100%;
+  &.preview {
+    border: none;
+  }
 `;
 export const NameInput = styled.input.attrs({ autoComplete: "off" })`
   ${FONT_STYLE_V1.body.body_20_light}
@@ -772,4 +775,19 @@ export const UploadBox = styled.div`
   .file {
     display: none;
   }
+`;
+export const PreviewContent = styled.div`
+  aspect-ratio: 1/1.5;
+  ${(props) => {
+    switch (props.font) {
+      case "프리텐다드":
+        return FONT_STYLE_V1.body.body_18_light;
+      case "도스샘물":
+        return FONT_STYLE_CONTENT.pixel_18;
+      case "강원교육모두체":
+        return FONT_STYLE_CONTENT.gangwonedu_18_bold;
+      default:
+        break;
+    }
+  }}
 `;

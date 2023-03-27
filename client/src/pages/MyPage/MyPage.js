@@ -37,7 +37,7 @@ function MyPage() {
   const getUserInfo = async () => {
     return axios({
       method: "get",
-      url: `/api/sendy/users/{memberId}`,
+      url: `/api/sendy/users/${memberId}`,
       headers: {
         "ngrok-skip-browser-warning": "230325",
         Authorization: getCookie("accesstoken"),
