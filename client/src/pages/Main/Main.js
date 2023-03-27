@@ -191,6 +191,18 @@ function Main() {
                 <M.TrackImg>
                   <img src={require("../../asset/mainImg/top.png")} alt="" />
                 </M.TrackImg>
+                <M.TrackImg>
+                  <img src={require("../../asset/mainImg/top.png")} alt="" />
+                </M.TrackImg>
+                <M.TrackImg>
+                  <img src={require("../../asset/mainImg/top.png")} alt="" />
+                </M.TrackImg>
+                <M.TrackImg>
+                  <img src={require("../../asset/mainImg/top.png")} alt="" />
+                </M.TrackImg>
+                <M.TrackImg>
+                  <img src={require("../../asset/mainImg/top.png")} alt="" />
+                </M.TrackImg>
               </M.Track>
             </M.SendyTop>
             <M.Last>

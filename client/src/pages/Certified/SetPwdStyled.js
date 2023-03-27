@@ -1,11 +1,10 @@
 import styled from "styled-components";
 import { FONT_STYLE_LOGIN, FONT_STYLE_V1 } from "../../style/fontStyle";
-import { PALETTE_V1 } from "../../style/color";
 import { BREAKPOINTMOBILE } from "../../breakpoint";
 
 export const SetPwdWrap = styled.div`
   width: 100%;
-  min-height: 85vh;
+  height: 73vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,6 +69,7 @@ export const RightBox = styled.div`
     bottom: 20px;
     right: 20px;
     font-size: 3rem;
+    cursor: pointer;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 30rem;
@@ -78,9 +78,9 @@ export const RightBox = styled.div`
 `;
 
 export const SetPwdTitle = styled.div`
-  ${FONT_STYLE_LOGIN.title.title_40_medium}
+  ${FONT_STYLE_LOGIN.title.title_42_medium}
   color: white;
-  margin-top: 5rem;
+  margin-top: 7rem;
   margin-bottom: 2rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     margin-top: 6rem;
