@@ -99,24 +99,18 @@ export const SWrapper = styled.div`
   min-height: 87vh;
   padding: 3rem 2rem;
   overflow: hidden;
-  padding-bottom: 300px;
+  padding-bottom: 200px;
 `;
 
 //todo : 비밀번호 입력 form
 export const Secretform = styled.form`
   display: flex;
   padding: 5rem 5rem;
-  height: 50vh;
+  height: 40vh;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
-  @media screen and (max-width: 1024px) {
-    height: 40vh;
-  }
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    height: 40vh;
-  }
 
   div {
     display: flex;
@@ -175,7 +169,7 @@ export const Secretform = styled.form`
   }
   p {
     color: red;
-    margin: -9rem 0 -2rem;
+    margin: -7rem 0 -2rem;
     font-size: 14px;
     @media screen and (max-width: 1024px) {
       margin: -100px 0 -30px;
@@ -450,7 +444,7 @@ export const Buttons = styled.div`
   align-items: center;
   justify-content: space-around;
   height: 8rem;
-  padding: 0rem 0rem 0rem 32rem;
+  padding: 0rem 0rem 0rem 31rem;
 
   @media screen and (max-width: 1024px) {
     padding: 0rem 0rem 0rem 38rem;
@@ -559,7 +553,7 @@ export const ModalWrapper = styled.div`
       border-bottom: 1px solid #000;
       background-repeat: no-repeat;
       background-position: left;
-      font-size: 0.8rem;
+      font-size: 1.2rem;
       margin-bottom: 0.4rem;
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
         width: 23rem;

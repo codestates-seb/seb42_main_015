@@ -48,7 +48,6 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
         }
       )
       .then((res) => {
-        CloseModal();
         if (res.headers.getAuthorization) {
           //! refresh token은 -> local storage에 저장
           localStorage.setItem("refreshToken", res.headers.get("Refresh"));
@@ -66,8 +65,9 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
           });
           //! 멤버Id -> 세션 스토리지에 저장
           sessionStorage.setItem("memberId", res.data.memberId);
-          window.location.reload();
         }
+        window.location.reload();
+        CloseModal();
       })
       .catch((err) => {
         console.log(err);

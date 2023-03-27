@@ -153,7 +153,6 @@ const ReadButtons = ({
   onDownloadBtn,
 }) => {
   //'보관하기' 버튼 누르면 모달 나오는 이벤트 핸들러
-
   const handleKeeping = () => {
     setIsKeeping(!isKeeping);
   };
@@ -171,18 +170,43 @@ const ReadButtons = ({
     }
   };
 
+  console.log(isKeeping);
+
   return (
     <>
       <R.Buttons>
         {isLogin ? (
           <>
             <Link to="/letterbox">
-              <HiOutlineArrowUturnLeft size="30" className="goback" />
+              <HiOutlineArrowUturnLeft
+                size="30"
+                className="goback"
+                visibility="visible"
+              />
             </Link>
-            <HiOutlineTrash size="30" className="trash" onClick={onRemove} />
+            <HiOutlineTrash
+              size="30"
+              className="trash"
+              onClick={onRemove}
+              visibility="visible"
+            />
           </>
         ) : (
-          <></>
+          <>
+            <Link to="/letterbox">
+              <HiOutlineArrowUturnLeft
+                size="30"
+                className="goback"
+                visibility="hidden"
+              />
+            </Link>
+            <HiOutlineTrash
+              size="30"
+              className="trash"
+              onClick={onRemove}
+              visibility="hidden"
+            />
+          </>
         )}
         <ShadowButton
           className="button"
