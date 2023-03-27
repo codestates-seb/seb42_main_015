@@ -2,10 +2,7 @@ package com.witchdelivery.messageapp.domain.message.controller;
 
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.domain.member.service.MemberDbService;
-import com.witchdelivery.messageapp.domain.message.dto.MessagePatchDto;
-import com.witchdelivery.messageapp.domain.message.dto.MessagePostDto;
-import com.witchdelivery.messageapp.domain.message.dto.MessageResponseDto;
-import com.witchdelivery.messageapp.domain.message.dto.PasswordInputDto;
+import com.witchdelivery.messageapp.domain.message.dto.*;
 import com.witchdelivery.messageapp.domain.message.service.MessageService;
 import com.witchdelivery.messageapp.domain.message.entity.Message;
 import com.witchdelivery.messageapp.domain.message.mapper.MessageMapper;
@@ -16,9 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.io.IOException;
 import java.security.Principal;
 
 @RestController
@@ -99,7 +98,30 @@ public class MessageController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * S3 편지 이미지 업로드 API
+     * @param messageId
+     * @param multipartFile
+     * @return
+     * @throws IOException
+     */
+    @PostMapping("/write/image/{message-id}")
+    public ResponseEntity postProfileImage(@PathVariable("message-id") Long messageId,
+                                           @RequestParam(value = "image") MultipartFile multipartFile) throws IOException {
+        messageService.uploadMessageS3(messageId, multipartFile);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
+    /**
+     * S3편지 이미지 조회 API
+     * @param urlName
+     * @return
+     */
+    @GetMapping("read/image/{url-name}")
+    public ResponseEntity getMember(@PathVariable("url-name") String urlName) {
+        MessageImageDto messageImageDto = messageService.findMessageS3(urlName);
+        return new ResponseEntity<>(messageImageDto, HttpStatus.OK);
+    }
 }
 
 

@@ -44,4 +44,17 @@ public class Message extends BaseTime {
     @Column(nullable = false)
     private String fontName;   // FK 폰트 식별번호(폰트 연관관계 매핑)
 
+    @OneToOne(mappedBy = "message", cascade = CascadeType.ALL)
+    private MessageImage messageImage;
+
+    /**
+     * 연관관계 매핑 메서드
+     * @param messageImage
+     */
+    public void addMessageImage(MessageImage messageImage) {
+        if (messageImage.getMessage() != this) {
+            messageImage.setMessage(this);
+        }
+        this.messageImage = messageImage;
+    }
 }
