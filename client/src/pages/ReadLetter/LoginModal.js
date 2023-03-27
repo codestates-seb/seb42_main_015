@@ -5,7 +5,7 @@ import * as L from "./ReadStyled";
 import * as yup from "yup";
 import axios from "axios";
 import { setCookie } from "../Certified/Cookie";
-import { header, GoogleOauthLogin, options } from "../Certified/setupCertified";
+import { GoogleOauthLogin, options } from "../Certified/setupCertified";
 
 const LoginModal = ({ ModalRef, setIsKeeping }) => {
   //로그인되면 모달 닫기
@@ -36,12 +36,6 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-    "ngrok-skip-browser-warning": "12",
-  };
-
   //! 로그인 제출 버튼
   const onSubmit = async (data) => {
     const { email, password } = data;
@@ -50,7 +44,7 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
         `/api/sendy/auth/login`,
         { username: email, password: password },
         {
-          headers,
+          "ngrok-skip-browser-warning": "12",
         }
       )
       .then((res) => {
@@ -61,14 +55,18 @@ const LoginModal = ({ ModalRef, setIsKeeping }) => {
           //! access token은 -> cookie에 저장
           setCookie(
             "accesstoken",
-            res.headers.get("Authorization").split(" ")[1],
+            `Bearer ${res.headers.get("Authorization").split(" ")[1]}`,
             {
-              path: "/",
-              sucure: true,
-              sameSite: "Strict",
-              HttpOnly: " HttpOnly ",
+              options,
             }
           );
+          //! accessToken expire  -> cookie에 저장(60분)
+          setCookie("accesstoken_expire", `${res.headers.get("Date")}`, {
+            options,
+          });
+          //! 멤버Id -> 세션 스토리지에 저장
+          sessionStorage.setItem("memberId", res.data.memberId);
+          window.location.reload();
         }
       })
       .catch((err) => {
