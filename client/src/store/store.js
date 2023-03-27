@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+
 const useStore = create((set) => ({
   currentPage: null,
   changeCurrentPage: (page) => set((state) => ({ currentPage: page })),
@@ -18,6 +19,12 @@ const useStore = create((set) => ({
   },
   setLetterContents: (contents) =>
     set((state) => ({ letterContents: contents })),
+  outLetters: [],
+  setOutLetters: (outLetters) => set((state) => ({ outLetters })),
+  inLetters: [],
+  setInLetters: (inLetters) => set((state) => ({ inLetters })),
+  isSend: false, 
+  setIsSend: (isSend) => set((state) => ({ isSend })),
   acessTokenExpire: false,
   setAcessTokenExpire: (token) => set((state) => ({ acessTokenExpire: token })),
 }));

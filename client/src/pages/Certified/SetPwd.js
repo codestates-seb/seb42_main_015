@@ -127,7 +127,7 @@ function SetPwd() {
                 </C.ButtonBox>
               </C.InputWrap>
             )}
-            {(page === undefined || page === "2") && (
+            {(page === "1" || page === "2") && (
               <AiOutlineArrowRight className="next" onClick={handleNext} />
             )}
           </C.RightBox>

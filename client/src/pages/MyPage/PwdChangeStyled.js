@@ -11,7 +11,7 @@ export const PwdChangeWrap = styled.div`
 
 export const PwdChangeContainer = styled.div`
   width: 100%;
-  min-height: 80vh;
+  height: 73vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,6 +48,7 @@ export const PwdChangeContents = styled.div`
     bottom: 20px;
     right: 20px;
     font-size: 3rem;
+    cursor: pointer;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 30rem;
@@ -90,10 +91,10 @@ export const PwdBox = styled.div`
 `;
 
 export const PwdChangeTitle = styled.div`
-  ${FONT_STYLE_LOGIN.title.title_40_medium}
+  ${FONT_STYLE_LOGIN.title.title_42_medium}
   color: white;
   margin-top: -5rem;
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
   margin-top: 1rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     margin-top: 5rem;
