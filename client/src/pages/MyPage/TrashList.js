@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import TrashItem from "./TrashItem";
 import GNB from "./GNB";
 import * as M from "./TrashStyled";
@@ -7,6 +7,7 @@ import Modal from "../commons/Modal";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { RiUserReceivedLine, RiUserSharedLine } from "react-icons/ri";
 import * as W from "../WriteLetter/WriteStyled";
+import axios from "axios";
 
 function TrashList() {
   const [checked, setChecked] = useState(false);
@@ -14,10 +15,25 @@ function TrashList() {
   const [openModal, setOpenModal] = useState(false);
   const modalRef = useRef();
 
+  // 삭제 요청 만들기
+  // 복구 요청 만들기
+  useEffect(() => {
+    axios
+      .patch("/api/sendy/mailbox/dustbin/outgoing", {
+        headers: {
+          "ngrok-skip-browser-warning": "230325",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzM4NCJ9.eyJyb2xlcyI6WyJVU0VSIl0sIm1lbWJlcklkIjo5LCJ1c2VybmFtZSI6InVzZXIxOTk3QGdtYWlsLmNvbSIsInN1YiI6InVzZXIxOTk3QGdtYWlsLmNvbSIsImlhdCI6MTY3OTcyMTMyNiwiZXhwIjoxNjc5NzIzMTI2fQ.zhuxBaDkJ5qT00QrLnRwh0q5yXRW8z0OwjJx4BefSWYRf3xa9QIFfwkQFkMmUYKx",
+        },
+      })
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
   const handleModal = (e) => {
     if (openModal && !modalRef.current.contains(e.target)) {
       setOpenModal(false);
-    } 
+    }
   };
 
   return (
@@ -25,7 +41,7 @@ function TrashList() {
       {openModal ? <W.ExplainationBackground /> : <></>}
       {openModal && (
         <Modal ContainerHeight="280px" ContainerWidth="300px">
-          <M.ModalBox ref={modalRef} >
+          <M.ModalBox ref={modalRef}>
             <img src={require("../../asset/Sad.png")} alt="" />
             <M.ModalText>삭제하면 다시는 편지를 보지 못해요</M.ModalText>
             <M.ButtonBox>
