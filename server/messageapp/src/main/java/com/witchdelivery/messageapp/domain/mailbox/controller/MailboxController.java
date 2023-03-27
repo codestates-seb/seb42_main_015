@@ -39,7 +39,7 @@ public class MailboxController {
     public ResponseEntity outgoingStatus(@PathVariable("outgoing-id") long outgoingId) {
         outgoingService.updateOutgoingStatus(outgoingId);
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // 수신 삭제처리 메서드 (반환할건 없을 거 같음)
@@ -47,7 +47,7 @@ public class MailboxController {
     public ResponseEntity receivingStatus(@PathVariable("receiving-id") long receivingId) {
         receivingService.updateReceivingStatus(receivingId);
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PatchMapping("/bookmark/outgoing/{outgoing-id}")              // 발신함 북마크
