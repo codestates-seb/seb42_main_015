@@ -26,7 +26,7 @@ public class MemberController {
     private final MemberMapper memberMapper;
 
     /**
-     * 사용자 등록(회원가입) 컨트롤러 메서드
+     * 사용자 등록(회원가입) API
      * @param memberPostDto
      * @return
      */
@@ -37,7 +37,7 @@ public class MemberController {
     }
 
     /**
-     * 이메일 중복 검증 컨트롤러 메서드
+     * 이메일 중복 검증 API
      * @param verifyEmailDto
      * @return
      */
@@ -48,7 +48,7 @@ public class MemberController {
     }
 
     /**
-     * 닉네임 중복 검증 컨트롤러 메서드
+     * 닉네임 중복 검증 API
      * @param verifyNicknameDto
      * @return
      */
@@ -59,7 +59,7 @@ public class MemberController {
     }
 
     /**
-     * 단일 사용자 조회(마이페이지) 컨트롤러 메서드
+     * 단일 사용자 조회(마이페이지) API
      * @param memberId
      * @return
      */
@@ -71,7 +71,7 @@ public class MemberController {
 
     // 인터페이스 미구현 예정
     /**
-     * 전체 사용자 조회 컨트롤러 메서드
+     * 전체 사용자 조회 API
      * @param page
      * @param size
      * @return
@@ -84,7 +84,7 @@ public class MemberController {
     }
 
     /**
-     * 사용자 패스워드 변경 컨트롤러 메서드
+     * 사용자 패스워드 변경 API
      * @param memberId
      * @param patchPasswordDto
      * @return
@@ -98,7 +98,7 @@ public class MemberController {
     }
 
     /**
-     * 사용자 닉네임 변경 컨트롤러 메서드
+     * 사용자 닉네임 변경 API
      * @param memberId
      * @param patchNicknameDto
      * @return
@@ -112,7 +112,7 @@ public class MemberController {
     }
 
     /**
-     * 사용자 프로필 이미지 S3 업로드/수정 컨트롤러 메서드
+     * S3 사용자 프로필 이미지 업로드/수정 API
      * @param memberId
      * @param multipartFile
      * @throws IOException
@@ -125,7 +125,18 @@ public class MemberController {
     }
 
     /**
-     * 사용자 삭제(회원탈퇴) 컨트롤러 메서드
+     * S3 사용자 프로필 기본 이미지 재설정 API
+     * @param memberId
+     * @return
+     */
+    @PostMapping("/edit/reset-profile/{member-id}")
+    public ResponseEntity deleteProfileImage(@PathVariable("member-id") Long memberId) {
+        memberService.deleteProfileS3(memberId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * 사용자 삭제(회원탈퇴) API
      * @param memberId
      * @return
      */
