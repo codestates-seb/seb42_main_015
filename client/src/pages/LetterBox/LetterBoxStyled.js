@@ -397,3 +397,10 @@ export const SendButton = styled.div`
     right: 10px;
   }
 `;
+
+export const TargetBox = styled.div`
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  ${FONT_STYLE_V1.title.title_18_medium}
+`;
