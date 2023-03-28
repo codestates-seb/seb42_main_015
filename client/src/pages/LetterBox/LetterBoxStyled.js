@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 import { BREAKPOINTMOBILE } from "../../breakpoint";
@@ -51,7 +51,8 @@ export const Search = styled.input`
 `;
 
 export const PeriodBox = styled.div`
-  width: 28vw;
+  width: 30vw;
+  min-width: 300px;
   height: 118px;
   border: 1px solid black;
   position: absolute;
@@ -60,24 +61,39 @@ export const PeriodBox = styled.div`
   background-color: ${(props) =>
     props.backgroundColor || PALETTE_V1.background};
   z-index: 10;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 200px;
-  }
 `;
 
 export const Line = styled.div`
   width: 100%;
-  height: 20px;
+  height: 25px;
   background-color: #464646;
+  color: white;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+export const Reset = styled.span`
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  cursor: pointer;
+  .reset {
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
+  }
 `;
 
 export const Date = styled.ul`
   width: 100%;
-  height: 98px;
+  height: 93px;
   display: flex;
   justify-content: center;
   align-items: center;
   ${FONT_STYLE_V1.body.body_20_light}
+  .submit {
+    font-size: 2.5rem;
+  }
 `;
 
 export const DateYear = styled.li`
@@ -234,9 +250,58 @@ export const ItemBox = styled.div`
   flex-direction: column;
   position: relative;
   cursor: pointer;
-  background-image: url(${알록달록});
   background-size: cover;
   background-repeat: no-repeat;
+  ${(props) => {
+    switch (props.currentLetterTheme) {
+      case "구름":
+        return css`
+          background-image: url(${구름});
+        `;
+      case "군대":
+        return css`
+          background-image: url(${군대});
+        `;
+      case "냥냥편지":
+        return css`
+          background-image: url(${냥냥편지});
+        `;
+      case "리본":
+        return css`
+          background-image: url(${리본});
+        `;
+      case "수박":
+        return css`
+          background-image: url(${수박});
+        `;
+      case "알록달록":
+        return css`
+          background-image: url(${알록달록});
+        `;
+      case "얼룩":
+        return css`
+          background-image: url(${얼룩});
+        `;
+      case "체리":
+        return css`
+          background-image: url(${체리});
+        `;
+      case "클로버":
+        return css`
+          background-image: url(${클로버});
+        `;
+      case "정월대보름":
+        return css`
+          background-image: url(${정월대보름});
+        `;
+      case "오리":
+        return css`
+          background-image: url(${오리});
+        `;
+      default:
+        break;
+    }
+  }};
 `;
 
 export const ItemTitle = styled.div`

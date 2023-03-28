@@ -16,6 +16,7 @@ import useStore from "../../store/store";
 const ReadLetter = ({ isLogin }) => {
   const { urlName } = useParams();
   const { letterPassword, setLetterPassword } = useStore((state) => state);
+  const { messageId, setMessageId } = useStore((state) => state);
 
   //todo: useState
   //비밀번호 쳤는지 안쳤는지
@@ -64,6 +65,9 @@ const ReadLetter = ({ isLogin }) => {
     window.speechSynthesis.getVoices();
   }, []);
 
+  //TODO : 사진 있는 편지시 AXIOS 동시 요청
+  //https://inpa.tistory.com/entry/AXIOS-%F0%9F%93%9A-%EC%84%A4%EC%B9%98-%EC%82%AC%EC%9A%A9
+
   const getLetter = async () => {
     await axios
       .get(`/api/sendy/messages/${urlName}`, {
@@ -77,6 +81,8 @@ const ReadLetter = ({ isLogin }) => {
         setData(res.data);
         //messageSaved 정보 담기
         setIsKeeping(res.data.messageSaved);
+        //messageId 정보 담기
+        setMessageId(res.data.messageId);
         //편지 비밀번호가 없다면(null이라면) -> setEnterPassword(true)처리해서 SecretLetter로 안가겠금
         if (res.data.password === null) {
           setEnterPassword(true);
@@ -149,7 +155,11 @@ const ReadLetter = ({ isLogin }) => {
                 </div>
                 <div className="from">From. {data.fromName}</div>
               </R.Letterpaper>
-              <R.Letterpaper className="back" onClick={handleRotate}>
+              <R.Letterpaper
+                className="back"
+                LetterTheme={data.themeName}
+                onClick={handleRotate}
+              >
                 <div>뒷장</div>
               </R.Letterpaper>
             </R.Card>
@@ -165,7 +175,32 @@ const ReadLetter = ({ isLogin }) => {
           </div>
         </R.Wrapper>
       ) : (
-        <SecretLetter setEnterPassword={setEnterPassword} />
+        <R.Wrapper>
+          <SecretLetter setEnterPassword={setEnterPassword} />
+          <div className="ReadContainer" onClick={handleModal}>
+            <div className="top-sub">
+              <div className="soundButtons">
+                <AiOutlineSound size="30" className="speech-icon" />
+                <HiPause size="30" className="pause-icon" />
+              </div>
+              <R.EnterSeret>
+                비밀번호
+                <p>{data.password}</p>
+              </R.EnterSeret>
+            </div>
+            <R.Letterpaper className="front" LetterTheme={data.themeName}>
+              <div className="top">
+                <div className="to">To. {data.toName}</div>
+                <div className="date">{LetterDate}</div>
+              </div>
+              <div className="content" font={data.fontName}>
+                {data.content}
+              </div>
+              <div className="from">From. {data.fromName}</div>
+            </R.Letterpaper>
+            <ReadButtons />
+          </div>
+        </R.Wrapper>
       )}
     </>
   );

@@ -34,6 +34,7 @@ function App() {
 
   useEffect(() => {
     initializeUserInfo();
+    // removeCookie("accesstoken");
   }, [isLogin]);
 
   // ! 공백
