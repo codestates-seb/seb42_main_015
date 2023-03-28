@@ -64,14 +64,12 @@ const ReadButtons = ({
     }
   };
 
-  console.log(isClickModal);
-
   return (
     <>
       {isLoading ? <Loading /> : ""}
       <R.Buttons>
-        {isLogin ? (
-          // 로그인 되어 있으면 -> 우편함, 휴지통 아이콘 보이게
+        {isLogin && isKeeping ? (
+          // 로그인&보관하기 되어 있으면 -> 우편함, 휴지통 아이콘 보이게
           <>
             <Link to="/letterbox">
               <HiOutlineArrowUturnLeft

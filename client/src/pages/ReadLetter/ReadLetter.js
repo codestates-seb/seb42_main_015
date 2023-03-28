@@ -165,7 +165,62 @@ const ReadLetter = ({ isLogin }) => {
           </div>
         </R.Wrapper>
       ) : (
-        <SecretLetter setEnterPassword={setEnterPassword} />
+        <R.Wrapper>
+          <SecretLetter setEnterPassword={setEnterPassword} />
+          <div className="ReadContainer" onClick={handleModal}>
+            <div className="top-sub">
+              <div className="soundButtons">
+                <AiOutlineSound
+                  size="30"
+                  onClick={handleSpeechButton}
+                  className="speech-icon"
+                />
+                <HiPause
+                  size="30"
+                  onClick={handlePauseButton}
+                  className="pause-icon"
+                />
+              </div>
+              <R.EnterSeret>
+                비밀번호
+                <p>{data.password}</p>
+              </R.EnterSeret>
+            </div>
+            <R.Card className={rotate ? "active-rotate" : ""}>
+              <R.Letterpaper
+                className="front"
+                ref={LetterRef}
+                LetterTheme={data.themeName}
+                onClick={handleRotate}
+              >
+                <div className="top">
+                  <div className="to">To. {data.toName}</div>
+                  <div className="date">{LetterDate}</div>
+                </div>
+                <div className="content" font={data.fontName}>
+                  {data.content}
+                </div>
+                <div className="from">From. {data.fromName}</div>
+              </R.Letterpaper>
+              <R.Letterpaper
+                className="back"
+                LetterTheme={data.themeName}
+                onClick={handleRotate}
+              >
+                <div>뒷장</div>
+              </R.Letterpaper>
+            </R.Card>
+            <ReadButtons
+              ModalRef={ModalRef}
+              isKeeping={isKeeping}
+              setIsKeeping={setIsKeeping}
+              isLogin={isLogin}
+              onDownloadBtn={onDownloadBtn}
+              isClickModal={isClickModal}
+              setIsClickModal={setIsClickModal}
+            />
+          </div>
+        </R.Wrapper>
       )}
     </>
   );

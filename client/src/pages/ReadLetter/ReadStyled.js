@@ -29,6 +29,7 @@ export const Wrapper = styled.div`
   padding: 3rem 2rem;
   overflow: hidden;
   padding-bottom: 70px;
+  position: relative;
 
   .ReadContainer {
     display: flex;
@@ -96,10 +97,14 @@ export const SWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 87vh;
+  width: 100vw;
+  min-height: 100vh;
   padding: 3rem 2rem;
-  overflow: hidden;
   padding-bottom: 200px;
+  background: #ffffff00;
+  position: absolute;
+  z-index: 100;
+  backdrop-filter: blur(10px);
 `;
 
 //todo : 비밀번호 입력 form
@@ -374,6 +379,10 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     }
   }
 
+  .back {
+    backdrop-filter: blur(400px);
+  }
+
   .from {
     display: flex;
     ${FONT_STYLE_READ.body_9_Medium};
@@ -388,7 +397,7 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     }
   }
 
-  //편지 뒷장
+  //편지 앞장
   .front {
     position: relative;
   }
