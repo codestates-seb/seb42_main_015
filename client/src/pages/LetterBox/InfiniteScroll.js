@@ -38,6 +38,7 @@
 import { getCookie } from "../Certified/Cookie";
 import axios from "axios";
 
+
 // export const getLettersOut = async () => {
 //   return axios({
 //     method: "get",
@@ -59,6 +60,7 @@ import axios from "axios";
 //     },
 //   });
 // };
+
 
 // useEffect(() => {
 //   getPageLettersOut().then((res) => setOutLetters(res.data.data));
