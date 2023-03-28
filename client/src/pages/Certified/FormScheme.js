@@ -1,6 +1,5 @@
 import * as yup from "yup";
 
-//yup.object
 const FormScheme = yup.object().shape({
   username: yup
     .string()
