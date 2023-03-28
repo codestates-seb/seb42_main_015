@@ -2,8 +2,9 @@ package com.witchdelivery.messageapp.domain.member.service;
 
 import com.witchdelivery.messageapp.domain.member.dto.MemberResponseDto;
 import com.witchdelivery.messageapp.domain.member.entity.MemberImage;
-import com.witchdelivery.messageapp.infra.file.S3Info;
-import com.witchdelivery.messageapp.infra.file.S3Service;
+import com.witchdelivery.messageapp.domain.member.entity.MemberStatus;
+import com.witchdelivery.messageapp.infra.S3.S3Info;
+import com.witchdelivery.messageapp.infra.S3.S3Service;
 import com.witchdelivery.messageapp.security.utils.CustomAuthorityUtils;
 import com.witchdelivery.messageapp.domain.member.dto.MemberPostDto;
 import com.witchdelivery.messageapp.domain.member.repository.MemberRepository;
@@ -47,6 +48,7 @@ public class MemberService {
                 .email(memberPostDto.getEmail())
                 .password(memberPostDto.getPassword())
                 .nickname(memberPostDto.getNickname())
+//                .memberStatus(MemberStatus.MEMBER_ACTIVE)
                 .build();
 
         member.passwordEncode(passwordEncoder);
@@ -68,7 +70,7 @@ public class MemberService {
      * @return
      */
     public MemberResponseDto findMember(Long memberId) {
-        Member findMember = memberDbService.findVerifiedMember(memberId);
+        Member findMember = memberDbService.findVerifiedMember(memberId);      // 사용자 검증
 
         return MemberResponseDto.builder()
                 .memberId(findMember.getMemberId())
@@ -76,6 +78,7 @@ public class MemberService {
                 .nickname(findMember.getNickname())
                 .profileImage(findMember.getMemberImage().getFilePath())
                 .createdAt(findMember.getCreatedAt())
+                .status(findMember.getMemberStatus().toString())
                 .build();
     }
 
@@ -91,7 +94,7 @@ public class MemberService {
     }
 
     /**
-     * 사용자 패스워드 변경 메서드
+     * 사용자 패스워드 수정 메서드
      * @param member
      * @return
      */
@@ -100,10 +103,10 @@ public class MemberService {
         member.passwordEncode(passwordEncoder); // 패스워드 암호화
         Member updateMember = customBeanUtils.copyNonNullProperties(member, findMember);  // copyNonNullProperties(원본 객체, 복사 객체)
         return memberRepository.save(updateMember);
-    }
+    }   // FIXME
 
     /**
-     * 사용자 닉네임 변경 메서드
+     * 사용자 닉네임 수정 메서드
      * @param member
      * @return
      */
@@ -120,7 +123,9 @@ public class MemberService {
      */
     public void deleteMember(Long memberId) {
         Member findMember = memberDbService.findVerifiedMember(memberId);  // 사용자 검증
-        memberRepository.delete(findMember);
+        findMember.setMemberStatus(MemberStatus.MEMBER_EXITED);
+        memberRepository.deleteById(memberId);
+//        memberRepository.delete(findMember);
     }
 
     /**
@@ -156,7 +161,7 @@ public class MemberService {
      * S3 사용자 프로필 기본 이미지 재설정 메서드
      * @param memberId
      */
-    public void deleteProfileS3(Long memberId) {
+    public void resetProfileS3(Long memberId) {
         Member findMember = memberDbService.findVerifiedMember(memberId);   // 사용자 검증
 
         String dir = "memberImage"; // 사용자 프로필 이미지 디렉토리 지정

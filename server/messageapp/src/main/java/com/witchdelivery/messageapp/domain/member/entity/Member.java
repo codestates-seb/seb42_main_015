@@ -33,6 +33,11 @@ public class Member extends BaseTime implements Principal {
     @Column(unique = true, nullable = false)
     private String nickname; // 닉네임
 
+    @Builder.Default    // FIXME Oauth2 관련으로 default 설정
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE; // 사용자 상태
+
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>(); // 사용자 권한
 

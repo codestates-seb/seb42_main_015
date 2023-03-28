@@ -84,7 +84,7 @@ public class MemberController {
     }
 
     /**
-     * 사용자 패스워드 변경 API
+     * 사용자 패스워드 수정 API
      * @param memberId
      * @param patchPasswordDto
      * @return
@@ -98,7 +98,7 @@ public class MemberController {
     }
 
     /**
-     * 사용자 닉네임 변경 API
+     * 사용자 닉네임 수정 API
      * @param memberId
      * @param patchNicknameDto
      * @return
@@ -130,8 +130,8 @@ public class MemberController {
      * @return
      */
     @PostMapping("/edit/reset-profile/{member-id}")
-    public ResponseEntity deleteProfileImage(@PathVariable("member-id") Long memberId) {
-        memberService.deleteProfileS3(memberId);
+    public ResponseEntity resetProfileImage(@PathVariable("member-id") Long memberId) {
+        memberService.resetProfileS3(memberId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
