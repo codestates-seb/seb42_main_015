@@ -9,27 +9,14 @@ import addImage from "../../asset/add-image.png";
 import { BiX } from "react-icons/bi";
 import useStore from "../../store/store";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
+import { formSchema } from "./formSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
+import { BsFillCheckCircleFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 function MakeLetter({ makeLetterModalRef }) {
-  const formSchema = yup.object({
-    urlName: yup
-      .string()
-      .required(
-        "url은 영문 소문자 또는 숫자가 포함되고 문자 구분자로 -를 사용할 수 있습니다."
-      )
-      .min(1, "최소 1자리 이상 입력해주세요.")
-      .max(15, "최대 15자까지 가능합니다."),
-    password: yup
-      .string()
-      .required("비밀번호는 숫자 4자리입니다.")
-      .min(4, "4자리를 입력해주세요.")
-      .max(4, "4자리를 입력해주세요")
-      .matches(/[0-9]{4}/, "숫자 4자리를 입력해주세요"),
-  });
   const {
     register,
     watch,
@@ -39,14 +26,13 @@ function MakeLetter({ makeLetterModalRef }) {
   const [hasFile, setHasFile] = useState(false);
   const [image, setImage] = useState(null);
   const { letterContents, setLetterContents } = useStore((state) => state);
-
+  const [imageFile, setImageFile] = useState();
   const renderFile = (file) => {
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setImage(reader.result);
       setHasFile(true);
-      // setLetterContents({...letterContents, })
     };
   };
   const checkFileSize = (file) => {
@@ -75,6 +61,7 @@ function MakeLetter({ makeLetterModalRef }) {
         return;
       } else if (checkFileSize(e.dataTransfer.items[0].getAsFile())) {
         renderFile(e.dataTransfer.items[0].getAsFile());
+        setImageFile(e.dataTransfer.items[0].getAsFile());
       }
     } else {
       if (e.dataTransfer.files.length > 1) {
@@ -86,10 +73,10 @@ function MakeLetter({ makeLetterModalRef }) {
         e.dataTransfer.files[0].type !== "image/gif"
       ) {
         alert("이미지 파일만 업로드 가능합니다.");
-
         return;
       } else if (checkFileSize(e.dataTransfer.files[0])) {
         renderFile(e.dataTransfer.files[0]);
+        setImageFile(e.dataTransfer.files[0]);
       }
     }
   };
@@ -105,6 +92,7 @@ function MakeLetter({ makeLetterModalRef }) {
     if (e.target.files && e.target.files[0]) {
       if (checkFileSize(e.target.files[0])) {
         renderFile(e.target.files[0]);
+        setImageFile(e.target.files[0]);
       }
     }
   };
@@ -112,18 +100,58 @@ function MakeLetter({ makeLetterModalRef }) {
     setHasFile(false);
     setImage(null);
   };
-  const handleMakeLetter = () => {
-    console.log(letterContents);
+
+  const [canUseUrl, setCanUseUrl] = useState(null);
+  const handleCheckUrlName = () => {
+    return axios({
+      method: "get",
+      url: `/api/sendy/messages/exists/${letterContents.urlName}`,
+      headers: {
+        "ngrok-skip-browser-warning": "230327",
+        Authorization: getCookie("accesstoken"),
+      },
+    }).then((res) => {
+      if (res.status === 200) {
+        setCanUseUrl(true);
+      } else {
+        setCanUseUrl(false);
+      }
+    });
+  };
+
+  const postLetterContents = () => {
     return axios({
       method: "post",
       url: "/api/sendy/messages/write",
       headers: {
-        "ngrok-skip-browser-warning": "12",
         Authorization: getCookie("accesstoken"),
       },
-      body: JSON.stringify({ ...letterContents }),
+      data: letterContents,
     });
   };
+
+  const postMessageImg = () => {
+    let formData = new FormData();
+    formData.append("image", imageFile);
+    return axios({
+      method: "post",
+      headers: {
+        "ngrok-skip-browser-warning": "230325",
+        Authorization: getCookie("accesstoken"),
+        // "Content-Type": "multipart/form-data",
+      },
+      url: `/api/sendy/messages/write/image/1`,
+      data: formData,
+    });
+  };
+
+  const navigate = useNavigate();
+  const handleMakeLetter = () => {
+    return axios.all([postLetterContents(), postMessageImg()]).then(() => {
+      navigate("complete");
+    });
+  };
+
   const handlePreview = () => {
     sessionStorage.setItem(
       "preview",
@@ -138,6 +166,7 @@ function MakeLetter({ makeLetterModalRef }) {
     );
     setLetterContents({ ...letterContents, urlName: e.target.value });
   };
+
   useEffect(() => {
     if (isValid) {
       setLetterContents({
@@ -159,12 +188,22 @@ function MakeLetter({ makeLetterModalRef }) {
         <W.FlexRowWrapper className="URL-wrapper">
           <W.FlexRowWrapper className="align-items URL-input">
             <div className="position-relative">
-              <div>https://www.sendy.site/letter</div>
-              <W.MakeLetterInput
-                className="URL-input"
-                onKeyUp={handleUrlReg}
-                {...register("urlName")}
-              />
+              <div>https://www.sendy.site/letter/</div>
+              {canUseUrl ? (
+                <W.MakeLetterInput
+                  disabled
+                  className="URL-input"
+                  onKeyUp={handleUrlReg}
+                  {...register("urlName")}
+                />
+              ) : (
+                <W.MakeLetterInput
+                  className="URL-input"
+                  onKeyUp={handleUrlReg}
+                  {...register("urlName")}
+                />
+              )}
+
               {errors.urlName && (
                 <W.ErrorMessage className="make-letter">
                   {errors.urlName.message}
@@ -172,14 +211,25 @@ function MakeLetter({ makeLetterModalRef }) {
               )}
             </div>
           </W.FlexRowWrapper>
-          <RoundButton
-            className="check-button"
-            width="65px"
-            height="32px"
-            fontStyle={FONT_STYLE_V1.body.body_12_light}
-            backgroundColor={PALETTE_V1.yellow_basic}>
-            중복체크
-          </RoundButton>
+          {canUseUrl ? (
+            <BsFillCheckCircleFill />
+          ) : (
+            <RoundButton
+              className="check-button"
+              width="65px"
+              height="32px"
+              fontStyle={FONT_STYLE_V1.body.body_12_light}
+              backgroundColor={PALETTE_V1.yellow_basic}
+              onClick={handleCheckUrlName}>
+              중복체크
+            </RoundButton>
+          )}
+
+          {canUseUrl === false ? (
+            <W.ErrorMessage>중복된 url입니다.</W.ErrorMessage>
+          ) : (
+            <></>
+          )}
         </W.FlexRowWrapper>
       </div>
       <W.FlexColunmWrapper>
@@ -246,21 +296,22 @@ function MakeLetter({ makeLetterModalRef }) {
       </div>
 
       <W.FlexRowWrapper className="button-wrapper">
-        {/* <Link to="preview" state={{ ...letterContents }} target="_blank">
-          <ShadowButton backgroundColor={PALETTE_V1.yellow_basic}>
-            미리보기
-          </ShadowButton>
-        </Link> */}
         <ShadowButton
           onClick={handlePreview}
           backgroundColor={PALETTE_V1.yellow_basic}>
           미리보기
         </ShadowButton>
-        <ShadowButton
-          backgroundColor={PALETTE_V1.yellow_basic}
-          onClick={handleMakeLetter}>
-          완료
-        </ShadowButton>
+        {canUseUrl ? (
+          <ShadowButton
+            backgroundColor={PALETTE_V1.yellow_basic}
+            onClick={handleMakeLetter}>
+            완료
+          </ShadowButton>
+        ) : (
+          <ShadowButton disabled backgroundColor="#d9d9d9">
+            완료
+          </ShadowButton>
+        )}
       </W.FlexRowWrapper>
     </W.ModalWrapper>
   );
