@@ -5,8 +5,8 @@ import { getCookie } from "../Certified/Cookie";
 import useStore from "../../store/store";
 
 function LetterItem({ outLetter, inLetter, select, trash }) {
+  const { bookMark, content, messageCreatedAt, toName, outgoingId, themeName } = outLetter;
   const { isSend } = useStore((state) => state);
-  const { bookMark, content, messageCreatedAt, toName, outgoingId } = outLetter;
   const [mark, setMark] = useState(bookMark);
   const [border, setBorder] = useState("1px solid black");
   const [shadow, setShadow] = useState("none");
@@ -18,43 +18,35 @@ function LetterItem({ outLetter, inLetter, select, trash }) {
       setBorder("3px solid red");
       setShadow("1px 0px 30px 0px rgba(255,0,0,0.5)");
       setMark(false);
-      if (border === "3px solid red") {
-        setBorder("1px solid black");
-        setShadow("none");
-        setMark(false);
-      }
-    } else {
-      setBorder("1px solid black");
-      setShadow("none");
     }
   };
 
   const handleBookMarkOut = () => {
-    setMark(!mark);
-    console.log(!mark)
-    // axios({
-    //   method: "patch",
-    //   url: `/api/sendy/mailbox/messages/bookmark/outgoing/${outgoingId}`,
-    //   headers: {
-    //     "ngrok-skip-browser-warning": "230327",
-    //     Authorization: getCookie("accesstoken"),
-    //   },
-    //   data: { bookMark: !mark },
-    // });
+      // setMark(!mark);
+      // console.log(!mark)
+      // axios({
+      //   method: "patch",
+      //   url: `/api/sendy/mailbox/messages/bookmark/outgoing/${outgoingId}`,
+      //   headers: {
+      //     "ngrok-skip-browser-warning": "230327",
+      //     Authorization: getCookie("accesstoken"),
+      //   },
+      //   data: { bookMark: true },
+      // });
   };
 
   const handleBookMarkIn = () => {
-    setMark(!mark);
-    console.log(!mark);
-    axios({
-      method: "patch",
-      url: `/api/sendy/mailbox/messages/bookmark/receiving/${inLetter.receivingId}`,
-      headers: {
-        "ngrok-skip-browser-warning": "230327",
-        Authorization: getCookie("accesstoken"),
-      },
-      data: { bookMark: mark },
-    });
+    //   setMark(!mark);
+    //   console.log(!mark);
+    //   axios({
+    //     method: "patch",
+    //     url: `/api/sendy/mailbox/messages/bookmark/receiving/${inLetter.receivingId}`,
+    //     headers: {
+    //       "ngrok-skip-browser-warning": "230327",
+    //       Authorization: getCookie("accesstoken"),
+    //     },
+    //     data: { bookMark: mark },
+    //   });
   };
 
   return (
@@ -64,6 +56,7 @@ function LetterItem({ outLetter, inLetter, select, trash }) {
           onClick={handleClick}
           borderColor={border}
           shadowColor={shadow}
+          currentLetterTheme={themeName}
         >
           <L.BookMark onClick={handleBookMarkOut}>
             {bookMark ? (
@@ -81,6 +74,7 @@ function LetterItem({ outLetter, inLetter, select, trash }) {
           onClick={handleClick}
           borderColor={border}
           shadowColor={shadow}
+          currentLetterTheme={inLetter.themeName}
         >
           <L.BookMark onClick={handleBookMarkIn}>
             {mark ? (

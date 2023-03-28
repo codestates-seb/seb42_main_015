@@ -38,27 +38,27 @@
 import { getCookie } from "../Certified/Cookie";
 import axios from "axios";
 
-export const getLettersOut = async () => {
-  return axios({
-    method: "get",
-    url: `/api/sendy/mailbox/messages/out`,
-    headers: {
-      "ngrok-skip-browser-warning": "230325",
-      Authorization: getCookie("accesstoken"),
-    },
-  });
-};
+// export const getLettersOut = async () => {
+//   return axios({
+//     method: "get",
+//     url: `/api/sendy/mailbox/messages/out`,
+//     headers: {
+//       "ngrok-skip-browser-warning": "230325",
+//       Authorization: getCookie("accesstoken"),
+//     },
+//   });
+// };
 
-const getPageLettersIn = async () => {
-  return axios({
-    method: "get",
-    url: `/api/sendy/mailbox/messages/in`,
-    headers: {
-      "ngrok-skip-browser-warning": "230325",
-      Authorization: getCookie("accesstoken"),
-    },
-  });
-};
+// const getPageLettersIn = async () => {
+//   return axios({
+//     method: "get",
+//     url: `/api/sendy/mailbox/messages/in`,
+//     headers: {
+//       "ngrok-skip-browser-warning": "230325",
+//       Authorization: getCookie("accesstoken"),
+//     },
+//   });
+// };
 
 // useEffect(() => {
 //   getPageLettersOut().then((res) => setOutLetters(res.data.data));
@@ -139,19 +139,3 @@ const getPageLettersIn = async () => {
 //     );
 //   })
 // )}
-
-<L.ItemContainer>
-  {getOut.map((outLetter) => {
-    return (
-      <LetterItem
-        key={outLetter.messageId}
-        outLetter={outLetter}
-        select={select}
-        trash={trash}
-      />
-    );
-  })}
-  <L.TargetBox ref={ref}>
-    {(isLoadingOut || isLoadingIn) && "Loading..."}
-  </L.TargetBox>
-</L.ItemContainer>;
