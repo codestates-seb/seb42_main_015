@@ -1,9 +1,24 @@
-import styled from "styled-components";
-import { BREAKPOINTMOBILE } from "../../breakpoint";
-import { FONT_STYLE_READ, FONT_STYLE_LOGIN } from "../../style/fontStyle";
+import styled, { css } from "styled-components";
+import { BREAKPOINTMOBILE, BREAKPOINTTABLET } from "../../breakpoint";
+import {
+  FONT_STYLE_READ,
+  FONT_STYLE_LOGIN,
+  FONT_STYLE_CONTENT,
+  FONT_STYLE_V1,
+} from "../../style/fontStyle";
 import pwd from "../../asset/pwd.png";
 import email from "../../asset/mail.png";
 import { PALETTE_V1 } from "../../style/color";
+import 군대 from "../../asset/letterTheme/군대-theme.png";
+import 냥냥편지 from "../../asset/letterTheme/냥냥편지-theme.png";
+import 리본 from "../../asset/letterTheme/리본-theme.png";
+import 수박 from "../../asset/letterTheme/수박-theme.png";
+import 알록달록 from "../../asset/letterTheme/알록달록-theme.png";
+import 체리 from "../../asset/letterTheme/체리-theme.png";
+import 클로버 from "../../asset/letterTheme/클로버-theme.png";
+import 정월대보름 from "../../asset/letterTheme/정월대보름-theme.png";
+import 얼룩 from "../../asset/letterTheme/얼룩-theme.png";
+import 오리 from "../../asset/letterTheme/오리-theme.png";
 
 //todo : 전체 편지지 wrapper
 export const Wrapper = styled.div`
@@ -14,6 +29,7 @@ export const Wrapper = styled.div`
   padding: 3rem 2rem;
   overflow: hidden;
   padding-bottom: 70px;
+  position: relative;
 
   .ReadContainer {
     display: flex;
@@ -81,27 +97,27 @@ export const SWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 87vh;
-  padding: 3rem 2rem;
-  overflow: hidden;
-  padding-bottom: 300px;
+  width: 100vw;
+  min-height: 100vh;
+  background: #ffffff00;
+  position: absolute;
+  z-index: 100;
+  &::before {
+    content: "";
+    backdrop-filter: blur(10px);
+  }
+  backdrop-filter: blur(10px);
 `;
 
 //todo : 비밀번호 입력 form
 export const Secretform = styled.form`
   display: flex;
-  padding: 5rem 5rem;
-  height: 60vh;
+  padding: 3rem 3rem;
+  height: 40vh;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
-  @media screen and (max-width: 1024px) {
-    height: 50vh;
-  }
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    height: 40vh;
-  }
 
   div {
     display: flex;
@@ -114,7 +130,7 @@ export const Secretform = styled.form`
   .pwdInput {
     display: flex;
     width: 27rem;
-    height: 2.7rem;
+    height: 3rem;
     background-size: 1.5rem;
     padding: 1rem 4rem;
     border-top: none;
@@ -160,14 +176,14 @@ export const Secretform = styled.form`
   }
   p {
     color: red;
-    margin: -5rem 0 -2rem;
+    margin: -7rem 0 -2rem;
     font-size: 14px;
     @media screen and (max-width: 1024px) {
-      margin: -5.5rem 0 -2rem;
+      margin: -100px 0 -30px;
       font-size: 13px;
     }
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      margin: -3rem 0 -2rem;
+      margin: -20px 0 0px;
       font-size: 7px;
     }
   }
@@ -217,9 +233,16 @@ export const EnterSeret = styled.div`
 
 //todo : 편지 letter wrapper
 export const FlexColunmWrapper = styled.div`
+  /* width: fit-content; */
   display: flex;
   flex-direction: column;
-  width: fit-content;
+  &.align-center {
+    align-items: center;
+  }
+  &.letter {
+    max-width: 756px;
+    width: 82%;
+  }
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 39rem;
@@ -228,18 +251,67 @@ export const FlexColunmWrapper = styled.div`
 
 //편지 내용(To, 날짜 , content, from)
 export const Letterpaper = styled(FlexColunmWrapper)`
-  aspect-ratio: 3/5;
-  background-color: #ffffff;
+  aspect-ratio: 680/1133;
+  /* aspect-ratio: 3/5; */
+  background-size: cover;
   flex-direction: column;
   border: 2px solid #000000;
   padding: 2.5rem 2.5rem;
+  min-height: 0;
   min-width: 680px;
-  max-width: 680px;
-
+  max-width: 754px;
+  background-color: #ffffff;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     min-width: 18rem;
     padding: 2rem 1.4rem;
   }
+
+  ${(props) => {
+    switch (props.LetterTheme) {
+      case "군대":
+        return css`
+          background-image: url(${군대});
+        `;
+      case "냥냥편지":
+        return css`
+          background-image: url(${냥냥편지});
+        `;
+      case "리본":
+        return css`
+          background-image: url(${리본});
+        `;
+      case "수박":
+        return css`
+          background-image: url(${수박});
+        `;
+      case "알록달록":
+        return css`
+          background-image: url(${알록달록});
+        `;
+      case "얼룩":
+        return css`
+          background-image: url(${얼룩});
+        `;
+      case "체리":
+        return css`
+          background-image: url(${체리});
+        `;
+      case "클로버":
+        return css`
+          background-image: url(${클로버});
+        `;
+      case "정월대보름":
+        return css`
+          background-image: url(${정월대보름});
+        `;
+      case "오리":
+        return css`
+          background-image: url(${오리});
+        `;
+      default:
+        break;
+    }
+  }};
 
   .top {
     display: flex;
@@ -248,10 +320,7 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     margin-bottom: 1rem;
     padding: 1rem 2rem 1rem 1rem;
     ${FONT_STYLE_READ.body_9_Medium}
-    font-size: 1.5rem;
-    @media screen and (max-width: 1024px) {
-      font-size: 1.7rem;
-    }
+    font-size: 1.6rem;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       padding: 0.5rem 1.2rem 1rem 1rem;
@@ -260,13 +329,33 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   }
 
   .content {
-    ${FONT_STYLE_READ.body_10_light};
     letter-spacing: 2px;
     line-height: 2.5rem;
     padding: 1rem 2rem 1rem 1rem;
-    aspect-ratio: 3/5;
+    background-color: transparent;
+    border: none;
+    resize: none;
+    aspect-ratio: 1/1.5;
+    font-size: 1.7rem;
+    /* aspect-ratio: 3/5; */
+    /* ${FONT_STYLE_READ.body_10_light}; */
+    ${(props) => {
+      switch (props.font) {
+        case "프리텐다드":
+          return FONT_STYLE_V1.body.body_18_light;
+        case "도스샘물":
+          return FONT_STYLE_CONTENT.pixel_18;
+        case "강원교육모두체":
+          return FONT_STYLE_CONTENT.gangwonedu_18_bold;
+        default:
+          break;
+      }
+    }}
     overflow: auto;
     font-size: 1.3rem;
+    &:focus {
+      outline: none;
+    }
     &::-webkit-scrollbar {
       width: 1rem;
     }
@@ -292,20 +381,78 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     }
   }
 
+  .back-add {
+    display: flex;
+    background: #ffffff00;
+    /* border: none; */
+    &::before {
+      content: "";
+      backdrop-filter: blur(100px);
+    }
+    backdrop-filter: blur(10px);
+  }
+
   .from {
     display: flex;
     ${FONT_STYLE_READ.body_9_Medium};
+    font-size: 1.6rem;
     justify-content: flex-end;
     padding: 1rem 2rem 1rem 1rem;
     font-size: 1.5rem;
-    @media screen and (max-width: 1024px) {
-      font-size: 1.7rem;
-    }
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       padding: 1.4rem 1.2rem 0.5rem 0rem;
       font-size: 11px;
     }
+  }
+
+  //편지 앞장
+  .front {
+    position: relative;
+  }
+  .front:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+    border-width: 0 0 125px 125px;
+    border-style: solid;
+    border-color: transparent transparent rgba(115, 175, 200, 0.9);
+  }
+
+  //편지 앞장
+  .front {
+    position: relative;
+    -webkit-box-shadow: -5px 7px 5px rgba(0, 0, 0, 0.8);
+    -moz-box-shadow: -5px 7px 5px rgba(0, 0, 0, 0.8);
+    box-shadow: -5px 7px 5px rgba(0, 0, 0, 0.8);
+  }
+
+  .front:before {
+    content: "";
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    width: 0px;
+    height: 0px;
+    border-bottom: 70px solid #eee;
+    border-right: 70px solid transparent;
+    -webkit-box-shadow: -7px 7px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: -7px 7px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: -7px 7px 7px rgba(0, 0, 0, 0.3);
+  }
+
+  .front:after {
+    content: "";
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    width: 0px;
+    height: 0px;
+    border-top: 69px solid #272822;
+    border-left: 69px solid transparent;
   }
 `;
 
@@ -315,13 +462,16 @@ export const Buttons = styled.div`
   align-items: center;
   justify-content: space-around;
   height: 8rem;
-  padding: 0rem 0rem 0rem 32rem;
+  padding: 0rem 0rem 0rem 31rem;
+
   @media screen and (max-width: 1024px) {
     padding: 0rem 0rem 0rem 38rem;
   }
-
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    padding: 0rem 0rem 0rem 10rem;
+    padding: 0rem 0rem 0rem 9.2rem;
+  }
+  @media screen and (min-width: 420px) and (max-width: ${BREAKPOINTTABLET}px) {
+    padding: 0rem 0rem 0rem 5rem;
   }
 
   .button {
@@ -349,6 +499,8 @@ export const Buttons = styled.div`
     display: flex;
     margin: 0.2rem 20rem 0 -31rem;
     cursor: pointer;
+    visibility: ${(props) => props.visibility};
+
     @media screen and (max-width: 1024px) {
       margin: 0.2rem 35rem 0 -37rem;
     }
@@ -358,70 +510,17 @@ export const Buttons = styled.div`
       height: 2.8rem;
     }
   }
+
   .trash {
     display: flex;
     margin-right: 8px;
     cursor: pointer;
+    visibility: ${(props) => props.visibility};
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       width: 3rem;
       height: 3rem;
     }
   }
-`;
-
-//todo : 편지 content hard cording
-export const LetterEx = `이 노래는 it's about you baby
-Only you
-You, you, you
-You, you, you, you
-내가 힘들 때, 울 것 같을 때
-기운도 이젠 나지 않을 때
-It's you 날 걱정하네
-It's you 날 웃게하네
-말 안 해도 돼
-Boy, what do you say?
-멀리든 언제든지 달려와
-(They keep on asking me, "Who is he?")
-바쁜 척도 없이 넌 나타나
-(They keep on asking me, "Who is he?")
-이게 말이 되니? 난 물어봐
-(They keep on asking me, "Who is he?")
-너는 말야
-He's the one that's living in my system, baby
-Oh my, oh my God 예상했어 나
-I was really hoping that he will come through
-Oh my, oh my God 단 너뿐이야
-Asking all the time about what I should do
-No, I can never let him go
-너만 생각나 twenty-four
-난 행운아야 정말로 I know, I know
-널 알기 전까지는 나 의미 없었어 전부 다
-내 맘이 끝이 없는 걸 I know, I know
-I'm going crazy, right?
-어디서든, 몇 번이든
-There ain't nothing else that I would hold on to
-I hear his voice through all the noise
-잠시라도 내 손 놓지 마 no, no
-걱정 없잖아 'cause I got someone
-혼자라도 괜찮아 'cause I love someone
-멀리든 언제든지 달려와
-(They keep on asking me, "Who is he?")
-바쁜 척도 없이 넌 나타나
-(They keep on asking me, "Who is he?")
-이게 말이 되니? 난 물어봐
-(They keep on asking me, "Who is he?")
-너는 말야
-He's the one that's living in my system, baby
-Oh my, oh my God 예상했어 나
-I was really hoping that he will come through
-Oh my, oh my God 단 너뿐이야
-Asking all the time about what I should do
-No, I can never let him go
-너만 생각나 twenty-four
-난 행운아야 정말로 I know, I know
-널 알기 전까지는 나 의미 없었어 전부 다
-내 맘이 끝이 없는 걸 I know, I know
-He's the one that's living in my system baby
 `;
 
 //todo : 보관하기 로그인 모달
@@ -472,7 +571,7 @@ export const ModalWrapper = styled.div`
       border-bottom: 1px solid #000;
       background-repeat: no-repeat;
       background-position: left;
-      font-size: 0.8rem;
+      font-size: 1.2rem;
       margin-bottom: 0.4rem;
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
         width: 23rem;
@@ -531,4 +630,27 @@ export const ModalBackground = styled.div`
   left: 0;
   right: 0;
   z-index: 100;
+`;
+
+//todo : 편지 넘기기
+export const Card = styled.div`
+  position: relative;
+  transition: 0.4s;
+  transform-style: preserve-3d;
+  perspective: 1100px;
+  .front,
+  .back {
+    backface-visibility: hidden;
+  }
+  .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    transform: rotateY(180deg);
+  }
+  &.active-rotate {
+    transform: rotateY(180deg);
+  }
 `;
