@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmailController {
     private final EmailService emailService;
 
+    /**
+     * 랜덤 인증코드 이메일 발송 API
+     * @param emailPostDto
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/send-code-email")
     public ResponseEntity postCodeMail(@RequestBody EmailPostDto emailPostDto) throws Exception {
         EmailInfo emailInfo = EmailInfo.builder()
