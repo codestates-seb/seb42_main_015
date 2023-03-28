@@ -121,11 +121,13 @@ export const Dropdown = styled.ul`
   position: absolute;
   top: 40px;
   right: 1px;
+  z-index: 1;
 `;
 
 export const DropdownItem = styled.li`
   width: 100%;
   height: 40px;
+  background-color: ${PALETTE_V1.background};
   border: 1px solid black;
   border-right: none;
   margin-top: -1px;
@@ -201,6 +203,7 @@ export const ItemWrap = styled.div`
 
 export const ItemContainer = styled.div`
   width: 90%;
+  height: max-content;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -209,6 +212,13 @@ export const ItemContainer = styled.div`
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     padding-left: 0;
   }
+`;
+
+export const NotSearch = styled.div`
+  width: 90%;
+  height: 5rem;
+  text-align: center;
+  ${FONT_STYLE_V1.body.body_18_light}
 `;
 
 export const ItemBox = styled.div`

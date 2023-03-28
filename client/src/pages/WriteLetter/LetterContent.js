@@ -51,9 +51,11 @@ function LetterContent({
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
 
   const textarea = useRef();
+
   useEffect(() => {
     textarea.current.focus();
   }, []);
+
   useEffect(() => {
     if (isValid) {
       setIsContentVaild(true);
@@ -63,8 +65,10 @@ function LetterContent({
         fromName: watch("senderName"),
         content,
       });
+    } else {
+      setIsContentVaild(false);
     }
-  }, [isValid]);
+  }, [isValid, watch("senderName"), watch("receiverName")]);
 
   useEffect(() => {
     textarea.current.value += " " + finalTranscript;
@@ -154,6 +158,7 @@ function LetterContent({
         font={contentFont}
         name="content"
         onInput={handleContentLength}
+        onKeyUp={(e) => setContent(e.target.value)}
         {...register("content")}
         ref={textarea}
         maxLength={7000}></W.ContentTextarea>

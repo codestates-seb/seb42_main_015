@@ -1,95 +1,103 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import * as R from "../ReadLetter/ReadStyled";
-import domtoimage from "dom-to-image";
-import { saveAs } from "file-saver";
-import SecretLetter from "../ReadLetter/SecretLetter";
-import { AiOutlineSound } from "react-icons/ai";
-import { HiPause } from "react-icons/hi2";
-import ReadButtons from "../ReadLetter/ReadButtons";
-import axios from "axios";
+import * as W from "../WriteLetter/WriteStyled";
+import styled from "styled-components";
+import ShadowButton from "../commons/ShadowButton";
+import { PALETTE_V1 } from "../../style/color";
 
-const Preview = ({ isLogin }) => {
-  const url = new URL(window.location.href);
-  const urlParams = url.searchParams.get("password"); //url파라미터값
-  const { id } = useParams();
-  console.log(id);
-
-  const [enterPassword, setEnterPassword] = useState(false);
-  //보관하기를 클릭했을 때 비로그인(저장X)인지 로그인(저장준비 완료)아닌지
-  const [isKeeping, setIsKeeping] = useState(false);
-  //편지 정보 가져오기
-  const [data, setData] = useState([]);
-
-  //! 이미지 저장 기능
-  //useRef로 -> DOM 선택
-  const LetterRef = useRef();
-  //이미지로 저장하기 버튼
-  const onDownloadBtn = () => {
-    const letter = LetterRef.current;
-    domtoimage.toBlob(letter).then((blob) => {
-      saveAs(blob, "letter.png");
-    });
+const Container = styled.div`
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  .back-button {
+    padding-top: 3rem;
+  }
+`;
+const Wrapper = styled.div`
+  width: 85%;
+  max-width: 754px;
+  display: flex;
+  flex-direction: column;
+`;
+const Card = styled.div`
+  position: relative;
+  transition: 0.4s;
+  transform-style: preserve-3d;
+  perspective: 1100px;
+  .front,
+  .back {
+    backface-visibility: hidden;
+  }
+  .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    transform: rotateY(180deg);
+  }
+  &.active-rotate {
+    transform: rotateY(180deg);
+  }
+`;
+const Preview = () => {
+  const { toName, fromName, content, font, theme, image } = JSON.parse(
+    sessionStorage.getItem("preview")
+  );
+  const [rotate, setRotate] = useState(false);
+  const handleRotate = () => {
+    setRotate(!rotate);
   };
-
-  //! 모달 영역 밖 클릭 시 모달 닫기
-  const ModalRef = useRef();
-  const handleModal = (e) => {
-    if (isKeeping && !ModalRef.current.contains(e.target)) {
-      setIsKeeping(false);
-    }
-  };
-
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-    "ngrok-skip-browser-warning": "12",
-  };
-
-  //! 전체 편지정보 가져오기
-  useEffect(() => {
-    const getLetterData = async () => {
-      await axios
-        .get(`/api/sendy/messages/${id}/${urlParams}`, { headers })
-        .then((res) => {
-          setData(res.body);
-        })
-        .catch((err) => {
-          // alert(err);
-          // console.log(err);
-        });
-    };
-    getLetterData();
-  }, [data]);
 
   return (
-    <>
-      <R.Wrapper>
-        <div className="ReadContainer" onClick={handleModal}>
-          <div className="top-sub">
-            <R.EnterSeret>
-              비밀번호
-              <input placeholder="****" />
-            </R.EnterSeret>
-          </div>
-          <R.Letterpaper ref={LetterRef}>
+    <Container>
+      <Wrapper>
+        <Card className={rotate ? "active-rotate" : ""}>
+          <W.LetterBox currentLetterTheme={theme} className="front">
             <div className="top">
-              <div className="to">To. 김햄찌</div>
-              <div className="date">2023.03.17 금</div>
+              <W.FlexWrapper1>
+                <W.NameInputWrapper className="preview">
+                  to. {toName}
+                </W.NameInputWrapper>
+                <W.Date>2023.03.17 금</W.Date>
+              </W.FlexWrapper1>
             </div>
-            <div className="content">{R.LetterEx}</div>
-            <div className="from">From. 오디토</div>
-          </R.Letterpaper>
-          <ReadButtons
-            ModalRef={ModalRef}
-            isKeeping={isKeeping}
-            setIsKeeping={setIsKeeping}
-            isLogin={isLogin}
-            onDownloadBtn={onDownloadBtn}
-          />
-        </div>
-      </R.Wrapper>
-    </>
+            <W.PreviewContent font={font}>{content}</W.PreviewContent>
+            <W.FromWrapper>
+              <W.NameInputWrapper className="from-input preview">
+                From. {fromName}
+              </W.NameInputWrapper>
+            </W.FromWrapper>
+          </W.LetterBox>
+          <W.LetterBox className="back">
+            <W.BackImg src={image}></W.BackImg>
+            <div className="preview-back-content">
+              <W.FlexWrapper1>
+                <W.Date>2023.03.17 금</W.Date>
+              </W.FlexWrapper1>
+              <W.FlexWrapper1>
+                <W.NameInputWrapper className="preview">
+                  {toName}에게
+                </W.NameInputWrapper>
+                <W.NameInputWrapper className="from-input preview">
+                  {fromName}(이)가
+                </W.NameInputWrapper>
+              </W.FlexWrapper1>
+            </div>
+          </W.LetterBox>
+        </Card>
+        <W.ButtonWrapper className="back-button">
+          <ShadowButton
+            onClick={handleRotate}
+            backgroundColor={PALETTE_V1.yellow_button}>
+            뒷면보기
+          </ShadowButton>
+        </W.ButtonWrapper>
+      </Wrapper>
+    </Container>
   );
 };
 

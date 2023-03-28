@@ -2,12 +2,12 @@ import axios from "axios";
 import { getCookie } from "../pages/Certified/Cookie";
 
 const axiosCall = async (call) => {
-  const { method, url, data } = call;
+  // const { method, url, data } = call;
   const token = getCookie("accesstoken");
   return axios({
-    method,
-    url,
-    data,
+    method: call.method,
+    url: call.url,
+    data: call?.data,
     headers: {
       "ngrok-skip-browser-warning": "12",
       Authorization: token,

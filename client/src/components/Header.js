@@ -3,33 +3,32 @@ import { BREAKPOINTMOBILE } from "../../src/breakpoint";
 import { Link, useNavigate } from "react-router-dom";
 import postbox from "../asset/postbox.svg";
 import axios from "axios";
-import { getCookie } from "../pages/Certified/Cookie";
+import { getCookie, removeCookie } from "../pages/Certified/Cookie";
+import useStore from "../store/store";
 
-function Header({ isLogin }) {
+function Header() {
   const navigate = useNavigate();
+  const { isLogin, setIsLogin } = useStore((state) => state);
 
   //로그아웃 제출 버튼
   const onLogout = async () => {
-    await axios
-      .post(
-        `/api/sendy/auth/logout`,
-        {
-          Authorization: `Bearer ${getCookie("jwtToken")}`,
-          Refresh: localStorage.getItem("refreshToken"),
-        },
-        {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          "ngrok-skip-browser-warning": "12",
-        }
-      )
-      .then((res) => {
-        console.log(res.body);
+    axios({
+      method: "post",
+      url: `/api/sendy/auth/logout`,
+      headers: {
+        "ngrok-skip-browser-warning": "12",
+        Authorization: getCookie("accesstoken"),
+        Refresh: localStorage.getItem("refreshToken"),
+      },
+    })
+      .then(() => {
+        localStorage.clear();
+        removeCookie("accesstoken");
         navigate("/completeLogout");
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
-        alert("로그아웃에 실패하였습니다.");
       });
   };
 
@@ -60,7 +59,7 @@ function Header({ isLogin }) {
                 <Link to="/mypage">mypage</Link>
               </li>
               <li>
-                <a onClick={() => onLogout}>Logout</a>
+                <a onClick={onLogout}>Logout</a>
               </li>
             </div>
           ) : (
@@ -112,6 +111,9 @@ const HeaderContainer = styled.div`
     font-family: "Sriracha";
     padding-bottom: 4px;
     font-size: clamp(2.6rem, 3vw, 2.8rem);
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      font-size: 24px;
+    }
   }
 
   .logo-img {
@@ -144,5 +146,8 @@ const HeaderContainer = styled.div`
     font-family: "Inria Sans", sans-serif;
     cursor: pointer;
     font-size: clamp(1.6rem, 3vw, 1.6rem);
+    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      font-size: 15px;
+    }
   }
 `;

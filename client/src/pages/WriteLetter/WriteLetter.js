@@ -1,7 +1,6 @@
-import React, { forwardRef, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as W from "./WriteStyled";
 import { BiMicrophone, BiFontColor } from "react-icons/bi";
-import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { SlQuestion } from "react-icons/sl";
 import { PALETTE_V1 } from "../../style/color";
@@ -14,6 +13,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import MakeLetter from "./MakeLetter";
+import useStore from "../../store/store";
 
 function WriteLetter() {
   const [openExplaination, setOpenExplaination] = useState(false);
@@ -44,6 +44,9 @@ function WriteLetter() {
     "오리",
   ];
   const [browserSize, setBrowserSize] = useState();
+
+  const { letterContents, setLetterContents } = useStore((state) => state);
+
   const sendMeModalRef = useRef();
   const makeLetterModalRef = useRef();
   const {
@@ -71,7 +74,14 @@ function WriteLetter() {
         SpeechRecognition.startListening({ continuous: true, language: "ko" });
       }
     } else if (e.currentTarget.id === "폰트변경") {
-      setActiveIcon("폰트변경");
+      if (activeIcon === "폰트변경") {
+        setActiveIcon("");
+      } else {
+        if (listening) {
+          SpeechRecognition.stopListening();
+        }
+        setActiveIcon("폰트변경");
+      }
     }
   };
   const handleModal = (e) => {
@@ -87,19 +97,33 @@ function WriteLetter() {
   const handleThemeLeft = () => {
     if (letterTheme.indexOf(currentLetterTheme) === 0) {
       setCurrentLetterTheme(letterTheme[letterTheme.length - 1]);
+      setLetterContents({
+        ...letterContents,
+        themeName: letterTheme[letterTheme.length - 1],
+      });
     } else {
-      setCurrentLetterTheme(
-        letterTheme[letterTheme.indexOf(currentLetterTheme) - 1]
-      );
+      setCurrentLetterTheme({
+        ...letterContents,
+        themeName: letterTheme[letterTheme.indexOf(currentLetterTheme) - 1],
+      });
+      setLetterContents({
+        ...letterContents,
+        themeName: letterTheme[letterTheme.indexOf(currentLetterTheme) - 1],
+      });
     }
   };
   const handleThemeRight = () => {
     if (letterTheme.indexOf(currentLetterTheme) === letterTheme.length - 1) {
       setCurrentLetterTheme(letterTheme[0]);
+      setLetterContents({ ...letterContents, themeName: letterTheme[0] });
     } else {
       setCurrentLetterTheme(
         letterTheme[letterTheme.indexOf(currentLetterTheme) + 1]
       );
+      setLetterContents({
+        ...letterContents,
+        themeName: letterTheme[letterTheme.indexOf(currentLetterTheme) + 1],
+      });
     }
   };
   const handleOpenMakeLetter = (e) => {
@@ -108,11 +132,18 @@ function WriteLetter() {
   const getBrowserSize = () => {
     setBrowserSize(window.innerWidth);
   };
+
   window.addEventListener("resize", getBrowserSize);
   useEffect(() => {
     setBrowserSize(window.innerWidth);
   }, []);
 
+  useEffect(() => {
+    setLetterContents({
+      ...letterContents,
+      themeName: letterTheme[contentLength],
+    });
+  }, []);
   return (
     <W.PageContainer onClick={handleModal}>
       {openExplaination || openSendMe || openMakeLetter ? (
@@ -141,8 +172,8 @@ function WriteLetter() {
       {openMakeLetter ? (
         <Modal
           className="make-letter-modal"
-          ContainerWidth={browserSize > 767 ? "400px" : "300px"}
-          ContainerHeight={browserSize > 767 ? "700px" : "600px"}
+          ContainerWidth={browserSize > 767 ? "500px" : "300px"}
+          ContainerHeight={browserSize > 767 ? "800px" : "600px"}
           children={<MakeLetter makeLetterModalRef={makeLetterModalRef} />}
         />
       ) : (
@@ -159,7 +190,7 @@ function WriteLetter() {
                   <BiMicrophone
                     onClick={handleActiveIcon}
                     className={
-                      listening
+                      listening && activeIcon === "음성인식"
                         ? "active-icon microphone-icon"
                         : "microphone-icon"
                     }
@@ -310,8 +341,10 @@ function WriteLetter() {
                   <></>
                 )}
                 <ShadowButton
-                  onClick={handleOpenMakeLetter}
-                  backgroundColor={PALETTE_V1.yellow_button}>
+                  onClick={isContentVaild ? handleOpenMakeLetter : () => {}}
+                  backgroundColor={
+                    isContentVaild ? PALETTE_V1.yellow_button : "#d9d9d9"
+                  }>
                   편지생성
                 </ShadowButton>
               </W.BallonWrapper>

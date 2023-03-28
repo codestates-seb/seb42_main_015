@@ -2,12 +2,10 @@ import React from "react";
 import * as L from "./LetterBoxStyled";
 import LetterList from "./LetterList";
 
-function LetterView({select, trash}) {
+function LetterView({isSearchOut, isSearchIn, select, trash }) {
   return (
     <L.ListWrap>
-      <LetterList select={select} trash={trash} />
-      <LetterList />
-      <LetterList />
+      <LetterList isSearchOut={isSearchOut} isSearchIn={isSearchIn} select={select} trash={trash} />
     </L.ListWrap>
   );
 }

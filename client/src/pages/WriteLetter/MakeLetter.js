@@ -7,32 +7,16 @@ import { FONT_STYLE_V1 } from "../../style/fontStyle";
 import { PALETTE_V1 } from "../../style/color";
 import addImage from "../../asset/add-image.png";
 import { BiX } from "react-icons/bi";
-import axiosCall from "../../util/axiosCall";
 import useStore from "../../store/store";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
+import { formSchema } from "./formSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
+import { getCookie } from "../Certified/Cookie";
+import { BsFillCheckCircleFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 function MakeLetter({ makeLetterModalRef }) {
-  const formSchema = yup.object({
-    urlName: yup
-      .string()
-      .required(
-        "영문 소문자 또는 숫자를 반드시 포함하고 -가 있을 수 있는 1 ~ 15자를 입력해주세요."
-      )
-      .min(1, "최소 1자리 이상 입력해주세요.")
-      .max(15, "최대 15자까지 가능합니다.")
-      .matches(
-        /^[a-z][0-9][-].{1,15}$/,
-        "url은 영문 소문자나 숫자를 포함하고 1~15자리입니다."
-      ),
-    password: yup
-      .string()
-      .required("비밀번호는 숫자 4자리입니다.")
-      .min(4, "4자리를 입력해주세요.")
-      .max(4, "4자리를 입력해주세요")
-      .matches(/[0-9]{4}/, "숫자 4자리를 입력해주세요"),
-  });
   const {
     register,
     watch,
@@ -41,9 +25,8 @@ function MakeLetter({ makeLetterModalRef }) {
   const [dragOver, setDragOver] = useState(false);
   const [hasFile, setHasFile] = useState(false);
   const [image, setImage] = useState(null);
-  const selectFileRef = useRef();
   const { letterContents, setLetterContents } = useStore((state) => state);
-
+  const [imageFile, setImageFile] = useState();
   const renderFile = (file) => {
     let reader = new FileReader();
     reader.readAsDataURL(file);
@@ -78,6 +61,7 @@ function MakeLetter({ makeLetterModalRef }) {
         return;
       } else if (checkFileSize(e.dataTransfer.items[0].getAsFile())) {
         renderFile(e.dataTransfer.items[0].getAsFile());
+        setImageFile(e.dataTransfer.items[0].getAsFile());
       }
     } else {
       if (e.dataTransfer.files.length > 1) {
@@ -89,10 +73,10 @@ function MakeLetter({ makeLetterModalRef }) {
         e.dataTransfer.files[0].type !== "image/gif"
       ) {
         alert("이미지 파일만 업로드 가능합니다.");
-
         return;
       } else if (checkFileSize(e.dataTransfer.files[0])) {
         renderFile(e.dataTransfer.files[0]);
+        setImageFile(e.dataTransfer.files[0]);
       }
     }
   };
@@ -108,12 +92,79 @@ function MakeLetter({ makeLetterModalRef }) {
     if (e.target.files && e.target.files[0]) {
       if (checkFileSize(e.target.files[0])) {
         renderFile(e.target.files[0]);
+        setImageFile(e.target.files[0]);
       }
     }
   };
   const handleDeleteFlie = (e) => {
     setHasFile(false);
     setImage(null);
+  };
+
+  const [canUseUrl, setCanUseUrl] = useState(null);
+  const handleCheckUrlName = () => {
+    return axios({
+      method: "get",
+      url: `/api/sendy/messages/exists/${letterContents.urlName}`,
+      headers: {
+        "ngrok-skip-browser-warning": "230327",
+        Authorization: getCookie("accesstoken"),
+      },
+    }).then((res) => {
+      if (res.status === 200) {
+        setCanUseUrl(true);
+      } else {
+        setCanUseUrl(false);
+      }
+    });
+  };
+
+  const postLetterContents = () => {
+    return axios({
+      method: "post",
+      url: "/api/sendy/messages/write",
+      headers: {
+        Authorization: getCookie("accesstoken"),
+      },
+      data: letterContents,
+    });
+  };
+
+  const postMessageImg = () => {
+    let formData = new FormData();
+    formData.append("image", imageFile);
+    return axios({
+      method: "post",
+      headers: {
+        "ngrok-skip-browser-warning": "230325",
+        Authorization: getCookie("accesstoken"),
+        // "Content-Type": "multipart/form-data",
+      },
+      url: `/api/sendy/messages/write/image/1`,
+      data: formData,
+    });
+  };
+
+  const navigate = useNavigate();
+  const handleMakeLetter = () => {
+    return axios.all([postLetterContents(), postMessageImg()]).then(() => {
+      navigate("complete");
+    });
+  };
+
+  const handlePreview = () => {
+    sessionStorage.setItem(
+      "preview",
+      JSON.stringify({ ...letterContents, image })
+    );
+    window.open("/writeletter/preview");
+  };
+  const handleUrlReg = (e) => {
+    e.target.value = e.target.value.replace(
+      /[ㄱ-힣~!@#$%^&*()_+|<>?:{}=\\`"';\.\,\[\]/]/g,
+      ""
+    );
+    setLetterContents({ ...letterContents, urlName: e.target.value });
   };
 
   useEffect(() => {
@@ -136,22 +187,49 @@ function MakeLetter({ makeLetterModalRef }) {
         </W.FlexRowWrapper>
         <W.FlexRowWrapper className="URL-wrapper">
           <W.FlexRowWrapper className="align-items URL-input">
-            <div>https://www.sendy.site/letter</div>
-            <W.MakeLetterInput
-              className="URL-input"
-              {...register("urlName")}></W.MakeLetterInput>
+            <div className="position-relative">
+              <div>https://www.sendy.site/letter/</div>
+              {canUseUrl ? (
+                <W.MakeLetterInput
+                  disabled
+                  className="URL-input"
+                  onKeyUp={handleUrlReg}
+                  {...register("urlName")}
+                />
+              ) : (
+                <W.MakeLetterInput
+                  className="URL-input"
+                  onKeyUp={handleUrlReg}
+                  {...register("urlName")}
+                />
+              )}
+
+              {errors.urlName && (
+                <W.ErrorMessage className="make-letter">
+                  {errors.urlName.message}
+                </W.ErrorMessage>
+              )}
+            </div>
           </W.FlexRowWrapper>
-          {errors.urlName && (
-            <W.ErrorMessage>{errors.urlName.message}</W.ErrorMessage>
+          {canUseUrl ? (
+            <BsFillCheckCircleFill />
+          ) : (
+            <RoundButton
+              className="check-button"
+              width="65px"
+              height="32px"
+              fontStyle={FONT_STYLE_V1.body.body_12_light}
+              backgroundColor={PALETTE_V1.yellow_basic}
+              onClick={handleCheckUrlName}>
+              중복체크
+            </RoundButton>
           )}
-          <RoundButton
-            className="check-button"
-            width="65px"
-            height="32px"
-            fontStyle={FONT_STYLE_V1.body.body_12_light}
-            backgroundColor={PALETTE_V1.yellow_basic}>
-            중복체크
-          </RoundButton>
+
+          {canUseUrl === false ? (
+            <W.ErrorMessage>중복된 url입니다.</W.ErrorMessage>
+          ) : (
+            <></>
+          )}
         </W.FlexRowWrapper>
       </div>
       <W.FlexColunmWrapper>
@@ -166,6 +244,9 @@ function MakeLetter({ makeLetterModalRef }) {
           className="password-input"
           backgroundImg={keyIcon}
           placeholder=" * * * *"
+          onKeyUp={(e) =>
+            setLetterContents({ ...letterContents, password: e.target.value })
+          }
           {...register("password")}></W.MakeLetterInput>
       </W.FlexColunmWrapper>
       <div>
@@ -208,7 +289,6 @@ function MakeLetter({ makeLetterModalRef }) {
             id="chooseFile"
             type="file"
             onChange={handleFile}
-            ref={selectFileRef}
             accept="image/png, image/jpeg, image/gif"
             multiple={false}
           />
@@ -216,12 +296,22 @@ function MakeLetter({ makeLetterModalRef }) {
       </div>
 
       <W.FlexRowWrapper className="button-wrapper">
-        <ShadowButton backgroundColor={PALETTE_V1.yellow_basic}>
+        <ShadowButton
+          onClick={handlePreview}
+          backgroundColor={PALETTE_V1.yellow_basic}>
           미리보기
         </ShadowButton>
-        <ShadowButton backgroundColor={PALETTE_V1.yellow_basic}>
-          완료
-        </ShadowButton>
+        {canUseUrl ? (
+          <ShadowButton
+            backgroundColor={PALETTE_V1.yellow_basic}
+            onClick={handleMakeLetter}>
+            완료
+          </ShadowButton>
+        ) : (
+          <ShadowButton disabled backgroundColor="#d9d9d9">
+            완료
+          </ShadowButton>
+        )}
       </W.FlexRowWrapper>
     </W.ModalWrapper>
   );

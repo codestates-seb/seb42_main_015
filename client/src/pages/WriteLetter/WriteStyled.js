@@ -26,16 +26,11 @@ import 오리 from "../../asset/letterTheme/오리-theme.png";
 
 export const PageContainer = styled.div`
   background-color: ${PALETTE_V1.background};
-  min-width: 100%;
+  width: 100vw;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   overflow-x: none;
-  /* .make-letter-modal{
-    .modal-container{
-      min-width: ;
-    }
-  } */
 `;
 export const FlexRowWrapper = styled.div`
   display: flex;
@@ -97,14 +92,16 @@ export const FlexColunmWrapper = styled.div`
     align-items: center;
   }
   &.letter {
-    width: 75%;
+    max-width: 756px;
+    width: 82%;
   }
 `;
 export const FlexWrapper2 = styled(FlexRowWrapper)`
   justify-content: center;
-  width: 100%;
-  min-width: 329px;
-  max-width: 1077px;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 `;
 export const PageWrapper = styled(FlexColunmWrapper)`
   padding-top: 5%;
@@ -115,8 +112,6 @@ export const PageWrapper = styled(FlexColunmWrapper)`
   }
 `;
 export const LetterWrapper = styled.div`
-  width: 100%;
-  height: auto;
   .active-icon {
     background-color: ${PALETTE_V1.yellow_modal_button};
     border-radius: 50%;
@@ -139,14 +134,15 @@ export const LetterWrapper = styled.div`
   }
 `;
 export const LetterBox = styled(FlexColunmWrapper)`
-  aspect-ratio: 676/1129;
+  aspect-ratio: 680/1133;
   justify-content: space-between;
   border: 2px solid #000000;
   padding: 7% 10% 6% 10%;
   background-repeat: no-repeat;
   background-size: cover;
-  min-width: 230px;
+  min-height: 0;
   max-width: 754px;
+  background-color: #ffffff;
   ${(props) => {
     switch (props.currentLetterTheme) {
       case "군대":
@@ -196,6 +192,15 @@ export const LetterBox = styled(FlexColunmWrapper)`
   @media screen and (min-width: 1097px) {
     padding: 52.906px 75.594px 45.359px 75.594px;
   }
+  &.back {
+    justify-content: space-evenly;
+    .preview-back-content {
+      height: 14%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+  }
 `;
 export const FlexWrapper1 = styled(FlexRowWrapper)`
   justify-content: space-between;
@@ -226,23 +231,17 @@ export const IconWrapper = styled.div`
 export const ThemeIcon = styled.div`
   display: flex;
   align-items: center;
-  padding-left: 1.5%;
-  padding-right: 1.5%;
+  margin-left: 1%;
+  margin-right: 1%;
   .arrow-backward-icon,
   .arrow-forward-icon {
     color: ${PALETTE_V1.text_primary};
-    font-size: 40px;
+    font-size: 4rem;
   }
-  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+  @media screen and (max-width: 420px) {
     .arrow-backward-icon,
     .arrow-forward-icon {
-      font-size: 30px;
-    }
-  }
-  @media screen and (min-width: ${BREAKPOINTTABLET}px) {
-    .arrow-backward-icon,
-    .arrow-forward-icon {
-      font-size: 50px;
+      font-size: 3rem;
     }
   }
 `;
@@ -252,14 +251,20 @@ export const NameInputWrapper = styled.div`
   flex-direction: row;
   border-bottom: 2px solid ${PALETTE_V1.text_primary};
   height: 100%;
+  &.preview {
+    border: none;
+  }
 `;
-export const NameInput = styled.input`
+export const NameInput = styled.input.attrs({ autoComplete: "off" })`
   ${FONT_STYLE_V1.body.body_20_light}
   border: none;
   background-color: transparent;
   margin-left: 5px;
   margin-bottom: 6px;
   overflow: hidden;
+  &.from-input {
+    text-align: right;
+  }
   &:focus {
     outline: none;
   }
@@ -270,13 +275,11 @@ export const Text = styled.div`
 export const Date = styled(Text)`
   height: fit-content;
   white-space: nowrap;
-  @media screen and (min-width: 344px) {
-  }
 `;
 export const SendMeWrapper = styled(FlexRowWrapper)`
   align-items: center;
   padding-bottom: 0.5rem;
-  padding-top: 20px;
+  padding-top: 2rem;
 `;
 export const SendMeCheckBox = styled.div`
   cursor: pointer;
@@ -284,8 +287,8 @@ export const SendMeCheckBox = styled.div`
   align-items: center;
   &::before {
     content: "";
-    width: 11px;
-    height: 11px;
+    width: 1.1rem;
+    height: 1.1rem;
     border: 1px solid ${PALETTE_V1.text_primary};
   }
   &.active::before {
@@ -305,7 +308,7 @@ export const ContentTextarea = styled.textarea`
   background-color: transparent;
   border: none;
   resize: none;
-  aspect-ratio: 1/1.6;
+  aspect-ratio: 1/1.5;
   ${(props) => {
     switch (props.font) {
       case "프리텐다드":
@@ -320,6 +323,19 @@ export const ContentTextarea = styled.textarea`
   }}
   &:focus {
     outline: none;
+  }
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #d9d9d9;
+    border-radius: 7px;
+    border: 1.5px solid;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: ${PALETTE_V1.background};
+    border-radius: 7px;
+    border: 1.5px solid;
   }
 `;
 export const FromWrapper = styled(FlexRowWrapper)`
@@ -504,8 +520,9 @@ export const BallonWrapper = styled.div`
   width: fit-content;
   #check-icon {
     position: absolute;
-    top: -10px;
-    left: -3px;
+    top: -1rem;
+    left: -0.3rem;
+    font-size: 2.4rem;
     color: ${PALETTE_V1.text_primary};
   }
   &.button {
@@ -644,11 +661,14 @@ export const ReservationText = styled.div`
   text-align: center;
 `;
 export const ErrorMessage = styled.p`
-  ${FONT_STYLE_V1.body.body_15_light}
+  ${FONT_STYLE_V1.body.body_13_light}
   position: absolute;
   padding-top: 2px;
   color: grey;
   width: fit-content;
+  &.make-letter {
+    top: 250px;
+  }
 `;
 export const FontContainer = styled.ul`
   position: absolute;
@@ -694,6 +714,9 @@ export const MakeLetterInput = styled.input`
   &.URL-input {
     padding: 0 5px;
     margin-right: 18px;
+    .position-relative {
+      position: relative;
+    }
   }
   &.password-input {
     width: 9rem;
@@ -765,4 +788,22 @@ export const UploadBox = styled.div`
   .file {
     display: none;
   }
+`;
+export const PreviewContent = styled.div`
+  aspect-ratio: 1/1.6;
+  ${(props) => {
+    switch (props.font) {
+      case "프리텐다드":
+        return FONT_STYLE_V1.body.body_18_light;
+      case "도스샘물":
+        return FONT_STYLE_CONTENT.pixel_18;
+      case "강원교육모두체":
+        return FONT_STYLE_CONTENT.gangwonedu_18_bold;
+      default:
+        break;
+    }
+  }}
+`;
+export const BackImg = styled.img`
+  border: 2px solid;
 `;

@@ -25,7 +25,7 @@ const FooterComponent = styled.footer`
       margin-bottom: 12px;
       font-size: 2.4rem;
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-        font-size: 2.2rem;
+        font-size: 20px;
       }
     }
     .logo-img {
@@ -39,8 +39,8 @@ const FooterComponent = styled.footer`
         margin: 5px 0 0 6px;
       }
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-        width: 15px;
-        height: 10px;
+        width: 19px;
+        height: 14px;
         margin: 2px 0 0 4px;
       }
     }
@@ -58,7 +58,7 @@ const FooterComponent = styled.footer`
         font-size: 1.2rem;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           padding: 2.5px 0;
-          font-size: 0.8rem;
+          font-size: 10px;
         }
       }
     }
