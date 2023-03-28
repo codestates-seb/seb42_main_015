@@ -72,6 +72,11 @@ public class DustbinService {
         }
     }
 
+    public void batchDeleteOutgoing(Long outgoingId) {
+        Outgoing outgoing = outgoingService.findVerifiedOutgoing(outgoingId);
+        outgoingRepository.delete(outgoing);
+    }
+
     public Page<Receiving> findAllReceivingMessages(int page, int size, Authentication authentication) { // 수신 (받은 편지) 휴지통
         Long memberId = findMemberIdByAuthenticatedUser(authentication);
         PageRequest pageRequest = PageRequest.of(page, size);
@@ -110,6 +115,11 @@ public class DustbinService {
 
             receivingRepository.delete(findReceiving);
         }
+    }
+
+    public void batchDeleteReceiving(Long receivingId) {
+        Receiving receiving = receivingService.findVerifiedReceiving(receivingId);
+        receivingRepository.delete(receiving);
     }
 
     public Long findMemberIdByAuthenticatedUser(Authentication authentication) {  // 이메일 주소를 기반으로 DB에서 인증된 사용자의 memberId 값 검색, memberId 찾지 못할 시에 BusinessLogicException
