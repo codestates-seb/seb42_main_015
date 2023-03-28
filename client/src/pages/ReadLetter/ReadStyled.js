@@ -99,18 +99,20 @@ export const SWrapper = styled.div`
   align-items: center;
   width: 100vw;
   min-height: 100vh;
-  padding: 3rem 2rem;
-  padding-bottom: 200px;
   background: #ffffff00;
   position: absolute;
   z-index: 100;
+  &::before {
+    content: "";
+    backdrop-filter: blur(10px);
+  }
   backdrop-filter: blur(10px);
 `;
 
 //todo : 비밀번호 입력 form
 export const Secretform = styled.form`
   display: flex;
-  padding: 5rem 5rem;
+  padding: 3rem 3rem;
   height: 40vh;
   justify-content: center;
   align-items: center;
@@ -379,8 +381,15 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     }
   }
 
-  .back {
-    backdrop-filter: blur(400px);
+  .back-add {
+    display: flex;
+    background: #ffffff00;
+    /* border: none; */
+    &::before {
+      content: "";
+      backdrop-filter: blur(100px);
+    }
+    backdrop-filter: blur(10px);
   }
 
   .from {
