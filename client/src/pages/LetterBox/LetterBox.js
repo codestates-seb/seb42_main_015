@@ -11,34 +11,12 @@ import {
   RiUserReceivedLine,
   RiUserSharedLine,
 } from "react-icons/ri";
-import axios from "axios";
-import { getCookie } from "../Certified/Cookie";
 import useStore from "../../store/store";
 
-const getPageLettersOut = async () => {
-  return axios({
-    method: "get",
-    url: "/api/sendy/mailbox/messages/out",
-    headers: {
-      "ngrok-skip-browser-warning": "230325",
-      Authorization: getCookie("accesstoken"),
-    },
-  });
-};
-// console.log(getCookie("accesstoken"))
-
-const getPageLettersIn = async () => {
-  return axios({
-    method: "get",
-    url: "/api/sendy/mailbox/messages/in",
-    headers: {
-      "ngrok-skip-browser-warning": "230325",
-      Authorization: getCookie("accesstoken"),
-    },
-  });
-};
-
 function LetterBox() {
+  const { outLetters, setOutLetters } = useStore((state) => state);
+  const { inLetters, setInLetters } = useStore((state) => state);
+  const { isSend, setIsSend } = useStore((state) => state);
   const [leftTab, setleftTab] = useState(false);
   const [rightTab, setRightTab] = useState(false);
   const [currentTab, setCurrentTab] = useState("최신순");
@@ -48,18 +26,11 @@ function LetterBox() {
   const [monthL, setMonthL] = useState(1);
   const [yearR, setYearR] = useState(2023);
   const [monthR, setMonthR] = useState(1);
-  const { outLetters, setOutLetters } = useStore((state) => state);
-  const { inLetters, setInLetters } = useStore((state) => state);
-  const { isSend, setIsSend } = useStore((state) => state);
-  const [isSearchOut, setIsSearchOut] = useState(outLetters);
+  const [getOut, setGetOut] = useState(outLetters);
+  const [isSearchOut, setIsSearchOut] = useState(getOut);
   const [isSearchIn, setIsSearchIn] = useState(inLetters);
   const [isFocus, setIsFocus] = useState(false);
   const tabItem = ["최신순", "오래된 순", "북마크"];
-
-  useEffect(() => {
-    getPageLettersOut().then((res) => setOutLetters(res.data.data));
-    getPageLettersIn().then((res) => setInLetters(res.data.data));
-  }, []);
 
   const handleMonthLUp = () => {
     if (+monthL > 0 && +monthL < 12) {
@@ -130,7 +101,18 @@ function LetterBox() {
     if (isSend === false) {
       return;
     }
-  }
+  };
+
+  const [isFilterOut, setIsFilterOut] = useState();
+  const handleFilter = (e) => {
+    setCurrentTab(e.target.textContent);
+    setRightTab(false);
+
+    // if (isSend === true && e.target.textContent === '최신순') {
+    //   outLetters.forEach((letter) => setIsFilterOut(letter.messageCreatedAt))
+    //   console.log(isFilterOut)
+    // }
+  };
 
   return (
     <L.LetterBoxWrap>
@@ -185,8 +167,8 @@ function LetterBox() {
           </L.CurrentSelectBox>
           {rightTab ? (
             <L.Dropdown>
-              {tabItem.map((el) => (
-                <L.DropdownItem onClick={() => setCurrentTab(el)}>
+              {tabItem.map((el, idx) => (
+                <L.DropdownItem key={idx} onClick={handleFilter}>
                   {el}
                 </L.DropdownItem>
               ))}
@@ -198,9 +180,6 @@ function LetterBox() {
       </L.FilterContainer>
       <L.ViewWrap>
         <LetterView
-          isSearchOut={isSearchOut}
-          isSearchIn={isSearchIn}
-          isFocus={isFocus}
           select={select}
           trash={trash}
         />
