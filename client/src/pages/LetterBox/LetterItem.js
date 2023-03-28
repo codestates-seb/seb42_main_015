@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import * as L from "./LetterBoxStyled";
+import axios from "axios";
+import { getCookie } from "../Certified/Cookie";
+import useStore from "../../store/store";
 
-// "outgoingId": 5,
-//       "messageId": 5,
-//       "toName": "제노",
-//       "content": "람보르기니처럼 달려",
-//       "messageCreatedAt": "2023-03-23T19:06:41.669232",
-//       "bookMark": false,
-//       "memberId": 1
-
-function LetterItem({ outLetter, select, trash }) {
-  const { bookMark, content, messageCreatedAt, toName } = outLetter;
+function LetterItem({ outLetter, inLetter, select, trash }) {
+  const { isSend } = useStore((state) => state);
+  const { bookMark, content, messageCreatedAt, toName, outgoingId } = outLetter;
   const [mark, setMark] = useState(bookMark);
   const [border, setBorder] = useState("1px solid black");
   const [shadow, setShadow] = useState("none");
@@ -33,23 +29,72 @@ function LetterItem({ outLetter, select, trash }) {
     }
   };
 
+  const handleBookMarkOut = () => {
+    setMark(!mark);
+    console.log(!mark)
+    // axios({
+    //   method: "patch",
+    //   url: `/api/sendy/mailbox/messages/bookmark/outgoing/${outgoingId}`,
+    //   headers: {
+    //     "ngrok-skip-browser-warning": "230327",
+    //     Authorization: getCookie("accesstoken"),
+    //   },
+    //   data: { bookMark: !mark },
+    // });
+  };
+
+  const handleBookMarkIn = () => {
+    setMark(!mark);
+    console.log(!mark);
+    axios({
+      method: "patch",
+      url: `/api/sendy/mailbox/messages/bookmark/receiving/${inLetter.receivingId}`,
+      headers: {
+        "ngrok-skip-browser-warning": "230327",
+        Authorization: getCookie("accesstoken"),
+      },
+      data: { bookMark: mark },
+    });
+  };
+
   return (
-    <L.ItemBox onClick={handleClick} borderColor={border} shadowColor={shadow}>
-      <L.BookMark
-        onClick={() => {
-          setMark(!mark);
-        }}
-      >
-        {mark ? (
-          <img src={require("../../asset/bookmark-red.png")} alt="" />
-        ) : (
-          <img src={require("../../asset/bookmark-grey.png")} alt="" />
-        )}
-      </L.BookMark>
-      <L.ItemDate>{date}</L.ItemDate>
-      <L.ItemTitle>{toName ? `To. ${toName}` : ''}</L.ItemTitle>
-      <L.ItemContents>{content}</L.ItemContents>
-    </L.ItemBox>
+    <>
+      {isSend ? (
+        <L.ItemBox
+          onClick={handleClick}
+          borderColor={border}
+          shadowColor={shadow}
+        >
+          <L.BookMark onClick={handleBookMarkOut}>
+            {bookMark ? (
+              <img src={require("../../asset/bookmark-red.png")} alt="" />
+            ) : (
+              <img src={require("../../asset/bookmark-grey.png")} alt="" />
+            )}
+          </L.BookMark>
+          <L.ItemDate>{date}</L.ItemDate>
+          <L.ItemTitle>To. {toName}</L.ItemTitle>
+          <L.ItemContents>{content}</L.ItemContents>
+        </L.ItemBox>
+      ) : (
+        <L.ItemBox
+          onClick={handleClick}
+          borderColor={border}
+          shadowColor={shadow}
+        >
+          <L.BookMark onClick={handleBookMarkIn}>
+            {mark ? (
+              <img src={require("../../asset/bookmark-red.png")} alt="" />
+            ) : (
+              <img src={require("../../asset/bookmark-grey.png")} alt="" />
+            )}
+          </L.BookMark>
+          <L.ItemDate>{inLetter.date}</L.ItemDate>
+          <L.ItemTitle>from. {inLetter.outgoingNickname}</L.ItemTitle>
+          <L.ItemContents>{inLetter.content}</L.ItemContents>
+        </L.ItemBox>
+      )}
+    </>
   );
 }
 
