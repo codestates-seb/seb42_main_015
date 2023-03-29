@@ -236,16 +236,13 @@ export const NotSearch = styled.div`
 `;
 
 export const ItemBox = styled.div`
-  width: 250px;
-  height: 350px;
+  width: 220px;
+  height: 370px;
   /* background-color: white; */
   border: ${(props) => (props.borderColor ? props.borderColor : "black")};
   box-shadow: ${(props) => props.shadowColor};
   margin-left: 3rem;
   margin-bottom: 3rem;
-  padding: 4rem 2rem 1rem;
-  display: flex;
-  flex-direction: column;
   position: relative;
   cursor: pointer;
   background-size: cover;
@@ -302,8 +299,16 @@ export const ItemBox = styled.div`
   }};
 `;
 
+export const ItemCase = styled.div`
+  width: 220px;
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  padding: 4rem 3rem 1rem;
+`; 
+
 export const ItemTitle = styled.div`
-  ${FONT_STYLE_V1.title.title_18_medium}
+  ${FONT_STYLE_V1.title.title_16_medium}
   margin-bottom: 2rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     ${FONT_STYLE_V1.title.title_25_medium}
@@ -311,7 +316,7 @@ export const ItemTitle = styled.div`
 `;
 
 export const ItemContents = styled.p`
-  ${FONT_STYLE_V1.body.body_15_light}
+  ${FONT_STYLE_V1.body.body_13_light}
   overflow: hidden;
   white-space: normal;
   text-overflow: ellipsis;
@@ -325,8 +330,8 @@ export const ItemContents = styled.p`
 `;
 
 export const ItemDate = styled.div`
-  ${FONT_STYLE_V1.title.title_14_medium}
-  margin-bottom: 0.5rem;
+  ${FONT_STYLE_V1.title.title_12_medium}
+  margin-bottom: 1rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     ${FONT_STYLE_V1.title.title_18_medium}
   }

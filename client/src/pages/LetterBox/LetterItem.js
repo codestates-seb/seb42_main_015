@@ -60,61 +60,65 @@ function LetterItem({ outLetter, inLetter, select, trash }) {
   return (
     <>
       {isSend ? (
-        <Link
-          to={{
-            pathname: `/readletter/${urlName}`,
-            state: {
-              name: "outgoingId",
-              body: outgoingId,
-            },
-          }}
+        <L.ItemBox
+          onClick={handleClick}
+          borderColor={border}
+          shadowColor={shadow}
+          currentLetterTheme={themeName}
         >
-          <L.ItemBox
-            onClick={handleClick}
-            borderColor={border}
-            shadowColor={shadow}
-            currentLetterTheme={themeName}
+          <L.BookMark onClick={handleBookMarkOut}>
+            {mark ? (
+              <img src={require("../../asset/bookmark-red.png")} alt="" />
+            ) : (
+              <img src={require("../../asset/bookmark-grey.png")} alt="" />
+            )}
+          </L.BookMark>
+          <Link
+            to={{
+              pathname: `/readletter/${urlName}`,
+              state: {
+                name: "outgoingId",
+                body: outgoingId,
+              },
+            }}
           >
-            <L.BookMark onClick={handleBookMarkOut}>
-              {mark ? (
-                <img src={require("../../asset/bookmark-red.png")} alt="" />
-              ) : (
-                <img src={require("../../asset/bookmark-grey.png")} alt="" />
-              )}
-            </L.BookMark>
-            <L.ItemDate>{date}</L.ItemDate>
-            <L.ItemTitle>To. {toName}</L.ItemTitle>
-            <L.ItemContents>{content}</L.ItemContents>
-          </L.ItemBox>
-        </Link>
+            <L.ItemCase>
+              <L.ItemDate>{date}</L.ItemDate>
+              <L.ItemTitle>To. <br/> {toName}</L.ItemTitle>
+              <L.ItemContents>{content}</L.ItemContents>
+            </L.ItemCase>
+          </Link>
+        </L.ItemBox>
       ) : (
-        <Link
-          to={{
-            pathname: `/readletter/${urlName}`,
-            state: {
-              name: "receivingId",
-              body: inLetter.receivingId,
-            },
-          }}
+        <L.ItemBox
+          onClick={handleClick}
+          borderColor={border}
+          shadowColor={shadow}
+          currentLetterTheme={inLetter.themeName}
         >
-          <L.ItemBox
-            onClick={handleClick}
-            borderColor={border}
-            shadowColor={shadow}
-            currentLetterTheme={inLetter.themeName}
+          <L.BookMark onClick={handleBookMarkIn}>
+            {mark ? (
+              <img src={require("../../asset/bookmark-red.png")} alt="" />
+            ) : (
+              <img src={require("../../asset/bookmark-grey.png")} alt="" />
+            )}
+          </L.BookMark>
+          <Link
+            to={{
+              pathname: `/readletter/${urlName}`,
+              state: {
+                name: "receivingId",
+                body: inLetter.receivingId,
+              },
+            }}
           >
-            <L.BookMark onClick={handleBookMarkIn}>
-              {mark ? (
-                <img src={require("../../asset/bookmark-red.png")} alt="" />
-              ) : (
-                <img src={require("../../asset/bookmark-grey.png")} alt="" />
-              )}
-            </L.BookMark>
-            <L.ItemDate>{inLetter.date}</L.ItemDate>
-            <L.ItemTitle>from. {inLetter.outgoingNickname}</L.ItemTitle>
-            <L.ItemContents>{inLetter.content}</L.ItemContents>
-          </L.ItemBox>
-        </Link>
+            <L.ItemCase>
+              <L.ItemDate>{inLetter.date}</L.ItemDate>
+              <L.ItemTitle>from. {inLetter.outgoingNickname}</L.ItemTitle>
+              <L.ItemContents>{inLetter.content}</L.ItemContents>
+            </L.ItemCase>
+          </Link>
+        </L.ItemBox>
       )}
     </>
   );
