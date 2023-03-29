@@ -1,75 +1,58 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import * as M from "./MyPageStyled";
 import { BiEditAlt } from "react-icons/bi";
-import { BsImageFill } from "react-icons/bs";
 import GNB from "./GNB";
 import useStore from "../../store/store";
 import Modal from "../commons/Modal";
 import ResignModal from "./ResignModal";
-import axiosCall from "../../util/axiosCall";
-import { useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
+import RoundButton from "../commons/RoundButton";
+import { FONT_STYLE_V1 } from "../../style/fontStyle";
+import { BsFillCheckCircleFill } from "react-icons/bs";
+import { BsImageFill } from "react-icons/bs";
+import { FaTrashAlt } from "react-icons/fa";
 
 function MyPage() {
-  const { currentPage, changeCurrentPage } = useStore((state) => state);
+  const { changeCurrentPage } = useStore((state) => state);
   const [openResignModal, setOpenResignModal] = useState(false);
   const [isEditable, setIsEditable] = useState(false);
-  const [createdAtLocale, setCreatedAtLocale] = useState(null);
   const [userInfo, setUserInfo] = useState({
     nickname: null,
     email: null,
     createdAt: null,
+    profileImage: null,
   });
-  const [hasFile, setHasFile] = useState(false);
   const [image, setImage] = useState(null);
+  const [nickname, setNickname] = useState(null);
+  const [nicknameVerify, setNicknameVerify] = useState({
+    isVerified: false,
+    error: null,
+  });
   const modalRef = useRef();
+  const [imageFile, setImageFile] = useState();
+
   const memberId = sessionStorage.getItem("memberId");
-  console.log(sessionStorage.getItem("memberId"));
-  // const queryClient = useQueryClient();
-  // const info = useQuery(
-  //   "nickName",
-  //   axiosCall({
-  //     method: "GET",
-  //     url: "/api/sendy/users/2",
-  //   })
-  // );
-  const getUserInfo = async () => {
-    return axios({
+
+  useLayoutEffect(() => {
+    changeCurrentPage("MyPage");
+    axios({
       method: "get",
       url: `/api/sendy/users/${memberId}`,
       headers: {
         "ngrok-skip-browser-warning": "230325",
         Authorization: getCookie("accesstoken"),
       },
+    }).then((res) => {
+      setUserInfo(res.data);
     });
-  };
-
-  useEffect(() => {
-    console.log(memberId);
-    changeCurrentPage("MyPage");
-    getUserInfo()
-      .then((res) => setUserInfo(res.data))
-      .then((res) =>
-        setCreatedAtLocale(
-          `${new Date(userInfo.createdAt).getFullYear()}. ${new Date(
-            userInfo.createdAt
-          ).getMonth()}. ${new Date(userInfo.createdAt).getDate()}`
-        )
-      );
   }, []);
-  useEffect(() => {
-    console.log(userInfo);
-  }, [userInfo]);
-  // useEffect(() => {
-  //   console.log(info);
-  // }, [info]);
+
   const renderFile = (file) => {
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setImage(reader.result);
-      setHasFile(true);
     };
   };
   const checkFileSize = (file) => {
@@ -85,9 +68,11 @@ function MyPage() {
     if (e.target.files && e.target.files[0]) {
       if (checkFileSize(e.target.files[0])) {
         renderFile(e.target.files[0]);
+        setImageFile(e.target.files[0]);
       }
     }
   };
+
   const handleModal = (e) => {
     if (openResignModal && !modalRef.current.contains(e.target)) {
       setOpenResignModal(false);
@@ -100,6 +85,85 @@ function MyPage() {
     if (e.target.className === "cancel") {
     }
     setIsEditable(!isEditable);
+  };
+  const handleVerifyNickname = () => {
+    if (nickname === userInfo.nickname) {
+    }
+    return axios({
+      method: "post",
+      url: `/api/sendy/users/verify/nickname`,
+      headers: {
+        "ngrok-skip-browser-warning": "230325",
+        Authorization: getCookie("accesstoken"),
+      },
+      data: { nickname },
+    }).then((res) => {
+      if (res.status === 200) {
+        setNicknameVerify({ ...nicknameVerify, isVerified: true });
+      }
+    });
+  };
+
+  const patchNickname = () => {
+    return axios({
+      method: "patch",
+      headers: {
+        "ngrok-skip-browser-warning": "230325",
+        Authorization: getCookie("accesstoken"),
+      },
+      url: `/api/sendy/users/edit/nickname/${memberId}`,
+      data: { nickname },
+    });
+  };
+
+  const postProfileImg = () => {
+    let data = new FormData();
+    data.append("image", imageFile);
+    return axios({
+      method: "post",
+      headers: {
+        "ngrok-skip-browser-warning": "230325",
+        Authorization: getCookie("accesstoken"),
+        "Content-Type": "multipart/form-data",
+      },
+      url: `/api/sendy/users/edit/profile/${memberId}`,
+      data,
+    });
+  };
+  const handleEditDone = () => {
+    if (nickname && nickname !== userInfo && image) {
+      return axios
+        .all([patchNickname(), postProfileImg()])
+        .then(() => {
+          setNickname(null);
+          setImage(null);
+          setNicknameVerify({ isVerified: false, error: null });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (nickname && nickname !== userInfo) {
+      patchNickname().then(() => {
+        setNickname(null);
+      });
+    } else if (image) {
+      postProfileImg().then(() => {
+        setImage(null);
+      });
+    }
+    window.location.reload();
+  };
+  const handleDeleteProfileImage = () => {
+    return axios({
+      method: "post",
+      url: `/api/sendy/users/edit/reset-profile/${memberId}`,
+      headers: {
+        "ngrok-skip-browser-warning": "230325",
+        Authorization: getCookie("accesstoken"),
+      },
+    }).then(() => {
+      window.location.reload();
+    });
   };
 
   return (
@@ -128,6 +192,7 @@ function MyPage() {
               <M.FlexWrapper2>
                 {isEditable ? (
                   <>
+                    <FaTrashAlt onClick={handleDeleteProfileImage} />
                     <label
                       onChange={handleFile}
                       className="file-label"
@@ -144,18 +209,46 @@ function MyPage() {
                 ) : (
                   <></>
                 )}
-                <M.UserImage src={image}></M.UserImage>
+                <M.UserImage src={image || userInfo.profileImage}></M.UserImage>
               </M.FlexWrapper2>
               <M.UserInfoWrapper>
                 <M.NameDateWrapper>
                   {isEditable ? (
-                    <input
-                      className="username-input"
-                      placeholder={userInfo.nickname}></input>
+                    <div className="edit-box">
+                      {nicknameVerify.isVerified ? (
+                        <input
+                          disabled
+                          className="username-input"
+                          placeholder={userInfo.nickname}
+                          onKeyUp={(e) => setNickname(e.target.value)}></input>
+                      ) : (
+                        <input
+                          className="username-input"
+                          placeholder={userInfo.nickname}
+                          onKeyUp={(e) => setNickname(e.target.value)}></input>
+                      )}
+
+                      {nicknameVerify.isVerified ? (
+                        <BsFillCheckCircleFill className="verified-icon" />
+                      ) : (
+                        <RoundButton
+                          width="6rem"
+                          height="2.6rem"
+                          fontStyle={FONT_STYLE_V1.body.body_13_light}
+                          onClick={handleVerifyNickname}>
+                          중복검사
+                        </RoundButton>
+                      )}
+                    </div>
                   ) : (
                     <M.UserName>{userInfo.nickname}</M.UserName>
                   )}
-                  <M.SignUpDate>가입일 : {createdAtLocale}</M.SignUpDate>
+                  <M.SignUpDate>
+                    가입일 :{" "}
+                    {`${new Date(userInfo.createdAt).getFullYear()}. ${new Date(
+                      userInfo.createdAt
+                    ).getMonth()}. ${new Date(userInfo.createdAt).getDate()}`}
+                  </M.SignUpDate>
                 </M.NameDateWrapper>
                 <M.EmailWrapper>
                   <M.UserEmail>{userInfo.email}</M.UserEmail>
@@ -164,11 +257,19 @@ function MyPage() {
                   </M.ReadletterLink>
                   {isEditable ? (
                     <>
-                      <M.EditButton
-                        className="edit-done"
-                        onClick={handleIsEditable}>
-                        수정완료
-                      </M.EditButton>
+                      {nicknameVerify.isVerified ? (
+                        <M.EditButton
+                          className="edit-done"
+                          onClick={(e) => {
+                            handleIsEditable(e);
+                            handleEditDone();
+                          }}>
+                          수정완료
+                        </M.EditButton>
+                      ) : (
+                        <></>
+                      )}
+
                       <M.EditButton
                         className="cancel"
                         onClick={handleIsEditable}>

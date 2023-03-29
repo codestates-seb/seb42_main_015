@@ -55,6 +55,7 @@ function LetterContent({
   useEffect(() => {
     textarea.current.focus();
   }, []);
+
   useEffect(() => {
     if (isValid) {
       setIsContentVaild(true);
@@ -157,6 +158,7 @@ function LetterContent({
         font={contentFont}
         name="content"
         onInput={handleContentLength}
+        onKeyUp={(e) => setContent(e.target.value)}
         {...register("content")}
         ref={textarea}
         maxLength={7000}></W.ContentTextarea>

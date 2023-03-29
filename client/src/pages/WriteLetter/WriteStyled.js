@@ -42,6 +42,9 @@ export const FlexRowWrapper = styled.div`
     ${FONT_STYLE_V1.body.body_15_light}
     justify-content: space-between;
     align-items: center;
+    .done-check-icon {
+      font-size: 2rem;
+    }
   }
   &.button-wrapper {
     width: 100%;
@@ -262,6 +265,9 @@ export const NameInput = styled.input.attrs({ autoComplete: "off" })`
   margin-left: 5px;
   margin-bottom: 6px;
   overflow: hidden;
+  &.from-input {
+    text-align: right;
+  }
   &:focus {
     outline: none;
   }
@@ -284,8 +290,8 @@ export const SendMeCheckBox = styled.div`
   align-items: center;
   &::before {
     content: "";
-    width: 11px;
-    height: 11px;
+    width: 1.1rem;
+    height: 1.1rem;
     border: 1px solid ${PALETTE_V1.text_primary};
   }
   &.active::before {
@@ -517,8 +523,9 @@ export const BallonWrapper = styled.div`
   width: fit-content;
   #check-icon {
     position: absolute;
-    top: -10px;
-    left: -3px;
+    top: -1rem;
+    left: -0.3rem;
+    font-size: 2.4rem;
     color: ${PALETTE_V1.text_primary};
   }
   &.button {
