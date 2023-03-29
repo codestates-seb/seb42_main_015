@@ -17,7 +17,7 @@ function PwdChange() {
   const [next, setNext] = useState(1);
   const { page } = useParams();
   const handleNext = () => {
-    setNext(next + 1);
+    setNext(+page + 1);
     navigate(`/pwdchange/${next}`);
   };
 

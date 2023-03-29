@@ -108,16 +108,66 @@ export const EmailLabel = styled.label`
   margin-top: 3rem;
 `;
 
-export const EmailInputForm = styled.form`
+export const Duplicate = styled.button`
+  ${FONT_STYLE_LOGIN.button.button_4_light};
+  width: 4.3rem;
+  height: 1.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #505050;
+  background-color: ${(props) =>
+    props.background ? props.background : "#ffcb12"};
+  cursor: pointer;
+  -webkit-box-pack: center;
+  border-radius: 50px;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 3.7rem;
+    height: 3rem;
+  }
+  &:hover {
+    box-shadow: 0px 0px 0px 1px transparent, 0px 0px 0px 4px transparent,
+      0px 6px 16px rgb(0 0 0 / 12%);
+    transform: scale(1.02);
+  }
+`;
+
+export const Code = styled.button`
+  ${FONT_STYLE_LOGIN.button.button_4_light};
+  width: 4.3rem;
+  height: 1.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #505050;
+  background-color: #f14343;
+  color: white;
+  cursor: pointer;
+  -webkit-box-pack: center;
+  border-radius: 50px;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 3.7rem;
+    height: 3rem;
+  }
+  &:hover {
+    box-shadow: 0px 0px 0px 1px transparent, 0px 0px 0px 4px transparent,
+      0px 6px 16px rgb(0 0 0 / 12%);
+    transform: scale(1.02);
+  }
+`;
+
+export const InputForm = styled.form`
   border-bottom: 1px solid black;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
   display: flex;
+  align-items: center;
   padding-bottom: 0.5rem;
 `;
 
-export const EmailInput = styled.input`
+export const Input = styled.input`
   flex-grow: 2;
+  width: 50px;
   background-color: transparent;
   outline: none;
   border: none;
@@ -157,10 +207,10 @@ export const SetPwdLabel = styled.label`
   margin-top: 1rem;
 `;
 
-export const SetPwdBox = styled.div`
-  border-bottom: 1px solid black;
-  display: flex;
+export const SetPwdForm = styled.form`
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const SetPwdInput = styled.input`
@@ -168,6 +218,7 @@ export const SetPwdInput = styled.input`
   border: none;
   flex-grow: 2;
   margin-top: 1.7rem;
+  border-bottom: 1px solid black;
 `;
 
 export const ButtonBox = styled.div`
