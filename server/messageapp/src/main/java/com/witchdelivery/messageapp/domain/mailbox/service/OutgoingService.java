@@ -1,6 +1,7 @@
 package com.witchdelivery.messageapp.domain.mailbox.service;
 
 import com.witchdelivery.messageapp.domain.mailbox.entity.Outgoing;
+import com.witchdelivery.messageapp.domain.mailbox.entity.Receiving;
 import com.witchdelivery.messageapp.domain.mailbox.repository.OutgoingRepository;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.domain.member.repository.MemberRepository;
@@ -13,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -25,8 +27,15 @@ public class OutgoingService { // 발신 (보내는 사람)
         return outgoingRepository.save(outgoing); // outgoing 정보 저장
     }
 
-    public void updateOutgoingStatus(long outgoingId) { // outgoing 상태 OUTGOING_DELETE변경
+    public void updateOutgoingStatus(long outgoingId, Authentication authentication) { // outgoing 상태 OUTGOING_DELETE변경
+        long memberId = findMemberIdByAuthenticatedUser(authentication);
         Outgoing findOutgoing = findVerifiedOutgoing(outgoingId);
+
+        // 보낸 편지와 로그인한 memberId가 같지 않거나(OR) 받은 편지의 상태가 STORE가 아니면 예외 처리
+        if (!Objects.equals(findOutgoing.getMember().getMemberId(), memberId) || findOutgoing.getOutgoingStatus() != Outgoing.OutgoingStatus.OUTGOING_STORE) {
+            throw new BusinessLogicException(ExceptionCode.OUTGOING_NOT_FOUND);
+        }
+
         findOutgoing.setOutgoingStatus(Outgoing.OutgoingStatus.OUTGOING_DELETE);
         findOutgoing.setDeletedAt(LocalDateTime.now());
         outgoingRepository.save(findOutgoing);

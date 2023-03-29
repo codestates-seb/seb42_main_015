@@ -6,6 +6,8 @@ import com.witchdelivery.messageapp.domain.mailbox.repository.OutgoingRepository
 import com.witchdelivery.messageapp.domain.mailbox.repository.ReceivingRepository;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.domain.member.repository.MemberRepository;
+import com.witchdelivery.messageapp.domain.message.entity.Message;
+import com.witchdelivery.messageapp.domain.message.repository.MessageRepository;
 import com.witchdelivery.messageapp.global.exception.BusinessLogicException;
 import com.witchdelivery.messageapp.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,8 @@ public class DustbinService {
 
     private final MemberRepository memberRepository;
 
+    private final MessageRepository messageRepository;
+
     private final OutgoingService outgoingService;
 
     private final ReceivingService receivingService;
@@ -40,7 +44,7 @@ public class DustbinService {
 
     @Transactional
     public void updateOutgoingDustStatus(List<Long> ids, Authentication authentication) { // outgoing 상태 OUTGOING_STORE변경
-        Long memberId = findMemberIdByAuthenticatedUser(authentication);
+        long memberId = findMemberIdByAuthenticatedUser(authentication);
 
         for (Long outgoingId : ids) {
             Outgoing findOutgoing = outgoingService.findVerifiedOutgoing(outgoingId);
@@ -58,7 +62,7 @@ public class DustbinService {
 
     @Transactional
     public void deleteOutgoing(List<Long> ids, Authentication authentication) {// 발신 (보낸 편지) 영구삭제
-        Long memberId = findMemberIdByAuthenticatedUser(authentication);
+        long memberId = findMemberIdByAuthenticatedUser(authentication);
 
         for (Long outgoingId : ids) {
             Outgoing findOutgoing = outgoingService.findVerifiedOutgoing(outgoingId);
@@ -69,12 +73,20 @@ public class DustbinService {
             }
 
             outgoingRepository.delete(findOutgoing);
+
+            // 편지테이블 영구삭제
+            Message message = findOutgoing.getMessage();
+            messageDelete(message);
         }
     }
 
     public void batchDeleteOutgoing(Long outgoingId) {
         Outgoing outgoing = outgoingService.findVerifiedOutgoing(outgoingId);
         outgoingRepository.delete(outgoing);
+
+        // 편지테이블 영구삭제
+        Message message = outgoing.getMessage();
+        messageDelete(message);
     }
 
     public Page<Receiving> findAllReceivingMessages(int page, int size, Authentication authentication) { // 수신 (받은 편지) 휴지통
@@ -85,7 +97,7 @@ public class DustbinService {
 
     @Transactional
     public void updateReceivingDustStatus(List<Long> ids, Authentication authentication) { // receiving 상태 RECEIVING_STORE변경
-        Long memberId = findMemberIdByAuthenticatedUser(authentication);
+        long memberId = findMemberIdByAuthenticatedUser(authentication);
 
         for (Long receivingId : ids) {
             Receiving findReceiving = receivingService.findVerifiedReceiving(receivingId);
@@ -103,7 +115,7 @@ public class DustbinService {
 
     @Transactional
     public void deleteReceiving(List<Long> ids, Authentication authentication) { // 수신 (받은 편지) 영구삭제
-        Long memberId = findMemberIdByAuthenticatedUser(authentication);
+        long memberId = findMemberIdByAuthenticatedUser(authentication);
 
         for (Long id : ids) {
             Receiving findReceiving = receivingService.findVerifiedReceiving(id);
@@ -114,12 +126,20 @@ public class DustbinService {
             }
 
             receivingRepository.delete(findReceiving);
+
+            // 편지테이블 영구삭제
+            Message message = findReceiving.getMessage();
+            messageDelete(message);
         }
     }
 
     public void batchDeleteReceiving(Long receivingId) {
         Receiving receiving = receivingService.findVerifiedReceiving(receivingId);
         receivingRepository.delete(receiving);
+
+        // 편지테이블 영구삭제
+        Message message = receiving.getMessage();
+        messageDelete(message);
     }
 
     public Long findMemberIdByAuthenticatedUser(Authentication authentication) {  // 이메일 주소를 기반으로 DB에서 인증된 사용자의 memberId 값 검색, memberId 찾지 못할 시에 BusinessLogicException
@@ -129,6 +149,15 @@ public class DustbinService {
             return optionalMember.get().getMemberId();
         } else {
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
+        }
+    }
+
+    private void messageDelete(Message message) { // 편지 테이블에서도 편지 영구삭제
+        long messageId = message.getMessageId();
+        List<Outgoing> outgoings = outgoingRepository.findAllByMessage_MessageId(messageId);
+        List<Receiving> receivings = receivingRepository.findAllByMessage_MessageId(messageId);
+        if (outgoings.isEmpty() && receivings.isEmpty()) {
+            messageRepository.delete(message);
         }
     }
 }
