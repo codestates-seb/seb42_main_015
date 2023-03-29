@@ -199,6 +199,14 @@ export const NameDateWrapper = styled(FlexWrapper2)`
       color: gray;
     }
   }
+  .edit-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .verified-icon {
+    font-size: 2rem;
+  }
   @media screen and (max-width: 1023px) {
     border-bottom: none;
     width: 100%;

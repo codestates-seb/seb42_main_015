@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as L from "./LetterBoxStyled";
 import LetterView from "./LetterView";
 import { GrSearch } from "react-icons/gr";
@@ -11,15 +11,20 @@ import {
   RiUserReceivedLine,
   RiUserSharedLine,
 } from "react-icons/ri";
-import { BsArrowRightCircle } from "react-icons/bs";
+import { RxThickArrowRight } from "react-icons/rx";
 import { BiRefresh } from "react-icons/bi";
 import useStore from "../../store/store";
 
 function LetterBox() {
-  const { outLetters } = useStore((state) => state);
-  const { inLetters } = useStore((state) => state);
-  const { isSend, setIsSend } = useStore((state) => state);
-  const [leftTab, setleftTab] = useState(false);
+  const {
+    outLetters,
+    inLetters,
+    isSend,
+    setIsSend,
+    setIsFilterOut,
+    setIsFilterIn,
+  } = useStore();
+  const [leftTab, setLeftTab] = useState(false);
   const [rightTab, setRightTab] = useState(false);
   const [currentTab, setCurrentTab] = useState("최신순");
   const [select, setSelect] = useState(false);
@@ -31,11 +36,7 @@ function LetterBox() {
   const [isFocus, setIsFocus] = useState(false);
   const [isSearchOut, setIsSearchOut] = useState(outLetters);
   const [isSearchIn, setIsSearchIn] = useState(inLetters);
-  const { isFilterOut, setIsFilterOut } = useStore((state) => state);
-  const [isFilterIn, setIsFilterIn] = useState(inLetters);
-  const tabItem = ["최신순", "오래된 순", "북마크"];
-
-  // console.log(outLetters);
+  const filterItem = ["최신순", "오래된 순", "북마크"];
 
   // 기간 필터
   const handleMonthLUp = () => {
@@ -81,7 +82,7 @@ function LetterBox() {
 
   // 기간
   const handleDate = () => {
-    setleftTab(!leftTab);
+    setLeftTab(!leftTab);
     let periodL;
     let periodR;
     if (monthL < 10) {
@@ -92,20 +93,24 @@ function LetterBox() {
     if (monthL < 10) {
       periodR = `${yearR}-0${monthR}`;
     } else {
-      periodR = `${yearR}-0${monthR}`;
+      periodR = `${yearR}-${monthR}`;
     }
     if (isSend === true) {
-      outLetters.filter((letter) =>
-        letter.messageCreatedAt >= periodL && letter.messageCreatedAt <= periodR
-          ? setIsFilterOut(letter)
-          : []
+      return setIsFilterOut(
+        outLetters.filter(
+          (letter) =>
+            letter.messageCreatedAt >= periodL &&
+            letter.messageCreatedAt <= periodR
+        )
       );
     }
     if (isSend === false) {
-      inLetters.filter((letter) =>
-        letter.messageCreatedAt >= periodL && letter.messageCreatedAt <= periodR
-          ? setIsFilterIn(letter)
-          : []
+      return setIsFilterIn(
+        inLetters.filter(
+          (letter) =>
+            letter.messageCreatedAt >= periodL &&
+            letter.messageCreatedAt <= periodR
+        )
       );
     }
   };
@@ -114,26 +119,29 @@ function LetterBox() {
   const handleFilter = (e) => {
     setCurrentTab(e.target.textContent);
     setRightTab(false);
-
+    // 최신순
     if (isSend === true && e.target.textContent === "최신순") {
-      setIsFilterOut(outLetters);
+      return setIsFilterOut(outLetters);
+    } else if (isSend === false && e.target.textContent === "최신순") {
+      return setIsFilterIn(inLetters);
     }
-    if (isSend === false && e.target.textContent === "최신순") {
-      setIsFilterIn(inLetters);
+    // 오래된 순
+    if (isSend === true && e.target.textContent === "오래된 순") {
+      return setIsFilterOut(outLetters.reverse());
+    } else if (isSend === false && e.target.textContent === "오래된 순") {
+      return setIsFilterIn(inLetters.reverse());
     }
+    // 북마크
     if (isSend === true && e.target.textContent === "북마크") {
-      outLetters.filter((letter) =>
-        letter.bookmark === true ? setIsFilterOut(letter) : []
+      return setIsFilterOut(
+        outLetters.filter((letter) => letter.bookMark === true)
       );
-    }
-    if (isSend === false && e.target.textContent === "북마크") {
-      inLetters.filter((letter) =>
-        letter.bookmark === true ? setIsFilterIn(letter) : []
+    } else if (isSend === false && e.target.textContent === "북마크") {
+      return setIsFilterIn(
+        inLetters.filter((letter) => letter.bookMark === true)
       );
     }
   };
-
-  // console.log(isFilterOut);
 
   // 검색
   const handleSearch = (e) => {
@@ -169,13 +177,19 @@ function LetterBox() {
             onFocus={() => setIsFocus(true)}
             onBlur={() => setIsFocus(false)}
           />
-          <AiOutlineCalendar className="icon" onClick={handleDate} />
+          <AiOutlineCalendar className="icon" onClick={() => setLeftTab(!leftTab)} />
           {leftTab ? (
             <L.PeriodBox>
               <L.Line>
-                <L.Reset onClick={() => window.location.reload()}>
-                  초기화 <BiRefresh className="reset" />
-                </L.Reset>
+                <L.LineBtn onClick={() => window.location.reload()}>
+                  초기화 <BiRefresh className="period-btn" />
+                </L.LineBtn>
+                <L.LineBtn>
+                  <RxThickArrowRight
+                    className="period-btn"
+                    onClick={handleDate}
+                  />
+                </L.LineBtn>
               </L.Line>
               <L.Date>
                 <L.DateYear>
@@ -199,7 +213,6 @@ function LetterBox() {
                   {monthR}
                   <RiArrowDownSLine onClick={handleMonthRDown} />
                 </L.DateMonth>
-                <BsArrowRightCircle className="submit" onClick={handleDate} />
               </L.Date>
             </L.PeriodBox>
           ) : (
@@ -213,7 +226,7 @@ function LetterBox() {
           </L.CurrentSelectBox>
           {rightTab ? (
             <L.Dropdown>
-              {tabItem.map((el, idx) => (
+              {filterItem.map((el, idx) => (
                 <L.DropdownItem key={idx} onClick={handleFilter}>
                   {el}
                 </L.DropdownItem>
@@ -228,14 +241,9 @@ function LetterBox() {
         <LetterView
           select={select}
           trash={trash}
-          searchData={handleSearch}
+          isFocus={isFocus}
           isSearchOut={isSearchOut}
           isSearchIn={isSearchIn}
-          isFocus={isFocus}
-          isFilterOut={isFilterOut}
-          isFilterIn={isFilterIn}
-          leftTab={leftTab}
-          rightTab={rightTab}
         />
         <L.Gradient />
       </L.ViewWrap>

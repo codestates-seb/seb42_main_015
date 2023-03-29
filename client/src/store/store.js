@@ -14,8 +14,8 @@ const useStore = create((set) => ({
     content: null,
     password: null,
     urlName: null,
-    font: "프리텐다드",
-    theme: null,
+    fontName: "프리텐다드",
+    themeName: null,
   },
   setLetterContents: (contents) =>
     set((state) => ({ letterContents: contents })),
