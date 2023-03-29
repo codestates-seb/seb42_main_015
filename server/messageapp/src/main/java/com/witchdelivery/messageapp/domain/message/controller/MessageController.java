@@ -70,11 +70,10 @@ public class MessageController {
     }
 
 
-    @GetMapping("/{URL-Name}")                                // 편지 단일 조회
-    public ResponseEntity getMessage(@PathVariable("URL-Name") String urlName) {
-        Message message = messageService.findMessageByUrlName(urlName);
-        return new ResponseEntity<>(messageMapper.messageToMessageResponseDto(message), HttpStatus.OK);
-    }
+//    @GetMapping("/{URL-Name}")                                // 편지 단일 조회
+//    public ResponseEntity getMessage(@PathVariable("URL-Name") String urlName) {
+//        Message message = messageService.findMessageByUrlName(urlName);
+//        return new ResponseEntity<>(messageMapper.messageToMessageResponseDto(message), HttpStatus.OK);
 
     @GetMapping
     public ResponseEntity getAllMessages(@Positive @RequestParam(required = false, defaultValue = "1") int page,
@@ -100,27 +99,27 @@ public class MessageController {
 
     /**
      * S3 편지 이미지 업로드 API
-     * @param messageId
+     * @param urlName
      * @param multipartFile
      * @return
      * @throws IOException
      */
-    @PostMapping("/write/image/{message-id}")
-    public ResponseEntity postMessageImage(@PathVariable("message-id") Long messageId,
+    @PostMapping("/write/image/{url-name}")
+    public ResponseEntity postMessageImage(@PathVariable("url-name") String urlName,
                                            @RequestParam(value = "image") MultipartFile multipartFile) throws IOException {
-        messageService.uploadMessageS3(messageId, multipartFile);
+        messageService.uploadMessageS3(urlName, multipartFile);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
-     * S3편지 이미지 조회 API
+     * 단일 편지 조회 API
      * @param urlName
      * @return
      */
-    @GetMapping("read/image/{url-name}")
-    public ResponseEntity getMessageImage(@PathVariable("url-name") String urlName) {
-        MessageImageDto messageImageDto = messageService.findMessageS3(urlName);
-        return new ResponseEntity<>(messageImageDto, HttpStatus.OK);
+    @GetMapping("/{url-name}")
+    public ResponseEntity getUrlMessage(@PathVariable("url-name") String urlName) {
+        MessageResponseDto messageResponseDto = messageService.findMessage(urlName);
+        return new ResponseEntity<>(messageResponseDto, HttpStatus.OK);
     }
 }
 
