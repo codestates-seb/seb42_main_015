@@ -300,6 +300,10 @@ export const FONT_STYLE_READ = {
     font-family: "Pretendard-Light";
     font-size: 1.9rem;
   `,
+  body_14_Medium: css`
+    font-family: "Pretendard-Medium";
+    font-size: 1.4rem;
+  `,
   body_9_Medium: css`
     font-family: "Pretendard-Medium";
     font-size: 1rem;
@@ -307,6 +311,19 @@ export const FONT_STYLE_READ = {
   body_8_Medium: css`
     font-family: "Pretendard-Medium";
     font-size: 0.8rem;
+  `,
+  title_18_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 1.8rem;
+  `,
+  body_14_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 1.4rem;
+  `,
+  body_12_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 1.2rem;
+    text-align: justify;
   `,
   body_10_light: css`
     font-family: "Pretendard-Light";
@@ -324,6 +341,10 @@ export const FONT_STYLE_READ = {
   body_7_light: css`
     font-family: "Pretendard-Light";
     font-size: 0.7rem;
+  `,
+  btn_12_light: css`
+    font-family: "B612", sans-serif;
+    font-size: 1.2rem;
   `,
   btn_8_light: css`
     font-family: "B612", sans-serif;
@@ -346,6 +367,13 @@ export const FONT_STYLE_CONTENT = {
   pixel_18: css`
     font-family: "DOSSaemmul";
     font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 3rem;
+    text-align: justify;
+  `,
+  pixel_20: css`
+    font-family: "DOSSaemmul";
+    font-size: 2rem;
     color: ${PALETTE_V1.text_primary};
     line-height: 3rem;
     text-align: justify;
@@ -374,6 +402,13 @@ export const FONT_STYLE_CONTENT = {
   gangwonedu_18_bold: css`
     font-family: "GangwonEdu_Bold";
     font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    line-height: 2rem;
+    text-align: justify;
+  `,
+  gangwonedu_20_bold: css`
+    font-family: "GangwonEdu_Bold";
+    font-size: 2rem;
     color: ${PALETTE_V1.text_primary};
     line-height: 2rem;
     text-align: justify;

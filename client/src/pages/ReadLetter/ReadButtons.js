@@ -31,9 +31,9 @@ const ReadButtons = ({
   });
   // 우편함에서 넘어온 정보
   const location = useLocation();
-  console.log(location);
+  // console.log(location);
   //로케이션 정보 업데이트
-  console.log(isDustbin);
+  // console.log(isDustbin);
 
   //todo :보관하기
   const handleKeeping = async () => {

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import { BREAKPOINTMOBILE } from "../../src/breakpoint";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,7 +19,12 @@ function Header() {
       url: `/api/sendy/auth/logout`,
       headers: {
         "ngrok-skip-browser-warning": "12",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accesstoken", {
+          path: "/",
+          sucure: true,
+          sameSite: "Strict",
+          HttpOnly: " HttpOnly ",
+        }),
         Refresh: localStorage.getItem("refreshToken"),
       },
     })
@@ -29,14 +35,23 @@ function Header() {
           onLogout();
         }
         localStorage.clear();
-        removeCookie("accesstoken");
-        navigate("/completeLogout");
+        removeCookie("accesstoken", {
+          path: "/",
+          sucure: true,
+          sameSite: "Strict",
+          HttpOnly: " HttpOnly ",
+        });
         window.location.reload();
+        navigate("/completeLogout");
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  // useEffect(() => {
+  //   onLogout();
+  // }, []);
 
   return (
     <>

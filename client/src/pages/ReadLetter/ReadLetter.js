@@ -25,7 +25,7 @@ const ReadLetter = ({ isLogin }) => {
   //비밀번호 쳤는지 안쳤는지
   const [enterPassword, setEnterPassword] = useState(false);
   //보관하기를 클릭했을 때 비로그인(저장X)인지 로그인(저장준비 완료)아닌지
-  const [isKeeping, setIsKeeping] = useState("");
+  const [isKeeping, setIsKeeping] = useState(false);
   //편지 정보 가져오기
   const [data, setData] = useState([]);
   //모달 클릭
@@ -72,6 +72,7 @@ const ReadLetter = ({ isLogin }) => {
 
   //todo 메세지 정보 가져오기
   const getLetter = async () => {
+    setIsLoading(true);
     await axios
       .get(`/api/sendy/messages/${urlName}`, {
         headers: {
@@ -98,6 +99,7 @@ const ReadLetter = ({ isLogin }) => {
         else if (res.data.password !== null) {
           setLetterPassword(res.data.password);
         }
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -128,7 +130,9 @@ const ReadLetter = ({ isLogin }) => {
   return (
     <>
       {isLoading ? <Loading /> : ""}
-      {isLogin && enterPassword ? (
+      {/* islogin && */}
+      {/* 비밀번호가 없거나 저장되어 있는 상태면 -> 비밀번호를 입력하지 않음  */}
+      {enterPassword || isKeeping ? (
         <R.Wrapper>
           <div className="ReadContainer" onClick={handleModal}>
             <div className="top-sub">
@@ -156,14 +160,18 @@ const ReadLetter = ({ isLogin }) => {
                 LetterTheme={data.themeName}
                 onClick={handleRotate}
               >
-                <div className="top">
-                  <div className="to">To. {data.toName}</div>
+                <div className="letterContent" Font={data.fontName}>
+                  <div className="to" Font={data.fontName}>
+                    To. {data.toName}
+                  </div>
                   <div className="date">{LetterDate}</div>
                 </div>
-                <div className="content" font={data.fontName}>
+                <div className="content" Font={data.fontName}>
                   {data.content}
                 </div>
-                <div className="from">From. {data.fromName}</div>
+                <div className="from" Font={data.fontName}>
+                  From. {data.fromName}
+                </div>
               </R.Letterpaper>
               <R.Letterpaper className="back" onClick={handleRotate}>
                 <R.Date>{LetterDate}</R.Date>
@@ -202,8 +210,7 @@ const ReadLetter = ({ isLogin }) => {
                 <HiPause size="30" className="pause-icon" />
               </div>
               <R.EnterSeret>
-                비밀번호
-                <p>{data.password}</p>
+                비밀번호 : <p>{data.password}</p>
               </R.EnterSeret>
             </div>
             <R.Letterpaper className="front" LetterTheme={data.themeName}>
