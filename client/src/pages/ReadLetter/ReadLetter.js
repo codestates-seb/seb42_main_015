@@ -11,12 +11,14 @@ import ReadButtons from "./ReadButtons";
 import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
 import useStore from "../../store/store";
+import { Loading } from "../../components/Loading";
 
 //{isLogin} props 제거
 const ReadLetter = ({ isLogin }) => {
   const { urlName } = useParams();
   const { letterPassword, setLetterPassword } = useStore((state) => state);
   const { messageId, setMessageId } = useStore((state) => state);
+  const [isLoading, setIsLoading] = useState(false);
 
   //todo: useState
   //비밀번호 쳤는지 안쳤는지
@@ -33,9 +35,14 @@ const ReadLetter = ({ isLogin }) => {
   const LetterRef = useRef();
   //이미지로 저장하기 버튼
   const onDownloadBtn = () => {
+    setIsLoading(true);
     const letter = LetterRef.current;
     domtoimage.toBlob(letter).then((blob) => {
+      setTimeout(() => {
+        alert("편지가 저장되었어요!");
+      }, 100);
       saveAs(blob, "letter.png");
+      setIsLoading(false);
     });
   };
 
@@ -118,6 +125,7 @@ const ReadLetter = ({ isLogin }) => {
 
   return (
     <>
+      {isLoading ? <Loading /> : ""}
       {isLogin || enterPassword ? (
         <R.Wrapper>
           <div className="ReadContainer" onClick={handleModal}>

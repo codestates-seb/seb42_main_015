@@ -104,9 +104,9 @@ export const SWrapper = styled.div`
   z-index: 100;
   &::before {
     content: "";
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(50px);
   }
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(50px);
 `;
 
 //todo : 비밀번호 입력 form
