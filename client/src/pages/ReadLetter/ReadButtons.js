@@ -21,10 +21,19 @@ const ReadButtons = ({
 }) => {
   const { urlName } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
   //로딩상태
   const [isLoading, setIsLoading] = useState(false);
-  //'보관하기' 버튼 누르면 모달 나오는 이벤트 핸들러
+  //휴지통 정보
+  const [isDustbin, setIsDustbin] = useState({
+    state: "",
+    receivingId: "",
+    outgoingId: "",
+  });
+  // 우편함에서 넘어온 정보
+  const location = useLocation();
+  console.log(location);
+
+  //todo :보관하기
   const handleKeeping = async () => {
     //모달 열기
     setIsClickModal(!isClickModal);
@@ -38,11 +47,16 @@ const ReadButtons = ({
       },
       data: {},
     })
-      .then(() => {
+      .then((res) => {
         setIsKeeping(true);
         alert("편지가 저장되었습니다.\n 이제 우편함에서 확인할 수 있어요!");
-        // navigate("/letterbox");
         setIsLoading(false);
+        setIsDustbin({
+          ...isDustbin,
+          state: "receivingId",
+          receivingId: `${res.data}`,
+        });
+        console.log(res.data); //{receivingId: 3}
         window.location.reload();
       })
       .catch((err) => {
@@ -50,6 +64,8 @@ const ReadButtons = ({
         setIsLoading(false);
       });
   };
+
+  console.log(isDustbin);
 
   //Todo : 해당 편지가 수신편지인지, 발신편지인지 확인 과정 필요
   //! 휴지통 alert
@@ -170,7 +186,6 @@ const ReadButtons = ({
               children={
                 <LoginModal
                   ModalRef={ModalRef}
-                  setIsKeeping={setIsKeeping}
                   setIsClickModal={setIsClickModal}
                 />
               }

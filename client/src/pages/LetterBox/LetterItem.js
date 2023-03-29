@@ -84,7 +84,9 @@ function LetterItem({ outLetter, inLetter, select, trash }) {
           >
             <L.ItemCase>
               <L.ItemDate>{date}</L.ItemDate>
-              <L.ItemTitle>To. <br/> {toName}</L.ItemTitle>
+              <L.ItemTitle>
+                To. <br /> {toName}
+              </L.ItemTitle>
               <L.ItemContents>{content}</L.ItemContents>
             </L.ItemCase>
           </Link>

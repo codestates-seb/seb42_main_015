@@ -10,16 +10,19 @@ import { Loading } from "../../components/Loading";
 
 function SignUp() {
   const navigate = useNavigate();
-  //유저네임 중복검사
-  const [nameValid, setNameValid] = useState(false);
-  //이메일 중복검사
-  const [emailValid, setEmailValid] = useState(false);
+  //유저네임, 이메일 중복검사
+  const [isVaild, setIsVaild] = useState({
+    nameValid: false,
+    emailValid: false,
+  });
   //이메일 인증코드
   const [isCode, setCode] = useState("");
   //이메일 인증번호 일치
   const [isEmailCode, setEmailCode] = useState(false);
   //로딩상태
   const [isLoading, setIsLoading] = useState(false);
+
+  console.log(isVaild.nameValid);
 
   const FormSchema = yup.object({
     username: yup
@@ -61,7 +64,8 @@ function SignUp() {
   const onSubmit = async (data) => {
     const { email, username, password } = data;
 
-    if (!nameValid && !emailValid) {
+    // if (!nameValid && !emailValid) {
+    if (!isVaild) {
       alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
       return;
     } else if (!isEmailCode) {
@@ -102,7 +106,11 @@ function SignUp() {
           if (res.status === 200) {
             alert("사용 가능한 유저네임입니다.");
           }
-          setNameValid(!nameValid);
+          // setNameValid(!nameValid);
+          setIsVaild({
+            ...isVaild,
+            nameValid: true,
+          });
         })
         .catch(() => {
           alert("이미 존재하는 유저네임입니다.");
@@ -127,7 +135,11 @@ function SignUp() {
           if (res.status === 200) {
             alert("사용 가능한 이메일입니다.");
           }
-          setEmailValid(!emailValid);
+          // setEmailValid(!emailValid);
+          setIsVaild({
+            ...isVaild,
+            emailValid: true,
+          });
         })
         .catch(() => {
           alert("이미 존재하는 이메일입니다.");
@@ -182,7 +194,7 @@ function SignUp() {
             <ul className="login-form">
               <li className="loginText">Sign up</li>
               <label>
-                {nameValid ? (
+                {isVaild.nameValid ? (
                   <input className="userInput" disabled="disabled" />
                 ) : (
                   <input
@@ -194,7 +206,7 @@ function SignUp() {
                   />
                 )}
 
-                {nameValid ? (
+                {isVaild.nameValid ? (
                   <button className="duplicate-check">체크완료</button>
                 ) : (
                   <button className="duplicate" onClick={usernameCheck}>
@@ -206,7 +218,7 @@ function SignUp() {
                 <div className="err">{errors.nickname.message}</div>
               )}
               <label>
-                {emailValid ? (
+                {isVaild.emailValid ? (
                   <input className="emailInput" disabled="disabled" />
                 ) : (
                   <input
@@ -217,7 +229,7 @@ function SignUp() {
                     {...register("email")}
                   />
                 )}
-                {emailValid ? (
+                {isVaild.emailValid ? (
                   isCode ? (
                     <button className="duplicate-check">발송 완료</button>
                   ) : (
