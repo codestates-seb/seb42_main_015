@@ -99,30 +99,30 @@ function WriteLetter() {
       setCurrentLetterTheme(letterTheme[letterTheme.length - 1]);
       setLetterContents({
         ...letterContents,
-        theme: letterTheme[letterTheme.length - 1],
+        themeName: letterTheme[letterTheme.length - 1],
       });
     } else {
       setCurrentLetterTheme({
         ...letterContents,
-        theme: letterTheme[letterTheme.indexOf(currentLetterTheme) - 1],
+        themeName: letterTheme[letterTheme.indexOf(currentLetterTheme) - 1],
       });
       setLetterContents({
         ...letterContents,
-        theme: letterTheme[letterTheme.indexOf(currentLetterTheme) - 1],
+        themeName: letterTheme[letterTheme.indexOf(currentLetterTheme) - 1],
       });
     }
   };
   const handleThemeRight = () => {
     if (letterTheme.indexOf(currentLetterTheme) === letterTheme.length - 1) {
       setCurrentLetterTheme(letterTheme[0]);
-      setLetterContents({ ...letterContents, theme: letterTheme[0] });
+      setLetterContents({ ...letterContents, themeName: letterTheme[0] });
     } else {
       setCurrentLetterTheme(
         letterTheme[letterTheme.indexOf(currentLetterTheme) + 1]
       );
       setLetterContents({
         ...letterContents,
-        theme: letterTheme[letterTheme.indexOf(currentLetterTheme) + 1],
+        themeName: letterTheme[letterTheme.indexOf(currentLetterTheme) + 1],
       });
     }
   };
@@ -139,7 +139,10 @@ function WriteLetter() {
   }, []);
 
   useEffect(() => {
-    setLetterContents({ ...letterContents, theme: letterTheme[contentLength] });
+    setLetterContents({
+      ...letterContents,
+      themeName: letterTheme[contentLength],
+    });
   }, []);
   return (
     <W.PageContainer onClick={handleModal}>
