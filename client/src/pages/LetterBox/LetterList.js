@@ -5,8 +5,20 @@ import useStore from "../../store/store";
 import { useInView } from "react-intersection-observer";
 import { getCookie } from "../Certified/Cookie";
 
-function LetterList({ select, trash }) {
+function LetterList({
+  select,
+  trash,
+  isSearchOut,
+  isSearchIn,
+  isFocus,
+  isFilterOut,
+  isFilterIn,
+  leftTab,
+  rightTab,
+}) {
   const { isSend } = useStore((state) => state);
+  const { outLetters, setOutLetters } = useStore((state) => state);
+  const { inLetters, setInLetters } = useStore((state) => state);
   const [getOut, setGetOut] = useState([]);
   const [getIn, setGetIn] = useState([]);
   const [pageOut, setPageOut] = useState(1);
@@ -14,8 +26,6 @@ function LetterList({ select, trash }) {
   const [isLoadingOut, setIsLoadingOut] = useState(false);
   const [isLoadingIn, setIsLoadingIn] = useState(false);
   const [ref, inView] = useInView();
-  const { outLetters, setOutLetters } = useStore((state) => state);
-  const { inLetters, setInLetters } = useStore((state) => state);
 
   const getLettersOut = useCallback(async () => {
     setIsLoadingOut(true);
@@ -27,6 +37,7 @@ function LetterList({ select, trash }) {
       },
     });
     const data = await res.json();
+    setOutLetters(outLetters.concat(data.data));
     setGetOut((prev) => [...prev, ...data.data]);
     setIsLoadingOut(false);
   }, [pageOut]);
@@ -41,18 +52,17 @@ function LetterList({ select, trash }) {
       },
     });
     const data = await res.json();
+    setInLetters(inLetters.concat(data.data));
     setGetIn((prev) => [...prev, ...data.data]);
     setIsLoadingIn(false);
   }, [pageIn]);
 
   useEffect(() => {
     getLettersOut();
-    setOutLetters(getOut);
   }, [getLettersOut]);
 
   useEffect(() => {
     getLettersIn();
-    setInLetters(getIn);
   }, [getLettersIn]);
 
   useEffect(() => {
@@ -75,6 +85,7 @@ function LetterList({ select, trash }) {
 
   // console.log(getOut);
   // console.log(getIn);
+  // console.log(isFocus);
 
   return (
     <L.ListContainer>
@@ -84,8 +95,39 @@ function LetterList({ select, trash }) {
       </L.ListDateContainer>
       <L.ItemWrap>
         <L.ItemContainer>
-          {isSend
-            ? getOut.map((outLetter) => {
+          {isFocus ? (
+            isSend ? (
+              isSearchOut.length === 0 ? (
+                <L.NotSearch>해당하는 편지를 찾을 수 없어요.</L.NotSearch>
+              ) : (
+                isSearchOut.map((outLetter) => {
+                  return (
+                    <LetterItem
+                      key={outLetter.messageId}
+                      outLetter={outLetter}
+                      select={select}
+                      trash={trash}
+                    />
+                  );
+                })
+              )
+            ) : isSearchIn.length === 0 ? (
+              <L.NotSearch>해당하는 편지를 찾을 수 없어요.</L.NotSearch>
+            ) : (
+              isSearchIn.map((inLetter) => {
+                return (
+                  <LetterItem
+                    key={inLetter.messageId}
+                    inLetter={inLetter}
+                    select={select}
+                    trash={trash}
+                  />
+                );
+              })
+            )
+          ) : isSend ? (
+            leftTab || rightTab ? (
+              isFilterOut.map((outLetter) => {
                 return (
                   <LetterItem
                     key={outLetter.messageId}
@@ -95,16 +137,41 @@ function LetterList({ select, trash }) {
                   />
                 );
               })
-            : getIn.map((inLetter) => {
+            ) : (
+              getOut.map((outLetter) => {
                 return (
                   <LetterItem
-                    key={inLetter.messageId}
-                    inLetter={inLetter}
+                    key={outLetter.messageId}
+                    outLetter={outLetter}
                     select={select}
                     trash={trash}
                   />
                 );
-              })}
+              })
+            )
+          ) : leftTab || rightTab ? (
+            isFilterIn.map((inLetter) => {
+              return (
+                <LetterItem
+                  key={inLetter.messageId}
+                  inLetter={inLetter}
+                  select={select}
+                  trash={trash}
+                />
+              );
+            })
+          ) : (
+            getIn.map((inLetter) => {
+              return (
+                <LetterItem
+                  key={inLetter.messageId}
+                  inLetter={inLetter}
+                  select={select}
+                  trash={trash}
+                />
+              );
+            })
+          )}
           <L.TargetBox ref={ref}>
             {(isLoadingOut || isLoadingIn) && "Loading..."}
           </L.TargetBox>
