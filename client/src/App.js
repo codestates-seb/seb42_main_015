@@ -22,7 +22,7 @@ import Complete from "./pages/WriteLetter/Complete";
 // ! 공백
 function App() {
   const displayFooter = true;
-  const { isLogin, setIsLogin } = useStore((state) => state);
+  const { isLogin, setIsLogin } = useStore();
 
   const initializeUserInfo = async () => {
     const loggedInfo = getCookie("accesstoken");
@@ -35,6 +35,7 @@ function App() {
 
   useEffect(() => {
     initializeUserInfo();
+    // removeCookie("accesstoken");
   }, [isLogin]);
 
   // ! 공백

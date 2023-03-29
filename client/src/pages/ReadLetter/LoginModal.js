@@ -7,7 +7,7 @@ import axios from "axios";
 import { setCookie } from "../Certified/Cookie";
 import { GoogleOauthLogin, options } from "../Certified/setupCertified";
 
-const LoginModal = ({ ModalRef, setIsKeeping, setIsClickModal }) => {
+const LoginModal = ({ ModalRef, setIsClickModal }) => {
   //로그인되면 모달 닫기
   const CloseModal = () => {
     alert("로그인되었습니다.");
