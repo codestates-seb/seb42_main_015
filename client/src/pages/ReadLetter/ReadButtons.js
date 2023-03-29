@@ -9,6 +9,7 @@ import { HiOutlineArrowUturnLeft, HiOutlineTrash } from "react-icons/hi2";
 import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
 import { Loading } from "../../components/Loading";
+import Refresh from "../../util/Refresh";
 
 const ReadButtons = ({
   isLogin,
@@ -49,9 +50,13 @@ const ReadButtons = ({
       data: {},
     })
       .then((res) => {
+        if (res.status === 401) {
+          Refresh();
+          handleKeeping();
+        }
+        setIsLoading(false);
         setIsKeeping(true);
         alert("편지가 저장되었습니다.\n 이제 우편함에서 확인할 수 있어요!");
-        setIsLoading(false);
         setIsDustbin({
           ...isDustbin,
           receivingId: res.data.receivingId,
@@ -81,7 +86,11 @@ const ReadButtons = ({
             Authorization: getCookie("accesstoken"),
           },
         })
-          .then(() => {
+          .then((res) => {
+            if (res.status === 401) {
+              Refresh();
+              onRemove();
+            }
             setIsLoading(false);
             alert("삭제되었습니다.");
             navigate("/letterbox");
@@ -90,6 +99,7 @@ const ReadButtons = ({
             console.log(err);
             setIsLoading(false);
           });
+        //outgoingId가 있다면 === 발신편지라면
       } else if (isDustbin.outgoingId) {
         await axios({
           method: "patch",
@@ -99,7 +109,11 @@ const ReadButtons = ({
             Authorization: getCookie("accesstoken"),
           },
         })
-          .then(() => {
+          .then((res) => {
+            if (res.status === 401) {
+              Refresh();
+              onRemove();
+            }
             setIsLoading(false);
             setTimeout(() => {
               alert("삭제되었습니다.");

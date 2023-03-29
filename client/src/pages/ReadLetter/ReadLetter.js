@@ -8,10 +8,11 @@ import { AiOutlineSound } from "react-icons/ai";
 import { HiPause } from "react-icons/hi2";
 import { getSpeech, pauseSpeech } from "./GetSpeech";
 import ReadButtons from "./ReadButtons";
-import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
 import useStore from "../../store/store";
 import { Loading } from "../../components/Loading";
+import axios from "axios";
+import Refresh from "../../util/Refresh";
 
 //{isLogin} props 제거
 const ReadLetter = ({ isLogin }) => {
@@ -69,13 +70,6 @@ const ReadLetter = ({ isLogin }) => {
     getSpeech(pauseSpeech());
   };
 
-  //음성 변환 목소리 preload
-  useEffect(() => {
-    window.speechSynthesis.getVoices();
-    getLetter();
-    window.scrollTo(0, 0);
-  }, []);
-
   //todo 메세지 정보 가져오기
   const getLetter = async () => {
     await axios
@@ -86,6 +80,10 @@ const ReadLetter = ({ isLogin }) => {
         },
       })
       .then((res) => {
+        if (res.status === 401) {
+          Refresh();
+          getLetter();
+        }
         //편지 정보 담기
         setData(res.data);
         //messageSaved 정보 담기
@@ -107,11 +105,12 @@ const ReadLetter = ({ isLogin }) => {
       });
   };
 
-  //화면 렌더링시 nan 문제 해결
-  // useLayoutEffect(() => {
-  //   getLetter();
-  //   window.scrollTo(0, 0);
-  // }, []);
+  //음성 변환 목소리 preload
+  useEffect(() => {
+    window.speechSynthesis.getVoices();
+    getLetter();
+    window.scrollTo(0, 0);
+  }, []);
 
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
   const LetterDate = `${new Date(`${data.createdAt}`).getFullYear()}.${(

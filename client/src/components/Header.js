@@ -5,10 +5,11 @@ import postbox from "../asset/postbox.svg";
 import axios from "axios";
 import { getCookie, removeCookie } from "../pages/Certified/Cookie";
 import useStore from "../store/store";
+import Refresh from "../util/Refresh";
 
 function Header() {
   const navigate = useNavigate();
-  const { isLogin, setIsLogin } = useStore((state) => state);
+  const { isLogin, setIsLogin } = useStore();
 
   //로그아웃 제출 버튼
   const onLogout = async () => {
@@ -21,7 +22,12 @@ function Header() {
         Refresh: localStorage.getItem("refreshToken"),
       },
     })
-      .then(() => {
+      .then((res) => {
+        //액세스토큰이 만료되었다면(401 에러)
+        if (res.status === 401) {
+          Refresh();
+          onLogout();
+        }
         localStorage.clear();
         removeCookie("accesstoken");
         navigate("/completeLogout");
