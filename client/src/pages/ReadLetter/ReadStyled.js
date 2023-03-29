@@ -141,7 +141,7 @@ export const Secretform = styled.form`
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 1.2px solid #000;
+    border-bottom: 1.4px solid #000;
     background-image: url("${pwd}");
     background-color: initial;
     background-repeat: no-repeat;
@@ -160,7 +160,7 @@ export const Secretform = styled.form`
     align-items: center;
     width: 7rem;
     height: 2.5rem;
-    border: 1.2px solid #000;
+    border: 1.4px solid #000;
     background-color: #fcfbf4;
     ${FONT_STYLE_READ.btn_8_light}
     font-size: 15px;
@@ -182,7 +182,7 @@ export const Secretform = styled.form`
   p {
     color: red;
     margin: -7rem 0 -2rem;
-    font-size: 14px;
+    font-size: 16px;
     @media screen and (max-width: 1024px) {
       margin: -100px 0 -30px;
       font-size: 13px;

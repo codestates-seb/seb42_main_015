@@ -1,33 +1,33 @@
-// import axios from "axios";
-// import { setCookie, getCookie } from "../pages/Certified/Cookie";
+import axios from "axios";
+import { setCookie } from "../pages/Certified/Cookie";
 
-// function Refresh() {
-//   axios.defaults.withCredentials = true;
-//   return axios
-//     .post(`/api/sendy/auth/reissue`, {
-//       headers: { "ngrok-skip-browser-warning": "12" },
-//     })
-//     .then((res) => {
-//       localStorage.setItem("jwtToken", res.headers.authorization);
-//     });
+function Refresh() {
+  axios.defaults.withCredentials = true;
+  return axios({
+    method: "post",
+    url: `/api/sendy/auth/reissue`,
+    headers: {
+      "ngrok-skip-browser-warning": "12",
+      Refresh: localStorage.getItem("refreshToken"),
+    },
+  })
+    .then(() => {
+      if (res.headers.getAuthorization) {
+        setCookie(
+          "accesstoken",
+          `Bearer ${res.headers.get("Authorization").split(" ")[1]}`,
+          {
+            path: "/",
+            sucure: true,
+            sameSite: "Strict",
+            HttpOnly: " HttpOnly ",
+          }
+        );
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
-//     await axios({
-//       method: "post",
-//       url: `/api/sendy/auth/reissue`,
-//       headers: {
-//         "ngrok-skip-browser-warning": "12",
-//         Refresh: localStorage.getItem("refreshToken"),
-//       },
-//     })
-//       .then(() => {
-//         localStorage.clear();
-//         removeCookie("accesstoken");
-//         navigate("/completeLogout");
-//         window.location.reload();
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-// }
-
-// export default Refresh;
+export default Refresh;

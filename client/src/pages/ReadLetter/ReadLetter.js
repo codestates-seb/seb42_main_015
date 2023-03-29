@@ -104,12 +104,13 @@ const ReadLetter = ({ isLogin }) => {
 
   useEffect(() => {
     getLetter();
+    window.scrollTo(0, 0);
   }, []);
 
-  //화면 렌더링시 nan 문제
+  //화면 렌더링시 nan 문제 해결
   useLayoutEffect(() => {
     getLetter();
-  }, []);
+  }, [data, enterPassword]);
 
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
   const LetterDate = `${new Date(`${data.createdAt}`).getFullYear()}.${(
@@ -128,34 +129,86 @@ const ReadLetter = ({ isLogin }) => {
   return (
     <>
       {isLoading ? <Loading /> : ""}
-      {isLogin || enterPassword ? (
-        <R.Wrapper>
-          <div className="ReadContainer" onClick={handleModal}>
-            <div className="top-sub">
-              <div className="soundButtons">
-                <AiOutlineSound
-                  size="30"
-                  onClick={handleSpeechButton}
-                  className="speech-icon"
-                />
-                <HiPause
-                  size="30"
-                  onClick={handlePauseButton}
-                  className="pause-icon"
-                />
+      {isLogin &&
+        (enterPassword ? (
+          <R.Wrapper>
+            <div className="ReadContainer" onClick={handleModal}>
+              <div className="top-sub">
+                <div className="soundButtons">
+                  <AiOutlineSound
+                    size="30"
+                    onClick={handleSpeechButton}
+                    className="speech-icon"
+                  />
+                  <HiPause
+                    size="30"
+                    onClick={handlePauseButton}
+                    className="pause-icon"
+                  />
+                </div>
+                <R.EnterSeret>
+                  비밀번호
+                  <p>{data.password}</p>
+                </R.EnterSeret>
               </div>
-              <R.EnterSeret>
-                비밀번호
-                <p>{data.password}</p>
-              </R.EnterSeret>
+              <R.Card className={rotate ? "active-rotate" : ""}>
+                <R.Letterpaper
+                  className="front"
+                  ref={LetterRef}
+                  LetterTheme={data.themeName}
+                  onClick={handleRotate}
+                >
+                  <div className="top">
+                    <div className="to">To. {data.toName}</div>
+                    <div className="date">{LetterDate}</div>
+                  </div>
+                  <div className="content" font={data.fontName}>
+                    {data.content}
+                  </div>
+                  <div className="from">From. {data.fromName}</div>
+                </R.Letterpaper>
+                <R.Letterpaper className="back" onClick={handleRotate}>
+                  <R.Date>{LetterDate}</R.Date>
+                  <R.BackImg src={data.messageImageUrl}></R.BackImg>
+                  <div className="preview-back-content">
+                    <R.FlexWrapper1></R.FlexWrapper1>
+                    <R.FlexWrapper1>
+                      <R.NameInputWrapper className="preview">
+                        {data.toName}에게
+                      </R.NameInputWrapper>
+                      <R.NameInputWrapper className="from-input preview">
+                        {data.fromName}(이)가
+                      </R.NameInputWrapper>
+                    </R.FlexWrapper1>
+                  </div>
+                </R.Letterpaper>
+              </R.Card>
+              <ReadButtons
+                ModalRef={ModalRef}
+                isKeeping={isKeeping}
+                setIsKeeping={setIsKeeping}
+                isLogin={isLogin}
+                onDownloadBtn={onDownloadBtn}
+                isClickModal={isClickModal}
+                setIsClickModal={setIsClickModal}
+              />
             </div>
-            <R.Card className={rotate ? "active-rotate" : ""}>
-              <R.Letterpaper
-                className="front"
-                ref={LetterRef}
-                LetterTheme={data.themeName}
-                onClick={handleRotate}
-              >
+          </R.Wrapper>
+        ) : (
+          <R.Wrapper>
+            <SecretLetter setEnterPassword={setEnterPassword} />
+            <div className="ReadContainer" onClick={handleModal}>
+              <div className="top-sub">
+                <div className="soundButtons">
+                  <AiOutlineSound size="30" className="speech-icon" />
+                  <HiPause size="30" className="pause-icon" />
+                </div>
+                <R.EnterSeret>
+                  비밀번호
+                  <p>{data.password}</p>
+                </R.EnterSeret>
+              </div>
+              <R.Letterpaper className="front" LetterTheme={data.themeName}>
                 <div className="top">
                   <div className="to">To. {data.toName}</div>
                   <div className="date">{LetterDate}</div>
@@ -165,61 +218,10 @@ const ReadLetter = ({ isLogin }) => {
                 </div>
                 <div className="from">From. {data.fromName}</div>
               </R.Letterpaper>
-              <R.Letterpaper className="back" onClick={handleRotate}>
-                <R.Date>{LetterDate}</R.Date>
-                <R.BackImg src={data.messageImageUrl}></R.BackImg>
-                <div className="preview-back-content">
-                  <R.FlexWrapper1></R.FlexWrapper1>
-                  <R.FlexWrapper1>
-                    <R.NameInputWrapper className="preview">
-                      {data.toName}에게
-                    </R.NameInputWrapper>
-                    <R.NameInputWrapper className="from-input preview">
-                      {data.fromName}(이)가
-                    </R.NameInputWrapper>
-                  </R.FlexWrapper1>
-                </div>
-              </R.Letterpaper>
-            </R.Card>
-            <ReadButtons
-              ModalRef={ModalRef}
-              isKeeping={isKeeping}
-              setIsKeeping={setIsKeeping}
-              isLogin={isLogin}
-              onDownloadBtn={onDownloadBtn}
-              isClickModal={isClickModal}
-              setIsClickModal={setIsClickModal}
-            />
-          </div>
-        </R.Wrapper>
-      ) : (
-        <R.Wrapper>
-          <SecretLetter setEnterPassword={setEnterPassword} />
-          <div className="ReadContainer" onClick={handleModal}>
-            <div className="top-sub">
-              <div className="soundButtons">
-                <AiOutlineSound size="30" className="speech-icon" />
-                <HiPause size="30" className="pause-icon" />
-              </div>
-              <R.EnterSeret>
-                비밀번호
-                <p>{data.password}</p>
-              </R.EnterSeret>
+              <ReadButtons />
             </div>
-            <R.Letterpaper className="front" LetterTheme={data.themeName}>
-              <div className="top">
-                <div className="to">To. {data.toName}</div>
-                <div className="date">{LetterDate}</div>
-              </div>
-              <div className="content" font={data.fontName}>
-                {data.content}
-              </div>
-              <div className="from">From. {data.fromName}</div>
-            </R.Letterpaper>
-            <ReadButtons />
-          </div>
-        </R.Wrapper>
-      )}
+          </R.Wrapper>
+        ))}
     </>
   );
 };
