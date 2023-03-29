@@ -1,31 +1,34 @@
 import React from "react";
 import * as L from "./LetterBoxStyled";
-import LetterList from "./LetterList";
+import LetterOutgoing from "./LetterOutgoing";
+import LetterReceiving from "./LetterReceiving";
+import useStore from "../../store/store";
 
 function LetterView({
   select,
   trash,
-  isSearchOut,
-  isSearchIn,
   isFocus,
-  isFilterOut,
-  isFilterIn,
-  leftTab,
-  rightTab
+  isSearchOut,
+  isSearchIn
 }) {
+  const { isSend } = useStore();
   return (
     <L.ListWrap>
-      <LetterList
-        select={select}
-        trash={trash}
-        isSearchOut={isSearchOut}
-        isSearchIn={isSearchIn}
-        isFocus={isFocus}
-        isFilterOut={isFilterOut}
-        isFilterIn={isFilterIn}
-        leftTab={leftTab}
-        rightTab={rightTab}
-      />
+      {isSend ? (
+        <LetterOutgoing
+          select={select}
+          trash={trash}
+          isFocus={isFocus}
+          isSearchOut={isSearchOut}
+        />
+      ) : (
+        <LetterReceiving
+          select={select}
+          trash={trash}
+          isFocus={isFocus}
+          isSearchIn={isSearchIn}
+        />
+      )}
     </L.ListWrap>
   );
 }
