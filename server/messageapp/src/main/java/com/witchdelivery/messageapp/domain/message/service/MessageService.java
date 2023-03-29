@@ -2,6 +2,7 @@ package com.witchdelivery.messageapp.domain.message.service;
 
 import com.witchdelivery.messageapp.domain.mailbox.entity.Outgoing;
 import com.witchdelivery.messageapp.domain.mailbox.entity.Receiving;
+import com.witchdelivery.messageapp.domain.mailbox.repository.OutgoingRepository;
 import com.witchdelivery.messageapp.domain.mailbox.service.OutgoingService;
 import com.witchdelivery.messageapp.domain.mailbox.service.ReceivingService;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
@@ -34,6 +35,7 @@ public class MessageService {
     private final ReceivingService receivingService;
     private final MemberDbService memberDbService;
     private final S3Service s3Service;
+    private final OutgoingRepository outgoingRepository;
 
     public Message createMessage(Message message, long memberId) {
 
@@ -43,7 +45,7 @@ public class MessageService {
         return savedMessage;
     }
 
-    public void updatedMessageSaved(Message message, boolean messageSaved, long memberId) {
+    public Receiving updatedMessageSaved(Message message, boolean messageSaved, long memberId) {
 //        Message message = findVerifiedMessage(messageId);
 //        message.setMessageSaved(messageSaved);    // true 0r false.  추후 리팩토링
         message.setMessageSaved(true);
@@ -51,8 +53,17 @@ public class MessageService {
 
         Receiving receiving = receivingJoinMessage(savedMessage, memberId);
 
-        receivingService.createReceiving(receiving);
+        return receivingService.createReceiving(receiving);
     }
+
+    /* public Receiving updateMessageSaved(Message message, boolean messageSaved, long memberId) {    // 03-29 receiving Id 요청으로 추가한 메서드인데, 유림님 코드를 살짝쿵 수정하면 되어서 일단은 주석처리를 하였다.
+            message.setMessageSaved(true);
+            Message savedMessage = messageRepository.save(message);
+
+            Receiving receiving = receivingJoinMessage(savedMessage, memberId);     // 인증된 Member와 연결된 새로운 Receiving 객체 생성
+
+            return receivingService.createReceiving(receiving);
+        }*/
 
 
     public Page<Message> findAllMessages(int page, int size) {
@@ -67,6 +78,7 @@ public class MessageService {
 
 
     public void deleteMessage(Long messageId) {
+        outgoingRepository.deleteByMessage_MessageId(messageId);
         Message message = findVerifiedMessage(messageId);
         messageRepository.delete(message);
     }

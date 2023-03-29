@@ -1,5 +1,6 @@
 package com.witchdelivery.messageapp.domain.message.controller;
 
+import com.witchdelivery.messageapp.domain.mailbox.entity.Receiving;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.domain.member.service.MemberDbService;
 import com.witchdelivery.messageapp.domain.message.dto.*;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Collections;
 
 @RestController
 @RequiredArgsConstructor
@@ -44,6 +46,11 @@ public class MessageController {
         Message createdMessage = messageService.createMessage(message, member.getMemberId());   // 테마, 폰트 추가
         MessageResponseDto responseDto = messageMapper.messageToMessageResponseDto(createdMessage);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+
+       /* if (messagePostDto.getScheduledTime() != null) {      // 나에게 보내는 편지
+            TimeCapsule timeCapsule = new TimeCapsule();
+            timeCapsule.setMessage(createdMessage)
+        }*/
     }
 
     @PostMapping("/{URL-Name}")    //      편지 비밀번호 조회
@@ -65,8 +72,10 @@ public class MessageController {
         Message message = messageService.findMessageByUrlName(urlName);
         Long memberId = memberDbService.findMemberByEmail(principal.getName()).getMemberId();
 
-        messageService.updatedMessageSaved(message, messagePatchDto.isMessageSaved(), memberId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        messageService.updatedMessageSaved(message, messagePatchDto.isMessageSaved(), memberId);     // 3/29 프론트 요구 사항 추가로 인한 원본을 주석
+        Receiving updatedReceiving = messageService.updatedMessageSaved(message, messagePatchDto.isMessageSaved(), memberId);    // 3/29 추가 내용
+        return new ResponseEntity<>(Collections.singletonMap("receivingId", updatedReceiving.getReceivingId()), HttpStatus.OK);  // 3/29 추가 내용
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);    3/29 프론트 요구사항 추가로 인한 원본을 주석
     }
 
 
