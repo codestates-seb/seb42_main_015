@@ -53,7 +53,7 @@ export const Search = styled.input`
 
 export const PeriodBox = styled.div`
   width: 30vw;
-  min-width: 300px;
+  min-width: 250px;
   height: 118px;
   border: 1px solid black;
   position: absolute;
@@ -68,20 +68,20 @@ export const Line = styled.div`
   width: 100%;
   height: 25px;
   background-color: #464646;
-  color: white;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-`;
-
-export const Reset = styled.span`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+export const LineBtn = styled.span`
+  height: 100%;
+  color: white;
+  display: flex;
+  align-items: center;
   font-size: 1rem;
   cursor: pointer;
-  padding: 0 0.5rem;
-  .icon {
+  padding: 0 1rem;
+  .period-btn {
     font-size: 1.5rem;
   }
 `;
@@ -305,7 +305,7 @@ export const ItemCase = styled.div`
   display: flex;
   flex-direction: column;
   padding: 4rem 3rem 1rem;
-`; 
+`;
 
 export const ItemTitle = styled.div`
   ${FONT_STYLE_V1.title.title_16_medium}

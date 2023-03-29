@@ -3,12 +3,12 @@ import * as M from "./Mainstyled";
 import { SectionsContainer, Section } from "react-fullpage";
 import { BsEnvelope } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
-// ! 공백
+
 let options = {
   anchors: ["sendyOne", "sendyTwo", "sendyThree", "sendyFour", "sendyFive"],
   // navigation: false,
 };
-// ! 공백
+
 function Main() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -169,7 +169,23 @@ function Main() {
                 편지 작성하러 가기
               </M.Button>
             </M.Textbox>
-            <M.Imgbox></M.Imgbox>
+            <M.Imgbox margin='4rem' >
+              <img
+                className="main"
+                src={require("../../asset/mainImg/main4.gif")}
+                alt=""
+              />
+              <img
+                className="main-sticker3"
+                src={require("../../asset/mainImg/sticker3.png")}
+                alt=""
+              />
+              <img
+                className="main-sticker4"
+                src={require("../../asset/mainImg/sticker4.png")}
+                alt=""
+              />
+            </M.Imgbox>
           </M.Column4>
         </Section>
         <Section>
