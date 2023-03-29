@@ -41,8 +41,8 @@ function Header() {
           sameSite: "Strict",
           HttpOnly: " HttpOnly ",
         });
-        window.location.reload();
         navigate("/completeLogout");
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
