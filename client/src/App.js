@@ -18,10 +18,11 @@ import Preview from "./pages/WriteLetter/Preview";
 import { getCookie, removeCookie } from "./pages/Certified/Cookie";
 import useStore from "./store/store";
 import NotFound from "./pages/NotFound";
+import Complete from "./pages/WriteLetter/Complete";
 // ! 공백
 function App() {
   const displayFooter = true;
-  const { isLogin, setIsLogin } = useStore((state) => state);
+  const { isLogin, setIsLogin } = useStore();
 
   const initializeUserInfo = async () => {
     const loggedInfo = getCookie("accesstoken");
@@ -59,6 +60,7 @@ function App() {
           />
           <Route path="/completeSignup" element={<CompleteSignup />} />
           <Route path="/writeletter/preview" element={<Preview />} />
+          <Route path="/writeletter/complete" element={<Complete />} />
           <Route path="/*" element={<NotFound />} />
         </Route>
       </Routes>

@@ -16,6 +16,7 @@ import 클로버 from "../../asset/letterTheme/클로버-theme.png";
 
 export const LetterBoxWrap = styled.div`
   width: 100%;
+  min-width: 320px;
   min-height: 90vh;
   ${FONT_STYLE_V1.body.body_15_light}
 `;
@@ -52,7 +53,7 @@ export const Search = styled.input`
 
 export const PeriodBox = styled.div`
   width: 30vw;
-  min-width: 300px;
+  min-width: 250px;
   height: 118px;
   border: 1px solid black;
   position: absolute;
@@ -67,19 +68,20 @@ export const Line = styled.div`
   width: 100%;
   height: 25px;
   background-color: #464646;
-  color: white;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
 `;
 
-export const Reset = styled.span`
+export const LineBtn = styled.span`
+  height: 100%;
+  color: white;
   display: flex;
   align-items: center;
   font-size: 1rem;
   cursor: pointer;
-  .reset {
-    margin-right: 0.5rem;
+  padding: 0 1rem;
+  .period-btn {
     font-size: 1.5rem;
   }
 `;
@@ -91,9 +93,6 @@ export const Date = styled.ul`
   justify-content: center;
   align-items: center;
   ${FONT_STYLE_V1.body.body_20_light}
-  .submit {
-    font-size: 2.5rem;
-  }
 `;
 
 export const DateYear = styled.li`
@@ -224,30 +223,26 @@ export const ItemContainer = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
-  /* padding-left: 2rem; */
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    padding-left: 0;
-  }
 `;
 
 export const NotSearch = styled.div`
-  width: 90%;
+  width: 100%;
   height: 5rem;
-  text-align: center;
+  padding: 5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${FONT_STYLE_V1.body.body_18_light}
 `;
 
 export const ItemBox = styled.div`
-  width: 250px;
-  height: 350px;
+  width: 220px;
+  height: 370px;
   /* background-color: white; */
   border: ${(props) => (props.borderColor ? props.borderColor : "black")};
   box-shadow: ${(props) => props.shadowColor};
   margin-left: 3rem;
   margin-bottom: 3rem;
-  padding: 4rem 2rem 1rem;
-  display: flex;
-  flex-direction: column;
   position: relative;
   cursor: pointer;
   background-size: cover;
@@ -304,8 +299,16 @@ export const ItemBox = styled.div`
   }};
 `;
 
+export const ItemCase = styled.div`
+  width: 220px;
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  padding: 4rem 3rem 1rem;
+`;
+
 export const ItemTitle = styled.div`
-  ${FONT_STYLE_V1.title.title_18_medium}
+  ${FONT_STYLE_V1.title.title_16_medium}
   margin-bottom: 2rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     ${FONT_STYLE_V1.title.title_25_medium}
@@ -313,7 +316,7 @@ export const ItemTitle = styled.div`
 `;
 
 export const ItemContents = styled.p`
-  ${FONT_STYLE_V1.body.body_15_light}
+  ${FONT_STYLE_V1.body.body_13_light}
   overflow: hidden;
   white-space: normal;
   text-overflow: ellipsis;
@@ -327,8 +330,8 @@ export const ItemContents = styled.p`
 `;
 
 export const ItemDate = styled.div`
-  ${FONT_STYLE_V1.title.title_14_medium}
-  margin-bottom: 0.5rem;
+  ${FONT_STYLE_V1.title.title_12_medium}
+  margin-bottom: 1rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     ${FONT_STYLE_V1.title.title_18_medium}
   }
@@ -465,7 +468,9 @@ export const SendButton = styled.div`
 
 export const TargetBox = styled.div`
   width: 100%;
-  height: 30px;
-  text-align: center;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${FONT_STYLE_V1.title.title_18_medium}
 `;
