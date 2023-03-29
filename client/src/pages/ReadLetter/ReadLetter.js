@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
 import * as R from "./ReadStyled";
 import domtoimage from "dom-to-image";
@@ -72,9 +72,6 @@ const ReadLetter = ({ isLogin }) => {
     window.speechSynthesis.getVoices();
   }, []);
 
-  //TODO : 사진 있는 편지시 AXIOS 동시 요청
-  //https://inpa.tistory.com/entry/AXIOS-%F0%9F%93%9A-%EC%84%A4%EC%B9%98-%EC%82%AC%EC%9A%A9
-
   const getLetter = async () => {
     await axios
       .get(`/api/sendy/messages/${urlName}`, {
@@ -106,6 +103,11 @@ const ReadLetter = ({ isLogin }) => {
   };
 
   useEffect(() => {
+    getLetter();
+  }, []);
+
+  //화면 렌더링시 nan 문제
+  useLayoutEffect(() => {
     getLetter();
   }, []);
 
@@ -163,12 +165,20 @@ const ReadLetter = ({ isLogin }) => {
                 </div>
                 <div className="from">From. {data.fromName}</div>
               </R.Letterpaper>
-              <R.Letterpaper
-                className="back"
-                LetterTheme={data.themeName}
-                onClick={handleRotate}
-              >
-                <div>뒷장</div>
+              <R.Letterpaper className="back" onClick={handleRotate}>
+                <R.Date>{LetterDate}</R.Date>
+                <R.BackImg src={data.messageImageUrl}></R.BackImg>
+                <div className="preview-back-content">
+                  <R.FlexWrapper1></R.FlexWrapper1>
+                  <R.FlexWrapper1>
+                    <R.NameInputWrapper className="preview">
+                      {data.toName}에게
+                    </R.NameInputWrapper>
+                    <R.NameInputWrapper className="from-input preview">
+                      {data.fromName}(이)가
+                    </R.NameInputWrapper>
+                  </R.FlexWrapper1>
+                </div>
               </R.Letterpaper>
             </R.Card>
             <ReadButtons
