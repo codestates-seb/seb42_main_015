@@ -25,7 +25,7 @@ function MakeLetter({ makeLetterModalRef }) {
   const [dragOver, setDragOver] = useState(false);
   const [hasFile, setHasFile] = useState(false);
   const [image, setImage] = useState(null);
-  const { letterContents, setLetterContents } = useStore((state) => state);
+  const { letterContents, setLetterContents } = useStore();
   const [imageFile, setImageFile] = useState();
   const renderFile = (file) => {
     let reader = new FileReader();
@@ -100,7 +100,7 @@ function MakeLetter({ makeLetterModalRef }) {
     setHasFile(false);
     setImage(null);
   };
-
+  useEffect(() => {}, [imageFile]);
   const [canUseUrl, setCanUseUrl] = useState(null);
   const handleCheckUrlName = () => {
     return axios({
@@ -137,19 +137,41 @@ function MakeLetter({ makeLetterModalRef }) {
       method: "post",
       headers: {
         "ngrok-skip-browser-warning": "230325",
+        "Content-Type": "multipart/form-data",
         Authorization: getCookie("accesstoken"),
-        // "Content-Type": "multipart/form-data",
       },
-      url: `/api/sendy/messages/write/image/1`,
+      url: `/api/sendy/messages/write/image/${letterContents.urlName}`,
       data: formData,
     });
   };
 
   const navigate = useNavigate();
   const handleMakeLetter = () => {
-    return axios.all([postLetterContents(), postMessageImg()]).then(() => {
-      navigate("complete");
-    });
+    return axios({
+      method: "post",
+      url: "/api/sendy/messages/write",
+      headers: {
+        Authorization: getCookie("accesstoken"),
+      },
+      data: letterContents,
+    })
+      .then(() => {
+        let formData = new FormData();
+        formData.append("image", imageFile);
+        return axios({
+          method: "post",
+          headers: {
+            "ngrok-skip-browser-warning": "230325",
+            "Content-Type": "multipart/form-data",
+            Authorization: getCookie("accesstoken"),
+          },
+          url: `/api/sendy/messages/write/image/${letterContents.urlName}`,
+          data: formData,
+        });
+      })
+      .then(() => {
+        navigate(`/readletter/${letterContents.urlName}`);
+      });
   };
 
   const handlePreview = () => {
@@ -212,7 +234,7 @@ function MakeLetter({ makeLetterModalRef }) {
             </div>
           </W.FlexRowWrapper>
           {canUseUrl ? (
-            <BsFillCheckCircleFill />
+            <BsFillCheckCircleFill className="done-check-icon" />
           ) : (
             <RoundButton
               className="check-button"

@@ -11,6 +11,7 @@ import RoundButton from "../commons/RoundButton";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { BsImageFill } from "react-icons/bs";
+import { FaTrashAlt } from "react-icons/fa";
 
 function MyPage() {
   const { changeCurrentPage } = useStore((state) => state);
@@ -136,6 +137,7 @@ function MyPage() {
         .then(() => {
           setNickname(null);
           setImage(null);
+          setNicknameVerify({ isVerified: false, error: null });
         })
         .catch((err) => {
           console.log(err);
@@ -150,6 +152,18 @@ function MyPage() {
       });
     }
     window.location.reload();
+  };
+  const handleDeleteProfileImage = () => {
+    return axios({
+      method: "post",
+      url: `/api/sendy/users/edit/reset-profile/${memberId}`,
+      headers: {
+        "ngrok-skip-browser-warning": "230325",
+        Authorization: getCookie("accesstoken"),
+      },
+    }).then(() => {
+      window.location.reload();
+    });
   };
 
   return (
@@ -178,6 +192,7 @@ function MyPage() {
               <M.FlexWrapper2>
                 {isEditable ? (
                   <>
+                    <FaTrashAlt onClick={handleDeleteProfileImage} />
                     <label
                       onChange={handleFile}
                       className="file-label"
@@ -199,7 +214,7 @@ function MyPage() {
               <M.UserInfoWrapper>
                 <M.NameDateWrapper>
                   {isEditable ? (
-                    <div>
+                    <div className="edit-box">
                       {nicknameVerify.isVerified ? (
                         <input
                           disabled
@@ -242,14 +257,19 @@ function MyPage() {
                   </M.ReadletterLink>
                   {isEditable ? (
                     <>
-                      <M.EditButton
-                        className="edit-done"
-                        onClick={(e) => {
-                          handleIsEditable(e);
-                          handleEditDone();
-                        }}>
-                        수정완료
-                      </M.EditButton>
+                      {nicknameVerify.isVerified ? (
+                        <M.EditButton
+                          className="edit-done"
+                          onClick={(e) => {
+                            handleIsEditable(e);
+                            handleEditDone();
+                          }}>
+                          수정완료
+                        </M.EditButton>
+                      ) : (
+                        <></>
+                      )}
+
                       <M.EditButton
                         className="cancel"
                         onClick={handleIsEditable}>

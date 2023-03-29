@@ -42,6 +42,9 @@ export const FlexRowWrapper = styled.div`
     ${FONT_STYLE_V1.body.body_15_light}
     justify-content: space-between;
     align-items: center;
+    .done-check-icon {
+      font-size: 2rem;
+    }
   }
   &.button-wrapper {
     width: 100%;
