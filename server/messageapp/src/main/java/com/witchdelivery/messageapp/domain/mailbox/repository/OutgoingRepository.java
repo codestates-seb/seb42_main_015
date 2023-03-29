@@ -19,4 +19,5 @@ public interface OutgoingRepository extends JpaRepository<Outgoing, Long> { // �
       @Query(value = "SELECT * FROM outgoing WHERE DATE(deleted_at) < DATE_SUB(NOW(), INTERVAL 30 DAY)", nativeQuery = true)  // 배치
       List<Outgoing> selectLimitedOutgoing();
       List<Outgoing> findAllByMessage_MessageId(Long messageId); // 해당 messageId를 갖는 모든 데이터 조회
+      void deleteByMessage_MessageId(Long messageId);     // message_saved batch 수정
 }
