@@ -16,6 +16,7 @@ import 클로버 from "../../asset/letterTheme/클로버-theme.png";
 
 export const LetterBoxWrap = styled.div`
   width: 100%;
+  min-width: 320px;
   min-height: 90vh;
   ${FONT_STYLE_V1.body.body_15_light}
 `;
@@ -75,11 +76,12 @@ export const Line = styled.div`
 
 export const Reset = styled.span`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   font-size: 1rem;
   cursor: pointer;
-  .reset {
-    margin-right: 0.5rem;
+  padding: 0 0.5rem;
+  .icon {
     font-size: 1.5rem;
   }
 `;
@@ -91,9 +93,6 @@ export const Date = styled.ul`
   justify-content: center;
   align-items: center;
   ${FONT_STYLE_V1.body.body_20_light}
-  .submit {
-    font-size: 2.5rem;
-  }
 `;
 
 export const DateYear = styled.li`
@@ -224,16 +223,15 @@ export const ItemContainer = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
-  /* padding-left: 2rem; */
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    padding-left: 0;
-  }
 `;
 
 export const NotSearch = styled.div`
-  width: 90%;
+  width: 100%;
   height: 5rem;
-  text-align: center;
+  padding: 5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${FONT_STYLE_V1.body.body_18_light}
 `;
 
@@ -465,7 +463,9 @@ export const SendButton = styled.div`
 
 export const TargetBox = styled.div`
   width: 100%;
-  height: 30px;
-  text-align: center;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${FONT_STYLE_V1.title.title_18_medium}
 `;

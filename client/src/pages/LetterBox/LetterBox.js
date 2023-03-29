@@ -11,7 +11,7 @@ import {
   RiUserReceivedLine,
   RiUserSharedLine,
 } from "react-icons/ri";
-import { BsArrowRightCircle } from "react-icons/bs";
+import { RxThickArrowRight } from "react-icons/rx";
 import { BiRefresh } from "react-icons/bi";
 import useStore from "../../store/store";
 
@@ -174,7 +174,8 @@ function LetterBox() {
             <L.PeriodBox>
               <L.Line>
                 <L.Reset onClick={() => window.location.reload()}>
-                  초기화 <BiRefresh className="reset" />
+                  <div>초기화 <BiRefresh className="icon" /></div>
+                  <div><RxThickArrowRight className="icon" onClick={handleDate} /></div>
                 </L.Reset>
               </L.Line>
               <L.Date>
@@ -199,7 +200,6 @@ function LetterBox() {
                   {monthR}
                   <RiArrowDownSLine onClick={handleMonthRDown} />
                 </L.DateMonth>
-                <BsArrowRightCircle className="submit" onClick={handleDate} />
               </L.Date>
             </L.PeriodBox>
           ) : (
