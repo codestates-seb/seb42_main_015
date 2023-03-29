@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
 import * as R from "./ReadStyled";
 import domtoimage from "dom-to-image";
@@ -11,14 +11,16 @@ import ReadButtons from "./ReadButtons";
 import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
 import useStore from "../../store/store";
+import { Loading } from "../../components/Loading";
 
 //{isLogin} props 제거
 const ReadLetter = ({ isLogin }) => {
   const { urlName } = useParams();
-  const { letterPassword, setLetterPassword } = useStore((state) => state);
-  const { messageId, setMessageId } = useStore((state) => state);
+  const { letterPassword, setLetterPassword, messageId, setMessageId } =
+    useStore();
+  const [isLoading, setIsLoading] = useState(false);
 
-  //todo: useState
+  //todo useState
   //비밀번호 쳤는지 안쳤는지
   const [enterPassword, setEnterPassword] = useState(false);
   //보관하기를 클릭했을 때 비로그인(저장X)인지 로그인(저장준비 완료)아닌지
@@ -28,18 +30,23 @@ const ReadLetter = ({ isLogin }) => {
   //모달 클릭
   const [isClickModal, setIsClickModal] = useState(false);
 
-  //! 이미지 저장 기능
+  //todo 이미지 저장 기능
   //useRef로 -> DOM 선택
   const LetterRef = useRef();
   //이미지로 저장하기 버튼
   const onDownloadBtn = () => {
+    setIsLoading(true);
     const letter = LetterRef.current;
     domtoimage.toBlob(letter).then((blob) => {
+      setTimeout(() => {
+        alert("편지가 저장되었어요!");
+      }, 100);
       saveAs(blob, "letter.png");
+      setIsLoading(false);
     });
   };
 
-  //! 모달 영역 밖 클릭 시 모달 닫기
+  //todo 모달 영역 밖 클릭 시 모달 닫기
   const ModalRef = useRef();
   const handleModal = (e) => {
     if (isClickModal && !ModalRef.current.contains(e.target)) {
@@ -47,7 +54,7 @@ const ReadLetter = ({ isLogin }) => {
     }
   };
 
-  //! 음성 tts api
+  //todo 음성 tts api
   //음성 value 상태
   const voiceValue = `${data.content}`;
 
@@ -65,9 +72,7 @@ const ReadLetter = ({ isLogin }) => {
     window.speechSynthesis.getVoices();
   }, []);
 
-  //TODO : 사진 있는 편지시 AXIOS 동시 요청
-  //https://inpa.tistory.com/entry/AXIOS-%F0%9F%93%9A-%EC%84%A4%EC%B9%98-%EC%82%AC%EC%9A%A9
-
+  //todo 메세지 정보 가져오기
   const getLetter = async () => {
     await axios
       .get(`/api/sendy/messages/${urlName}`, {
@@ -100,7 +105,13 @@ const ReadLetter = ({ isLogin }) => {
 
   useEffect(() => {
     getLetter();
+    window.scrollTo(0, 0);
   }, []);
+
+  //화면 렌더링시 nan 문제 해결
+  useLayoutEffect(() => {
+    getLetter();
+  }, [data]);
 
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
   const LetterDate = `${new Date(`${data.createdAt}`).getFullYear()}.${(
@@ -118,7 +129,8 @@ const ReadLetter = ({ isLogin }) => {
 
   return (
     <>
-      {isLogin || enterPassword ? (
+      {isLoading ? <Loading /> : ""}
+      {isLogin && enterPassword ? (
         <R.Wrapper>
           <div className="ReadContainer" onClick={handleModal}>
             <div className="top-sub">
@@ -155,12 +167,20 @@ const ReadLetter = ({ isLogin }) => {
                 </div>
                 <div className="from">From. {data.fromName}</div>
               </R.Letterpaper>
-              <R.Letterpaper
-                className="back"
-                LetterTheme={data.themeName}
-                onClick={handleRotate}
-              >
-                <div>뒷장</div>
+              <R.Letterpaper className="back" onClick={handleRotate}>
+                <R.Date>{LetterDate}</R.Date>
+                <R.BackImg src={data.messageImageUrl}></R.BackImg>
+                <div className="preview-back-content">
+                  <R.FlexWrapper1></R.FlexWrapper1>
+                  <R.FlexWrapper1>
+                    <R.NameInputWrapper className="preview">
+                      {data.toName}에게
+                    </R.NameInputWrapper>
+                    <R.NameInputWrapper className="from-input preview">
+                      {data.fromName}(이)가
+                    </R.NameInputWrapper>
+                  </R.FlexWrapper1>
+                </div>
               </R.Letterpaper>
             </R.Card>
             <ReadButtons

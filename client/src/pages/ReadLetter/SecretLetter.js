@@ -5,7 +5,7 @@ import * as yup from "yup";
 import useStore from "../../store/store";
 
 const ReadLetter = ({ setEnterPassword }) => {
-  const { letterPassword, setLetterPassword } = useStore((state) => state);
+  const { letterPassword, setLetterPassword } = useStore();
 
   const FormScheme = yup.object().shape({
     numberpassword: yup
@@ -25,13 +25,15 @@ const ReadLetter = ({ setEnterPassword }) => {
 
   const onSubmit = async (data) => {
     const { numberpassword } = data;
-    if (letterPassword === numberpassword) {
+    if (String(letterPassword) === String(numberpassword)) {
       alert("비밀번호가 일치합니다! 어떤 편지가 왔을까요?");
       setEnterPassword(true);
     } else {
       alert("비밀번호가 일치하지 않습니다. 편지를 열 수 없어요.");
     }
   };
+
+  console.log(letterPassword);
 
   return (
     <>

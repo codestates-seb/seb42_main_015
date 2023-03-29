@@ -1,11 +1,16 @@
 import styled, { css } from "styled-components";
-import { BREAKPOINTMOBILE, BREAKPOINTTABLET } from "../../breakpoint";
+import {
+  BREAKPOINTMOBILE,
+  BREAKPOINTTABLET,
+  BREAKPOINTMOBILE2,
+} from "../../breakpoint";
 import {
   FONT_STYLE_READ,
   FONT_STYLE_LOGIN,
   FONT_STYLE_CONTENT,
   FONT_STYLE_V1,
 } from "../../style/fontStyle";
+import * as W from "../WriteLetter/WriteStyled";
 import pwd from "../../asset/pwd.png";
 import email from "../../asset/mail.png";
 import { PALETTE_V1 } from "../../style/color";
@@ -104,9 +109,9 @@ export const SWrapper = styled.div`
   z-index: 100;
   &::before {
     content: "";
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(50px);
   }
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(50px);
 `;
 
 //todo : 비밀번호 입력 form
@@ -136,7 +141,7 @@ export const Secretform = styled.form`
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 1.2px solid #000;
+    border-bottom: 1.4px solid #000;
     background-image: url("${pwd}");
     background-color: initial;
     background-repeat: no-repeat;
@@ -155,7 +160,7 @@ export const Secretform = styled.form`
     align-items: center;
     width: 7rem;
     height: 2.5rem;
-    border: 1.2px solid #000;
+    border: 1.4px solid #000;
     background-color: #fcfbf4;
     ${FONT_STYLE_READ.btn_8_light}
     font-size: 15px;
@@ -177,7 +182,7 @@ export const Secretform = styled.form`
   p {
     color: red;
     margin: -7rem 0 -2rem;
-    font-size: 14px;
+    font-size: 16px;
     @media screen and (max-width: 1024px) {
       margin: -100px 0 -30px;
       font-size: 13px;
@@ -243,7 +248,6 @@ export const FlexColunmWrapper = styled.div`
     max-width: 756px;
     width: 82%;
   }
-
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 39rem;
   }
@@ -252,18 +256,20 @@ export const FlexColunmWrapper = styled.div`
 //편지 내용(To, 날짜 , content, from)
 export const Letterpaper = styled(FlexColunmWrapper)`
   aspect-ratio: 680/1133;
-  /* aspect-ratio: 3/5; */
   background-size: cover;
   flex-direction: column;
   border: 2px solid #000000;
-  padding: 2.5rem 2.5rem;
+  padding: 15% 11% 15%;
   min-height: 0;
   min-width: 680px;
-  max-width: 754px;
+  max-width: 680px;
   background-color: #ffffff;
+
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     min-width: 18rem;
-    padding: 2rem 1.4rem;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
+    min-width: 18rem;
   }
 
   ${(props) => {
@@ -318,27 +324,20 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     justify-content: space-between;
     flex-direction: row;
     margin-bottom: 1rem;
-    padding: 1rem 2rem 1rem 1rem;
-    ${FONT_STYLE_READ.body_9_Medium}
-    font-size: 1.6rem;
-
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      padding: 0.5rem 1.2rem 1rem 1rem;
-      font-size: 11px;
-    }
+    ${FONT_STYLE_V1.body.body_20_light}
   }
 
   .content {
     letter-spacing: 2px;
-    line-height: 2.5rem;
-    padding: 1rem 2rem 1rem 1rem;
+    line-height: 3rem;
+    padding: 0 1rem 0 0;
     background-color: transparent;
     border: none;
     resize: none;
     aspect-ratio: 1/1.5;
-    font-size: 1.7rem;
-    /* aspect-ratio: 3/5; */
-    /* ${FONT_STYLE_READ.body_10_light}; */
+    ${FONT_STYLE_V1.body.body_20_light}
+    font-size: 1.8rem;
+
     ${(props) => {
       switch (props.font) {
         case "프리텐다드":
@@ -352,7 +351,6 @@ export const Letterpaper = styled(FlexColunmWrapper)`
       }
     }}
     overflow: auto;
-    font-size: 1.3rem;
     &:focus {
       outline: none;
     }
@@ -369,17 +367,17 @@ export const Letterpaper = styled(FlexColunmWrapper)`
       border-radius: 7px;
       border: 1.5px solid;
     }
-    @media screen and (max-width: 1024px) {
-      line-height: 2.8rem;
-      font-size: 16px;
-    }
-
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      padding: 0.7rem 1.2rem 1.5rem 1.2rem;
-      font-size: 11px;
-      line-height: 2.2rem;
-    }
   }
+
+  .from {
+    display: flex;
+    font-size: 1.6rem;
+    justify-content: flex-end;
+    font-size: 1.5rem;
+    ${FONT_STYLE_V1.body.body_20_light}
+  }
+
+  justify-content: space-between;
 
   .back-add {
     display: flex;
@@ -390,69 +388,6 @@ export const Letterpaper = styled(FlexColunmWrapper)`
       backdrop-filter: blur(100px);
     }
     backdrop-filter: blur(10px);
-  }
-
-  .from {
-    display: flex;
-    ${FONT_STYLE_READ.body_9_Medium};
-    font-size: 1.6rem;
-    justify-content: flex-end;
-    padding: 1rem 2rem 1rem 1rem;
-    font-size: 1.5rem;
-
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      padding: 1.4rem 1.2rem 0.5rem 0rem;
-      font-size: 11px;
-    }
-  }
-
-  //편지 앞장
-  .front {
-    position: relative;
-  }
-  .front:before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: #fff;
-    border-width: 0 0 125px 125px;
-    border-style: solid;
-    border-color: transparent transparent rgba(115, 175, 200, 0.9);
-  }
-
-  //편지 앞장
-  .front {
-    position: relative;
-    -webkit-box-shadow: -5px 7px 5px rgba(0, 0, 0, 0.8);
-    -moz-box-shadow: -5px 7px 5px rgba(0, 0, 0, 0.8);
-    box-shadow: -5px 7px 5px rgba(0, 0, 0, 0.8);
-  }
-
-  .front:before {
-    content: "";
-    position: absolute;
-    top: 0%;
-    right: 0%;
-    width: 0px;
-    height: 0px;
-    border-bottom: 70px solid #eee;
-    border-right: 70px solid transparent;
-    -webkit-box-shadow: -7px 7px 7px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: -7px 7px 7px rgba(0, 0, 0, 0.3);
-    box-shadow: -7px 7px 7px rgba(0, 0, 0, 0.3);
-  }
-
-  .front:after {
-    content: "";
-    position: absolute;
-    top: 0%;
-    right: 0%;
-    width: 0px;
-    height: 0px;
-    border-top: 69px solid #272822;
-    border-left: 69px solid transparent;
   }
 `;
 
@@ -652,5 +587,32 @@ export const Card = styled.div`
   }
   &.active-rotate {
     transform: rotateY(180deg);
+  }
+`;
+//TODO : 편지 뒷장
+export const Text = styled.div`
+  ${FONT_STYLE_V1.body.body_20_light}
+  display: flex;
+`;
+export const Date = styled(Text)`
+  height: fit-content;
+  white-space: nowrap;
+`;
+export const BackImg = styled.img`
+  border: 2px solid;
+  margin: 1rem 0;
+`;
+export const FlexWrapper1 = styled(W.FlexRowWrapper)`
+  justify-content: space-between;
+  width: 100%;
+`;
+export const NameInputWrapper = styled.div`
+  ${FONT_STYLE_V1.body.body_22_light}
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px solid ${PALETTE_V1.text_primary};
+  height: 100%;
+  &.preview {
+    border: none;
   }
 `;
