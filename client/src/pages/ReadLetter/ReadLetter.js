@@ -29,6 +29,8 @@ const ReadLetter = ({ isLogin }) => {
   const [data, setData] = useState([]);
   //모달 클릭
   const [isClickModal, setIsClickModal] = useState(false);
+  //편지 rotate
+  const [rotate, setRotate] = useState(false);
 
   //todo 이미지 저장 기능
   //useRef로 -> DOM 선택
@@ -70,6 +72,8 @@ const ReadLetter = ({ isLogin }) => {
   //음성 변환 목소리 preload
   useEffect(() => {
     window.speechSynthesis.getVoices();
+    getLetter();
+    window.scrollTo(0, 0);
   }, []);
 
   //todo 메세지 정보 가져오기
@@ -103,15 +107,11 @@ const ReadLetter = ({ isLogin }) => {
       });
   };
 
-  useEffect(() => {
-    getLetter();
-    window.scrollTo(0, 0);
-  }, []);
-
   //화면 렌더링시 nan 문제 해결
-  useLayoutEffect(() => {
-    getLetter();
-  }, [data]);
+  // useLayoutEffect(() => {
+  //   getLetter();
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
   const LetterDate = `${new Date(`${data.createdAt}`).getFullYear()}.${(
@@ -122,7 +122,6 @@ const ReadLetter = ({ isLogin }) => {
   }`;
 
   //편지 넘기기
-  const [rotate, setRotate] = useState(false);
   const handleRotate = () => {
     setRotate(!rotate);
   };

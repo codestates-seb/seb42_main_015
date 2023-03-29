@@ -1,5 +1,5 @@
 import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as R from "./ReadStyled";
 import { PALETTE_V1 } from "../../style/color";
 import ShadowButton from "../commons/ShadowButton";
@@ -25,13 +25,14 @@ const ReadButtons = ({
   const [isLoading, setIsLoading] = useState(false);
   //휴지통 정보
   const [isDustbin, setIsDustbin] = useState({
-    state: "",
     receivingId: "",
     outgoingId: "",
   });
   // 우편함에서 넘어온 정보
   const location = useLocation();
   console.log(location);
+  //로케이션 정보 업데이트
+  console.log(isDustbin);
 
   //todo :보관하기
   const handleKeeping = async () => {
@@ -53,11 +54,9 @@ const ReadButtons = ({
         setIsLoading(false);
         setIsDustbin({
           ...isDustbin,
-          state: "receivingId",
-          receivingId: `${res.data}`,
+          receivingId: res.data.receivingId,
         });
-        console.log(res.data); //{receivingId: 3}
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((err) => {
         console.log(err);
@@ -65,36 +64,54 @@ const ReadButtons = ({
       });
   };
 
-  console.log(isDustbin);
-
-  //Todo : 해당 편지가 수신편지인지, 발신편지인지 확인 과정 필요
-  //! 휴지통 alert
+  //Todo : 편지 삭제하기
   const onRemove = async () => {
     if (
       window.confirm(
         "정말로 삭제하시겠습니까?\n삭제된 편지는 [마이페이지-휴지통]에서 확인할 수 있습니다."
       )
     )
-      await axios({
-        method: "patch",
-        url: `/api/sendy/mailbox/receiving/${urlName}`,
-        headers: {
-          "ngrok-skip-browser-warning": "12",
-          Authorization: getCookie("accesstoken"),
-        },
-      })
-        .then(() => {
-          setIsLoading(false);
-          setTimeout(() => {
-            alert("삭제되었습니다.");
-          }, 100);
-          navigate("/letterbox");
-          window.location.reload();
+      if (!isDustbin.outgoingId) {
+        //outgoingId가 없다면 === 수신편지라면
+        await axios({
+          method: "patch",
+          url: `/api/sendy/mailbox/receiving/${isDustbin.receivingId}`,
+          headers: {
+            "ngrok-skip-browser-warning": "12",
+            Authorization: getCookie("accesstoken"),
+          },
         })
-        .catch((err) => {
-          console.log(err);
-          setIsLoading(false);
-        });
+          .then(() => {
+            setIsLoading(false);
+            alert("삭제되었습니다.");
+            navigate("/letterbox");
+          })
+          .catch((err) => {
+            console.log(err);
+            setIsLoading(false);
+          });
+      } else if (isDustbin.outgoingId) {
+        await axios({
+          method: "patch",
+          url: `/api/sendy/mailbox/outgoing/${isDustbin.outgoingId}`,
+          headers: {
+            "ngrok-skip-browser-warning": "12",
+            Authorization: getCookie("accesstoken"),
+          },
+        })
+          .then(() => {
+            setIsLoading(false);
+            setTimeout(() => {
+              alert("삭제되었습니다.");
+            }, 100);
+            navigate("/letterbox");
+            window.location.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+            setIsLoading(false);
+          });
+      }
   };
 
   return (
