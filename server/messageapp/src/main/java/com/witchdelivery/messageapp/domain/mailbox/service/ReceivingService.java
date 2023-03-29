@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -26,8 +27,15 @@ public class ReceivingService { // 수신(받는 사람)
         return receivingRepository.save(receiving); // receiving 정보 저장
     }
 
-    public void updateReceivingStatus(long receivingId) { // outgoing 상태 OUTGOING_DELETE변경
+    public void updateReceivingStatus(long receivingId, Authentication authentication) { // receiving 상태 RECEIVING_DELETE변경
+        long memberId = findMemberIdByAuthenticatedUser(authentication);
         Receiving findReceiving = findVerifiedReceiving(receivingId);
+
+        // 받은 편지와 로그인한 memberId가 같지 않거나(OR) 받은 편지의 상태가 STORE가 아니면 예외 처리
+        if (!Objects.equals(findReceiving.getMember().getMemberId(), memberId) || findReceiving.getReceivingStatus() != Receiving.ReceivingStatus.RECEIVING_STORE) {
+            throw new BusinessLogicException(ExceptionCode.RECEIVING_NOT_FOUND);
+        }
+
         findReceiving.setReceivingStatus(Receiving.ReceivingStatus.RECEIVING_DELETE);
         findReceiving.setDeletedAt(LocalDateTime.now());
         receivingRepository.save(findReceiving);
