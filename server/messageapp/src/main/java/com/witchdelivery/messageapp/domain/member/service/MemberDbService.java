@@ -1,6 +1,7 @@
 package com.witchdelivery.messageapp.domain.member.service;
 
 import com.witchdelivery.messageapp.domain.member.entity.Member;
+import com.witchdelivery.messageapp.domain.member.entity.MemberStatus;
 import com.witchdelivery.messageapp.domain.member.repository.MemberRepository;
 import com.witchdelivery.messageapp.global.exception.BusinessLogicException;
 import com.witchdelivery.messageapp.global.exception.ExceptionCode;
@@ -17,14 +18,27 @@ public class MemberDbService {
     private final MemberRepository memberRepository;
 
     /**
-     * 사용자 일치 검증 메서드
+     * 사용자 존재 검증 메서드
      * @param memberId
      * @return
      */
-    public Member findVerifiedMember(long memberId) {
+    public Member findVerifiedMember(Long memberId) {
         Optional<Member> member = memberRepository.findById(memberId);  // orElseThrow() : Optional 객체가 null 값을 가지고 있다면 예외처리 발생
         return member.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));   // 404
     }
+
+    /**
+     * 사용자 탈퇴 검증 메서드
+     * @param memberId
+     * @return
+     */
+    public Member findMemberById(Long memberId) {
+        Member findMember = findVerifiedMember(memberId);   // 사용자 검증
+        if (findMember.getMemberStatus().equals(MemberStatus.MEMBER_EXITED)) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_ALREADY_EXITED);
+        }
+        return findMember;
+    }   // FIXME 사용자 검증 과정 변경
 
     /**
      * 이메일 중복 검증 메서드

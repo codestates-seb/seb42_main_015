@@ -13,4 +13,5 @@ public class MemberResponseDto {
     private String nickname; // 닉네임
     private String profileImage;    // 프로필 이미지
     private LocalDateTime createdAt;    // 생성 시간
+    private String status;  // 사용자 상태
 }

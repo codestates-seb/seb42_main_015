@@ -1,6 +1,5 @@
 package com.witchdelivery.messageapp.domain.message.entity;
 
-import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.global.audit.BaseTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

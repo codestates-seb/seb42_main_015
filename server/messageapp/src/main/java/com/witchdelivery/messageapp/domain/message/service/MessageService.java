@@ -6,18 +6,19 @@ import com.witchdelivery.messageapp.domain.mailbox.service.OutgoingService;
 import com.witchdelivery.messageapp.domain.mailbox.service.ReceivingService;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.domain.member.service.MemberDbService;
-import com.witchdelivery.messageapp.domain.message.dto.MessageImageDto;
+import com.witchdelivery.messageapp.domain.message.dto.MessageResponseDto;
 import com.witchdelivery.messageapp.domain.message.entity.MessageImage;
 import com.witchdelivery.messageapp.domain.message.repository.MessageRepository;
 import com.witchdelivery.messageapp.global.exception.BusinessLogicException;
 import com.witchdelivery.messageapp.global.exception.ExceptionCode;
 import com.witchdelivery.messageapp.domain.message.entity.Message;
-import com.witchdelivery.messageapp.infra.file.S3Info;
-import com.witchdelivery.messageapp.infra.file.S3Service;
+import com.witchdelivery.messageapp.infra.S3.S3Info;
+import com.witchdelivery.messageapp.infra.S3.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MessageService {
     private final MessageRepository messageRepository;
     private final OutgoingService outgoingService;
@@ -116,12 +118,12 @@ public class MessageService {
 
     /**
      * S3 편지 이미지 업로드 메서드
-     * @param messageId
+     * @param urlName
      * @param multipartFile
      * @throws IOException
      */
-    public void uploadMessageS3(Long messageId, MultipartFile multipartFile) throws IOException {
-        Message findMessage = findVerifiedMessage(messageId);   // 메세지 검증
+    public void uploadMessageS3(String urlName, MultipartFile multipartFile) throws IOException {
+        Message findMessage = findMessageByUrlName(urlName);    // URL 검증
 
         String dir = "messageImage"; // 사용자 프로필 이미지 디렉토리 지정
         S3Info s3Info = s3Service.s3ImageUpload(multipartFile, dir);    // 이미지 업로드
@@ -139,16 +141,42 @@ public class MessageService {
     }
 
     /**
-     * S3 편지 이미지 조회 메서드
+     * 단일 편지 조회 메서드
      * @param urlName
      * @return
      */
-    public MessageImageDto findMessageS3(String urlName) {
-        Message findMessage = findMessageByUrlName(urlName);
+    public MessageResponseDto findMessage(String urlName) {
+        Message findMessage = findMessageByUrlName(urlName);    // URL 검증
 
-        return MessageImageDto.builder()
-                .urlName(findMessage.getUrlName())
-                .noteImage(findMessage.getMessageImage().getFilePath())
-                .build();
+        if (findMessage.getMessageImage() != null) {
+            return MessageResponseDto.builder()
+                    .messageId(findMessage.getMessageId())
+                    .toName(findMessage.getToName())
+                    .fromName(findMessage.getFromName())
+                    .content(findMessage.getContent())
+                    .createdAt(findMessage.getCreatedAt())
+                    .messageSaved(findMessage.isMessageSaved())
+                    .bookMark(findMessage.isBookMark())
+                    .urlName(findMessage.getUrlName())
+                    .password(findMessage.getPassword())
+                    .themeName(findMessage.getThemeName())
+                    .fontName(findMessage.getFontName())
+                    .MessageImageUrl(findMessage.getMessageImage().getFilePath())
+                    .build();
+        } else {
+            return MessageResponseDto.builder()
+                    .messageId(findMessage.getMessageId())
+                    .toName(findMessage.getToName())
+                    .fromName(findMessage.getFromName())
+                    .content(findMessage.getContent())
+                    .createdAt(findMessage.getCreatedAt())
+                    .messageSaved(findMessage.isMessageSaved())
+                    .bookMark(findMessage.isBookMark())
+                    .urlName(findMessage.getUrlName())
+                    .password(findMessage.getPassword())
+                    .themeName(findMessage.getThemeName())
+                    .fontName(findMessage.getFontName())
+                    .build();
+        }
     }
 }

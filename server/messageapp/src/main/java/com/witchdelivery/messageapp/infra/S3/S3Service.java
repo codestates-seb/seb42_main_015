@@ -1,4 +1,4 @@
-package com.witchdelivery.messageapp.infra.file;
+package com.witchdelivery.messageapp.infra.S3;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
@@ -20,7 +20,7 @@ public class S3Service {
     private final AmazonS3 amazonS3;
 
     /**
-     * 단일 파일 S3 업로드 메서드
+     * S3 단일 파일 업로드 메서드
      * @param multipartFile
      * @return
      * @throws IOException
@@ -48,7 +48,7 @@ public class S3Service {
     }
 
     /**
-     * 단일 파일 S3 삭제 메서드
+     * S3 단일 파일 삭제 메서드
      * @param s3FileName
      */
     public void s3ImageDelete(String s3FileName, String dir) {
