@@ -11,7 +11,7 @@ function FontMenu() {
     changeContentFont(e.target.textContent);
   };
   useEffect(() => {
-    setLetterContents({ ...letterContents, font: contentFont });
+    setLetterContents({ ...letterContents, fontName: contentFont });
   }, [contentFont]);
   return (
     <W.FontContainer>
