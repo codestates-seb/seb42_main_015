@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as W from "./WriteStyled";
 import keyIcon from "../../asset/key.png";
 import RoundButton from "../commons/RoundButton";
@@ -11,10 +11,14 @@ import useStore from "../../store/store";
 import { useForm } from "react-hook-form";
 import { formSchema } from "./formSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
-import { getCookie } from "../Certified/Cookie";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import Refresh from "../../util/Refresh";
+import {
+  getUrlNameExist,
+  postMessage,
+  postMessageImage,
+} from "../commons/axios";
 
 function MakeLetter({ makeLetterModalRef }) {
   const {
@@ -27,6 +31,7 @@ function MakeLetter({ makeLetterModalRef }) {
   const [image, setImage] = useState(null);
   const { letterContents, setLetterContents } = useStore();
   const [imageFile, setImageFile] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const renderFile = (file) => {
     let reader = new FileReader();
     reader.readAsDataURL(file);
@@ -103,52 +108,45 @@ function MakeLetter({ makeLetterModalRef }) {
   useEffect(() => {}, [imageFile]);
   const [canUseUrl, setCanUseUrl] = useState(null);
   const handleCheckUrlName = () => {
-    return axios({
-      method: "get",
-      url: `/api/sendy/messages/exists/${letterContents.urlName}`,
-      headers: {
-        "ngrok-skip-browser-warning": "230327",
-        Authorization: getCookie("accesstoken"),
-      },
-    })
-      .then((res) => {
+    getUrlNameExist(letterContents.urlName)
+      .then(() => {
         setCanUseUrl(true);
       })
       .catch((err) => {
         if (err.response.status === 409) {
           setCanUseUrl(false);
+        } else if (err.response.status === 401) {
+          Refresh().then(() => {
+            getUrlNameExist(letterContents.urlName).then(() => {
+              setCanUseUrl(true);
+            });
+          });
         }
       });
   };
 
   const navigate = useNavigate();
   const handleMakeLetter = () => {
-    return axios({
-      method: "post",
-      url: "/api/sendy/messages/write",
-      headers: {
-        Authorization: getCookie("accesstoken"),
-      },
-      data: letterContents,
-    })
+    return postMessage(letterContents)
       .then(() => {
-        if (imageFile) {
-          let formData = new FormData();
-          formData.append("image", imageFile);
-          return axios({
-            method: "post",
-            headers: {
-              "ngrok-skip-browser-warning": "230325",
-              "Content-Type": "multipart/form-data",
-              Authorization: getCookie("accesstoken"),
-            },
-            url: `/api/sendy/messages/write/image/${letterContents.urlName}`,
-            data: formData,
-          });
-        }
+        postMessageImage(imageFile, letterContents.urlName);
       })
       .then(() => {
         navigate(`/readletter/${letterContents.urlName}`);
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh()
+            .then(() => {
+              postMessage(letterContents);
+            })
+            .then(() => {
+              postMessageImage(imageFile, letterContents.urlName);
+            })
+            .then(() => {
+              navigate(`/readletter/${letterContents.urlName}`);
+            });
+        }
       });
   };
 
@@ -189,7 +187,7 @@ function MakeLetter({ makeLetterModalRef }) {
         <W.FlexRowWrapper className="URL-wrapper">
           <W.FlexRowWrapper className="align-items URL-input">
             <div className="position-relative">
-              <div>https://www.sendy.site/letter/</div>
+              <div>https://www.sendy.site/readletter/</div>
               {canUseUrl ? (
                 <W.MakeLetterInput
                   disabled

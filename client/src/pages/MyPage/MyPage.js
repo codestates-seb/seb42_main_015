@@ -12,6 +12,8 @@ import { FONT_STYLE_V1 } from "../../style/fontStyle";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { BsImageFill } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
+import { getUserInfo } from "../commons/axios";
+import Refresh from "../../util/Refresh";
 
 function MyPage() {
   const { changeCurrentPage } = useStore();
@@ -35,16 +37,20 @@ function MyPage() {
   const memberId = sessionStorage.getItem("memberId");
   useLayoutEffect(() => {
     changeCurrentPage("MyPage");
-    axios({
-      method: "get",
-      url: `/api/sendy/users/${memberId}`,
-      headers: {
-        "ngrok-skip-browser-warning": "230325",
-        Authorization: getCookie("accesstoken"),
-      },
-    }).then((res) => {
-      setUserInfo(res.data);
-    });
+    console.log(memberId);
+    getUserInfo(memberId)
+      .then((res) => {
+        setUserInfo(res.data);
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() => {
+            getUserInfo(memberId).then((res) => {
+              setUserInfo(res.data);
+            });
+          });
+        }
+      });
   }, []);
 
   const renderFile = (file) => {
@@ -86,21 +92,21 @@ function MyPage() {
     setIsEditable(!isEditable);
   };
   const handleVerifyNickname = () => {
-    if (nickname === userInfo.nickname) {
+    if (nickname !== "" || nickname !== null) {
+      return axios({
+        method: "post",
+        url: `/api/sendy/users/verify/nickname`,
+        headers: {
+          "ngrok-skip-browser-warning": "230325",
+          Authorization: getCookie("accesstoken"),
+        },
+        data: { nickname },
+      }).then((res) => {
+        if (res.status === 200) {
+          setNicknameVerify({ ...nicknameVerify, isVerified: true });
+        }
+      });
     }
-    return axios({
-      method: "post",
-      url: `/api/sendy/users/verify/nickname`,
-      headers: {
-        "ngrok-skip-browser-warning": "230325",
-        Authorization: getCookie("accesstoken"),
-      },
-      data: { nickname },
-    }).then((res) => {
-      if (res.status === 200) {
-        setNicknameVerify({ ...nicknameVerify, isVerified: true });
-      }
-    });
   };
 
   const patchNickname = () => {
