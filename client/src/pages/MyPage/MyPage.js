@@ -11,7 +11,12 @@ import RoundButton from "../commons/RoundButton";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { BsImageFill } from "react-icons/bs";
-import { FaTrashAlt } from "react-icons/fa";
+import {
+  deleteProfileImage,
+  getUserInfo,
+  postVerifyNickName,
+} from "../commons/axios";
+import Refresh from "../../util/Refresh";
 
 function MyPage() {
   const { changeCurrentPage } = useStore();
@@ -25,26 +30,26 @@ function MyPage() {
   });
   const [image, setImage] = useState(null);
   const [nickname, setNickname] = useState(null);
-  const [nicknameVerify, setNicknameVerify] = useState({
-    isVerified: false,
-    error: null,
-  });
+  const [nicknameVerify, setNicknameVerify] = useState(null);
   const modalRef = useRef();
   const [imageFile, setImageFile] = useState();
 
   const memberId = sessionStorage.getItem("memberId");
   useLayoutEffect(() => {
     changeCurrentPage("MyPage");
-    axios({
-      method: "get",
-      url: `/api/sendy/users/${memberId}`,
-      headers: {
-        "ngrok-skip-browser-warning": "230325",
-        Authorization: getCookie("accesstoken"),
-      },
-    }).then((res) => {
-      setUserInfo(res.data);
-    });
+    getUserInfo(memberId)
+      .then((res) => {
+        setUserInfo(res.data);
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() => {
+            getUserInfo(memberId).then((res) => {
+              setUserInfo(res.data);
+            });
+          });
+        }
+      });
   }, []);
 
   const renderFile = (file) => {
@@ -86,21 +91,23 @@ function MyPage() {
     setIsEditable(!isEditable);
   };
   const handleVerifyNickname = () => {
-    if (nickname === userInfo.nickname) {
+    if (nickname !== "" || nickname !== null) {
+      postVerifyNickName(nickname)
+        .then(() => {
+          setNicknameVerify({ ...nicknameVerify, isVerified: true });
+        })
+        .catch((err) => {
+          if (err.response.status === 409) {
+            setNicknameVerify(false);
+          } else if (err.response.status === 401) {
+            Refresh().then(() => {
+              postVerifyNickName(nickname).then(() => {
+                setNicknameVerify(true);
+              });
+            });
+          }
+        });
     }
-    return axios({
-      method: "post",
-      url: `/api/sendy/users/verify/nickname`,
-      headers: {
-        "ngrok-skip-browser-warning": "230325",
-        Authorization: getCookie("accesstoken"),
-      },
-      data: { nickname },
-    }).then((res) => {
-      if (res.status === 200) {
-        setNicknameVerify({ ...nicknameVerify, isVerified: true });
-      }
-    });
   };
 
   const patchNickname = () => {
@@ -136,34 +143,66 @@ function MyPage() {
         .then(() => {
           setNickname(null);
           setImage(null);
-          setNicknameVerify({ isVerified: false, error: null });
+          setNicknameVerify(null);
         })
         .catch((err) => {
-          console.log(err);
+          if (err.response.status === 401) {
+            Refresh().then(() => {
+              axios.all([patchNickname(), postProfileImg()]).then(() => {
+                setNickname(null);
+                setImage(null);
+                setNicknameVerify(null);
+              });
+            });
+          }
         });
     } else if (nickname && nickname !== userInfo) {
-      patchNickname().then(() => {
-        setNickname(null);
-        setNicknameVerify({ isVerified: false, error: null });
-      });
+      patchNickname()
+        .then(() => {
+          setNickname(null);
+          setNicknameVerify(null);
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            Refresh().then(() => {
+              patchNickname().then(() => {
+                setNickname(null);
+                setNicknameVerify(null);
+              });
+            });
+          }
+        });
     } else if (image) {
-      postProfileImg().then(() => {
-        setImage(null);
-      });
+      postProfileImg()
+        .then(() => {
+          setImage(null);
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            Refresh().then(() => {
+              postProfileImg().then(() => {
+                setImage(null);
+              });
+            });
+          }
+        });
     }
     window.location.reload();
   };
   const handleDeleteProfileImage = () => {
-    return axios({
-      method: "post",
-      url: `/api/sendy/users/edit/reset-profile/${memberId}`,
-      headers: {
-        "ngrok-skip-browser-warning": "230325",
-        Authorization: getCookie("accesstoken"),
-      },
-    }).then(() => {
-      window.location.reload();
-    });
+    deleteProfileImage(memberId)
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh.then(() => {
+            deleteProfileImage(memberId).then(() => {
+              window.location.reload();
+            });
+          });
+        }
+      });
   };
 
   return (
@@ -224,20 +263,31 @@ function MyPage() {
                 <M.NameDateWrapper>
                   {isEditable ? (
                     <div className="edit-box">
-                      {nicknameVerify.isVerified ? (
+                      {nicknameVerify ? (
                         <input
                           disabled
                           className="username-input"
-                          placeholder={userInfo.nickname}
-                          onKeyUp={(e) => setNickname(e.target.value)}></input>
+                          placeholder={userInfo.nickname}></input>
                       ) : (
                         <input
                           className="username-input"
                           placeholder={userInfo.nickname}
-                          onKeyUp={(e) => setNickname(e.target.value)}></input>
+                          onInput={(e) => {
+                            setNickname(e.target.value);
+                            if (nicknameVerify === false) {
+                              setNicknameVerify(null);
+                            }
+                          }}></input>
+                      )}
+                      {nicknameVerify === false ? (
+                        <div className="nickname-error">
+                          중복된 닉네임입니다.
+                        </div>
+                      ) : (
+                        <></>
                       )}
 
-                      {nicknameVerify.isVerified ? (
+                      {nicknameVerify ? (
                         <BsFillCheckCircleFill className="verified-icon" />
                       ) : (
                         <RoundButton
@@ -266,7 +316,7 @@ function MyPage() {
                   </M.ReadletterLink>
                   {isEditable ? (
                     <>
-                      {nicknameVerify.isVerified || image ? (
+                      {nicknameVerify || image ? (
                         <M.EditButton
                           className="edit-done"
                           onClick={(e) => {

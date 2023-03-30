@@ -412,6 +412,12 @@ export const FONT_STYLE_CONTENT = {
     color: ${PALETTE_V1.text_primary};
     text-align: justify;
   `,
+  gangwonedu_22_bold: css`
+    font-family: "GangwonEdu_Bold";
+    font-size: 2.2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
   scoredream_16: css`
     font-family: "S-CoreDream-3Light";
     font-size: 1.6rem;
@@ -461,6 +467,12 @@ export const FONT_STYLE_CONTENT = {
     color: ${PALETTE_V1.text_primary};
     text-align: justify;
   `,
+  dachelove_22: css`
+    font-family: "Dache_love";
+    font-size: 2.2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
   whiteangle_18: css`
     font-family: "White_angel";
     font-size: 1.8rem;
@@ -470,6 +482,12 @@ export const FONT_STYLE_CONTENT = {
   whiteangle_20: css`
     font-family: "White_angel";
     font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  whiteangle_22: css`
+    font-family: "White_angel";
+    font-size: 2.2rem;
     color: ${PALETTE_V1.text_primary};
     text-align: justify;
   `,
@@ -485,6 +503,12 @@ export const FONT_STYLE_CONTENT = {
     color: ${PALETTE_V1.text_primary};
     text-align: justify;
   `,
+  gothicgoding_22: css`
+    font-family: "Gothic_Goding";
+    font-size: 2.2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
   hyukee_18: css`
     font-family: "Hyukee";
     font-size: 1.8rem;
@@ -494,6 +518,12 @@ export const FONT_STYLE_CONTENT = {
   hyukee_20: css`
     font-family: "Hyukee";
     font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  hyukee_22: css`
+    font-family: "Hyukee";
+    font-size: 2.2rem;
     color: ${PALETTE_V1.text_primary};
     text-align: justify;
   `,
@@ -521,6 +551,24 @@ export const FONT_STYLE_CONTENT = {
     color: ${PALETTE_V1.text_primary};
     text-align: justify;
   `,
+  sangsang_22: css`
+    font-family: "SangSangShinb7";
+    font-size: 2.2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  sangsang_24: css`
+    font-family: "SangSangShinb7";
+    font-size: 2.4rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  sangsang_26: css`
+    font-family: "SangSangShinb7";
+    font-size: 2.6rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
   cafe24oneprettynight_18: css`
     font-family: "Cafe24Oneprettynight";
     font-size: 1.8rem;
@@ -530,6 +578,12 @@ export const FONT_STYLE_CONTENT = {
   cafe24oneprettynight_20: css`
     font-family: "Cafe24Oneprettynight";
     font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  cafe24oneprettynight_22: css`
+    font-family: "Cafe24Oneprettynight";
+    font-size: 2.2rem;
     color: ${PALETTE_V1.text_primary};
     text-align: justify;
   `,
@@ -573,13 +627,6 @@ export const FONT_STYLE_CONTENT = {
     font-family: "Jeju Myeongjo";
     font-size: 2rem;
     color: ${PALETTE_V1.text_primary};
-    text-align: justify;
-  `,
-  gangwonedu_20_bold: css`
-    font-family: "GangwonEdu_Bold";
-    font-size: 2rem;
-    color: ${PALETTE_V1.text_primary};
-    line-height: 2rem;
     text-align: justify;
   `,
 };

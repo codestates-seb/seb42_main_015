@@ -1,9 +1,7 @@
 import { useState } from "react";
 import * as W from "../WriteLetter/WriteStyled";
 import styled from "styled-components";
-import ShadowButton from "../commons/ShadowButton";
 import { PALETTE_V1 } from "../../style/color";
-import 군대 from "../../asset/letterTheme/군대-theme.png";
 
 const Container = styled.div`
   width: 100vw;

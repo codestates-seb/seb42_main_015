@@ -244,6 +244,14 @@ export const NameDateWrapper = styled(FlexWrapper2)`
     display: flex;
     flex-direction: row;
     align-items: center;
+    position: relative;
+    .nickname-error {
+      position: absolute;
+      ${FONT_STYLE_V1.body.body_10_light}
+      color: red;
+      top: -0.5rem;
+      left: 1rem;
+    }
   }
   .verified-icon {
     font-size: 2rem;
