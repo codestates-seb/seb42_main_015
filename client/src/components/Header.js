@@ -30,8 +30,8 @@ function Header() {
     })
       .then((res) => {
         //액세스토큰이 만료되었다면(401 에러)
-        console.log(res);
-        if (res.status === 401) {
+        console.log(res.status);
+        if (res.status !== 200) {
           Refresh();
           console.log("리프레시토큰으로 액세스토큰을 갱신했습니다.");
           onLogout();
@@ -45,14 +45,8 @@ function Header() {
       })
       .catch((err) => {
         console.log(err);
-        // console.log(err.response.data.message);
-        // console.log(err.response.status);
       });
   };
-
-  // useEffect(() => {
-  //   onLogout();
-  // }, []);
 
   return (
     <>

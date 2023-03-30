@@ -292,7 +292,7 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
     text-align: justify;
     color: ${PALETTE_V1.text_primary};
   }
@@ -728,25 +728,8 @@ export const Triangle = styled.div`
     background-color: black;
     z-index: 200;
   }
-  @media screen and (max-width: 590px) {
-    width: 7.6rem;
-    height: 7.6rem;
-    background-color: ${PALETTE_V1.background};
-    border-left: 0.2rem solid;
-    border-bottom: 0.2rem solid;
-    &::after {
-      border: 3.8rem solid white;
-      border-top-color: transparent;
-      border-right-color: transparent;
-    }
-    &::before {
-      top: -1.6rem;
-      left: 3.6rem;
-      width: 0.1rem;
-      height: 10.6rem;
-    }
-  }
-  @media screen and (max-width: 490px) {
+
+  @media screen and (max-width: 767px) {
     width: 6rem;
     height: 6rem;
     background-color: ${PALETTE_V1.background};
@@ -765,21 +748,21 @@ export const Triangle = styled.div`
     }
   }
   @media screen and (max-width: 380px) {
-    width: 4.6rem;
-    height: 4.6rem;
+    width: 6rem;
+    height: 6rem;
     background-color: ${PALETTE_V1.background};
     border-left: 0.2rem solid;
     border-bottom: 0.2rem solid;
     &::after {
-      border: 2.25rem solid white;
+      border: 2.6rem solid white;
       border-top-color: transparent;
       border-right-color: transparent;
     }
     &::before {
-      top: -0.8rem;
-      left: 2.1rem;
+      top: -1.2rem;
+      left: 2.8rem;
       width: 0.1rem;
-      height: 6.1rem;
+      height: 8.4rem;
     }
   }
 `;
