@@ -49,19 +49,19 @@ const ReadButtons = ({
   useEffect(() => {
     if (location.state) {
       getMailboxId();
+      // 만약 발신편지라면(발신아이디가 있음) -> 보관완료 상태로 뜨게
+      if (isDustbin.outgoingId && !isKeeping) {
+        setIsKeeping(true);
+      }
     }
-  }, []);
-  console.log(isDustbin);
+  }, [location]);
+  // console.log(isDustbin);
 
   //todo :보관하기
   const handleKeeping = async () => {
     //모달 열기
     setIsClickModal(!isClickModal);
     setIsLoading(true);
-    // 만약 발신편지라면(발신아이디가 있음) -> 보관완료 상태로 뜨게
-    // if (isDustbin.receivingId && !isKeeping) {
-    //   setIsKeeping(true);
-    // }
     await axios({
       method: "patch",
       url: `/api/sendy/messages/saved/${urlName}`,
@@ -72,9 +72,8 @@ const ReadButtons = ({
       data: {},
     })
       .then((res) => {
-        if (res.status === 401) {
-          Refresh();
-          handleKeeping();
+        while (res.status === 401) {
+          Refresh().then(handleKeeping());
         }
         setIsLoading(false);
         setIsKeeping(true);
@@ -113,8 +112,7 @@ const ReadButtons = ({
         })
           .then((res) => {
             if (res.status === 401) {
-              Refresh();
-              onRemove();
+              Refresh().then(onRemove());
             }
             setIsLoading(false);
             alert("삭제되었습니다.");
@@ -140,8 +138,7 @@ const ReadButtons = ({
         })
           .then((res) => {
             if (res.status === 401) {
-              Refresh();
-              onRemove();
+              Refresh().then(onRemove());
             }
             setIsLoading(false);
             alert("삭제되었습니다.");
