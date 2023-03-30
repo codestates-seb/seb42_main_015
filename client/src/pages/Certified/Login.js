@@ -37,7 +37,7 @@ function Login() {
     const { email, password } = data;
     await axios
       .post(
-        `http://ec2-13-125-205-181.ap-northeast-2.compute.amazonaws.com:8080/sendy/auth/login`,
+        `/api/sendy/auth/login`,
         { username: email, password: password },
         {
           headers,
