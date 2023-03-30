@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import * as L from "./FormStyled";
 import axios from "axios";
-import { setCookie, getCookie } from "./Cookie";
+import { setCookie } from "./Cookie";
 import { headers, options, GoogleOauthLogin } from "./setupCertified";
 
 function Login() {

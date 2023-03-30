@@ -64,7 +64,6 @@ function SignUp() {
   const onSubmit = async (data) => {
     const { email, username, password } = data;
 
-    // if (!nameValid && !emailValid) {
     if (!isVaild) {
       alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
       return;
@@ -106,7 +105,6 @@ function SignUp() {
           if (res.status === 200) {
             alert("사용 가능한 유저네임입니다.");
           }
-          // setNameValid(!nameValid);
           setIsVaild({
             ...isVaild,
             nameValid: true,
@@ -135,7 +133,6 @@ function SignUp() {
           if (res.status === 200) {
             alert("사용 가능한 이메일입니다.");
           }
-          // setEmailValid(!emailValid);
           setIsVaild({
             ...isVaild,
             emailValid: true,
