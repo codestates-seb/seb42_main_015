@@ -37,7 +37,7 @@ function Login() {
     const { email, password } = data;
     await axios
       .post(
-        `/api/sendy/auth/login`,
+        `http://ec2-13-125-205-181.ap-northeast-2.compute.amazonaws.com:8080/sendy/auth/login`,
         { username: email, password: password },
         {
           headers,
@@ -131,8 +131,7 @@ function Login() {
               <div className="section1">
                 <img
                   src={require("../../asset/해바라기.png")}
-                  alt="Sunflower"
-                ></img>
+                  alt="Sunflower"></img>
                 <span className="box">sunflower</span>
               </div>
               <div className="section2">
