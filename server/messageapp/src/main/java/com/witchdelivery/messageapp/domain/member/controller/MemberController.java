@@ -43,7 +43,7 @@ public class MemberController {
      */
     @PostMapping("/verify/email")
     public ResponseEntity checkEmail(@Valid @RequestBody CheckEmailDto checkEmailDto) {
-        memberDbService.verifiedExistedEmail(checkEmailDto.getEmail());
+        memberDbService.verifiedExistedEmail(checkEmailDto.getEmail()); // 이메일 검증
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

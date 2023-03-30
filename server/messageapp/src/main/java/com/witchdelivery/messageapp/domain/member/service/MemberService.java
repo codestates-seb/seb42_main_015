@@ -1,6 +1,5 @@
 package com.witchdelivery.messageapp.domain.member.service;
 
-import com.witchdelivery.messageapp.domain.member.dto.CheckEmailDto;
 import com.witchdelivery.messageapp.domain.member.dto.MemberResponseDto;
 import com.witchdelivery.messageapp.domain.member.entity.MemberImage;
 import com.witchdelivery.messageapp.domain.member.entity.MemberStatus;
@@ -120,8 +119,8 @@ public class MemberService {
 
     /**
      * 사용자 닉네임 수정 메서드
-     * @param memberId
-     * @param nickname
+     * @param member
+     * @return
      */
     public Member updateNickname(Member member) {
         Member findMember = memberDbService.findVerifiedMemberId(member.getMemberId());   // 사용자 검증
@@ -129,7 +128,6 @@ public class MemberService {
         Member updateMember = customBeanUtils.copyNonNullProperties(member, findMember);
         return memberRepository.save(updateMember);
     }
-
 
     /**
      * 사용자 삭제(회원탈퇴) 메서드

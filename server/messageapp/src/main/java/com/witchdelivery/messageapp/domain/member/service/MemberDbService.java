@@ -42,6 +42,11 @@ public class MemberDbService {
         return findMember;
     }
 
+    /**
+     * DB 이메일 존재 검증 메서드
+     * @param email
+     * @return
+     */
     public Member findVerifiedEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         return member.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));   // 404
@@ -76,7 +81,7 @@ public class MemberDbService {
      * @param password
      */
     public void findMatchedPassword(Member member, String password) {
-        Member findMember = findVerifiedMember(member.getMemberId());
+        Member findMember = findVerifiedMemberId(member.getMemberId());   // 사용자 검증
         if (!passwordEncoder.matches(password, findMember.getPassword())) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_PASSWORD_MISMATCH);  // 401
         }
