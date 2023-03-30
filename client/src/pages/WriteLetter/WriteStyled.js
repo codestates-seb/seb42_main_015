@@ -293,16 +293,6 @@ export const NameInputWrapper = styled.div`
         break;
     }
   }}
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border-bottom: 2px solid ${PALETTE_V1.text_primary};
-  height: 100%;
-  &.preview {
-    border: none;
-  }
-`;
-export const NameInput = styled.input.attrs({ autoComplete: "off" })`
   ${(props) => {
     switch (props.font) {
       case "프리텐다드":
@@ -339,6 +329,17 @@ export const NameInput = styled.input.attrs({ autoComplete: "off" })`
         break;
     }
   }}
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 2px solid ${PALETTE_V1.text_primary};
+  height: 100%;
+  &.preview {
+    border: none;
+  }
+`;
+export const NameInput = styled.input.attrs({ autoComplete: "off" })`
+  ${FONT_STYLE_V1.body.body_20_light}
   border: none;
   background-color: transparent;
   margin-left: 5px;
@@ -950,6 +951,7 @@ export const PreviewContent = styled.div`
   white-space: pre-wrap;
   overflow-y: auto;
   padding-right: 1rem;
+  ${FONT_STYLE_V1.body.body_18_light}
   ${(props) => {
     switch (props.font) {
       case "프리텐다드":
