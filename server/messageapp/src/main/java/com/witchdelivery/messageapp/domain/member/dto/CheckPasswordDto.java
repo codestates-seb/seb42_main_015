@@ -5,7 +5,7 @@ import lombok.Getter;
 import javax.validation.constraints.NotBlank;
 
 @Getter
-public class VerifyNicknameDto {
+public class CheckPasswordDto {
     @NotBlank
-    private String nickname; // 닉네임
+    private String password;
 }

@@ -27,34 +27,48 @@ public class MemberController {
 
     /**
      * 사용자 등록(회원가입) API
-     * @param memberPostDto
+     * @param memberSignupDto
      * @return
      */
     @PostMapping("/signup")
-    public ResponseEntity postMember(@Valid @RequestBody MemberPostDto memberPostDto) {
-        memberService.createMember(memberPostDto);
+    public ResponseEntity signupMember(@Valid @RequestBody MemberSignupDto memberSignupDto) {
+        memberService.createMember(memberSignupDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**
      * 이메일 중복 검증 API
-     * @param verifyEmailDto
+     * @param checkEmailDto
      * @return
      */
     @PostMapping("/verify/email")
-    public ResponseEntity postVerifyEmail(@Valid @RequestBody VerifyEmailDto verifyEmailDto) {
-        memberDbService.verifiedExistedEmail(verifyEmailDto.getEmail());
+    public ResponseEntity checkEmail(@Valid @RequestBody CheckEmailDto checkEmailDto) {
+        memberDbService.verifiedExistedEmail(checkEmailDto.getEmail());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
      * 닉네임 중복 검증 API
-     * @param verifyNicknameDto
+     * @param checkNicknameDto
      * @return
      */
     @PostMapping("/verify/nickname")
-    public ResponseEntity postVerifyNickname(@Valid @RequestBody VerifyNicknameDto verifyNicknameDto) {
-        memberDbService.verifiedExistedName(verifyNicknameDto.getNickname());
+    public ResponseEntity checkNickname(@Valid @RequestBody CheckNicknameDto checkNicknameDto) {
+        memberDbService.verifiedExistedName(checkNicknameDto.getNickname());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * 패스워드 일치 검증 API
+     * @param memberId
+     * @param checkPasswordDto
+     * @return
+     */
+    @PostMapping("/verify/password/{member-id}")
+    public ResponseEntity checkPassword(@PathVariable("member-id") Long memberId,
+                                        @Valid @RequestBody CheckPasswordDto checkPasswordDto) {
+        Member findMember = memberDbService.findVerifiedMemberId(memberId); // 사용자 검증
+        memberDbService.findMatchedPassword(findMember, checkPasswordDto.getPassword());    // 패스워드 검증
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -84,17 +98,29 @@ public class MemberController {
     }
 
     /**
-     * 사용자 패스워드 수정 API
+     * 마이페이지 사용자 패스워드 수정 API
      * @param memberId
-     * @param patchPasswordDto
+     * @param patchPasswordInMyPageDto
      * @return
      */
-    @PatchMapping("/edit/password/{member-id}")
-    public ResponseEntity patchPassword(@PathVariable("member-id") Long memberId,
-                                        @Valid @RequestBody PatchPasswordDto patchPasswordDto) {
-        patchPasswordDto.setMemberId(memberId);
-        Member response = memberService.updatePassword(memberMapper.patchPasswordDtoToMember(patchPasswordDto));
-        return new ResponseEntity<>(memberMapper.memberToMemberResponseDto(response), HttpStatus.OK);
+    @PatchMapping("/password/{member-id}")
+    public ResponseEntity patchPasswordInMyPage(@PathVariable("member-id") Long memberId,
+                                                @Valid @RequestBody PatchPasswordInMyPageDto patchPasswordInMyPageDto) {
+        patchPasswordInMyPageDto.setMemberId(memberId);
+        memberService.updatePasswordInMyPage(memberId, patchPasswordInMyPageDto.getCurPassword(), patchPasswordInMyPageDto.getNewPassword());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * 로그인페이지 사용자 패스워드 수정 API
+     * @param patchPasswordInLoginPageDto
+     * @return
+     */
+    @PatchMapping("/password")
+    public ResponseEntity patchPasswordInLoginPage(@Valid @RequestBody PatchPasswordInLoginPageDto patchPasswordInLoginPageDto) {
+        patchPasswordInLoginPageDto.setEmail(patchPasswordInLoginPageDto.getEmail());
+        memberService.updatePasswordInLoginPage(patchPasswordInLoginPageDto.getEmail(), patchPasswordInLoginPageDto.getNewPassword());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
@@ -109,7 +135,7 @@ public class MemberController {
         patchNicknameDto.setMemberId(memberId);
         Member response = memberService.updateNickname(memberMapper.patchNicknameDtoToMember(patchNicknameDto));
         return new ResponseEntity<>(memberMapper.memberToMemberResponseDto(response), HttpStatus.OK);
-    }
+    }   // FIXME 리팩토링
 
     /**
      * S3 사용자 프로필 이미지 업로드/수정 API
