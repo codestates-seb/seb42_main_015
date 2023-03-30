@@ -6,7 +6,7 @@ spring:
     password:
   batch:
     jdbc:
-      initialize-schema: always
+      initialize-schema: always # batch 스키마 자동 생성
   jpa:
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL8Dialect
@@ -24,7 +24,8 @@ spring:
     properties:
       mail:
         smtp:
-          auth: true  # Socket Read Timeout 시간(ms), default : infinity
+          auth: true  # 사용자 인증 시도 여부, default : false
+          timeout: 5000 # Socket Read Timeout 시간(ms), default : infinity
           starttls:
             enable: true  # StartTLS 활성화 여부, default : false
   redis:
