@@ -5,28 +5,34 @@ import LetterReceiving from "./LetterReceiving";
 import useStore from "../../store/store";
 
 function LetterView({
-  select,
   trash,
   isFocus,
   isSearchOut,
-  isSearchIn
+  isSearchIn,
+  selectId,
+  setSelectId,
+
 }) {
   const { isSend } = useStore();
   return (
     <L.ListWrap>
       {isSend ? (
         <LetterOutgoing
-          select={select}
           trash={trash}
           isFocus={isFocus}
           isSearchOut={isSearchOut}
+          selectId={selectId}
+          setSelectId={setSelectId}
+       
         />
       ) : (
         <LetterReceiving
-          select={select}
           trash={trash}
           isFocus={isFocus}
           isSearchIn={isSearchIn}
+          selectId={selectId}
+          setSelectId={setSelectId}
+ 
         />
       )}
     </L.ListWrap>
