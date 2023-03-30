@@ -92,6 +92,7 @@ function WriteLetter() {
       !makeLetterModalRef.current.contains(e.target)
     ) {
       setOpenMakeLetter(false);
+      setLetterContents({ ...letterContents, password: null, urlName: null });
     }
   };
   const handleThemeLeft = () => {
@@ -136,7 +137,12 @@ function WriteLetter() {
   useEffect(() => {
     setBrowserSize(window.innerWidth);
     setLetterContents({
-      ...letterContents,
+      toName: null,
+      fromName: null,
+      content: null,
+      password: null,
+      urlName: null,
+      fontName: "프리텐다드",
       themeName: letterTheme[contentLength],
     });
   }, []);

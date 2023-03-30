@@ -104,7 +104,6 @@ function MakeLetter({ makeLetterModalRef }) {
     setHasFile(false);
     setImage(null);
   };
-  useEffect(() => {}, [imageFile]);
   const [canUseUrl, setCanUseUrl] = useState(null);
   const handleCheckUrlName = () => {
     getUrlNameExist(letterContents.urlName)
@@ -144,6 +143,8 @@ function MakeLetter({ makeLetterModalRef }) {
                 navigate(`/readletter/${letterContents.urlName}`);
               });
             });
+        } else {
+          console.log(err);
         }
       });
   };
@@ -163,16 +164,6 @@ function MakeLetter({ makeLetterModalRef }) {
     );
     setLetterContents({ ...letterContents, urlName: e.target.value });
   };
-
-  useEffect(() => {
-    if (isValid) {
-      setLetterContents({
-        ...letterContents,
-        password: watch("password"),
-        urlName: watch("urlName"),
-      });
-    }
-  }, [isValid]);
 
   return (
     <W.ModalWrapper className="make-letter" ref={makeLetterModalRef}>
@@ -240,9 +231,19 @@ function MakeLetter({ makeLetterModalRef }) {
             className="password-input"
             backgroundImg={keyIcon}
             placeholder=" * * * *"
-            onInput={(e) =>
-              setLetterContents({ ...letterContents, password: e.target.value })
-            }
+            onInput={(e) => {
+              if (e.target.value !== "") {
+                setLetterContents({
+                  ...letterContents,
+                  password: e.target.value,
+                });
+              } else {
+                setLetterContents({
+                  ...letterContents,
+                  password: null,
+                });
+              }
+            }}
             maxLength="4"
             {...register("password")}></W.MakeLetterInput>
           {errors.password && (
@@ -305,8 +306,8 @@ function MakeLetter({ makeLetterModalRef }) {
           미리보기
         </ShadowButton>
         {canUseUrl &&
-        (letterContents?.password === "" ||
-          letterContents?.password?.length === 4) ? (
+        (letterContents?.password?.length === 4 ||
+          letterContents.password === null) ? (
           <ShadowButton
             backgroundColor={PALETTE_V1.yellow_basic}
             onClick={handleMakeLetter}>
