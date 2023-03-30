@@ -6,7 +6,14 @@ import { useInView } from "react-intersection-observer";
 import { getCookie } from "../Certified/Cookie";
 import axios from "axios";
 
-function LetterOutgoing({ select, trash, isFocus, isSearchOut }) {
+function LetterOutgoing({
+  trash,
+  isFocus,
+  isSearchOut,
+  selectId,
+  setSelectId,
+
+}) {
   const { outLetters, setOutLetters, isFilterOut, setIsFilterOut } = useStore();
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -59,10 +66,10 @@ function LetterOutgoing({ select, trash, isFocus, isSearchOut }) {
               isSearchOut.map((letter) => {
                 return (
                   <LetterOutItem
-                    key={letter.messageId}
+                    key={letter.outgoingId}
                     letter={letter}
-                    select={select}
                     trash={trash}
+               
                   />
                 );
               })
@@ -71,10 +78,12 @@ function LetterOutgoing({ select, trash, isFocus, isSearchOut }) {
             isFilterOut.map((letter) => {
               return (
                 <LetterOutItem
-                  key={letter.messageId}
+                  key={letter.outgoingId}
                   letter={letter}
-                  select={select}
                   trash={trash}
+                  selectId={selectId}
+                  setSelectId={setSelectId}
+              
                 />
               );
             })
