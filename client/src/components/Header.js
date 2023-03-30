@@ -32,6 +32,7 @@ function Header() {
         //액세스토큰이 만료되었다면(401 에러)
         if (res.status === 401) {
           Refresh();
+          console.log("리프레시토큰으로 액세스토큰을 갱신했습니다.");
           onLogout();
         }
         localStorage.clear();
@@ -41,8 +42,8 @@ function Header() {
           sameSite: "Strict",
           HttpOnly: " HttpOnly ",
         });
-        navigate("/completeLogout");
-        window.location.reload();
+        // navigate("/completeLogout");
+        // window.location.reload();
       })
       .catch((err) => {
         console.log(err);

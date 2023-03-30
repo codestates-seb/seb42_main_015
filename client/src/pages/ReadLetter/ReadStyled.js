@@ -409,11 +409,14 @@ export const Buttons = styled.div`
   @media screen and (max-width: 1024px) {
     padding: 0rem 0rem 0rem 38rem;
   }
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    padding: 0rem 0rem 0rem 9.2rem;
-  }
   @media screen and (min-width: 420px) and (max-width: ${BREAKPOINTTABLET}px) {
-    padding: 0rem 0rem 0rem 5rem;
+    padding: 0rem 0rem 0rem 3.5rem;
+  }
+  @media screen and (min-width: 421px) and (max-width: 540px) {
+    padding: 0rem 0rem 0rem 6rem;
+  }
+  @media screen and (max-width: 420px) {
+    padding: 0rem 0rem 0rem 7rem;
   }
 
   .button {
@@ -439,8 +442,18 @@ export const Buttons = styled.div`
     @media screen and (max-width: 1024px) {
       margin: 0.2rem 35rem 0 -37rem;
     }
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      margin: 0.2rem 6rem 0 -4.5rem;
+    @media screen and (min-width: 420px) and (max-width: ${BREAKPOINTTABLET}px) {
+      margin: 0.2rem 6rem 0 -3rem;
+      width: 2.8rem;
+      height: 2.8rem;
+    }
+    @media screen and (min-width: 421px) and (max-width: 540px) {
+      margin: 0.2rem 8rem 0 -5rem;
+      width: 2.8rem;
+      height: 2.8rem;
+    }
+    @media screen and (max-width: 420px) {
+      margin: 0.2rem 10.5rem 0 -6rem;
       width: 2.8rem;
       height: 2.8rem;
     }
