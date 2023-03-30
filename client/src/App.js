@@ -43,11 +43,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/letterbox" element={<LetterBox />} />
+        <Route path="/trash" element={<Trash />} />
         <Route element={<Layout displayFooter={displayFooter} />}>
           <Route path="/login" element={<Login />} />
           <Route path="/setpwd/:page" element={<SetPwd />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/trash" element={<Trash />} />
           <Route path="/pwdchange/:page" element={<PwdChange />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/writeletter" element={<WriteLetter />} />
