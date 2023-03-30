@@ -282,6 +282,14 @@ export const Button = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  box-shadow: 7px 7px 0px -1px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 7px 7px 0px -1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 7px 7px 0px -1px rgba(0, 0, 0, 0.75);
+  &:active {
+    transform: translate(3px, 3px);
+    transition: transform 0s linear;
+  }
   .button-icon {
     margin-right: 0.5rem;
   }
@@ -298,6 +306,7 @@ export const Textbox = styled.div`
   flex-direction: column;
   justify-content: center;
   position: relative;
+  margin: 0 2rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     align-items: center;
     text-align: center;
@@ -323,8 +332,8 @@ export const SubContents = styled.div`
 `;
 
 export const Imgbox = styled.div`
-  width: 600px;
-  height: 600px;
+  width: 500px;
+  height: 510px;
   background-color: #fff;
   border: 2px solid black;
   display: flex;
@@ -335,7 +344,7 @@ export const Imgbox = styled.div`
     width: 100%;
     border-top: 2px solid black;
     border-bottom: 2px solid black;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
   .main-sticker1 {
     width: 300px;
@@ -349,9 +358,22 @@ export const Imgbox = styled.div`
     bottom: -5rem;
     left: -5rem;
   }
+  .main-sticker3 {
+    width: 120px;
+    position: absolute;
+    bottom: -6rem;
+    right: -5rem;
+  }
+  .main-sticker4 {
+    width: 250px;
+    position: absolute;
+    top: -8rem;
+    left: -5rem;
+  }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 280px;
-    height: 300px;
+    width: 260px;
+    height: 270px;
+    margin-top: ${(props) => (props.margin ? props.margin : "0")};
     .main-sticker1 {
       width: 180px;
       position: absolute;
@@ -364,16 +386,24 @@ export const Imgbox = styled.div`
       bottom: -3rem;
       left: -4rem;
     }
-  }
-  @media screen and (max-height: 667px) {
-    width: 300px;
-    height: 300px;
+    .main-sticker3 {
+      width: 70px;
+      position: absolute;
+      bottom: -5rem;
+      right: -5rem;
+    }
+    .main-sticker4 {
+      width: 150px;
+      position: absolute;
+      top: -7rem;
+      left: -5rem;
+    }
   }
 `;
 
 export const Theme = styled.div`
-  width: 600px;
-  height: 670px;
+  width: 500px;
+  height: 580px;
   background-color: #fff;
   border: 2px solid black;
   display: flex;
@@ -394,9 +424,9 @@ export const Theme = styled.div`
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 280px;
-    height: 300px;
+    height: 320px;
     .main {
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
     }
     .flower {
       width: 9rem;

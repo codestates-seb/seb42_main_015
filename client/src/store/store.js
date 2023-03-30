@@ -33,6 +33,9 @@ const useStore = create((set) => ({
     set((state) => ({ letterPassword: password })),
   messageId: "",
   setMessageId: (messageId) => set((state) => ({ messageId: messageId })),
+  letterPassword: "",
+  setLetterPassword: (password) =>
+    set((state) => ({ letterPassword: password })),
 }));
 
 export default useStore;

@@ -47,33 +47,31 @@ export const Wrapper = styled.div`
     .top-sub {
       display: flex;
       justify-content: space-evenly;
-      margin: 0 0 0 32rem;
+      margin: 0 0 0 28.5rem;
+
       @media screen and (max-width: 1024px) {
-        margin: 0 0 0 44rem;
+        margin: 0 0 0 42rem;
       }
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-        margin: 0 0 0 15rem;
+        margin: 0 0 0 13rem;
       }
       .soundButtons {
         display: flex;
         justify-content: space-evenly;
         background: #d3d3d3;
         border-radius: 3rem;
-        padding: 4px 5px 0px 5px;
-        width: 8rem;
-        height: 3rem;
-        margin-top: 0.2rem;
+        padding: 7px 5px 0px 5px;
+        width: 9rem;
+        height: 3.5rem;
+        margin-top: 0.3rem;
         cursor: pointer;
+
         @media screen and (max-width: 1024px) {
-          margin-top: 0rem;
-          width: 9rem;
           height: 3.6rem;
-          padding: 3px 4px 20px 5px;
+          padding: 3px 4px 20px 4px;
         }
 
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          margin-top: -0.1rem;
-          height: 3.3rem;
           padding: 0px 4px 30px 4px;
         }
       }
@@ -102,8 +100,8 @@ export const SWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  min-height: 100vh;
+  width: 100%;
+  min-height: 100%;
   background: #ffffff00;
   position: absolute;
   z-index: 100;
@@ -127,10 +125,6 @@ export const Secretform = styled.form`
   div {
     display: flex;
     ${FONT_STYLE_READ.title_19_medium}
-
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 16px;
-    }
   }
   .pwdInput {
     display: flex;
@@ -158,38 +152,27 @@ export const Secretform = styled.form`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 7rem;
-    height: 2.5rem;
+    width: 7.2rem;
+    height: 2.6rem;
     border: 1.4px solid #000;
     background-color: #fcfbf4;
-    ${FONT_STYLE_READ.btn_8_light}
-    font-size: 15px;
+    ${FONT_STYLE_READ.btn_12_light}
     margin-left: 75%;
     cursor: pointer;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      width: 60px;
-      height: 23px;
-      font-size: 12px;
       margin-left: 65%;
-    }
-    @media screen and (max-width: 1024px) {
-      height: 25px;
-      font-size: 13px;
-      height: 2.8rem;
     }
   }
   p {
     color: red;
-    margin: -7rem 0 -2rem;
-    font-size: 16px;
+    margin: -6rem 0 -2rem;
+    ${FONT_STYLE_READ.body_12_light}
     @media screen and (max-width: 1024px) {
-      margin: -100px 0 -30px;
-      font-size: 13px;
+      margin: -8rem 0 -2rem;
     }
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      margin: -20px 0 0px;
-      font-size: 7px;
+      margin: -11rem 0 -2rem;
     }
   }
 `;
@@ -198,47 +181,32 @@ export const Secretform = styled.form`
 export const EnterSeret = styled.div`
   display: flex;
   justify-content: center;
-  width: 12rem;
-  padding: 0.7rem 0.7rem 0.7rem 0.7rem;
+  width: 14.5rem;
+  padding: 0.7rem 0.7rem 0.7rem 0rem;
   border: 2px solid #000000;
-  ${FONT_STYLE_READ.body_8_Medium}
-  font-size : 1rem;
+  ${FONT_STYLE_READ.body_14_Medium}
   margin: 0.2rem 0 2rem 2rem;
-  @media screen and (max-width: 1024px) {
-    width: 13rem;
-    font-size: 1.2rem;
-    padding: 0.7rem 0.5rem 0.7rem 0.5rem;
-  }
-
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    margin: 0rem 0 1.2rem 2rem;
-    padding: 0.7rem 0.5rem 0.7rem 0.5rem;
-    height: 3.4rem;
-    font-size: 0.7rem;
-    width: 13rem;
+    padding: 0.7rem 0rem 0.7rem 0rem;
   }
 
   p {
-    ${FONT_STYLE_READ.body_8_light}
-    font-size : 1rem;
+    ${FONT_STYLE_READ.body_14_light}
     border: none;
     background-color: initial;
     margin-left: 10px;
-    padding: 0 5px;
     width: 4rem;
     letter-spacing: 6px;
 
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      margin-left: 5px;
       width: 5rem;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
     }
   }
 `;
 
 //todo : 편지 letter wrapper
 export const FlexColunmWrapper = styled.div`
-  /* width: fit-content; */
   display: flex;
   flex-direction: column;
   &.align-center {
@@ -259,11 +227,12 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   background-size: cover;
   flex-direction: column;
   border: 2px solid #000000;
-  padding: 15% 11% 15%;
+  padding: 17% 11% 15%;
   min-height: 0;
   min-width: 680px;
   max-width: 680px;
   background-color: #ffffff;
+  justify-content: space-between;
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     min-width: 18rem;
@@ -319,76 +288,159 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     }
   }};
 
-  .top {
+  .letterContent {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
     margin-bottom: 1rem;
-    ${FONT_STYLE_V1.body.body_20_light}
+    text-align: justify;
+    color: ${PALETTE_V1.text_primary};
   }
+`;
 
-  .content {
-    letter-spacing: 2px;
-    line-height: 3rem;
-    padding: 0 1rem 0 0;
-    background-color: transparent;
-    border: none;
-    resize: none;
-    aspect-ratio: 1/1.5;
-    ${FONT_STYLE_V1.body.body_20_light}
-    font-size: 1.8rem;
+export const To = styled.div`
+  font-size: 2rem;
+  ${(props) => {
+    switch (props.font) {
+      case "프리텐다드":
+        return FONT_STYLE_V1.body.body_20_light;
+      case "도스샘물":
+        return FONT_STYLE_CONTENT.pixel_20;
+      case "강원교육모두체":
+        return FONT_STYLE_CONTENT.gangwonedu_20_bold;
+      case "에스코어 드림":
+        return FONT_STYLE_CONTENT.scoredream_20;
+      case "태백 은하수체":
+        return FONT_STYLE_CONTENT.taebaek_20;
+      case "다채사랑":
+        return FONT_STYLE_CONTENT.dachelove_20;
+      case "백의의 천사":
+        return FONT_STYLE_CONTENT.whiteangle_20;
+      case "고딕 아니고 고딩":
+        return FONT_STYLE_CONTENT.gothicgoding_20;
+      case "혁이체":
+        return FONT_STYLE_CONTENT.hyukee_20;
+      case "이서윤체":
+        return FONT_STYLE_CONTENT.leeseoyun_20;
+      case "신비는 일곱살":
+        return FONT_STYLE_CONTENT.sangsang_20;
+      case "카페24 고운밤":
+        return FONT_STYLE_CONTENT.cafe24oneprettynight_20;
+      case "제주명조":
+        return FONT_STYLE_CONTENT.jejumyeongjo_20;
+      case "리디바탕":
+        return FONT_STYLE_CONTENT.ridibatang_20;
+      case "나눔스퀘어 네오":
+        return FONT_STYLE_CONTENT.nanumneo_20;
+      default:
+        break;
+    }
+  }}
+`;
 
-    ${(props) => {
-      switch (props.font) {
-        case "프리텐다드":
-          return FONT_STYLE_V1.body.body_18_light;
-        case "도스샘물":
-          return FONT_STYLE_CONTENT.pixel_18;
-        case "강원교육모두체":
-          return FONT_STYLE_CONTENT.gangwonedu_18_bold;
-        default:
-          break;
-      }
-    }}
-    overflow: auto;
-    &:focus {
-      outline: none;
+export const Content = styled.div`
+  aspect-ratio: 1/1.5;
+  padding: 0 1rem 0 0;
+  background-color: transparent;
+  border: none;
+  resize: none;
+  letter-spacing: 2px;
+  font-size: 1.8rem;
+  ${(props) => {
+    switch (props.font) {
+      case "프리텐다드":
+        return FONT_STYLE_V1.body.body_18_light;
+      case "도스샘물":
+        return FONT_STYLE_CONTENT.pixel_18;
+      case "강원교육모두체":
+        return FONT_STYLE_CONTENT.gangwonedu_18_bold;
+      case "에스코어 드림":
+        return FONT_STYLE_CONTENT.scoredream_18;
+      case "태백 은하수체":
+        return FONT_STYLE_CONTENT.taebaek_18;
+      case "다채사랑":
+        return FONT_STYLE_CONTENT.dachelove_18;
+      case "백의의 천사":
+        return FONT_STYLE_CONTENT.whiteangle_18;
+      case "고딕 아니고 고딩":
+        return FONT_STYLE_CONTENT.gothicgoding_18;
+      case "혁이체":
+        return FONT_STYLE_CONTENT.hyukee_18;
+      case "이서윤체":
+        return FONT_STYLE_CONTENT.leeseoyun_18;
+      case "신비는 일곱살":
+        return FONT_STYLE_CONTENT.sangsang_18;
+      case "카페24 고운밤":
+        return FONT_STYLE_CONTENT.cafe24oneprettynight_18;
+      case "제주명조":
+        return FONT_STYLE_CONTENT.jejumyeongjo_18;
+      case "리디바탕":
+        return FONT_STYLE_CONTENT.ridibatang_18;
+      case "나눔스퀘어 네오":
+        return FONT_STYLE_CONTENT.nanumneo_18;
+      default:
+        break;
     }
-    &::-webkit-scrollbar {
-      width: 1rem;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: #d9d9d9;
-      border-radius: 7px;
-      border: 1.5px solid;
-    }
-    &::-webkit-scrollbar-track {
-      background-color: ${PALETTE_V1.background};
-      border-radius: 7px;
-      border: 1.5px solid;
-    }
+  }}
+  overflow: auto;
+  &:focus {
+    outline: none;
   }
-
-  .from {
-    display: flex;
-    font-size: 1.6rem;
-    justify-content: flex-end;
-    font-size: 1.5rem;
-    ${FONT_STYLE_V1.body.body_20_light}
+  &::-webkit-scrollbar {
+    width: 1rem;
   }
+  &::-webkit-scrollbar-thumb {
+    background-color: #d9d9d9;
+    border-radius: 7px;
+    border: 1.5px solid;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: ${PALETTE_V1.background};
+    border-radius: 7px;
+    border: 1.5px solid;
+  }
+`;
 
-  justify-content: space-between;
-
-  .back-add {
-    display: flex;
-    background: #ffffff00;
-    /* border: none; */
-    &::before {
-      content: "";
-      backdrop-filter: blur(100px);
+export const From = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  font-size: 2rem;
+  ${(props) => {
+    switch (props.font) {
+      case "프리텐다드":
+        return FONT_STYLE_V1.body.body_20_light;
+      case "도스샘물":
+        return FONT_STYLE_CONTENT.pixel_20;
+      case "강원교육모두체":
+        return FONT_STYLE_CONTENT.gangwonedu_20_bold;
+      case "에스코어 드림":
+        return FONT_STYLE_CONTENT.scoredream_20;
+      case "태백 은하수체":
+        return FONT_STYLE_CONTENT.taebaek_20;
+      case "다채사랑":
+        return FONT_STYLE_CONTENT.dachelove_20;
+      case "백의의 천사":
+        return FONT_STYLE_CONTENT.whiteangle_20;
+      case "고딕 아니고 고딩":
+        return FONT_STYLE_CONTENT.gothicgoding_20;
+      case "혁이체":
+        return FONT_STYLE_CONTENT.hyukee_20;
+      case "이서윤체":
+        return FONT_STYLE_CONTENT.leeseoyun_20;
+      case "신비는 일곱살":
+        return FONT_STYLE_CONTENT.sangsang_20;
+      case "카페24 고운밤":
+        return FONT_STYLE_CONTENT.cafe24oneprettynight_20;
+      case "제주명조":
+        return FONT_STYLE_CONTENT.jejumyeongjo_20;
+      case "리디바탕":
+        return FONT_STYLE_CONTENT.ridibatang_20;
+      case "나눔스퀘어 네오":
+        return FONT_STYLE_CONTENT.nanumneo_20;
+      default:
+        break;
     }
-    backdrop-filter: blur(10px);
-  }
+  }}
 `;
 
 //todo : 아래 버튼들(우편함 돌아가기, 휴지통, 이미지저장, 보관하기)
@@ -402,30 +454,27 @@ export const Buttons = styled.div`
   @media screen and (max-width: 1024px) {
     padding: 0rem 0rem 0rem 38rem;
   }
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    padding: 0rem 0rem 0rem 9.2rem;
-  }
   @media screen and (min-width: 420px) and (max-width: ${BREAKPOINTTABLET}px) {
-    padding: 0rem 0rem 0rem 5rem;
+    padding: 0rem 0rem 0rem 3.5rem;
+  }
+  @media screen and (min-width: 421px) and (max-width: 540px) {
+    padding: 0rem 0rem 0rem 6rem;
+  }
+  @media screen and (max-width: 420px) {
+    padding: 0rem 0rem 0rem 7rem;
   }
 
   .button {
-    font-size: 1.2rem;
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      font-size: 1.4rem;
-    }
-    @media screen and (max-width: 1024px) {
-      font-size: 1.4rem;
-    }
+    font-size: 1.4rem;
   }
 
+  //버튼 각 요소들
   > div {
     display: flex;
-    padding-left: 1.5rem;
+    padding-left: 1.4rem;
     @media screen and (max-width: 1024px) {
       padding-left: 1.6rem;
     }
-
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       padding-left: 0.9rem;
     }
@@ -435,17 +484,25 @@ export const Buttons = styled.div`
     margin: 0.2rem 20rem 0 -31rem;
     cursor: pointer;
     visibility: ${(props) => props.visibility};
-
     @media screen and (max-width: 1024px) {
       margin: 0.2rem 35rem 0 -37rem;
     }
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      margin: 0.2rem 10rem 0 -9rem;
+    @media screen and (min-width: 420px) and (max-width: ${BREAKPOINTTABLET}px) {
+      margin: 0.2rem 6rem 0 -3rem;
+      width: 2.8rem;
+      height: 2.8rem;
+    }
+    @media screen and (min-width: 421px) and (max-width: 540px) {
+      margin: 0.2rem 8rem 0 -5rem;
+      width: 2.8rem;
+      height: 2.8rem;
+    }
+    @media screen and (max-width: 420px) {
+      margin: 0.2rem 10.5rem 0 -6rem;
       width: 2.8rem;
       height: 2.8rem;
     }
   }
-
   .trash {
     display: flex;
     margin-right: 8px;
@@ -499,38 +556,37 @@ export const ModalWrapper = styled.div`
       width: 22rem;
       height: 3rem;
       margin: 1rem 0 0;
-      padding: 0rem 2.2rem;
+      padding: 0rem 2.5rem;
       border-top: none;
       border-left: none;
       border-right: none;
       border-bottom: 1px solid #000;
       background-repeat: no-repeat;
       background-position: left;
+      background-size: 1.7rem;
       font-size: 1.2rem;
+      margin-top: 0.7rem;
       margin-bottom: 0.4rem;
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-        width: 23rem;
-        margin-bottom: 2rem;
+        width: 25rem;
+        margin-top: 2.5rem;
       }
     }
     .emailInput {
       background-image: url("${email}");
-      background-size: 1.5rem;
     }
     .pwdInput {
       background-image: url("${pwd}");
-      background-size: 1.6rem;
+      background-size: 1.8rem;
     }
     .btn {
       width: 13rem;
-      height: 3rem;
+      height: 3.2rem;
       border: 1px solid #000;
       ${FONT_STYLE_LOGIN.button.button_13_light}
-      font-size: 13px;
       background: #fff06c;
       margin: 1.5rem 0;
       @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-        height: 3.3rem;
         margin: 4rem 0 2rem;
       }
     }
@@ -538,10 +594,6 @@ export const ModalWrapper = styled.div`
       color: red;
       padding: 0 30px;
       ${FONT_STYLE_READ.body_10_light}
-      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-        ${FONT_STYLE_READ.body_7_light}
-        padding: 0 12px;
-      }
     }
   }
   .sub {
@@ -549,10 +601,8 @@ export const ModalWrapper = styled.div`
     ${FONT_STYLE_LOGIN.body.body_9_light}
   }
   li {
+    ${FONT_STYLE_READ.body_10_light}
     padding: 0 10px;
-    @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-      padding: 0 7px;
-    }
   }
 `;
 
@@ -591,14 +641,51 @@ export const Card = styled.div`
 `;
 //TODO : 편지 뒷장
 export const Text = styled.div`
-  ${FONT_STYLE_V1.body.body_20_light}
   display: flex;
+  font-size: 2rem;
+  ${(props) => {
+    switch (props.font) {
+      case "프리텐다드":
+        return FONT_STYLE_V1.body.body_20_light;
+      case "도스샘물":
+        return FONT_STYLE_CONTENT.pixel_20;
+      case "강원교육모두체":
+        return FONT_STYLE_CONTENT.gangwonedu_20_bold;
+      case "에스코어 드림":
+        return FONT_STYLE_CONTENT.scoredream_20;
+      case "태백 은하수체":
+        return FONT_STYLE_CONTENT.taebaek_20;
+      case "다채사랑":
+        return FONT_STYLE_CONTENT.dachelove_20;
+      case "백의의 천사":
+        return FONT_STYLE_CONTENT.whiteangle_20;
+      case "고딕 아니고 고딩":
+        return FONT_STYLE_CONTENT.gothicgoding_20;
+      case "혁이체":
+        return FONT_STYLE_CONTENT.hyukee_20;
+      case "이서윤체":
+        return FONT_STYLE_CONTENT.leeseoyun_20;
+      case "신비는 일곱살":
+        return FONT_STYLE_CONTENT.sangsang_20;
+      case "카페24 고운밤":
+        return FONT_STYLE_CONTENT.cafe24oneprettynight_20;
+      case "제주명조":
+        return FONT_STYLE_CONTENT.jejumyeongjo_20;
+      case "리디바탕":
+        return FONT_STYLE_CONTENT.ridibatang_20;
+      case "나눔스퀘어 네오":
+        return FONT_STYLE_CONTENT.nanumneo_20;
+      default:
+        break;
+    }
+  }}
 `;
 export const Date = styled(Text)`
   height: fit-content;
   white-space: nowrap;
 `;
 export const BackImg = styled.img`
+  display: flex;
   border: 2px solid;
   margin: 1rem 0;
 `;
@@ -606,13 +693,93 @@ export const FlexWrapper1 = styled(W.FlexRowWrapper)`
   justify-content: space-between;
   width: 100%;
 `;
-export const NameInputWrapper = styled.div`
-  ${FONT_STYLE_V1.body.body_22_light}
-  display: flex;
-  flex-direction: row;
-  border-bottom: 2px solid ${PALETTE_V1.text_primary};
-  height: 100%;
-  &.preview {
-    border: none;
+
+//todo 편지 접힌 부분
+export const Triangle = styled.div`
+  position: absolute;
+  top: 0px;
+  right: 0rem;
+  width: 9rem;
+  height: 9rem;
+  background-color: ${PALETTE_V1.background};
+  border-left: 0.2rem solid;
+  border-bottom: 0.2rem solid;
+  z-index: 100;
+  &::after {
+    content: "";
+    top: 0px;
+    right: 0px;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border: 4.35rem solid white;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    z-index: 100;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    transform: rotate(-45deg);
+    top: -1.7rem;
+    left: 4.2rem;
+    width: 0.2rem;
+    height: 12.4rem;
+    background-color: black;
+    z-index: 200;
+  }
+  @media screen and (max-width: 590px) {
+    width: 7.6rem;
+    height: 7.6rem;
+    background-color: ${PALETTE_V1.background};
+    border-left: 0.2rem solid;
+    border-bottom: 0.2rem solid;
+    &::after {
+      border: 3.8rem solid white;
+      border-top-color: transparent;
+      border-right-color: transparent;
+    }
+    &::before {
+      top: -1.6rem;
+      left: 3.6rem;
+      width: 0.1rem;
+      height: 10.6rem;
+    }
+  }
+  @media screen and (max-width: 490px) {
+    width: 6rem;
+    height: 6rem;
+    background-color: ${PALETTE_V1.background};
+    border-left: 0.2rem solid;
+    border-bottom: 0.2rem solid;
+    &::after {
+      border: 2.6rem solid white;
+      border-top-color: transparent;
+      border-right-color: transparent;
+    }
+    &::before {
+      top: -1.2rem;
+      left: 2.8rem;
+      width: 0.1rem;
+      height: 8.4rem;
+    }
+  }
+  @media screen and (max-width: 380px) {
+    width: 4.6rem;
+    height: 4.6rem;
+    background-color: ${PALETTE_V1.background};
+    border-left: 0.2rem solid;
+    border-bottom: 0.2rem solid;
+    &::after {
+      border: 2.25rem solid white;
+      border-top-color: transparent;
+      border-right-color: transparent;
+    }
+    &::before {
+      top: -0.8rem;
+      left: 2.1rem;
+      width: 0.1rem;
+      height: 6.1rem;
+    }
   }
 `;

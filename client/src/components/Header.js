@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import { BREAKPOINTMOBILE } from "../../src/breakpoint";
 import { Link, useNavigate } from "react-router-dom";
@@ -5,10 +6,11 @@ import postbox from "../asset/postbox.svg";
 import axios from "axios";
 import { getCookie, removeCookie } from "../pages/Certified/Cookie";
 import useStore from "../store/store";
+import Refresh from "../util/Refresh";
 
 function Header() {
   const navigate = useNavigate();
-  const { isLogin, setIsLogin } = useStore((state) => state);
+  const { isLogin, setIsLogin } = useStore();
 
   //로그아웃 제출 버튼
   const onLogout = async () => {
@@ -17,20 +19,40 @@ function Header() {
       url: `/api/sendy/auth/logout`,
       headers: {
         "ngrok-skip-browser-warning": "12",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accesstoken", {
+          path: "/",
+          sucure: true,
+          sameSite: "Strict",
+          HttpOnly: " HttpOnly ",
+        }),
         Refresh: localStorage.getItem("refreshToken"),
       },
     })
-      .then(() => {
+      .then((res) => {
+        //액세스토큰이 만료되었다면(401 에러)
+        console.log(res);
+        if (res.status === 401) {
+          Refresh();
+          console.log("리프레시토큰으로 액세스토큰을 갱신했습니다.");
+          onLogout();
+        }
         localStorage.clear();
-        removeCookie("accesstoken");
+        removeCookie("accesstoken", {
+          path: "/",
+        });
         navigate("/completeLogout");
         window.location.reload();
       })
       .catch((err) => {
         console.log(err);
+        // console.log(err.response.data.message);
+        // console.log(err.response.status);
       });
   };
+
+  // useEffect(() => {
+  //   onLogout();
+  // }, []);
 
   return (
     <>

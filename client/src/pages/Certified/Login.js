@@ -1,13 +1,11 @@
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import * as L from "./FormStyled";
 import axios from "axios";
-import { setCookie, getCookie } from "./Cookie";
+import { setCookie } from "./Cookie";
 import { headers, options, GoogleOauthLogin } from "./setupCertified";
-import useStore from "../../store/store";
 
 function Login() {
   const navigate = useNavigate();
