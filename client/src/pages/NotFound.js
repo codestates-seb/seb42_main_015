@@ -6,30 +6,68 @@ import { FONT_STYLE_V1 } from "../style/fontStyle";
 
 const NotFoundWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  height: 100vh;
+  flex-direction: column;
+  height: 95vh;
   align-items: center;
   justify-content: center;
   padding-left: 5rem;
   padding-right: 5rem;
-  .cat-img {
-    width: 35rem;
-    object-fit: contain;
+  .img-wrapper {
+    display: flex;
+    align-items: flex-end;
+    .cat-img {
+      width: 25rem;
+      object-fit: contain;
+    }
+    .sorry-cat-img {
+      width: 23rem;
+      object-fit: contain;
+    }
+  }
+  @media screen and (max-width: 555px) {
+    .img-wrapper {
+      flex-direction: row;
+    }
+  }
+  @media screen and (max-width: 417px) {
+    .img-wrapper {
+      .cat-img {
+        width: 15rem;
+      }
+      .sorry-cat-img {
+        width: 13rem;
+      }
+    }
   }
 `;
 const WordWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: min-content;
+  width: 100%;
+  .title-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h1 {
+      text-align: center;
+    }
+  }
   .inform-wrapper {
     margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  @media screen and (max-width: 555px) {
   }
 `;
 const Title = styled.h1`
   ${FONT_STYLE_V1.title.title_100_bold}
+  font-family: "White_angel";
 `;
 const Inform = styled.div`
-  ${FONT_STYLE_V1.body.body_20_light}
+  ${FONT_STYLE_V1.body.body_30_light}
+  font-family: "White_angel";
 `;
 
 function NotFound() {
@@ -46,8 +84,11 @@ function NotFound() {
         </div>
       </WordWrapper>
       <div className="img-wrapper">
-        <img className="cat-img" src={cat}></img>
-        <img className="sorry-cat-img" src={sorryCat}></img>
+        <img className="cat-img" src={cat} alt="노란 고양이 그림"></img>
+        <img
+          className="sorry-cat-img"
+          src={sorryCat}
+          alt="사과하는 고양이 그림"></img>
       </div>
     </NotFoundWrapper>
   );

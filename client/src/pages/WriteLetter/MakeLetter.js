@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as W from "./WriteStyled";
 import keyIcon from "../../asset/key.png";
 import RoundButton from "../commons/RoundButton";
@@ -11,10 +11,14 @@ import useStore from "../../store/store";
 import { useForm } from "react-hook-form";
 import { formSchema } from "./formSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
-import { getCookie } from "../Certified/Cookie";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import Refresh from "../../util/Refresh";
+import {
+  getUrlNameExist,
+  postMessage,
+  postMessageImage,
+} from "../commons/axios";
 
 function MakeLetter({ makeLetterModalRef }) {
   const {
@@ -25,7 +29,7 @@ function MakeLetter({ makeLetterModalRef }) {
   const [dragOver, setDragOver] = useState(false);
   const [hasFile, setHasFile] = useState(false);
   const [image, setImage] = useState(null);
-  const { letterContents, setLetterContents } = useStore((state) => state);
+  const { letterContents, setLetterContents } = useStore();
   const [imageFile, setImageFile] = useState();
   const renderFile = (file) => {
     let reader = new FileReader();
@@ -100,56 +104,48 @@ function MakeLetter({ makeLetterModalRef }) {
     setHasFile(false);
     setImage(null);
   };
-
+  useEffect(() => {}, [imageFile]);
   const [canUseUrl, setCanUseUrl] = useState(null);
   const handleCheckUrlName = () => {
-    return axios({
-      method: "get",
-      url: `/api/sendy/messages/exists/${letterContents.urlName}`,
-      headers: {
-        "ngrok-skip-browser-warning": "230327",
-        Authorization: getCookie("accesstoken"),
-      },
-    }).then((res) => {
-      if (res.status === 200) {
+    getUrlNameExist(letterContents.urlName)
+      .then(() => {
         setCanUseUrl(true);
-      } else {
-        setCanUseUrl(false);
-      }
-    });
-  };
-
-  const postLetterContents = () => {
-    return axios({
-      method: "post",
-      url: "/api/sendy/messages/write",
-      headers: {
-        Authorization: getCookie("accesstoken"),
-      },
-      data: letterContents,
-    });
-  };
-
-  const postMessageImg = () => {
-    let formData = new FormData();
-    formData.append("image", imageFile);
-    return axios({
-      method: "post",
-      headers: {
-        "ngrok-skip-browser-warning": "230325",
-        Authorization: getCookie("accesstoken"),
-        // "Content-Type": "multipart/form-data",
-      },
-      url: `/api/sendy/messages/write/image/1`,
-      data: formData,
-    });
+      })
+      .catch((err) => {
+        if (err.response.status === 409) {
+          setCanUseUrl(false);
+        } else if (err.response.status === 401) {
+          Refresh().then(() => {
+            getUrlNameExist(letterContents.urlName).then(() => {
+              setCanUseUrl(true);
+            });
+          });
+        }
+      });
   };
 
   const navigate = useNavigate();
   const handleMakeLetter = () => {
-    return axios.all([postLetterContents(), postMessageImg()]).then(() => {
-      navigate("complete");
-    });
+    return postMessage(letterContents)
+      .then(() => {
+        postMessageImage(imageFile, letterContents.urlName);
+      })
+      .then(() => {
+        navigate(`/readletter/${letterContents.urlName}`);
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh()
+            .then(() => {
+              postMessage(letterContents);
+            })
+            .then(() => {
+              postMessageImage(imageFile, letterContents.urlName).then(() => {
+                navigate(`/readletter/${letterContents.urlName}`);
+              });
+            });
+        }
+      });
   };
 
   const handlePreview = () => {
@@ -160,6 +156,7 @@ function MakeLetter({ makeLetterModalRef }) {
     window.open("/writeletter/preview");
   };
   const handleUrlReg = (e) => {
+    setCanUseUrl(null);
     e.target.value = e.target.value.replace(
       /[ㄱ-힣~!@#$%^&*()_+|<>?:{}=\\`"';\.\,\[\]/]/g,
       ""
@@ -188,18 +185,18 @@ function MakeLetter({ makeLetterModalRef }) {
         <W.FlexRowWrapper className="URL-wrapper">
           <W.FlexRowWrapper className="align-items URL-input">
             <div className="position-relative">
-              <div>https://www.sendy.site/letter/</div>
+              <div>https://www.sendy.site/readletter/</div>
               {canUseUrl ? (
                 <W.MakeLetterInput
                   disabled
                   className="URL-input"
-                  onKeyUp={handleUrlReg}
+                  maxLength="15"
                   {...register("urlName")}
                 />
               ) : (
                 <W.MakeLetterInput
                   className="URL-input"
-                  onKeyUp={handleUrlReg}
+                  onInput={handleUrlReg}
                   {...register("urlName")}
                 />
               )}
@@ -209,10 +206,17 @@ function MakeLetter({ makeLetterModalRef }) {
                   {errors.urlName.message}
                 </W.ErrorMessage>
               )}
+              {canUseUrl === false ? (
+                <W.ErrorMessage className="url-verify-error">
+                  중복된 url입니다.
+                </W.ErrorMessage>
+              ) : (
+                <></>
+              )}
             </div>
           </W.FlexRowWrapper>
           {canUseUrl ? (
-            <BsFillCheckCircleFill />
+            <BsFillCheckCircleFill className="done-check-icon" />
           ) : (
             <RoundButton
               className="check-button"
@@ -224,30 +228,29 @@ function MakeLetter({ makeLetterModalRef }) {
               중복체크
             </RoundButton>
           )}
-
-          {canUseUrl === false ? (
-            <W.ErrorMessage>중복된 url입니다.</W.ErrorMessage>
-          ) : (
-            <></>
-          )}
         </W.FlexRowWrapper>
       </div>
       <W.FlexColunmWrapper>
         <W.FlexRowWrapper className="align-items">
           <W.Label>편지 비밀번호</W.Label>
           <p id="necessity">(선택) </p>
-          {errors.password && (
-            <W.ErrorMessage>{errors.password.message}</W.ErrorMessage>
-          )}
         </W.FlexRowWrapper>
-        <W.MakeLetterInput
-          className="password-input"
-          backgroundImg={keyIcon}
-          placeholder=" * * * *"
-          onKeyUp={(e) =>
-            setLetterContents({ ...letterContents, password: e.target.value })
-          }
-          {...register("password")}></W.MakeLetterInput>
+        <div className="position-relative">
+          <W.MakeLetterInput
+            className="password-input"
+            backgroundImg={keyIcon}
+            placeholder=" * * * *"
+            onInput={(e) =>
+              setLetterContents({ ...letterContents, password: e.target.value })
+            }
+            maxLength="4"
+            {...register("password")}></W.MakeLetterInput>
+          {errors.password && (
+            <W.ErrorMessage className="password-error">
+              {errors.password.message}
+            </W.ErrorMessage>
+          )}
+        </div>
       </W.FlexColunmWrapper>
       <div>
         <W.FlexRowWrapper className="align-items">
@@ -301,7 +304,9 @@ function MakeLetter({ makeLetterModalRef }) {
           backgroundColor={PALETTE_V1.yellow_basic}>
           미리보기
         </ShadowButton>
-        {canUseUrl ? (
+        {canUseUrl &&
+        (letterContents?.password === "" ||
+          letterContents?.password?.length === 4) ? (
           <ShadowButton
             backgroundColor={PALETTE_V1.yellow_basic}
             onClick={handleMakeLetter}>

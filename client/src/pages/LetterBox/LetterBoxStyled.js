@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 import { BREAKPOINTMOBILE } from "../../breakpoint";
@@ -16,6 +16,7 @@ import 클로버 from "../../asset/letterTheme/클로버-theme.png";
 
 export const LetterBoxWrap = styled.div`
   width: 100%;
+  min-width: 320px;
   min-height: 90vh;
   ${FONT_STYLE_V1.body.body_15_light}
 `;
@@ -51,7 +52,8 @@ export const Search = styled.input`
 `;
 
 export const PeriodBox = styled.div`
-  width: 28vw;
+  width: 30vw;
+  min-width: 250px;
   height: 118px;
   border: 1px solid black;
   position: absolute;
@@ -60,20 +62,33 @@ export const PeriodBox = styled.div`
   background-color: ${(props) =>
     props.backgroundColor || PALETTE_V1.background};
   z-index: 10;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 200px;
-  }
 `;
 
 export const Line = styled.div`
   width: 100%;
-  height: 20px;
+  height: 25px;
   background-color: #464646;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const LineBtn = styled.span`
+  height: 100%;
+  color: white;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0 1rem;
+  .period-btn {
+    font-size: 1.5rem;
+  }
 `;
 
 export const Date = styled.ul`
   width: 100%;
-  height: 98px;
+  height: 93px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -208,39 +223,92 @@ export const ItemContainer = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
-  /* padding-left: 2rem; */
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    padding-left: 0;
-  }
 `;
 
 export const NotSearch = styled.div`
-  width: 90%;
+  width: 100%;
   height: 5rem;
-  text-align: center;
+  padding: 5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${FONT_STYLE_V1.body.body_18_light}
 `;
 
 export const ItemBox = styled.div`
-  width: 250px;
-  height: 350px;
+  width: 220px;
+  height: 370px;
   /* background-color: white; */
   border: ${(props) => (props.borderColor ? props.borderColor : "black")};
   box-shadow: ${(props) => props.shadowColor};
   margin-left: 3rem;
   margin-bottom: 3rem;
-  padding: 4rem 2rem 1rem;
-  display: flex;
-  flex-direction: column;
   position: relative;
   cursor: pointer;
-  background-image: url(${알록달록});
   background-size: cover;
   background-repeat: no-repeat;
+  ${(props) => {
+    switch (props.currentLetterTheme) {
+      case "구름":
+        return css`
+          background-image: url(${구름});
+        `;
+      case "군대":
+        return css`
+          background-image: url(${군대});
+        `;
+      case "냥냥편지":
+        return css`
+          background-image: url(${냥냥편지});
+        `;
+      case "리본":
+        return css`
+          background-image: url(${리본});
+        `;
+      case "수박":
+        return css`
+          background-image: url(${수박});
+        `;
+      case "알록달록":
+        return css`
+          background-image: url(${알록달록});
+        `;
+      case "얼룩":
+        return css`
+          background-image: url(${얼룩});
+        `;
+      case "체리":
+        return css`
+          background-image: url(${체리});
+        `;
+      case "클로버":
+        return css`
+          background-image: url(${클로버});
+        `;
+      case "정월대보름":
+        return css`
+          background-image: url(${정월대보름});
+        `;
+      case "오리":
+        return css`
+          background-image: url(${오리});
+        `;
+      default:
+        break;
+    }
+  }};
+`;
+
+export const ItemCase = styled.div`
+  width: 220px;
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  padding: 4rem 3rem 1rem;
 `;
 
 export const ItemTitle = styled.div`
-  ${FONT_STYLE_V1.title.title_18_medium}
+  ${FONT_STYLE_V1.title.title_16_medium}
   margin-bottom: 2rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     ${FONT_STYLE_V1.title.title_25_medium}
@@ -248,7 +316,7 @@ export const ItemTitle = styled.div`
 `;
 
 export const ItemContents = styled.p`
-  ${FONT_STYLE_V1.body.body_15_light}
+  ${FONT_STYLE_V1.body.body_13_light}
   overflow: hidden;
   white-space: normal;
   text-overflow: ellipsis;
@@ -262,8 +330,8 @@ export const ItemContents = styled.p`
 `;
 
 export const ItemDate = styled.div`
-  ${FONT_STYLE_V1.title.title_14_medium}
-  margin-bottom: 0.5rem;
+  ${FONT_STYLE_V1.title.title_12_medium}
+  margin-bottom: 1rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     ${FONT_STYLE_V1.title.title_18_medium}
   }
@@ -274,11 +342,11 @@ export const BookMark = styled.div`
   top: 0;
   right: 0;
   img {
-    width: 5rem;
+    width: 4rem;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     img {
-      width: 8rem;
+      width: 6rem;
     }
   }
 `;
@@ -352,6 +420,29 @@ export const DeleteButtonON = styled.div`
   }
 `;
 
+export const DeleteButton = styled.div`
+  width: 60px;
+  height: 60px;
+  border: 3px solid ${PALETTE_V1.orange_dark};
+  border-radius: 50%;
+  position: fixed;
+  bottom: 120px;
+  right: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: ${FONT_STYLE_V1.title.title_12_medium};
+  background-color: ${PALETTE_V1.orange_dark};
+  color: white;
+  cursor: pointer;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 50px;
+    height: 50px;
+    bottom: 85px;
+    right: 70px;
+  }
+`;
+
 export const ReceiveButton = styled.div`
   width: 60px;
   height: 60px;
@@ -396,4 +487,13 @@ export const SendButton = styled.div`
     bottom: 150px;
     right: 10px;
   }
+`;
+
+export const TargetBox = styled.div`
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${FONT_STYLE_V1.title.title_18_medium}
 `;

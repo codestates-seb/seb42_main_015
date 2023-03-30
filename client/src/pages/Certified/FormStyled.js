@@ -11,7 +11,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 75vh;
+  min-height: 80vh;
   padding: 0rem 2rem 0rem;
   overflow: hidden;
 `;
@@ -65,7 +65,6 @@ export const LogForm = styled.form`
         margin: ${(props) =>
           props.theme === "login" ? "1.5rem 0px 4.5rem" : "0rem 0px 1.8rem"};
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          font-size: 3.8rem;
           margin: ${(props) =>
             props.theme === "login" ? "0.5rem 0rem 3rem" : "0.1rem 0 2.2rem"};
         }
@@ -138,6 +137,7 @@ export const LogForm = styled.form`
         border: 1px solid #000;
         ${FONT_STYLE_LOGIN.button.button_13_light}
         background: #fff06c;
+        color: #000;
         margin-top: ${(props) =>
           props.theme === "login" ? "1.5rem" : "0.7rem"};
         cursor: pointer;
@@ -180,18 +180,18 @@ export const LogForm = styled.form`
         font-size: 12px;
         border: 1px solid #505050;
         background: #ffcb12;
+        color: #000;
         width: 4.3rem;
         height: 1.9rem;
         cursor: pointer;
         -webkit-box-pack: center;
         border-radius: 9999px;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-          width: 5.5rem;
+          width: 5.7rem;
           height: 2.3rem;
           top: 0.9rem;
-          font-size: 9px;
+          font-size: 8px;
         }
-
         :hover {
           box-shadow: 0px 0px 0px 1px transparent, 0px 0px 0px 4px transparent,
             0px 6px 16px rgb(0 0 0 / 12%);
@@ -200,6 +200,7 @@ export const LogForm = styled.form`
       }
       .duplicate-check {
         background: #d3d3d3;
+        color: #000;
       }
       .code-check {
         background: rgb(241, 67, 67);

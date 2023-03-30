@@ -22,7 +22,7 @@ const LoadingBody = styled.div`
     }
   }
 
-  // SVG animation.
+  // SVG animation
   @keyframes svg-animation {
     0% {
       transform: rotateZ(0deg);
@@ -32,7 +32,7 @@ const LoadingBody = styled.div`
     }
   }
 
-  // Circle styles.
+  // Circle styles
   circle {
     animation: 1.4s ease-in-out infinite both circle-animation;
     display: block;
@@ -45,7 +45,7 @@ const LoadingBody = styled.div`
     transform-origin: 50% 50%;
   }
 
-  // Circle animation.
+  // Circle animation
   @keyframes circle-animation {
     0%,
     25% {

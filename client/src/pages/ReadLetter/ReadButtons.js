@@ -1,10 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import * as R from "./ReadStyled";
 import { PALETTE_V1 } from "../../style/color";
 import ShadowButton from "../commons/ShadowButton";
 import Modal from "../commons/Modal";
 import LoginModal from "./LoginModal";
 import { HiOutlineArrowUturnLeft, HiOutlineTrash } from "react-icons/hi2";
+import axios from "axios";
+import { getCookie } from "../Certified/Cookie";
+import { Loading } from "../../components/Loading";
+import Refresh from "../../util/Refresh";
 
 const ReadButtons = ({
   isLogin,
@@ -12,38 +17,179 @@ const ReadButtons = ({
   setIsKeeping,
   ModalRef,
   onDownloadBtn,
+  isClickModal,
+  setIsClickModal,
 }) => {
-  //'보관하기' 버튼 누르면 모달 나오는 이벤트 핸들러
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { urlName } = useParams();
+  //로딩상태
+  const [isLoading, setIsLoading] = useState(false);
+  //휴지통 정보
+  const [isDustbin, setIsDustbin] = useState({
+    receivingId: "",
+    outgoingId: "",
+  });
+  // 우편함에서 넘어온 정보
+  const getMailboxId = () => {
+    if (location.state) {
+      if (location.state.name === "outgoingId") {
+        setIsDustbin({
+          ...isDustbin,
+          outgoingId: location.state.body,
+        });
+      } else if (location.state.name === "receivingId") {
+        setIsDustbin({
+          ...isDustbin,
+          receivingId: location.state.body,
+        });
+      }
+    }
+  };
+  useEffect(() => {
+    if (location.state) {
+      getMailboxId();
+      // 만약 발신편지라면(발신아이디가 있음) -> 보관완료 상태로 뜨게
+      if (isDustbin.outgoingId && !isKeeping) {
+        setIsKeeping(true);
+      }
+    }
+  }, [location]);
+  // console.log(isDustbin);
 
-  const handleKeeping = () => {
-    setIsKeeping(!isKeeping);
+  //todo :보관하기
+  const handleKeeping = async () => {
+    //모달 열기
+    setIsClickModal(!isClickModal);
+    setIsLoading(true);
+    await axios({
+      method: "patch",
+      url: `/api/sendy/messages/saved/${urlName}`,
+      headers: {
+        "ngrok-skip-browser-warning": "12",
+        Authorization: getCookie("accesstoken"),
+      },
+      data: {},
+    })
+      .then((res) => {
+        while (res.status === 401) {
+          Refresh().then(handleKeeping());
+        }
+        setIsLoading(false);
+        setIsKeeping(true);
+        alert("편지가 저장되었습니다.\n 이제 우편함에서 확인할 수 있어요!");
+        setIsDustbin({
+          ...isDustbin,
+          receivingId: res.data.receivingId,
+        });
+        // window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      });
   };
 
-  //! 휴지통 alert
-  const onRemove = () => {
+  //Todo : 편지 삭제하기
+  const onRemove = async () => {
     if (
       window.confirm(
         "정말로 삭제하시겠습니까?\n삭제된 편지는 [마이페이지-휴지통]에서 확인할 수 있습니다."
       )
-    ) {
-      alert("삭제되었습니다.");
-    } else {
-      return;
-    }
+    )
+      if (!isDustbin.outgoingId) {
+        //outgoingId가 없다면 === 수신편지라면
+        await axios({
+          method: "patch",
+          url: `/api/sendy/mailbox/receiving/delete`,
+          headers: {
+            "ngrok-skip-browser-warning": "12",
+            Authorization: getCookie("accesstoken"),
+          },
+          data: {
+            ids: [isDustbin.receivingId],
+          },
+        })
+          .then((res) => {
+            if (res.status === 401) {
+              Refresh().then(onRemove());
+            }
+            setIsLoading(false);
+            alert("삭제되었습니다.");
+            navigate("/letterbox");
+            window.location.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+            setIsLoading(false);
+          });
+        //outgoingId가 있다면 === 발신편지라면
+      } else if (isDustbin.outgoingId) {
+        await axios({
+          method: "patch",
+          url: `/api/sendy/mailbox/outgoing/delete`,
+          headers: {
+            "ngrok-skip-browser-warning": "12",
+            Authorization: getCookie("accesstoken"),
+          },
+          data: {
+            ids: [isDustbin.outgoingId],
+          },
+        })
+          .then((res) => {
+            if (res.status === 401) {
+              Refresh().then(onRemove());
+            }
+            setIsLoading(false);
+            alert("삭제되었습니다.");
+            navigate("/letterbox");
+            window.location.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+            setIsLoading(false);
+          });
+      }
   };
 
   return (
     <>
+      {isLoading ? <Loading /> : ""}
       <R.Buttons>
-        {isLogin ? (
+        {isLogin && isKeeping ? (
+          // 로그인&보관하기 되어 있으면 -> 우편함, 휴지통 아이콘 보이게
           <>
             <Link to="/letterbox">
-              <HiOutlineArrowUturnLeft size="30" className="goback" />
+              <HiOutlineArrowUturnLeft
+                size="30"
+                className="goback"
+                visibility="visible"
+              />
             </Link>
-            <HiOutlineTrash size="30" className="trash" onClick={onRemove} />
+            <HiOutlineTrash
+              size="30"
+              className="trash"
+              onClick={onRemove}
+              visibility="visible"
+            />
           </>
         ) : (
-          <></>
+          // 아니라면 hidden
+          <>
+            <Link to="/letterbox">
+              <HiOutlineArrowUturnLeft
+                size="30"
+                className="goback"
+                visibility="hidden"
+              />
+            </Link>
+            <HiOutlineTrash
+              size="30"
+              className="trash"
+              onClick={onRemove}
+              visibility="hidden"
+            />
+          </>
         )}
         <ShadowButton
           className="button"
@@ -54,14 +200,29 @@ const ReadButtons = ({
           이미지 저장
         </ShadowButton>
         {isLogin ? (
-          <ShadowButton
-            className="button"
-            backgroundColor={PALETTE_V1.aready_keep_button}
-            state="block"
-          >
-            보관완료
-          </ShadowButton>
+          //로그인 되어 있다면 -> 저장 여부 확인
+          isKeeping ? (
+            // 저장되어 있다면 -> 보관완료
+            <ShadowButton
+              className="button"
+              backgroundColor={PALETTE_V1.aready_keep_button}
+              state="block"
+            >
+              보관완료
+            </ShadowButton>
+          ) : (
+            //저장 안되어 있다면 -> 보관하기
+            <ShadowButton
+              className="button"
+              backgroundColor={PALETTE_V1.yellow_button}
+              state="none-block"
+              onClick={handleKeeping}
+            >
+              보관하기
+            </ShadowButton>
+          )
         ) : (
+          //로그인 안되어 있다면
           <ShadowButton
             className="button"
             backgroundColor={PALETTE_V1.yellow_button}
@@ -71,14 +232,17 @@ const ReadButtons = ({
             보관하기
           </ShadowButton>
         )}
-        {isKeeping ? (
+        {isClickModal && !isLogin ? (
           <R.ModalBackground>
             <Modal
               ModalRef={ModalRef}
               ContainerHeight={"420px"}
               ContainerWidth={"370px"}
               children={
-                <LoginModal ModalRef={ModalRef} setIsKeeping={setIsKeeping} />
+                <LoginModal
+                  ModalRef={ModalRef}
+                  setIsClickModal={setIsClickModal}
+                />
               }
             />
           </R.ModalBackground>

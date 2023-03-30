@@ -2,7 +2,6 @@ import axios from "axios";
 import { getCookie } from "../pages/Certified/Cookie";
 
 const axiosCall = async (call) => {
-  // const { method, url, data } = call;
   const token = getCookie("accesstoken");
   return axios({
     method: call.method,

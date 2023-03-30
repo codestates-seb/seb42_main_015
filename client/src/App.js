@@ -15,21 +15,20 @@ import PwdChange from "./pages/MyPage/PwdChange";
 import Trash from "./pages/MyPage/TrashList";
 import CompleteSignup from "./pages/Certified/CompleteSignup";
 import Preview from "./pages/WriteLetter/Preview";
-import { getCookie } from "./pages/Certified/Cookie";
+import { getCookie, removeCookie } from "./pages/Certified/Cookie";
 import useStore from "./store/store";
 import NotFound from "./pages/NotFound";
-import Complete from "./pages/WriteLetter/Complete";
 // ! 공백
 function App() {
   const displayFooter = true;
-  const { isLogin, setIsLogin } = useStore((state) => state);
+  const { isLogin, setIsLogin } = useStore();
 
   const initializeUserInfo = async () => {
     const loggedInfo = getCookie("accesstoken");
     if (loggedInfo) {
       setIsLogin(true);
       console.log("accesstoken : ", getCookie("accesstoken"));
-      // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
+      console.log("refreshToken : ", localStorage.getItem("refreshToken"));
     }
   };
 
@@ -44,11 +43,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/letterbox" element={<LetterBox />} />
+        <Route path="/trash" element={<Trash />} />
         <Route element={<Layout displayFooter={displayFooter} />}>
           <Route path="/login" element={<Login />} />
           <Route path="/setpwd/:page" element={<SetPwd />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/trash" element={<Trash />} />
           <Route path="/pwdchange/:page" element={<PwdChange />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/writeletter" element={<WriteLetter />} />
@@ -59,7 +58,6 @@ function App() {
           />
           <Route path="/completeSignup" element={<CompleteSignup />} />
           <Route path="/writeletter/preview" element={<Preview />} />
-          <Route path="/writeletter/complete" element={<Complete />} />
           <Route path="/*" element={<NotFound />} />
         </Route>
       </Routes>

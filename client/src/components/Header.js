@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import { BREAKPOINTMOBILE } from "../../src/breakpoint";
 import { Link, useNavigate } from "react-router-dom";
@@ -5,30 +6,43 @@ import postbox from "../asset/postbox.svg";
 import axios from "axios";
 import { getCookie, removeCookie } from "../pages/Certified/Cookie";
 import useStore from "../store/store";
+import Refresh from "../util/Refresh";
 
 function Header() {
   const navigate = useNavigate();
-  const { isLogin, setIsLogin } = useStore((state) => state);
+  const { isLogin, setIsLogin } = useStore();
 
   //로그아웃 제출 버튼
   const onLogout = async () => {
-    axios({
+    await axios({
       method: "post",
       url: `/api/sendy/auth/logout`,
       headers: {
         "ngrok-skip-browser-warning": "12",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accesstoken", {
+          path: "/",
+          sucure: true,
+          sameSite: "Strict",
+          HttpOnly: " HttpOnly ",
+        }),
         Refresh: localStorage.getItem("refreshToken"),
       },
     })
       .then(() => {
+        //리프레시 토큰 삭제
         localStorage.clear();
-        removeCookie("accesstoken");
+        //액세스 토큰 삭제
+        removeCookie("accesstoken", {
+          path: "/",
+        });
         navigate("/completeLogout");
         window.location.reload();
       })
       .catch((err) => {
         console.log(err);
+        if (err.response.status === 401) {
+          Refresh().then(() => onLogout());
+        }
       });
   };
 

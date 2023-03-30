@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as L from "./LetterBoxStyled";
 import LetterView from "./LetterView";
 import { GrSearch } from "react-icons/gr";
@@ -11,56 +11,36 @@ import {
   RiUserReceivedLine,
   RiUserSharedLine,
 } from "react-icons/ri";
-import axios from "axios";
-import { getCookie } from "../Certified/Cookie";
+import { RxThickArrowRight } from "react-icons/rx";
+import { BiRefresh } from "react-icons/bi";
 import useStore from "../../store/store";
-
-const getPageLettersOut = async () => {
-  return axios({
-    method: "get",
-    url: "/api/sendy/mailbox/messages/out",
-    headers: {
-      "ngrok-skip-browser-warning": "230325",
-      Authorization: getCookie("accesstoken"),
-    },
-  });
-};
-// console.log(getCookie("accesstoken"))
-
-const getPageLettersIn = async () => {
-  return axios({
-    method: "get",
-    url: "/api/sendy/mailbox/messages/in",
-    headers: {
-      "ngrok-skip-browser-warning": "230325",
-      Authorization: getCookie("accesstoken"),
-    },
-  });
-};
+import { getCookie } from "../Certified/Cookie";
+import axios from "axios";
 
 function LetterBox() {
-  const [leftTab, setleftTab] = useState(false);
+  const {
+    outLetters,
+    inLetters,
+    isSend,
+    setIsSend,
+    setIsFilterOut,
+    setIsFilterIn,
+  } = useStore();
+  const [leftTab, setLeftTab] = useState(false);
   const [rightTab, setRightTab] = useState(false);
   const [currentTab, setCurrentTab] = useState("최신순");
-  const [select, setSelect] = useState(false);
   const [trash, setTrash] = useState(false);
   const [yearL, setYearL] = useState(2023);
   const [monthL, setMonthL] = useState(1);
   const [yearR, setYearR] = useState(2023);
   const [monthR, setMonthR] = useState(1);
-  const { outLetters, setOutLetters } = useStore((state) => state);
-  const { inLetters, setInLetters } = useStore((state) => state);
-  const { isSend, setIsSend } = useStore((state) => state);
+  const [isFocus, setIsFocus] = useState(false);
   const [isSearchOut, setIsSearchOut] = useState(outLetters);
   const [isSearchIn, setIsSearchIn] = useState(inLetters);
-  const [isFocus, setIsFocus] = useState(false);
-  const tabItem = ["최신순", "오래된 순", "북마크"];
+  const [selectId, setSelectId] = useState([]);
+  const filterItem = ["최신순", "오래된 순", "북마크"];
 
-  useEffect(() => {
-    getPageLettersOut().then((res) => setOutLetters(res.data.data));
-    getPageLettersIn().then((res) => setInLetters(res.data.data));
-  }, []);
-
+  // 기간 필터
   const handleMonthLUp = () => {
     if (+monthL > 0 && +monthL < 12) {
       setMonthL(+monthL + 1);
@@ -102,11 +82,70 @@ function LetterBox() {
     }
   };
 
-  const handleDelete = () => {
-    setTrash(!trash);
-    setSelect(!select);
+  // 기간
+  const handleDate = () => {
+    setLeftTab(!leftTab);
+    let periodL;
+    let periodR;
+    if (monthL < 10) {
+      periodL = `${yearL}-0${monthL}`;
+    } else {
+      periodL = `${yearL}-${monthL}`;
+    }
+    if (monthL < 10) {
+      periodR = `${yearR}-0${monthR}`;
+    } else {
+      periodR = `${yearR}-${monthR}`;
+    }
+    if (isSend === true) {
+      return setIsFilterOut(
+        outLetters.filter(
+          (letter) =>
+            letter.messageCreatedAt.slice(0, 7) >= periodL &&
+            letter.messageCreatedAt.slice(0, 7) <= periodR
+        )
+      );
+    }
+    if (isSend === false) {
+      return setIsFilterIn(
+        inLetters.filter(
+          (letter) =>
+            letter.messageCreatedAt.slice(0, 7) >= periodL &&
+            letter.messageCreatedAt.slice(0, 7) <= periodR
+        )
+      );
+    }
   };
 
+  // 시간순 & 북마크
+  const handleFilter = (e) => {
+    setCurrentTab(e.target.textContent);
+    setRightTab(false);
+    // 최신순
+    if (isSend === true && e.target.textContent === "최신순") {
+      return setIsFilterOut(outLetters);
+    } else if (isSend === false && e.target.textContent === "최신순") {
+      return setIsFilterIn(inLetters);
+    }
+    // 오래된 순
+    if (isSend === true && e.target.textContent === "오래된 순") {
+      return setIsFilterOut(outLetters.reverse());
+    } else if (isSend === false && e.target.textContent === "오래된 순") {
+      return setIsFilterIn(inLetters.reverse());
+    }
+    // 북마크
+    if (isSend === true && e.target.textContent === "북마크") {
+      return setIsFilterOut(
+        outLetters.filter((letter) => letter.bookMark === true)
+      );
+    } else if (isSend === false && e.target.textContent === "북마크") {
+      return setIsFilterIn(
+        inLetters.filter((letter) => letter.bookMark === true)
+      );
+    }
+  };
+
+  // 검색
   const handleSearch = (e) => {
     if (isSend === true) {
       return setIsSearchOut(
@@ -121,16 +160,34 @@ function LetterBox() {
       );
     }
   };
-  // console.log(isFocus)
 
-  const handleDate = () => {
-    if (isSend === true) {
-      return;
+  // 삭제
+  const handleDelete = () => {
+    if (isSend) {
+      axios({
+        method: "patch",
+        url: `/api/sendy/mailbox/outgoing/delete`,
+        headers: {
+          "ngrok-skip-browser-warning": "230327",
+          Authorization: getCookie("accesstoken"),
+        },
+        data: { ids: selectId },
+      });
     }
-    if (isSend === false) {
-      return;
+    if (!isSend) {
+      axios({
+        method: "patch",
+        url: `/api/sendy/mailbox/receiving/delete`,
+        headers: {
+          "ngrok-skip-browser-warning": "230327",
+          Authorization: getCookie("accesstoken"),
+        },
+        data: { ids: selectId },
+      });
     }
-  }
+  };
+
+  // console.log(selectId);
 
   return (
     <L.LetterBoxWrap>
@@ -142,14 +199,25 @@ function LetterBox() {
             placeholder="Search..."
             onChange={handleSearch}
             onFocus={() => setIsFocus(true)}
+            onBlur={() => setIsFocus(false)}
           />
           <AiOutlineCalendar
             className="icon"
-            onClick={() => setleftTab(!leftTab)}
+            onClick={() => setLeftTab(!leftTab)}
           />
           {leftTab ? (
             <L.PeriodBox>
-              <L.Line />
+              <L.Line>
+                <L.LineBtn onClick={() => window.location.reload()}>
+                  초기화 <BiRefresh className="period-btn" />
+                </L.LineBtn>
+                <L.LineBtn>
+                  <RxThickArrowRight
+                    className="period-btn"
+                    onClick={handleDate}
+                  />
+                </L.LineBtn>
+              </L.Line>
               <L.Date>
                 <L.DateYear>
                   <RiArrowUpSLine onClick={handleYearLUp} />
@@ -185,8 +253,8 @@ function LetterBox() {
           </L.CurrentSelectBox>
           {rightTab ? (
             <L.Dropdown>
-              {tabItem.map((el) => (
-                <L.DropdownItem onClick={() => setCurrentTab(el)}>
+              {filterItem.map((el, idx) => (
+                <L.DropdownItem key={idx} onClick={handleFilter}>
                   {el}
                 </L.DropdownItem>
               ))}
@@ -198,11 +266,12 @@ function LetterBox() {
       </L.FilterContainer>
       <L.ViewWrap>
         <LetterView
+          trash={trash}
+          isFocus={isFocus}
           isSearchOut={isSearchOut}
           isSearchIn={isSearchIn}
-          isFocus={isFocus}
-          select={select}
-          trash={trash}
+          selectId={selectId}
+          setSelectId={setSelectId}
         />
         <L.Gradient />
       </L.ViewWrap>
@@ -214,11 +283,18 @@ function LetterBox() {
         <AiOutlineArrowUp />
       </L.TopButton>
       {trash ? (
-        <L.DeleteButtonON onClick={handleDelete}>
-          <HiOutlineTrash />
-        </L.DeleteButtonON>
+        <>
+          <L.DeleteButton onClick={handleDelete}>
+            휴지통
+            <br />
+            보내기
+          </L.DeleteButton>
+          <L.DeleteButtonON onClick={() => setTrash(!trash)}>
+            <HiOutlineTrash />
+          </L.DeleteButtonON>
+        </>
       ) : (
-        <L.DeleteButtonOff onClick={handleDelete}>
+        <L.DeleteButtonOff onClick={() => setTrash(!trash)}>
           <HiOutlineTrash />
         </L.DeleteButtonOff>
       )}

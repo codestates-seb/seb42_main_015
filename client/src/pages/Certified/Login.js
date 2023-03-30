@@ -1,17 +1,14 @@
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import * as L from "./FormStyled";
 import axios from "axios";
-import { setCookie, getCookie } from "./Cookie";
+import { setCookie } from "./Cookie";
 import { headers, options, GoogleOauthLogin } from "./setupCertified";
-import useStore from "../../store/store";
 
 function Login() {
   const navigate = useNavigate();
-  const { isLogin, setIsLogin } = useStore((state) => state);
 
   const FormSchema = yup.object({
     email: yup
@@ -61,10 +58,6 @@ function Login() {
               options,
             }
           );
-          //! accessToken expire  -> cookie에 저장(60분)
-          setCookie("accesstoken_expire", `${res.headers.get("Date")}`, {
-            options,
-          });
           navigate("/");
           window.location.reload();
         }
@@ -74,19 +67,6 @@ function Login() {
         alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
       });
   };
-
-  const initializeUserInfo = async () => {
-    const loggedInfo = getCookie("accesstoken");
-    if (loggedInfo) {
-      setIsLogin(true);
-      // console.log("accesstoken : ", getCookie("accesstoken"));
-      // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
-    }
-  };
-
-  useEffect(() => {
-    initializeUserInfo();
-  }, [isLogin]);
 
   return (
     <>
@@ -151,7 +131,8 @@ function Login() {
               <div className="section1">
                 <img
                   src={require("../../asset/해바라기.png")}
-                  alt="Sunflower"></img>
+                  alt="Sunflower"
+                ></img>
                 <span className="box">sunflower</span>
               </div>
               <div className="section2">
