@@ -84,9 +84,6 @@ const ReadLetter = ({ isLogin }) => {
         },
       })
       .then((res) => {
-        if (res.status === 401) {
-          Refresh().then(getLetter());
-        }
         //편지 정보 담기
         setData(res.data);
         //messageSaved 정보 담기
@@ -105,6 +102,9 @@ const ReadLetter = ({ isLogin }) => {
       })
       .catch((err) => {
         console.log(err);
+        if (err.response.status === 401) {
+          Refresh().then(() => getLetter());
+        }
       });
   };
 

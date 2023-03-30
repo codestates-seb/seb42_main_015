@@ -15,7 +15,7 @@ import PwdChange from "./pages/MyPage/PwdChange";
 import Trash from "./pages/MyPage/TrashList";
 import CompleteSignup from "./pages/Certified/CompleteSignup";
 import Preview from "./pages/WriteLetter/Preview";
-import { getCookie, removeCookie } from "./pages/Certified/Cookie";
+import { getCookie } from "./pages/Certified/Cookie";
 import useStore from "./store/store";
 import NotFound from "./pages/NotFound";
 // ! 공백
