@@ -15,15 +15,15 @@ public class EmailController {
     private final EmailService emailService;
 
     /**
-     * 랜덤 인증코드 이메일 발송 API
-     * @param emailPostDto
+     * 이메일 인증코드 발송 API
+     * @param postEmailDto
      * @return
      * @throws Exception
      */
     @PostMapping("/send-code-email")
-    public ResponseEntity postCodeMail(@RequestBody EmailPostDto emailPostDto) throws Exception {
+    public ResponseEntity postCodeMail(@RequestBody PostEmailDto postEmailDto) throws Exception {
         EmailInfo emailInfo = EmailInfo.builder()
-                .to(emailPostDto.getEmail())
+                .to(postEmailDto.getEmail())
                 .subject("📮SENDY 인증 코드 입니다.")
                 .build();
 
@@ -34,4 +34,6 @@ public class EmailController {
 
         return new ResponseEntity<>(emailResponseDto, HttpStatus.OK);
     }
+
+    // TODO 이메일 인증코드 확인 API
 }
