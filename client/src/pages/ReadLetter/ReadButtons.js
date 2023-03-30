@@ -38,8 +38,10 @@ const ReadButtons = ({
           ...isDustbin,
           outgoingId: location.state.body,
         });
-        //만약 발신편지라면(발신아이디가 있음) -> 보관완료 상태로 뜨게
-        setIsKeeping(true);
+        // 만약 발신편지라면(발신아이디가 있음) -> 보관완료 상태로 뜨게
+        // if (!isKeeping) {
+        //   setIsKeeping(true);
+        // }
       } else if (location.state.name === "receivingId") {
         setIsDustbin({
           ...isDustbin,
@@ -54,6 +56,7 @@ const ReadButtons = ({
     }
   }, []);
   console.log(isDustbin);
+  console.log(isKeeping);
 
   //todo :보관하기
   const handleKeeping = async () => {
@@ -101,10 +104,13 @@ const ReadButtons = ({
         //outgoingId가 없다면 === 수신편지라면
         await axios({
           method: "patch",
-          url: `/api/sendy/mailbox/receiving/${isDustbin.receivingId}`,
+          url: `/api/sendy/mailbox/receiving/delete`,
           headers: {
             "ngrok-skip-browser-warning": "12",
             Authorization: getCookie("accesstoken"),
+          },
+          data: {
+            ids: [isDustbin.receivingId],
           },
         })
           .then((res) => {
@@ -114,9 +120,8 @@ const ReadButtons = ({
             }
             setIsLoading(false);
             alert("삭제되었습니다.");
-            setTimeout(() => {
-              navigate("/letterbox");
-            }, 200);
+            navigate("/letterbox");
+            window.location.reload();
           })
           .catch((err) => {
             console.log(err);
@@ -126,10 +131,13 @@ const ReadButtons = ({
       } else if (isDustbin.outgoingId) {
         await axios({
           method: "patch",
-          url: `/api/sendy/mailbox/outgoing/${isDustbin.outgoingId}`,
+          url: `/api/sendy/mailbox/outgoing/delete`,
           headers: {
             "ngrok-skip-browser-warning": "12",
             Authorization: getCookie("accesstoken"),
+          },
+          data: {
+            ids: [isDustbin.outgoingId],
           },
         })
           .then((res) => {
@@ -139,9 +147,8 @@ const ReadButtons = ({
             }
             setIsLoading(false);
             alert("삭제되었습니다.");
-            setTimeout(() => {
-              navigate("/letterbox");
-            }, 200);
+            navigate("/letterbox");
+            window.location.reload();
           })
           .catch((err) => {
             console.log(err);
