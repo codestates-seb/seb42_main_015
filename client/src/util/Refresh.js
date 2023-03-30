@@ -4,7 +4,9 @@ import { setCookie, removeCookie } from "../pages/Certified/Cookie";
 function Refresh() {
   axios.defaults.withCredentials = true;
   //기존 액세스토큰 삭제
-  removeCookie("accesstoken");
+  removeCookie("accesstoken", {
+    path: "/",
+  });
   return axios({
     method: "post",
     url: `/api/sendy/auth/reissue`,

@@ -38,10 +38,6 @@ const ReadButtons = ({
           ...isDustbin,
           outgoingId: location.state.body,
         });
-        // 만약 발신편지라면(발신아이디가 있음) -> 보관완료 상태로 뜨게
-        // if (!isKeeping) {
-        //   setIsKeeping(true);
-        // }
       } else if (location.state.name === "receivingId") {
         setIsDustbin({
           ...isDustbin,
@@ -56,14 +52,16 @@ const ReadButtons = ({
     }
   }, []);
   console.log(isDustbin);
-  console.log(isKeeping);
 
   //todo :보관하기
   const handleKeeping = async () => {
     //모달 열기
     setIsClickModal(!isClickModal);
     setIsLoading(true);
-
+    // 만약 발신편지라면(발신아이디가 있음) -> 보관완료 상태로 뜨게
+    // if (isDustbin.receivingId && !isKeeping) {
+    //   setIsKeeping(true);
+    // }
     await axios({
       method: "patch",
       url: `/api/sendy/messages/saved/${urlName}`,

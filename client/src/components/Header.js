@@ -30,6 +30,7 @@ function Header() {
     })
       .then((res) => {
         //액세스토큰이 만료되었다면(401 에러)
+        console.log(res);
         if (res.status === 401) {
           Refresh();
           console.log("리프레시토큰으로 액세스토큰을 갱신했습니다.");
@@ -38,15 +39,14 @@ function Header() {
         localStorage.clear();
         removeCookie("accesstoken", {
           path: "/",
-          sucure: true,
-          sameSite: "Strict",
-          HttpOnly: " HttpOnly ",
         });
         navigate("/completeLogout");
         window.location.reload();
       })
       .catch((err) => {
         console.log(err);
+        // console.log(err.response.data.message);
+        // console.log(err.response.status);
       });
   };
 
