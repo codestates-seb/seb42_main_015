@@ -28,11 +28,7 @@ function Header() {
         Refresh: localStorage.getItem("refreshToken"),
       },
     })
-      .then((res) => {
-        //액세스토큰이 만료되었다면(401 에러)
-        while (res.status === 401) {
-          Refresh().then(onLogout());
-        }
+      .then(() => {
         //리프레시 토큰 삭제
         localStorage.clear();
         //액세스 토큰 삭제
@@ -44,50 +40,11 @@ function Header() {
       })
       .catch((err) => {
         console.log(err);
-        Refresh();
+        if (err.response.status === 401) {
+          Refresh().then(() => onLogout());
+        }
       });
   };
-
-  // const letLogOut = async () => {
-  //   await axios({
-  //     method: "post",
-  //     url: `/api/sendy/auth/logout`,
-  //     headers: {
-  //       "ngrok-skip-browser-warning": "12",
-  //       Authorization: getCookie("accesstoken", {
-  //         path: "/",
-  //         sucure: true,
-  //         sameSite: "Strict",
-  //         HttpOnly: " HttpOnly ",
-  //       }),
-  //       Refresh: localStorage.getItem("refreshToken"),
-  //     },
-  //   })
-  //     .then((res) => {
-  //       //리프레시 토큰 삭제
-  //       localStorage.clear();
-  //       //액세스 토큰 삭제
-  //       removeCookie("accesstoken", {
-  //         path: "/",
-  //       });
-  //       navigate("/completeLogout");
-  //       window.location.reload();
-  //     })
-  //     .catch((err) => {
-  //       // console.log(err);
-  //     });
-  // };
-
-  // //로그아웃 제출 버튼
-  // const onLogout = async () => {
-  //   letLogOut();
-  //   console.log("2차", letLogOut());
-  //   while (letLogOut.response && letLogOut.data.status === 401) {
-  //     await Refresh();
-  //     console.log("리프레시토큰으로 액세스토큰을 갱신했습니다.");
-  //     await letLogOut();
-  //   }
-  // };
 
   return (
     <>
