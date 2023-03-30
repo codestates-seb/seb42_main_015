@@ -292,14 +292,12 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
     text-align: justify;
     color: ${PALETTE_V1.text_primary};
   }
 `;
-
-export const To = styled.div`
-  font-size: 2rem;
+export const Text = styled.div`
   ${(props) => {
     switch (props.font) {
       case "프리텐다드":
@@ -307,25 +305,25 @@ export const To = styled.div`
       case "도스샘물":
         return FONT_STYLE_CONTENT.pixel_20;
       case "강원교육모두체":
-        return FONT_STYLE_CONTENT.gangwonedu_20_bold;
+        return FONT_STYLE_CONTENT.gangwonedu_22_bold;
       case "에스코어 드림":
         return FONT_STYLE_CONTENT.scoredream_20;
       case "태백 은하수체":
         return FONT_STYLE_CONTENT.taebaek_20;
       case "다채사랑":
-        return FONT_STYLE_CONTENT.dachelove_20;
+        return FONT_STYLE_CONTENT.dachelove_22;
       case "백의의 천사":
-        return FONT_STYLE_CONTENT.whiteangle_20;
+        return FONT_STYLE_CONTENT.whiteangle_22;
       case "고딕 아니고 고딩":
-        return FONT_STYLE_CONTENT.gothicgoding_20;
+        return FONT_STYLE_CONTENT.gothicgoding_22;
       case "혁이체":
-        return FONT_STYLE_CONTENT.hyukee_20;
+        return FONT_STYLE_CONTENT.hyukee_22;
       case "이서윤체":
         return FONT_STYLE_CONTENT.leeseoyun_20;
       case "신비는 일곱살":
-        return FONT_STYLE_CONTENT.sangsang_20;
+        return FONT_STYLE_CONTENT.sangsang_26;
       case "카페24 고운밤":
-        return FONT_STYLE_CONTENT.cafe24oneprettynight_20;
+        return FONT_STYLE_CONTENT.cafe24oneprettynight_22;
       case "제주명조":
         return FONT_STYLE_CONTENT.jejumyeongjo_20;
       case "리디바탕":
@@ -338,6 +336,14 @@ export const To = styled.div`
   }}
 `;
 
+export const To = styled(Text)``;
+
+export const From = styled(Text)`
+  display: flex;
+  justify-content: flex-end;
+  font-size: 2rem;
+`;
+
 export const Content = styled.div`
   aspect-ratio: 1/1.5;
   padding: 0 1rem 0 0;
@@ -345,7 +351,6 @@ export const Content = styled.div`
   border: none;
   resize: none;
   letter-spacing: 2px;
-  font-size: 1.8rem;
   ${(props) => {
     switch (props.font) {
       case "프리텐다드":
@@ -353,25 +358,25 @@ export const Content = styled.div`
       case "도스샘물":
         return FONT_STYLE_CONTENT.pixel_18;
       case "강원교육모두체":
-        return FONT_STYLE_CONTENT.gangwonedu_18_bold;
+        return FONT_STYLE_CONTENT.gangwonedu_20_bold;
       case "에스코어 드림":
         return FONT_STYLE_CONTENT.scoredream_18;
       case "태백 은하수체":
         return FONT_STYLE_CONTENT.taebaek_18;
       case "다채사랑":
-        return FONT_STYLE_CONTENT.dachelove_18;
+        return FONT_STYLE_CONTENT.dachelove_20;
       case "백의의 천사":
-        return FONT_STYLE_CONTENT.whiteangle_18;
+        return FONT_STYLE_CONTENT.whiteangle_20;
       case "고딕 아니고 고딩":
-        return FONT_STYLE_CONTENT.gothicgoding_18;
+        return FONT_STYLE_CONTENT.gothicgoding_20;
       case "혁이체":
-        return FONT_STYLE_CONTENT.hyukee_18;
+        return FONT_STYLE_CONTENT.hyukee_20;
       case "이서윤체":
         return FONT_STYLE_CONTENT.leeseoyun_18;
       case "신비는 일곱살":
-        return FONT_STYLE_CONTENT.sangsang_18;
+        return FONT_STYLE_CONTENT.sangsang_24;
       case "카페24 고운밤":
-        return FONT_STYLE_CONTENT.cafe24oneprettynight_18;
+        return FONT_STYLE_CONTENT.cafe24oneprettynight_20;
       case "제주명조":
         return FONT_STYLE_CONTENT.jejumyeongjo_18;
       case "리디바탕":
@@ -399,48 +404,6 @@ export const Content = styled.div`
     border-radius: 7px;
     border: 1.5px solid;
   }
-`;
-
-export const From = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  font-size: 2rem;
-  ${(props) => {
-    switch (props.font) {
-      case "프리텐다드":
-        return FONT_STYLE_V1.body.body_20_light;
-      case "도스샘물":
-        return FONT_STYLE_CONTENT.pixel_20;
-      case "강원교육모두체":
-        return FONT_STYLE_CONTENT.gangwonedu_20_bold;
-      case "에스코어 드림":
-        return FONT_STYLE_CONTENT.scoredream_20;
-      case "태백 은하수체":
-        return FONT_STYLE_CONTENT.taebaek_20;
-      case "다채사랑":
-        return FONT_STYLE_CONTENT.dachelove_20;
-      case "백의의 천사":
-        return FONT_STYLE_CONTENT.whiteangle_20;
-      case "고딕 아니고 고딩":
-        return FONT_STYLE_CONTENT.gothicgoding_20;
-      case "혁이체":
-        return FONT_STYLE_CONTENT.hyukee_20;
-      case "이서윤체":
-        return FONT_STYLE_CONTENT.leeseoyun_20;
-      case "신비는 일곱살":
-        return FONT_STYLE_CONTENT.sangsang_20;
-      case "카페24 고운밤":
-        return FONT_STYLE_CONTENT.cafe24oneprettynight_20;
-      case "제주명조":
-        return FONT_STYLE_CONTENT.jejumyeongjo_20;
-      case "리디바탕":
-        return FONT_STYLE_CONTENT.ridibatang_20;
-      case "나눔스퀘어 네오":
-        return FONT_STYLE_CONTENT.nanumneo_20;
-      default:
-        break;
-    }
-  }}
 `;
 
 //todo : 아래 버튼들(우편함 돌아가기, 휴지통, 이미지저장, 보관하기)
@@ -640,47 +603,8 @@ export const Card = styled.div`
   }
 `;
 //TODO : 편지 뒷장
-export const Text = styled.div`
-  display: flex;
-  font-size: 2rem;
-  ${(props) => {
-    switch (props.font) {
-      case "프리텐다드":
-        return FONT_STYLE_V1.body.body_20_light;
-      case "도스샘물":
-        return FONT_STYLE_CONTENT.pixel_20;
-      case "강원교육모두체":
-        return FONT_STYLE_CONTENT.gangwonedu_20_bold;
-      case "에스코어 드림":
-        return FONT_STYLE_CONTENT.scoredream_20;
-      case "태백 은하수체":
-        return FONT_STYLE_CONTENT.taebaek_20;
-      case "다채사랑":
-        return FONT_STYLE_CONTENT.dachelove_20;
-      case "백의의 천사":
-        return FONT_STYLE_CONTENT.whiteangle_20;
-      case "고딕 아니고 고딩":
-        return FONT_STYLE_CONTENT.gothicgoding_20;
-      case "혁이체":
-        return FONT_STYLE_CONTENT.hyukee_20;
-      case "이서윤체":
-        return FONT_STYLE_CONTENT.leeseoyun_20;
-      case "신비는 일곱살":
-        return FONT_STYLE_CONTENT.sangsang_20;
-      case "카페24 고운밤":
-        return FONT_STYLE_CONTENT.cafe24oneprettynight_20;
-      case "제주명조":
-        return FONT_STYLE_CONTENT.jejumyeongjo_20;
-      case "리디바탕":
-        return FONT_STYLE_CONTENT.ridibatang_20;
-      case "나눔스퀘어 네오":
-        return FONT_STYLE_CONTENT.nanumneo_20;
-      default:
-        break;
-    }
-  }}
-`;
 export const Date = styled(Text)`
+  display: flex;
   height: fit-content;
   white-space: nowrap;
 `;
@@ -728,25 +652,8 @@ export const Triangle = styled.div`
     background-color: black;
     z-index: 200;
   }
-  @media screen and (max-width: 590px) {
-    width: 7.6rem;
-    height: 7.6rem;
-    background-color: ${PALETTE_V1.background};
-    border-left: 0.2rem solid;
-    border-bottom: 0.2rem solid;
-    &::after {
-      border: 3.8rem solid white;
-      border-top-color: transparent;
-      border-right-color: transparent;
-    }
-    &::before {
-      top: -1.6rem;
-      left: 3.6rem;
-      width: 0.1rem;
-      height: 10.6rem;
-    }
-  }
-  @media screen and (max-width: 490px) {
+
+  @media screen and (max-width: 767px) {
     width: 6rem;
     height: 6rem;
     background-color: ${PALETTE_V1.background};
@@ -765,21 +672,21 @@ export const Triangle = styled.div`
     }
   }
   @media screen and (max-width: 380px) {
-    width: 4.6rem;
-    height: 4.6rem;
+    width: 6rem;
+    height: 6rem;
     background-color: ${PALETTE_V1.background};
     border-left: 0.2rem solid;
     border-bottom: 0.2rem solid;
     &::after {
-      border: 2.25rem solid white;
+      border: 2.6rem solid white;
       border-top-color: transparent;
       border-right-color: transparent;
     }
     &::before {
-      top: -0.8rem;
-      left: 2.1rem;
+      top: -1.2rem;
+      left: 2.8rem;
       width: 0.1rem;
-      height: 6.1rem;
+      height: 8.4rem;
     }
   }
 `;

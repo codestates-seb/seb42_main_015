@@ -58,10 +58,6 @@ function Login() {
               options,
             }
           );
-          //! accessToken expire  -> cookie에 저장(60분)
-          setCookie("accesstoken_expire", `${res.headers.get("Date")}`, {
-            options,
-          });
           navigate("/");
           window.location.reload();
         }
@@ -135,7 +131,8 @@ function Login() {
               <div className="section1">
                 <img
                   src={require("../../asset/해바라기.png")}
-                  alt="Sunflower"></img>
+                  alt="Sunflower"
+                ></img>
                 <span className="box">sunflower</span>
               </div>
               <div className="section2">

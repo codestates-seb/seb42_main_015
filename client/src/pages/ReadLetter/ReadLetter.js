@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useLayoutEffect } from "react";
+import { useState, useRef, useEffect, useLocation } from "react";
 import { useParams } from "react-router-dom";
 import * as R from "./ReadStyled";
 import domtoimage from "dom-to-image";
@@ -14,11 +14,9 @@ import { Loading } from "../../components/Loading";
 import axios from "axios";
 import Refresh from "../../util/Refresh";
 
-//{isLogin} props 제거
 const ReadLetter = ({ isLogin }) => {
   const { urlName } = useParams();
-  const { letterPassword, setLetterPassword, messageId, setMessageId } =
-    useStore();
+  const { setLetterPassword, setMessageId } = useStore();
   const [isLoading, setIsLoading] = useState(false);
 
   //todo useState
@@ -70,6 +68,11 @@ const ReadLetter = ({ isLogin }) => {
     getSpeech(pauseSpeech());
   };
 
+  //음성 변환 목소리 preload
+  useEffect(() => {
+    window.speechSynthesis.getVoices();
+  }, []);
+
   //todo 메세지 정보 가져오기
   const getLetter = async () => {
     setIsLoading(true);
@@ -82,8 +85,7 @@ const ReadLetter = ({ isLogin }) => {
       })
       .then((res) => {
         if (res.status === 401) {
-          Refresh();
-          getLetter();
+          Refresh().then(getLetter());
         }
         //편지 정보 담기
         setData(res.data);
@@ -106,12 +108,10 @@ const ReadLetter = ({ isLogin }) => {
       });
   };
 
-  //음성 변환 목소리 preload
   useEffect(() => {
-    window.speechSynthesis.getVoices();
     getLetter();
     window.scrollTo(0, 0);
-  }, []);
+  }, [isKeeping]);
 
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
   const LetterDate = `${new Date(`${data.createdAt}`).getFullYear()}.${(
@@ -129,7 +129,6 @@ const ReadLetter = ({ isLogin }) => {
   return (
     <>
       {isLoading ? <Loading /> : ""}
-      {/* islogin && */}
       {/* 비밀번호가 없거나 저장되어 있는 상태면 -> 비밀번호를 입력하지 않음  */}
       {enterPassword || isKeeping ? (
         <R.Wrapper>
