@@ -14,7 +14,7 @@ import { BsImageFill } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
 
 function MyPage() {
-  const { changeCurrentPage } = useStore((state) => state);
+  const { changeCurrentPage } = useStore();
   const [openResignModal, setOpenResignModal] = useState(false);
   const [isEditable, setIsEditable] = useState(false);
   const [userInfo, setUserInfo] = useState({
@@ -33,7 +33,6 @@ function MyPage() {
   const [imageFile, setImageFile] = useState();
 
   const memberId = sessionStorage.getItem("memberId");
-
   useLayoutEffect(() => {
     changeCurrentPage("MyPage");
     axios({
@@ -145,6 +144,7 @@ function MyPage() {
     } else if (nickname && nickname !== userInfo) {
       patchNickname().then(() => {
         setNickname(null);
+        setNicknameVerify({ isVerified: false, error: null });
       });
     } else if (image) {
       postProfileImg().then(() => {
@@ -189,10 +189,9 @@ function MyPage() {
           <M.StickerWrapper>
             <M.Sticker></M.Sticker>
             <M.UserInfoCard className="userinfo-card">
-              <M.FlexWrapper2>
+              <M.FlexWrapper1 className="profile-img">
                 {isEditable ? (
                   <>
-                    <FaTrashAlt onClick={handleDeleteProfileImage} />
                     <label
                       onChange={handleFile}
                       className="file-label"
@@ -209,8 +208,18 @@ function MyPage() {
                 ) : (
                   <></>
                 )}
-                <M.UserImage src={image || userInfo.profileImage}></M.UserImage>
-              </M.FlexWrapper2>
+
+                <M.UserImage src={image || userInfo.profileImage} />
+                {isEditable ? (
+                  <div
+                    className="delete-image"
+                    onClick={handleDeleteProfileImage}>
+                    기본이미지로 변경
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </M.FlexWrapper1>
               <M.UserInfoWrapper>
                 <M.NameDateWrapper>
                   {isEditable ? (
@@ -257,7 +266,7 @@ function MyPage() {
                   </M.ReadletterLink>
                   {isEditable ? (
                     <>
-                      {nicknameVerify.isVerified ? (
+                      {nicknameVerify.isVerified || image ? (
                         <M.EditButton
                           className="edit-done"
                           onClick={(e) => {
@@ -267,7 +276,13 @@ function MyPage() {
                           수정완료
                         </M.EditButton>
                       ) : (
-                        <></>
+                        <M.EditButton
+                          className="edit-done"
+                          onClick={(e) => {
+                            handleIsEditable(e);
+                          }}>
+                          수정완료
+                        </M.EditButton>
                       )}
 
                       <M.EditButton
