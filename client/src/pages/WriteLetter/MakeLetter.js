@@ -31,7 +31,6 @@ function MakeLetter({ makeLetterModalRef }) {
   const [image, setImage] = useState(null);
   const { letterContents, setLetterContents } = useStore();
   const [imageFile, setImageFile] = useState();
-  const [isLoading, setIsLoading] = useState(false);
   const renderFile = (file) => {
     let reader = new FileReader();
     reader.readAsDataURL(file);
@@ -141,10 +140,9 @@ function MakeLetter({ makeLetterModalRef }) {
               postMessage(letterContents);
             })
             .then(() => {
-              postMessageImage(imageFile, letterContents.urlName);
-            })
-            .then(() => {
-              navigate(`/readletter/${letterContents.urlName}`);
+              postMessageImage(imageFile, letterContents.urlName).then(() => {
+                navigate(`/readletter/${letterContents.urlName}`);
+              });
             });
         }
       });
@@ -306,7 +304,9 @@ function MakeLetter({ makeLetterModalRef }) {
           backgroundColor={PALETTE_V1.yellow_basic}>
           미리보기
         </ShadowButton>
-        {canUseUrl ? (
+        {canUseUrl &&
+        (letterContents?.password === "" ||
+          letterContents?.password?.length === 4) ? (
           <ShadowButton
             backgroundColor={PALETTE_V1.yellow_basic}
             onClick={handleMakeLetter}>

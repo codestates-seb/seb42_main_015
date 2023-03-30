@@ -47,3 +47,24 @@ export const getUserInfo = (memberId) => {
     },
   });
 };
+export const postVerifyNickName = (nickname) => {
+  return axios({
+    method: "post",
+    url: `/api/sendy/users/verify/nickname`,
+    headers: {
+      "ngrok-skip-browser-warning": "230325",
+      Authorization: getCookie("accesstoken"),
+    },
+    data: { nickname },
+  });
+};
+export const deleteProfileImage = (memberId) => {
+  return axios({
+    method: "post",
+    url: `/api/sendy/users/edit/reset-profile/${memberId}`,
+    headers: {
+      "ngrok-skip-browser-warning": "230325",
+      Authorization: getCookie("accesstoken"),
+    },
+  });
+};
