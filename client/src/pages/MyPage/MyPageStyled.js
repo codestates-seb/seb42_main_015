@@ -20,6 +20,44 @@ export const FlexWrapper1 = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  .profile-img {
+    width: fit-content;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+  }
+  .image-icon {
+    color: rgba(0, 0, 0, 50%);
+    font-size: 5rem;
+  }
+  .file-label {
+    position: absolute;
+    top: 5rem;
+  }
+  #chooseFile {
+    display: none;
+  }
+  .delete-image {
+    ${FONT_STYLE_V1.body.body_12_light}
+    color: grey;
+    cursor: pointer;
+    margin-top: 0.5rem;
+  }
+  @media screen and (max-width: 1023px) and (min-width: 767px) {
+    .file-label {
+      top: 4.5rem;
+    }
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) and (min-width: 481px) {
+    .file-label {
+      top: 4rem;
+    }
+  }
+  @media screen and (max-width: 481px) {
+    .file-label {
+      top: 3rem;
+    }
+  }
 `;
 export const GNBWrapper = styled.div`
   display: flex;
@@ -115,6 +153,10 @@ export const FlexWrapper2 = styled.div`
   #chooseFile {
     display: none;
   }
+  .delete-image {
+    ${FONT_STYLE_V1.body.body_12_light}
+    cursor: pointer;
+  }
   @media screen and (max-width: 1023px) and (min-width: 767px) {
     margin-top: 5%;
     margin-bottom: 2%;
@@ -134,7 +176,6 @@ export const UserImage = styled.img`
   border-radius: 50%;
   width: 180px;
   height: 180px;
-  margin-bottom: 5px;
   aspect-ratio: 1 / 1;
   @media screen and (max-width: 1023px) and (min-width: 767px) {
     width: 130px;
@@ -236,7 +277,7 @@ export const ReadletterLink = styled.a`
     &:hover::before {
       content: "";
       position: absolute;
-      top: 3.2rem;
+      top: 5.2rem;
       z-index: -10;
       height: 0.8rem;
       width: 10.3rem;

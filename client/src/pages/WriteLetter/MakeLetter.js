@@ -110,39 +110,15 @@ function MakeLetter({ makeLetterModalRef }) {
         "ngrok-skip-browser-warning": "230327",
         Authorization: getCookie("accesstoken"),
       },
-    }).then((res) => {
-      if (res.status === 200) {
+    })
+      .then((res) => {
         setCanUseUrl(true);
-      } else {
-        setCanUseUrl(false);
-      }
-    });
-  };
-
-  const postLetterContents = () => {
-    return axios({
-      method: "post",
-      url: "/api/sendy/messages/write",
-      headers: {
-        Authorization: getCookie("accesstoken"),
-      },
-      data: letterContents,
-    });
-  };
-
-  const postMessageImg = () => {
-    let formData = new FormData();
-    formData.append("image", imageFile);
-    return axios({
-      method: "post",
-      headers: {
-        "ngrok-skip-browser-warning": "230325",
-        "Content-Type": "multipart/form-data",
-        Authorization: getCookie("accesstoken"),
-      },
-      url: `/api/sendy/messages/write/image/${letterContents.urlName}`,
-      data: formData,
-    });
+      })
+      .catch((err) => {
+        if (err.response.status === 409) {
+          setCanUseUrl(false);
+        }
+      });
   };
 
   const navigate = useNavigate();
@@ -156,18 +132,20 @@ function MakeLetter({ makeLetterModalRef }) {
       data: letterContents,
     })
       .then(() => {
-        let formData = new FormData();
-        formData.append("image", imageFile);
-        return axios({
-          method: "post",
-          headers: {
-            "ngrok-skip-browser-warning": "230325",
-            "Content-Type": "multipart/form-data",
-            Authorization: getCookie("accesstoken"),
-          },
-          url: `/api/sendy/messages/write/image/${letterContents.urlName}`,
-          data: formData,
-        });
+        if (imageFile) {
+          let formData = new FormData();
+          formData.append("image", imageFile);
+          return axios({
+            method: "post",
+            headers: {
+              "ngrok-skip-browser-warning": "230325",
+              "Content-Type": "multipart/form-data",
+              Authorization: getCookie("accesstoken"),
+            },
+            url: `/api/sendy/messages/write/image/${letterContents.urlName}`,
+            data: formData,
+          });
+        }
       })
       .then(() => {
         navigate(`/readletter/${letterContents.urlName}`);
@@ -182,6 +160,7 @@ function MakeLetter({ makeLetterModalRef }) {
     window.open("/writeletter/preview");
   };
   const handleUrlReg = (e) => {
+    setCanUseUrl(null);
     e.target.value = e.target.value.replace(
       /[ㄱ-힣~!@#$%^&*()_+|<>?:{}=\\`"';\.\,\[\]/]/g,
       ""
@@ -215,13 +194,13 @@ function MakeLetter({ makeLetterModalRef }) {
                 <W.MakeLetterInput
                   disabled
                   className="URL-input"
-                  onKeyUp={handleUrlReg}
+                  maxLength="15"
                   {...register("urlName")}
                 />
               ) : (
                 <W.MakeLetterInput
                   className="URL-input"
-                  onKeyUp={handleUrlReg}
+                  onInput={handleUrlReg}
                   {...register("urlName")}
                 />
               )}
@@ -230,6 +209,13 @@ function MakeLetter({ makeLetterModalRef }) {
                 <W.ErrorMessage className="make-letter">
                   {errors.urlName.message}
                 </W.ErrorMessage>
+              )}
+              {canUseUrl === false ? (
+                <W.ErrorMessage className="url-verify-error">
+                  중복된 url입니다.
+                </W.ErrorMessage>
+              ) : (
+                <></>
               )}
             </div>
           </W.FlexRowWrapper>
@@ -246,30 +232,29 @@ function MakeLetter({ makeLetterModalRef }) {
               중복체크
             </RoundButton>
           )}
-
-          {canUseUrl === false ? (
-            <W.ErrorMessage>중복된 url입니다.</W.ErrorMessage>
-          ) : (
-            <></>
-          )}
         </W.FlexRowWrapper>
       </div>
       <W.FlexColunmWrapper>
         <W.FlexRowWrapper className="align-items">
           <W.Label>편지 비밀번호</W.Label>
           <p id="necessity">(선택) </p>
-          {errors.password && (
-            <W.ErrorMessage>{errors.password.message}</W.ErrorMessage>
-          )}
         </W.FlexRowWrapper>
-        <W.MakeLetterInput
-          className="password-input"
-          backgroundImg={keyIcon}
-          placeholder=" * * * *"
-          onKeyUp={(e) =>
-            setLetterContents({ ...letterContents, password: e.target.value })
-          }
-          {...register("password")}></W.MakeLetterInput>
+        <div className="position-relative">
+          <W.MakeLetterInput
+            className="password-input"
+            backgroundImg={keyIcon}
+            placeholder=" * * * *"
+            onInput={(e) =>
+              setLetterContents({ ...letterContents, password: e.target.value })
+            }
+            maxLength="4"
+            {...register("password")}></W.MakeLetterInput>
+          {errors.password && (
+            <W.ErrorMessage className="password-error">
+              {errors.password.message}
+            </W.ErrorMessage>
+          )}
+        </div>
       </W.FlexColunmWrapper>
       <div>
         <W.FlexRowWrapper className="align-items">

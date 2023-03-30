@@ -11,7 +11,7 @@ export const formSchema = yup.object({
   password: yup
     .string()
     .required("비밀번호는 숫자 4자리입니다.")
-    .min(4, "4자리를 입력해주세요.")
-    .max(4, "4자리를 입력해주세요")
-    .matches(/[0-9]{4}/, "숫자 4자리를 입력해주세요"),
+    .min(4, "숫자 4자리를 입력해주세요.")
+    .max(4, "숫자 4자리를 입력해주세요.")
+    .matches(/[0-9]{4}/, "숫자 4자리를 입력해주세요."),
 });
