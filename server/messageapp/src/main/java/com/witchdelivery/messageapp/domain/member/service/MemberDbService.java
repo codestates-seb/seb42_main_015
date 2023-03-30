@@ -32,7 +32,7 @@ public class MemberDbService {
      * @param memberId
      * @return
      */
-    public Member findMemberById(Long memberId) {
+    public Member findVerifiedMemberId(Long memberId) {
         Member findMember = findVerifiedMember(memberId);   // 사용자 검증
         if (findMember.getMemberStatus().equals(MemberStatus.MEMBER_EXITED)) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_ALREADY_EXITED);

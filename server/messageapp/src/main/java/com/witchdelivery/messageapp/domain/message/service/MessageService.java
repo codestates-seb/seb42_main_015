@@ -84,7 +84,7 @@ public class MessageService {
     }
 
     private Outgoing outgoingJoinMessage(Message savedMessage, long memberId) {
-        Member member = memberDbService.findVerifiedMember(memberId); // 사용자랑 outgoing 연관관계매핑용
+        Member member = memberDbService.findVerifiedMemberId(memberId); // 사용자랑 outgoing 연관관계매핑용
 
         Outgoing outgoing = new Outgoing();
         outgoing.setMessage(savedMessage);
@@ -102,7 +102,7 @@ public class MessageService {
     }
 
     private Receiving receivingJoinMessage(Message savedMessage, long memberId) {
-        Member member = memberDbService.findVerifiedMember(memberId); // 사용자랑 receiving 연관관계매핑용
+        Member member = memberDbService.findVerifiedMemberId(memberId); // 사용자랑 receiving 연관관계매핑용
 
         Receiving receiving = new Receiving();
         receiving.setMessage(savedMessage);

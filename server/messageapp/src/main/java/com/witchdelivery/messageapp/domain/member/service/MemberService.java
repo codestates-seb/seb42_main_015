@@ -40,7 +40,7 @@ public class MemberService {
      * @param memberPostDto
      * @return
      */
-    public Member createMember(MemberPostDto memberPostDto) {
+    public void createMember(MemberPostDto memberPostDto) {
         memberDbService.verifiedExistedEmail(memberPostDto.getEmail()); // 이메일 검증
         memberDbService.verifiedExistedName(memberPostDto.getNickname());   // 닉네임 검증
 
@@ -61,7 +61,7 @@ public class MemberService {
 
         member.addMemberFile(memberImage);
 
-        return memberRepository.save(member);
+        memberRepository.save(member);
     }
 
     /**
@@ -70,7 +70,7 @@ public class MemberService {
      * @return
      */
     public MemberResponseDto findMember(Long memberId) {
-        Member findMember = memberDbService.findVerifiedMember(memberId);      // 사용자 검증
+        Member findMember = memberDbService.findVerifiedMemberId(memberId);      // 사용자 검증
 
         return MemberResponseDto.builder()
                 .memberId(findMember.getMemberId())
@@ -99,7 +99,7 @@ public class MemberService {
      * @return
      */
     public Member updatePassword(Member member) {
-        Member findMember = memberDbService.findVerifiedMember(member.getMemberId());   // 사용자 검증
+        Member findMember = memberDbService.findVerifiedMemberId(member.getMemberId());   // 사용자 검증
         member.passwordEncode(passwordEncoder); // 패스워드 암호화
         Member updateMember = customBeanUtils.copyNonNullProperties(member, findMember);  // copyNonNullProperties(원본 객체, 복사 객체)
         return memberRepository.save(updateMember);
@@ -111,7 +111,7 @@ public class MemberService {
      * @return
      */
     public Member updateNickname(Member member) {
-        Member findMember = memberDbService.findVerifiedMember(member.getMemberId());   // 사용자 검증
+        Member findMember = memberDbService.findVerifiedMemberId(member.getMemberId());   // 사용자 검증
         memberDbService.verifiedExistedName(member.getNickname());  // 닉네임 검증
         Member updateMember = customBeanUtils.copyNonNullProperties(member, findMember);
         return memberRepository.save(updateMember);
@@ -122,10 +122,11 @@ public class MemberService {
      * @param memberId
      */
     public void deleteMember(Long memberId) {
-        Member findMember = memberDbService.findVerifiedMember(memberId);  // 사용자 검증
+        Member findMember = memberDbService.findVerifiedMemberId(memberId);  // 사용자 검증
         findMember.setMemberStatus(MemberStatus.MEMBER_EXITED);
-        memberRepository.deleteById(memberId);
-//        memberRepository.delete(findMember);
+//        memberRepository.save(findMember);
+//        memberRepository.deleteById(memberId);
+        memberRepository.delete(findMember);
     }
 
     /**
@@ -136,7 +137,7 @@ public class MemberService {
      * @throws IOException
      */
     public void updateProfileS3(Long memberId, MultipartFile multipartFile) throws IOException {
-        Member findMember = memberDbService.findVerifiedMember(memberId);   // 사용자 검증
+        Member findMember = memberDbService.findVerifiedMemberId(memberId);   // 사용자 검증
 
         String dir = "memberImage"; // 사용자 프로필 이미지 디렉토리 지정
         S3Info s3Info = s3Service.s3ImageUpload(multipartFile, dir);    // 이미지 업로드
@@ -162,7 +163,7 @@ public class MemberService {
      * @param memberId
      */
     public void resetProfileS3(Long memberId) {
-        Member findMember = memberDbService.findVerifiedMember(memberId);   // 사용자 검증
+        Member findMember = memberDbService.findVerifiedMemberId(memberId);   // 사용자 검증
 
         String dir = "memberImage"; // 사용자 프로필 이미지 디렉토리 지정
 
