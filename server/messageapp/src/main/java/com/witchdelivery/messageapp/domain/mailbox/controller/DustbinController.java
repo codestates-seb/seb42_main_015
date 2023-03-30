@@ -1,6 +1,6 @@
 package com.witchdelivery.messageapp.domain.mailbox.controller;
 
-import com.witchdelivery.messageapp.domain.mailbox.dto.DustbinMultiCheck;
+import com.witchdelivery.messageapp.domain.mailbox.dto.MultiCheck;
 import com.witchdelivery.messageapp.domain.mailbox.dto.OutgoingResponseDto;
 import com.witchdelivery.messageapp.domain.mailbox.dto.ReceivingResponseDto;
 import com.witchdelivery.messageapp.domain.mailbox.entity.Outgoing;
@@ -44,16 +44,16 @@ public class DustbinController {
     }
 
     @PatchMapping("/dustbin/outgoing/restore") // 발신 (보낸 편지) restore상태변경
-    public ResponseEntity patchOutgoingStatus(@RequestBody DustbinMultiCheck dustbinMultiCheck,
+    public ResponseEntity patchOutgoingStatus(@RequestBody MultiCheck multiCheck,
                                               Authentication authentication) {
-        dustbinService.updateOutgoingDustStatus(dustbinMultiCheck.getIds(), authentication);
+        dustbinService.updateOutgoingDustStatus(multiCheck.getIds(), authentication);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/dustbin/outgoing/delete") // 발신 (보낸 편지) 영구삭제
-    public ResponseEntity deleteOutgoing(@RequestBody DustbinMultiCheck dustbinMultiCheck,
+    public ResponseEntity deleteOutgoing(@RequestBody MultiCheck multiCheck,
                                          Authentication authentication) {
-        dustbinService.deleteOutgoing(dustbinMultiCheck.getIds(), authentication);
+        dustbinService.deleteOutgoing(multiCheck.getIds(), authentication);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -71,16 +71,16 @@ public class DustbinController {
     }
 
     @PatchMapping("/dustbin/receiving/restore") // 수신 (받은 편지) restore상태변경
-    public ResponseEntity patchReceivingStatus(@RequestBody DustbinMultiCheck dustbinMultiCheck,
+    public ResponseEntity patchReceivingStatus(@RequestBody MultiCheck multiCheck,
                                                Authentication authentication) {
-        dustbinService.updateReceivingDustStatus(dustbinMultiCheck.getIds(), authentication);
+        dustbinService.updateReceivingDustStatus(multiCheck.getIds(), authentication);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/dustbin/receiving/delete") // 수신 (받은 편지) 영구삭제
-    public ResponseEntity deleteReceiving(@RequestBody DustbinMultiCheck dustbinMultiCheck,
+    public ResponseEntity deleteReceiving(@RequestBody MultiCheck multiCheck,
                                           Authentication authentication) {
-        dustbinService.deleteReceiving(dustbinMultiCheck.getIds(), authentication);
+        dustbinService.deleteReceiving(multiCheck.getIds(), authentication);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

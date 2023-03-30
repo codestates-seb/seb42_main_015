@@ -12,8 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -27,18 +29,22 @@ public class OutgoingService { // 발신 (보내는 사람)
         return outgoingRepository.save(outgoing); // outgoing 정보 저장
     }
 
-    public void updateOutgoingStatus(long outgoingId, Authentication authentication) { // outgoing 상태 OUTGOING_DELETE변경
+    @Transactional
+    public void updateOutgoingStatus(List<Long> ids, Authentication authentication) { // outgoing 상태 OUTGOING_DELETE변경
         long memberId = findMemberIdByAuthenticatedUser(authentication);
-        Outgoing findOutgoing = findVerifiedOutgoing(outgoingId);
 
-        // 보낸 편지와 로그인한 memberId가 같지 않거나(OR) 받은 편지의 상태가 STORE가 아니면 예외 처리
-        if (!Objects.equals(findOutgoing.getMember().getMemberId(), memberId) || findOutgoing.getOutgoingStatus() != Outgoing.OutgoingStatus.OUTGOING_STORE) {
-            throw new BusinessLogicException(ExceptionCode.OUTGOING_NOT_FOUND);
+        for (Long outgoingId : ids) {
+            Outgoing findOutgoing = findVerifiedOutgoing(outgoingId);
+
+            // 보낸 편지와 로그인한 memberId가 같지 않거나(OR) 받은 편지의 상태가 STORE가 아니면 예외 처리
+            if (!Objects.equals(findOutgoing.getMember().getMemberId(), memberId) || findOutgoing.getOutgoingStatus() != Outgoing.OutgoingStatus.OUTGOING_STORE) {
+                throw new BusinessLogicException(ExceptionCode.OUTGOING_NOT_FOUND);
+            }
+
+            findOutgoing.setOutgoingStatus(Outgoing.OutgoingStatus.OUTGOING_DELETE);
+            findOutgoing.setDeletedAt(LocalDateTime.now());
+            outgoingRepository.save(findOutgoing);
         }
-
-        findOutgoing.setOutgoingStatus(Outgoing.OutgoingStatus.OUTGOING_DELETE);
-        findOutgoing.setDeletedAt(LocalDateTime.now());
-        outgoingRepository.save(findOutgoing);
     }
 
     // 존재하는 outgoing인지 검증

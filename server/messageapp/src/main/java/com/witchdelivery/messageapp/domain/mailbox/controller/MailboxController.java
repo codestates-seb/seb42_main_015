@@ -1,9 +1,6 @@
 package com.witchdelivery.messageapp.domain.mailbox.controller;
 
-import com.witchdelivery.messageapp.domain.mailbox.dto.OutgoingPatchDto;
-import com.witchdelivery.messageapp.domain.mailbox.dto.OutgoingResponseDto;
-import com.witchdelivery.messageapp.domain.mailbox.dto.ReceivingPatchDto;
-import com.witchdelivery.messageapp.domain.mailbox.dto.ReceivingResponseDto;
+import com.witchdelivery.messageapp.domain.mailbox.dto.*;
 import com.witchdelivery.messageapp.domain.mailbox.entity.Outgoing;
 import com.witchdelivery.messageapp.domain.mailbox.entity.Receiving;
 import com.witchdelivery.messageapp.domain.mailbox.mapper.OutgoingMapper;
@@ -35,19 +32,19 @@ public class MailboxController {
     private final ReceivingMapper receivingMapper;
 
     // 발신 삭제처리 메서드 (반환할건 없을 거 같음)
-    @PatchMapping("/outgoing/{outgoing-id}") // 발신식별번호
-    public ResponseEntity outgoingStatus(@PathVariable("outgoing-id") long outgoingId,
+    @PatchMapping("/outgoing/delete") // 발신식별번호
+    public ResponseEntity outgoingStatus(@RequestBody MultiCheck multiCheck,
                                          Authentication authentication) {
-        outgoingService.updateOutgoingStatus(outgoingId, authentication);
+        outgoingService.updateOutgoingStatus(multiCheck.getIds(), authentication);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // 수신 삭제처리 메서드 (반환할건 없을 거 같음)
-    @PatchMapping("/receiving/{receiving-id}") // 수신식별번호
-    public ResponseEntity receivingStatus(@PathVariable("receiving-id") long receivingId,
+    @PatchMapping("/receiving/delete") // 수신식별번호
+    public ResponseEntity receivingStatus(@RequestBody MultiCheck multiCheck,
                                           Authentication authentication) {
-        receivingService.updateReceivingStatus(receivingId, authentication);
+        receivingService.updateReceivingStatus(multiCheck.getIds(), authentication);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

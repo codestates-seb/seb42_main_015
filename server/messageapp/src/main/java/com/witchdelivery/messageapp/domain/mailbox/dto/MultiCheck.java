@@ -9,6 +9,6 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DustbinMultiCheck {
+public class MultiCheck {
     private List<Long> ids;
 }
