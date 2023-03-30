@@ -264,61 +264,25 @@ export const NameInputWrapper = styled.div`
       case "도스샘물":
         return FONT_STYLE_CONTENT.pixel_20;
       case "강원교육모두체":
-        return FONT_STYLE_CONTENT.gangwonedu_20_bold;
+        return FONT_STYLE_CONTENT.gangwonedu_22_bold;
       case "에스코어 드림":
         return FONT_STYLE_CONTENT.scoredream_20;
       case "태백 은하수체":
         return FONT_STYLE_CONTENT.taebaek_20;
       case "다채사랑":
-        return FONT_STYLE_CONTENT.dachelove_20;
+        return FONT_STYLE_CONTENT.dachelove_22;
       case "백의의 천사":
-        return FONT_STYLE_CONTENT.whiteangle_20;
+        return FONT_STYLE_CONTENT.whiteangle_22;
       case "고딕 아니고 고딩":
-        return FONT_STYLE_CONTENT.gothicgoding_20;
+        return FONT_STYLE_CONTENT.gothicgoding_22;
       case "혁이체":
-        return FONT_STYLE_CONTENT.hyukee_20;
+        return FONT_STYLE_CONTENT.hyukee_22;
       case "이서윤체":
         return FONT_STYLE_CONTENT.leeseoyun_20;
       case "신비는 일곱살":
-        return FONT_STYLE_CONTENT.sangsang_20;
+        return FONT_STYLE_CONTENT.sangsang_26;
       case "카페24 고운밤":
-        return FONT_STYLE_CONTENT.cafe24oneprettynight_20;
-      case "제주명조":
-        return FONT_STYLE_CONTENT.jejumyeongjo_20;
-      case "리디바탕":
-        return FONT_STYLE_CONTENT.ridibatang_20;
-      case "나눔스퀘어 네오":
-        return FONT_STYLE_CONTENT.nanumneo_20;
-      default:
-        break;
-    }
-  }}
-  ${(props) => {
-    switch (props.font) {
-      case "프리텐다드":
-        return FONT_STYLE_V1.body.body_20_light;
-      case "도스샘물":
-        return FONT_STYLE_CONTENT.pixel_20;
-      case "강원교육모두체":
-        return FONT_STYLE_CONTENT.gangwonedu_20_bold;
-      case "에스코어 드림":
-        return FONT_STYLE_CONTENT.scoredream_20;
-      case "태백 은하수체":
-        return FONT_STYLE_CONTENT.taebaek_20;
-      case "다채사랑":
-        return FONT_STYLE_CONTENT.dachelove_20;
-      case "백의의 천사":
-        return FONT_STYLE_CONTENT.whiteangle_20;
-      case "고딕 아니고 고딩":
-        return FONT_STYLE_CONTENT.gothicgoding_20;
-      case "혁이체":
-        return FONT_STYLE_CONTENT.hyukee_20;
-      case "이서윤체":
-        return FONT_STYLE_CONTENT.leeseoyun_20;
-      case "신비는 일곱살":
-        return FONT_STYLE_CONTENT.sangsang_20;
-      case "카페24 고운밤":
-        return FONT_STYLE_CONTENT.cafe24oneprettynight_20;
+        return FONT_STYLE_CONTENT.cafe24oneprettynight_22;
       case "제주명조":
         return FONT_STYLE_CONTENT.jejumyeongjo_20;
       case "리디바탕":
@@ -339,7 +303,42 @@ export const NameInputWrapper = styled.div`
   }
 `;
 export const NameInput = styled.input.attrs({ autoComplete: "off" })`
-  ${FONT_STYLE_V1.body.body_20_light}
+  ${(props) => {
+    switch (props.font) {
+      case "프리텐다드":
+        return FONT_STYLE_V1.body.body_20_light;
+      case "도스샘물":
+        return FONT_STYLE_CONTENT.pixel_20;
+      case "강원교육모두체":
+        return FONT_STYLE_CONTENT.gangwonedu_22_bold;
+      case "에스코어 드림":
+        return FONT_STYLE_CONTENT.scoredream_20;
+      case "태백 은하수체":
+        return FONT_STYLE_CONTENT.taebaek_20;
+      case "다채사랑":
+        return FONT_STYLE_CONTENT.dachelove_22;
+      case "백의의 천사":
+        return FONT_STYLE_CONTENT.whiteangle_22;
+      case "고딕 아니고 고딩":
+        return FONT_STYLE_CONTENT.gothicgoding_22;
+      case "혁이체":
+        return FONT_STYLE_CONTENT.hyukee_22;
+      case "이서윤체":
+        return FONT_STYLE_CONTENT.leeseoyun_20;
+      case "신비는 일곱살":
+        return FONT_STYLE_CONTENT.sangsang_26;
+      case "카페24 고운밤":
+        return FONT_STYLE_CONTENT.cafe24oneprettynight_22;
+      case "제주명조":
+        return FONT_STYLE_CONTENT.jejumyeongjo_20;
+      case "리디바탕":
+        return FONT_STYLE_CONTENT.ridibatang_20;
+      case "나눔스퀘어 네오":
+        return FONT_STYLE_CONTENT.nanumneo_20;
+      default:
+        break;
+    }
+  }}
   border: none;
   background-color: transparent;
   margin-left: 5px;
@@ -365,25 +364,25 @@ export const Date = styled.div`
       case "도스샘물":
         return FONT_STYLE_CONTENT.pixel_20;
       case "강원교육모두체":
-        return FONT_STYLE_CONTENT.gangwonedu_20_bold;
+        return FONT_STYLE_CONTENT.gangwonedu_22_bold;
       case "에스코어 드림":
         return FONT_STYLE_CONTENT.scoredream_20;
       case "태백 은하수체":
         return FONT_STYLE_CONTENT.taebaek_20;
       case "다채사랑":
-        return FONT_STYLE_CONTENT.dachelove_20;
+        return FONT_STYLE_CONTENT.dachelove_22;
       case "백의의 천사":
-        return FONT_STYLE_CONTENT.whiteangle_20;
+        return FONT_STYLE_CONTENT.whiteangle_22;
       case "고딕 아니고 고딩":
-        return FONT_STYLE_CONTENT.gothicgoding_20;
+        return FONT_STYLE_CONTENT.gothicgoding_22;
       case "혁이체":
-        return FONT_STYLE_CONTENT.hyukee_20;
+        return FONT_STYLE_CONTENT.hyukee_22;
       case "이서윤체":
         return FONT_STYLE_CONTENT.leeseoyun_20;
       case "신비는 일곱살":
-        return FONT_STYLE_CONTENT.sangsang_20;
+        return FONT_STYLE_CONTENT.sangsang_26;
       case "카페24 고운밤":
-        return FONT_STYLE_CONTENT.cafe24oneprettynight_20;
+        return FONT_STYLE_CONTENT.cafe24oneprettynight_22;
       case "제주명조":
         return FONT_STYLE_CONTENT.jejumyeongjo_20;
       case "리디바탕":
@@ -436,25 +435,25 @@ export const ContentTextarea = styled.textarea`
       case "도스샘물":
         return FONT_STYLE_CONTENT.pixel_18;
       case "강원교육모두체":
-        return FONT_STYLE_CONTENT.gangwonedu_18_bold;
+        return FONT_STYLE_CONTENT.gangwonedu_20_bold;
       case "에스코어 드림":
         return FONT_STYLE_CONTENT.scoredream_18;
       case "태백 은하수체":
         return FONT_STYLE_CONTENT.taebaek_18;
       case "다채사랑":
-        return FONT_STYLE_CONTENT.dachelove_18;
+        return FONT_STYLE_CONTENT.dachelove_20;
       case "백의의 천사":
-        return FONT_STYLE_CONTENT.whiteangle_18;
+        return FONT_STYLE_CONTENT.whiteangle_20;
       case "고딕 아니고 고딩":
-        return FONT_STYLE_CONTENT.gothicgoding_18;
+        return FONT_STYLE_CONTENT.gothicgoding_20;
       case "혁이체":
-        return FONT_STYLE_CONTENT.hyukee_18;
+        return FONT_STYLE_CONTENT.hyukee_20;
       case "이서윤체":
         return FONT_STYLE_CONTENT.leeseoyun_18;
       case "신비는 일곱살":
-        return FONT_STYLE_CONTENT.sangsang_18;
+        return FONT_STYLE_CONTENT.sangsang_24;
       case "카페24 고운밤":
-        return FONT_STYLE_CONTENT.cafe24oneprettynight_18;
+        return FONT_STYLE_CONTENT.cafe24oneprettynight_20;
       case "제주명조":
         return FONT_STYLE_CONTENT.jejumyeongjo_18;
       case "리디바탕":
