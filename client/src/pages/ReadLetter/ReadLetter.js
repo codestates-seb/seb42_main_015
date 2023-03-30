@@ -103,7 +103,6 @@ const ReadLetter = ({ isLogin }) => {
       })
       .catch((err) => {
         console.log(err);
-        alert(err);
       });
   };
 
@@ -154,11 +153,11 @@ const ReadLetter = ({ isLogin }) => {
               </R.EnterSeret>
             </div>
             <R.Card className={rotate ? "active-rotate" : ""}>
+              <R.Triangle onClick={handleRotate} />
               <R.Letterpaper
                 className="front"
                 ref={LetterRef}
                 LetterTheme={data.themeName}
-                onClick={handleRotate}
               >
                 <div className="letterContent" font={data.fontName}>
                   <R.To font={data.fontName}>To. {data.toName}</R.To>
@@ -167,19 +166,15 @@ const ReadLetter = ({ isLogin }) => {
                 <R.Content font={data.fontName}>{data.content}</R.Content>
                 <R.From font={data.fontName}>From. {data.fromName}</R.From>
               </R.Letterpaper>
-              <R.Letterpaper className="back" onClick={handleRotate}>
-                <R.Date>{LetterDate}</R.Date>
+              <R.Letterpaper className="back">
+                <R.Date font={data.fontName}>{LetterDate}</R.Date>
                 <R.BackImg src={data.messageImageUrl}></R.BackImg>
-                {/* <div className="preview-back-content">
+                <div className="preview-back-content">
                   <R.FlexWrapper1>
-                    <R.NameInputWrapper className="preview">
-                      {data.toName}에게
-                    </R.NameInputWrapper>
-                    <R.NameInputWrapper className="from-input preview">
-                      {data.fromName}(이)가
-                    </R.NameInputWrapper>
+                    <R.Text font={data.fontName}>{data.toName}에게</R.Text>
+                    <R.Text font={data.fontName}>{data.fromName}(이)가</R.Text>
                   </R.FlexWrapper1>
-                </div> */}
+                </div>
               </R.Letterpaper>
             </R.Card>
             <ReadButtons
