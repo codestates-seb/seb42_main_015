@@ -26,7 +26,7 @@ export const Warning = styled.div`
   justify-content: flex-end;
   color: red;
   padding-bottom: 2rem;
-`
+`;
 
 export const TrashTableMenu = styled.div`
   ${FONT_STYLE_V1.title.title_16_medium}
@@ -65,45 +65,44 @@ export const ButtonBox = styled.div`
 
 export const Button = styled.div`
   margin-right: 3rem;
+  cursor: pointer;
 `;
 
 export const ItemBox = styled.li`
   width: 80vw;
   height: 80px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid black;
 `;
 
 export const ItemName = styled.div`
-  flex-grow: 1.5;
+  padding: 0 2rem;
+  margin-right: 2rem;
   border-right: 1px solid black;
-  margin-right: 3rem;
   text-align: center;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    margin-right: 1rem;
-    padding-right: 1rem;
-  }
 `;
 
 export const ItemContent = styled.div`
-  flex-grow: 5;
-  margin-right: 0.5rem;
+  text-align: start;
+  flex-grow: 2;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 100px;
-    overflow: hidden;
-    white-space: normal;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    word-break: keep-all;
   }
 `;
 
 export const ItemDate = styled.div`
-  flex-grow: 1;
+  width: 150px;
   color: #cccccc;
+  text-align: end;
 `;
 
 export const ModalBox = styled.div`
@@ -132,6 +131,7 @@ export const ModalButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   &:nth-child(1) {
     margin-right: 1rem;
   }
@@ -210,4 +210,13 @@ export const SendButton = styled.div`
     bottom: 85px;
     right: 10px;
   }
+`;
+
+export const TargetBox = styled.div`
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${FONT_STYLE_V1.title.title_18_medium}
 `;

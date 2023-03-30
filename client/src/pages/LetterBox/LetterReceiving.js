@@ -6,7 +6,13 @@ import { useInView } from "react-intersection-observer";
 import { getCookie } from "../Certified/Cookie";
 import axios from "axios";
 
-function LetterReceiving({ select, trash, isFocus, isSearchIn }) {
+function LetterReceiving({
+  trash,
+  isFocus,
+  isSearchIn,
+  selectId,
+  setSelectId,
+}) {
   const { inLetters, setInLetters, isFilterIn, setIsFilterIn } = useStore();
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -59,9 +65,8 @@ function LetterReceiving({ select, trash, isFocus, isSearchIn }) {
               isSearchIn.map((letter) => {
                 return (
                   <LetterInItem
-                    key={letter.messageId}
+                    key={letter.receivingId}
                     letter={letter}
-                    select={select}
                     trash={trash}
                   />
                 );
@@ -71,10 +76,11 @@ function LetterReceiving({ select, trash, isFocus, isSearchIn }) {
             isFilterIn.map((letter) => {
               return (
                 <LetterInItem
-                  key={letter.messageId}
+                  key={letter.receivingId}
                   letter={letter}
-                  select={select}
                   trash={trash}
+                  selectId={selectId}
+                  setSelectId={setSelectId}
                 />
               );
             })

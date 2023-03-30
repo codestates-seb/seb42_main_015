@@ -342,11 +342,11 @@ export const BookMark = styled.div`
   top: 0;
   right: 0;
   img {
-    width: 5rem;
+    width: 4rem;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     img {
-      width: 8rem;
+      width: 6rem;
     }
   }
 `;
@@ -417,6 +417,29 @@ export const DeleteButtonON = styled.div`
     height: 50px;
     bottom: 85px;
     right: 10px;
+  }
+`;
+
+export const DeleteButton = styled.div`
+  width: 60px;
+  height: 60px;
+  border: 3px solid ${PALETTE_V1.orange_dark};
+  border-radius: 50%;
+  position: fixed;
+  bottom: 120px;
+  right: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: ${FONT_STYLE_V1.title.title_12_medium};
+  background-color: ${PALETTE_V1.orange_dark};
+  color: white;
+  cursor: pointer;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 50px;
+    height: 50px;
+    bottom: 85px;
+    right: 70px;
   }
 `;
 
