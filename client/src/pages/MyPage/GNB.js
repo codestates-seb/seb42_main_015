@@ -4,7 +4,7 @@ import useStore from "../../store/store";
 import { useNavigate } from "react-router-dom";
 
 function GNB() {
-  const { currentPage, changeCurrentPage } = useStore((state) => state);
+  const { currentPage, changeCurrentPage } = useStore();
   const navigate = useNavigate();
 
   const handleClick = (e) => {

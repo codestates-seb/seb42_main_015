@@ -45,7 +45,7 @@ function WriteLetter() {
   ];
   const [browserSize, setBrowserSize] = useState();
 
-  const { letterContents, setLetterContents } = useStore((state) => state);
+  const { letterContents, setLetterContents } = useStore();
 
   const sendMeModalRef = useRef();
   const makeLetterModalRef = useRef();
@@ -102,10 +102,9 @@ function WriteLetter() {
         themeName: letterTheme[letterTheme.length - 1],
       });
     } else {
-      setCurrentLetterTheme({
-        ...letterContents,
-        themeName: letterTheme[letterTheme.indexOf(currentLetterTheme) - 1],
-      });
+      setCurrentLetterTheme(
+        letterTheme[letterTheme.indexOf(currentLetterTheme) - 1]
+      );
       setLetterContents({
         ...letterContents,
         themeName: letterTheme[letterTheme.indexOf(currentLetterTheme) - 1],
@@ -136,14 +135,12 @@ function WriteLetter() {
   window.addEventListener("resize", getBrowserSize);
   useEffect(() => {
     setBrowserSize(window.innerWidth);
-  }, []);
-
-  useEffect(() => {
     setLetterContents({
       ...letterContents,
       themeName: letterTheme[contentLength],
     });
   }, []);
+
   return (
     <W.PageContainer onClick={handleModal}>
       {openExplaination || openSendMe || openMakeLetter ? (

@@ -1,4 +1,3 @@
-import { set } from "date-fns";
 import { create } from "zustand";
 
 const useStore = create((set) => ({
@@ -6,8 +5,6 @@ const useStore = create((set) => ({
   changeCurrentPage: (page) => set((state) => ({ currentPage: page })),
   isLogin: false,
   setIsLogin: (loginState) => set((state) => ({ isLogin: loginState })),
-  contentFont: "프리텐다드",
-  changeContentFont: (font) => set((state) => ({ contentFont: font })),
   letterContents: {
     toName: null,
     fromName: null,
@@ -36,6 +33,9 @@ const useStore = create((set) => ({
     set((state) => ({ letterPassword: password })),
   messageId: "",
   setMessageId: (messageId) => set((state) => ({ messageId: messageId })),
+  letterPassword: "",
+  setLetterPassword: (password) =>
+    set((state) => ({ letterPassword: password })),
 }));
 
 export default useStore;

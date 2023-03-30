@@ -29,9 +29,7 @@ function LetterContent({
   ).slice(-2)}.${("00" + new Date().getDate()).slice(-2)} ${
     weekday[new Date().getDay()]
   }`;
-  const { contentFont, letterContents, setLetterContents } = useStore(
-    (state) => state
-  );
+  const { letterContents, setLetterContents } = useStore();
   const formSchema = yup.object({
     receiverName: yup
       .string()
@@ -93,9 +91,10 @@ function LetterContent({
     <W.LetterBox currentLetterTheme={currentLetterTheme}>
       <W.FlexWrapper1>
         <W.BallonWrapper className="to-wrapper">
-          <W.NameInputWrapper>
+          <W.NameInputWrapper font={letterContents.fontName}>
             To
             <W.NameInput
+              font={letterContents.fontName}
               name="receiverName"
               type="text"
               {...register("receiverName")}
@@ -116,7 +115,7 @@ function LetterContent({
             <></>
           )}
         </W.BallonWrapper>
-        <W.Date>{currentDate}</W.Date>
+        <W.Date font={letterContents.fontName}>{currentDate}</W.Date>
       </W.FlexWrapper1>
       <W.SendMeWrapper>
         <W.BallonWrapper>
@@ -155,18 +154,21 @@ function LetterContent({
         )}
       </W.SendMeWrapper>
       <W.ContentTextarea
-        font={contentFont}
+        font={letterContents.fontName}
         name="content"
         onInput={handleContentLength}
-        onKeyUp={(e) => setContent(e.target.value)}
+        onChange={(e) => setContent(e.target.value)}
         {...register("content")}
         ref={textarea}
         maxLength={7000}></W.ContentTextarea>
-      <W.FromWrapper>
+      <W.FromWrapper font={letterContents.fontName}>
         <W.BallonWrapper className="from-wrapper">
-          <W.NameInputWrapper className="from-input">
+          <W.NameInputWrapper
+            className="from-input"
+            font={letterContents.fontName}>
             From
             <W.NameInput
+              font={letterContents.fontName}
               type="text"
               name="senderName"
               className="from-input"

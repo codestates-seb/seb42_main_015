@@ -8,10 +8,11 @@ import { AiOutlineSound } from "react-icons/ai";
 import { HiPause } from "react-icons/hi2";
 import { getSpeech, pauseSpeech } from "./GetSpeech";
 import ReadButtons from "./ReadButtons";
-import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
 import useStore from "../../store/store";
 import { Loading } from "../../components/Loading";
+import axios from "axios";
+import Refresh from "../../util/Refresh";
 
 //{isLogin} props 제거
 const ReadLetter = ({ isLogin }) => {
@@ -24,11 +25,13 @@ const ReadLetter = ({ isLogin }) => {
   //비밀번호 쳤는지 안쳤는지
   const [enterPassword, setEnterPassword] = useState(false);
   //보관하기를 클릭했을 때 비로그인(저장X)인지 로그인(저장준비 완료)아닌지
-  const [isKeeping, setIsKeeping] = useState("");
+  const [isKeeping, setIsKeeping] = useState(false);
   //편지 정보 가져오기
   const [data, setData] = useState([]);
   //모달 클릭
   const [isClickModal, setIsClickModal] = useState(false);
+  //편지 rotate
+  const [rotate, setRotate] = useState(false);
 
   //todo 이미지 저장 기능
   //useRef로 -> DOM 선택
@@ -67,13 +70,9 @@ const ReadLetter = ({ isLogin }) => {
     getSpeech(pauseSpeech());
   };
 
-  //음성 변환 목소리 preload
-  useEffect(() => {
-    window.speechSynthesis.getVoices();
-  }, []);
-
   //todo 메세지 정보 가져오기
   const getLetter = async () => {
+    setIsLoading(true);
     await axios
       .get(`/api/sendy/messages/${urlName}`, {
         headers: {
@@ -82,6 +81,10 @@ const ReadLetter = ({ isLogin }) => {
         },
       })
       .then((res) => {
+        if (res.status === 401) {
+          Refresh();
+          getLetter();
+        }
         //편지 정보 담기
         setData(res.data);
         //messageSaved 정보 담기
@@ -96,22 +99,19 @@ const ReadLetter = ({ isLogin }) => {
         else if (res.data.password !== null) {
           setLetterPassword(res.data.password);
         }
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
-        alert(err);
       });
   };
 
+  //음성 변환 목소리 preload
   useEffect(() => {
+    window.speechSynthesis.getVoices();
     getLetter();
     window.scrollTo(0, 0);
   }, []);
-
-  //화면 렌더링시 nan 문제 해결
-  useLayoutEffect(() => {
-    getLetter();
-  }, [data]);
 
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
   const LetterDate = `${new Date(`${data.createdAt}`).getFullYear()}.${(
@@ -122,7 +122,6 @@ const ReadLetter = ({ isLogin }) => {
   }`;
 
   //편지 넘기기
-  const [rotate, setRotate] = useState(false);
   const handleRotate = () => {
     setRotate(!rotate);
   };
@@ -130,7 +129,9 @@ const ReadLetter = ({ isLogin }) => {
   return (
     <>
       {isLoading ? <Loading /> : ""}
-      {isLogin && enterPassword ? (
+      {/* islogin && */}
+      {/* 비밀번호가 없거나 저장되어 있는 상태면 -> 비밀번호를 입력하지 않음  */}
+      {enterPassword || isKeeping ? (
         <R.Wrapper>
           <div className="ReadContainer" onClick={handleModal}>
             <div className="top-sub">
@@ -152,33 +153,26 @@ const ReadLetter = ({ isLogin }) => {
               </R.EnterSeret>
             </div>
             <R.Card className={rotate ? "active-rotate" : ""}>
+              <R.Triangle onClick={handleRotate} />
               <R.Letterpaper
                 className="front"
                 ref={LetterRef}
                 LetterTheme={data.themeName}
-                onClick={handleRotate}
               >
-                <div className="top">
-                  <div className="to">To. {data.toName}</div>
-                  <div className="date">{LetterDate}</div>
+                <div className="letterContent" font={data.fontName}>
+                  <R.To font={data.fontName}>To. {data.toName}</R.To>
+                  <R.To font={data.fontName}>{LetterDate}</R.To>
                 </div>
-                <div className="content" font={data.fontName}>
-                  {data.content}
-                </div>
-                <div className="from">From. {data.fromName}</div>
+                <R.Content font={data.fontName}>{data.content}</R.Content>
+                <R.From font={data.fontName}>From. {data.fromName}</R.From>
               </R.Letterpaper>
-              <R.Letterpaper className="back" onClick={handleRotate}>
-                <R.Date>{LetterDate}</R.Date>
+              <R.Letterpaper className="back">
+                <R.Date font={data.fontName}>{LetterDate}</R.Date>
                 <R.BackImg src={data.messageImageUrl}></R.BackImg>
                 <div className="preview-back-content">
-                  <R.FlexWrapper1></R.FlexWrapper1>
                   <R.FlexWrapper1>
-                    <R.NameInputWrapper className="preview">
-                      {data.toName}에게
-                    </R.NameInputWrapper>
-                    <R.NameInputWrapper className="from-input preview">
-                      {data.fromName}(이)가
-                    </R.NameInputWrapper>
+                    <R.Text font={data.fontName}>{data.toName}에게</R.Text>
+                    <R.Text font={data.fontName}>{data.fromName}(이)가</R.Text>
                   </R.FlexWrapper1>
                 </div>
               </R.Letterpaper>
@@ -204,8 +198,7 @@ const ReadLetter = ({ isLogin }) => {
                 <HiPause size="30" className="pause-icon" />
               </div>
               <R.EnterSeret>
-                비밀번호
-                <p>{data.password}</p>
+                비밀번호 : <p>{data.password}</p>
               </R.EnterSeret>
             </div>
             <R.Letterpaper className="front" LetterTheme={data.themeName}>

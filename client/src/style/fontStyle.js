@@ -300,6 +300,10 @@ export const FONT_STYLE_READ = {
     font-family: "Pretendard-Light";
     font-size: 1.9rem;
   `,
+  body_14_Medium: css`
+    font-family: "Pretendard-Medium";
+    font-size: 1.4rem;
+  `,
   body_9_Medium: css`
     font-family: "Pretendard-Medium";
     font-size: 1rem;
@@ -307,6 +311,19 @@ export const FONT_STYLE_READ = {
   body_8_Medium: css`
     font-family: "Pretendard-Medium";
     font-size: 0.8rem;
+  `,
+  title_18_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 1.8rem;
+  `,
+  body_14_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 1.4rem;
+  `,
+  body_12_light: css`
+    font-family: "Pretendard-Light";
+    font-size: 1.2rem;
+    text-align: justify;
   `,
   body_10_light: css`
     font-family: "Pretendard-Light";
@@ -325,6 +342,10 @@ export const FONT_STYLE_READ = {
     font-family: "Pretendard-Light";
     font-size: 0.7rem;
   `,
+  btn_12_light: css`
+    font-family: "B612", sans-serif;
+    font-size: 1.2rem;
+  `,
   btn_8_light: css`
     font-family: "B612", sans-serif;
     font-size: 0.8rem;
@@ -340,12 +361,23 @@ export const FONT_STYLE_CONTENT = {
     font-family: "DOSSaemmul";
     font-size: 1rem;
     color: ${PALETTE_V1.text_primary};
-    line-height: 3rem;
     text-align: justify;
   `,
   pixel_18: css`
     font-family: "DOSSaemmul";
     font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  pixel_20: css`
+    font-family: "DOSSaemmul";
+    font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  pixel_20: css`
+    font-family: "DOSSaemmul";
+    font-size: 2rem;
     color: ${PALETTE_V1.text_primary};
     line-height: 3rem;
     text-align: justify;
@@ -354,28 +386,247 @@ export const FONT_STYLE_CONTENT = {
     font-family: "GangwonEdu_Light";
     font-size: 1rem;
     color: ${PALETTE_V1.text_primary};
-    line-height: 2rem;
     text-align: justify;
   `,
   gangwonedu_18_light: css`
     font-family: "GangwonEdu_Light";
     font-size: 1.8rem;
     color: ${PALETTE_V1.text_primary};
-    line-height: 2rem;
     text-align: justify;
   `,
   gangwonedu_10_bold: css`
     font-family: "GangwonEdu_Bold";
     font-size: 1rem;
     color: ${PALETTE_V1.text_primary};
-    line-height: 2rem;
     text-align: justify;
   `,
   gangwonedu_18_bold: css`
     font-family: "GangwonEdu_Bold";
     font-size: 1.8rem;
     color: ${PALETTE_V1.text_primary};
-    line-height: 2rem;
+    text-align: justify;
+  `,
+  gangwonedu_20_bold: css`
+    font-family: "GangwonEdu_Bold";
+    font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  gangwonedu_22_bold: css`
+    font-family: "GangwonEdu_Bold";
+    font-size: 2.2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  scoredream_16: css`
+    font-family: "S-CoreDream-3Light";
+    font-size: 1.6rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+    word-spacing: -0.2rem;
+  `,
+  scoredream_18: css`
+    font-family: "S-CoreDream-3Light";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  scoredream_20: css`
+    font-family: "S-CoreDream-3Light";
+    font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  taebaek_16: css`
+    font-family: "TAEBAEKmilkyway";
+    font-size: 1.6rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  taebaek_18: css`
+    font-family: "TAEBAEKmilkyway";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  taebaek_20: css`
+    font-family: "TAEBAEKmilkyway";
+    font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  dachelove_18: css`
+    font-family: "Dache_love";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  dachelove_20: css`
+    font-family: "Dache_love";
+    font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  dachelove_22: css`
+    font-family: "Dache_love";
+    font-size: 2.2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  whiteangle_18: css`
+    font-family: "White_angel";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  whiteangle_20: css`
+    font-family: "White_angel";
+    font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  whiteangle_22: css`
+    font-family: "White_angel";
+    font-size: 2.2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  gothicgoding_18: css`
+    font-family: "Gothic_Goding";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  gothicgoding_20: css`
+    font-family: "Gothic_Goding";
+    font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  gothicgoding_22: css`
+    font-family: "Gothic_Goding";
+    font-size: 2.2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  hyukee_18: css`
+    font-family: "Hyukee";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  hyukee_20: css`
+    font-family: "Hyukee";
+    font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  hyukee_22: css`
+    font-family: "Hyukee";
+    font-size: 2.2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  leeseoyun_18: css`
+    font-family: "LeeSeoyun";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  leeseoyun_20: css`
+    font-family: "LeeSeoyun";
+    font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  sangsang_18: css`
+    font-family: "SangSangShinb7";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  sangsang_20: css`
+    font-family: "SangSangShinb7";
+    font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  sangsang_22: css`
+    font-family: "SangSangShinb7";
+    font-size: 2.2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  sangsang_24: css`
+    font-family: "SangSangShinb7";
+    font-size: 2.4rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  sangsang_26: css`
+    font-family: "SangSangShinb7";
+    font-size: 2.6rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  cafe24oneprettynight_18: css`
+    font-family: "Cafe24Oneprettynight";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  cafe24oneprettynight_20: css`
+    font-family: "Cafe24Oneprettynight";
+    font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  cafe24oneprettynight_22: css`
+    font-family: "Cafe24Oneprettynight";
+    font-size: 2.2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  ridibatang_18: css`
+    font-family: "RIDIBatang";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  ridibatang_20: css`
+    font-family: "RIDIBatang";
+    font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  nanumneo_16: css`
+    font-family: "NanumSquareNeo-Variable";
+    font-size: 1.6rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  nanumneo_18: css`
+    font-family: "NanumSquareNeo-Variable";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  nanumneo_20: css`
+    font-family: "NanumSquareNeo-Variable";
+    font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  jejumyeongjo_18: css`
+    font-family: "Jeju Myeongjo";
+    font-size: 1.8rem;
+    color: ${PALETTE_V1.text_primary};
+    text-align: justify;
+  `,
+  jejumyeongjo_20: css`
+    font-family: "Jeju Myeongjo";
+    font-size: 2rem;
+    color: ${PALETTE_V1.text_primary};
     text-align: justify;
   `,
 };
