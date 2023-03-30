@@ -232,6 +232,7 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   min-width: 680px;
   max-width: 680px;
   background-color: #ffffff;
+  justify-content: space-between;
 
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     min-width: 18rem;
@@ -295,142 +296,106 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     text-align: justify;
     color: ${PALETTE_V1.text_primary};
   }
+`;
 
-  .to,
-  .date {
-    font-size: 2rem;
-    ${(props) =>
-      props.Font === "도스샘물"
-        ? `${FONT_STYLE_CONTENT.pixel_18}`
-        : props.Font === "강원교육모두체"
-        ? `${FONT_STYLE_CONTENT.gangwonedu_18_bold}`
-        : `${FONT_STYLE_V1.body.body_18_light}`};
+export const To = styled.div`
+  font-size: 2rem;
+  ${(props) => {
+    switch (props.font) {
+      case "프리텐다드":
+        return css`
+          font-family: "Pretendard-Light";
+          line-height: 3rem;
+        `;
+      case "도스샘물":
+        return css`
+          font-family: "DOSSaemmul";
+          line-height: 3rem;
+        `;
+      case "강원교육모두체":
+        return css`
+          font-family: "GangwonEdu_Bold";
+          line-height: 2rem;
+        `;
+      default:
+        break;
+    }
+  }}
+`;
 
-    /* ${(props) => {
-      switch (props.font) {
-        case "프리텐다드":
-          return css`
-            font-family: "Pretendard-Light";
-            line-height: 3rem;
-          `;
-        case "도스샘물":
-          return css`
-            font-family: "DOSSaemmul";
-            line-height: 3rem;
-          `;
-        case "강원교육모두체":
-          return css`
-            font-family: "GangwonEdu_Bold";
-            line-height: 2rem;
-          `;
-        default:
-          break;
-      }
-    }} */
+export const Content = styled.div`
+  aspect-ratio: 1/1.5;
+  padding: 0 1rem 0 0;
+  background-color: transparent;
+  border: none;
+  resize: none;
+  letter-spacing: 2px;
+  font-size: 1.8rem;
+  ${(props) => {
+    switch (props.font) {
+      case "프리텐다드":
+        return css`
+          font-family: "Pretendard-Light";
+          line-height: 3rem;
+        `;
+      case "도스샘물":
+        return css`
+          font-family: "DOSSaemmul";
+          line-height: 3rem;
+        `;
+      case "강원교육모두체":
+        return css`
+          font-family: "GangwonEdu_Bold";
+          line-height: 2rem;
+        `;
+      default:
+        break;
+    }
+  }}
+  overflow: auto;
+  &:focus {
+    outline: none;
   }
-
-  .content {
-    aspect-ratio: 1/1.5;
-    padding: 0 1rem 0 0;
-    background-color: transparent;
-    border: none;
-    resize: none;
-    letter-spacing: 2px;
-    font-size: 1.8rem;
-    ${(props) =>
-      props.font === "도스샘물"
-        ? `${FONT_STYLE_CONTENT.pixel_18}`
-        : props.font === "강원교육모두체"
-        ? `${FONT_STYLE_CONTENT.gangwonedu_18_bold}`
-        : `${FONT_STYLE_V1.body.body_18_light}`};
-
-    /* ${(props) => {
-      switch (props.font) {
-        case "프리텐다드":
-          return css`
-            font-family: "Pretendard-Light";
-            line-height: 3rem;
-          `;
-        case "도스샘물":
-          return css`
-            font-family: "DOSSaemmul";
-            line-height: 3rem;
-          `;
-        case "강원교육모두체":
-          return css`
-            font-family: "GangwonEdu_Bold";
-            line-height: 2rem;
-          `;
-        default:
-          break;
-      }
-    }} */
-
-    overflow: auto;
-    &:focus {
-      outline: none;
-    }
-    &::-webkit-scrollbar {
-      width: 1rem;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: #d9d9d9;
-      border-radius: 7px;
-      border: 1.5px solid;
-    }
-    &::-webkit-scrollbar-track {
-      background-color: ${PALETTE_V1.background};
-      border-radius: 7px;
-      border: 1.5px solid;
-    }
+  &::-webkit-scrollbar {
+    width: 1rem;
   }
-
-  .from {
-    display: flex;
-    justify-content: flex-end;
-    font-size: 2rem;
-    ${(props) =>
-      props.font === "도스샘물"
-        ? `${FONT_STYLE_CONTENT.pixel_18}`
-        : props.font === "강원교육모두체"
-        ? `${FONT_STYLE_CONTENT.gangwonedu_18_bold}`
-        : `${FONT_STYLE_V1.body.body_18_light}`};
-
-    /* ${(props) => {
-      switch (props.font) {
-        case "프리텐다드":
-          return css`
-            font-family: "Pretendard-Light";
-            line-height: 3rem;
-          `;
-        case "도스샘물":
-          return css`
-            font-family: "DOSSaemmul";
-            line-height: 3rem;
-          `;
-        case "강원교육모두체":
-          return css`
-            font-family: "GangwonEdu_Bold";
-            line-height: 2rem;
-          `;
-        default:
-          break;
-      }
-    }} */
+  &::-webkit-scrollbar-thumb {
+    background-color: #d9d9d9;
+    border-radius: 7px;
+    border: 1.5px solid;
   }
+  &::-webkit-scrollbar-track {
+    background-color: ${PALETTE_V1.background};
+    border-radius: 7px;
+    border: 1.5px solid;
+  }
+`;
 
-  justify-content: space-between;
-
-  .back-add {
-    display: flex;
-    background: #ffffff00;
-    /* border: none; */
-    &::before {
-      content: "";
-      backdrop-filter: blur(100px);
+export const From = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  font-size: 2rem;
+  ${(props) => {
+    switch (props.font) {
+      case "프리텐다드":
+        return css`
+          font-family: "Pretendard-Light";
+          line-height: 3rem;
+        `;
+      case "도스샘물":
+        return css`
+          font-family: "DOSSaemmul";
+          line-height: 3rem;
+        `;
+      case "강원교육모두체":
+        return css`
+          font-family: "GangwonEdu_Bold";
+          line-height: 2rem;
+        `;
+      default:
+        break;
     }
-    backdrop-filter: blur(10px);
-  }
+  }}
 `;
 
 //todo : 아래 버튼들(우편함 돌아가기, 휴지통, 이미지저장, 보관하기)

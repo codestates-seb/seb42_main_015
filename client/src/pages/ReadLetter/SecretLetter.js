@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as S from "./ReadStyled";
@@ -33,7 +34,9 @@ const ReadLetter = ({ setEnterPassword }) => {
     }
   };
 
-  console.log(letterPassword);
+  useEffect(() => {
+    console.log(letterPassword);
+  }, []);
 
   return (
     <>

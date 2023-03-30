@@ -56,12 +56,10 @@ function LetterOutItem({ letter, select, trash }) {
         )}
       </L.BookMark>
       <Link
-        to={{
-          pathname: `/readletter/${urlName}`,
-          state: {
-            name: "outgoingId",
-            body: outgoingId,
-          },
+        to={`/readletter/${urlName}`}
+        state={{
+          name: "outgoingId",
+          body: outgoingId,
         }}
       >
         <L.ItemCase>

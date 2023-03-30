@@ -20,8 +20,9 @@ const ReadButtons = ({
   isClickModal,
   setIsClickModal,
 }) => {
-  const { urlName } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { urlName } = useParams();
   //로딩상태
   const [isLoading, setIsLoading] = useState(false);
   //휴지통 정보
@@ -30,16 +31,36 @@ const ReadButtons = ({
     outgoingId: "",
   });
   // 우편함에서 넘어온 정보
-  const location = useLocation();
-  // console.log(location);
-  //로케이션 정보 업데이트
-  // console.log(isDustbin);
+  const getMailboxId = () => {
+    if (location.state) {
+      if (location.state.name === "outgoingId") {
+        setIsDustbin({
+          ...isDustbin,
+          outgoingId: location.state.body,
+        });
+        //만약 발신편지라면(발신아이디가 있음) -> 보관완료 상태로 뜨게
+        setIsKeeping(true);
+      } else if (location.state.name === "receivingId") {
+        setIsDustbin({
+          ...isDustbin,
+          receivingId: location.state.body,
+        });
+      }
+    }
+  };
+  useEffect(() => {
+    if (location.state) {
+      getMailboxId();
+    }
+  }, []);
+  console.log(isDustbin);
 
   //todo :보관하기
   const handleKeeping = async () => {
     //모달 열기
     setIsClickModal(!isClickModal);
     setIsLoading(true);
+
     await axios({
       method: "patch",
       url: `/api/sendy/messages/saved/${urlName}`,
@@ -93,7 +114,9 @@ const ReadButtons = ({
             }
             setIsLoading(false);
             alert("삭제되었습니다.");
-            navigate("/letterbox");
+            setTimeout(() => {
+              navigate("/letterbox");
+            }, 200);
           })
           .catch((err) => {
             console.log(err);
@@ -115,11 +138,10 @@ const ReadButtons = ({
               onRemove();
             }
             setIsLoading(false);
+            alert("삭제되었습니다.");
             setTimeout(() => {
-              alert("삭제되었습니다.");
-            }, 100);
-            navigate("/letterbox");
-            window.location.reload();
+              navigate("/letterbox");
+            }, 200);
           })
           .catch((err) => {
             console.log(err);

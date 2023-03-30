@@ -160,24 +160,17 @@ const ReadLetter = ({ isLogin }) => {
                 LetterTheme={data.themeName}
                 onClick={handleRotate}
               >
-                <div className="letterContent" Font={data.fontName}>
-                  <div className="to" Font={data.fontName}>
-                    To. {data.toName}
-                  </div>
-                  <div className="date">{LetterDate}</div>
+                <div className="letterContent" font={data.fontName}>
+                  <R.To font={data.fontName}>To. {data.toName}</R.To>
+                  <R.To font={data.fontName}>{LetterDate}</R.To>
                 </div>
-                <div className="content" Font={data.fontName}>
-                  {data.content}
-                </div>
-                <div className="from" Font={data.fontName}>
-                  From. {data.fromName}
-                </div>
+                <R.Content font={data.fontName}>{data.content}</R.Content>
+                <R.From font={data.fontName}>From. {data.fromName}</R.From>
               </R.Letterpaper>
               <R.Letterpaper className="back" onClick={handleRotate}>
                 <R.Date>{LetterDate}</R.Date>
                 <R.BackImg src={data.messageImageUrl}></R.BackImg>
-                <div className="preview-back-content">
-                  <R.FlexWrapper1></R.FlexWrapper1>
+                {/* <div className="preview-back-content">
                   <R.FlexWrapper1>
                     <R.NameInputWrapper className="preview">
                       {data.toName}에게
@@ -186,7 +179,7 @@ const ReadLetter = ({ isLogin }) => {
                       {data.fromName}(이)가
                     </R.NameInputWrapper>
                   </R.FlexWrapper1>
-                </div>
+                </div> */}
               </R.Letterpaper>
             </R.Card>
             <ReadButtons
