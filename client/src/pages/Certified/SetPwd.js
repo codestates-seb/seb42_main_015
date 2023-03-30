@@ -11,6 +11,7 @@ import axios from "axios";
 import { headers } from "./setupCertified";
 import { Loading } from "../../components/Loading";
 import { getCookie } from "../Certified/Cookie";
+import Refresh from "../../util/Refresh";
 
 function SetPwd() {
   const navigate = useNavigate();
@@ -58,33 +59,26 @@ function SetPwd() {
 
   // sign up 제출 버튼
   const onSubmit = async (data) => {
-    //   const { email, username, password } = data;
-    //   if (!emailValid) {
-    //     alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
-    //     return;
-    //   } else if (!isEmailCode) {
-    //     alert("인증을 완료해주세요.");
-    //   } else {
-    //     await axios
-    //       .post(
-    //         `/api/sendy/users/signup`,
-    //         { email: email, nickname: username, password: password },
-    //         {
-    //           headers,
-    //         }
-    //       )
-    //       .then(() => {
-    //         alert("회원가입 되었습니다.");
-    //       })
-    //       .catch((err) => {
-    //         console.log(err);
-    //         // alert("이미 가입된 유저입니다.");
-    //       });
-    //   }
+    const { password } = data;
+
+    await axios
+      .patch(
+        `/api/sendy/users/edit/password/1`,
+        { password: password },
+        { headers }
+      )
+      .then(() => {
+        alert("비밀번호가 변경 되었습니다.");
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() => handleEmailCheck());
+        }
+      });
   };
 
   //이메일 중복체크
-  const emailCheck = async () => {
+  const handleEmailCheck = async () => {
     if (watch("email")) {
       await axios({
         method: "post",
@@ -100,8 +94,11 @@ function SetPwd() {
           }
           setEmailValid(!emailValid);
         })
-        .catch(() => {
+        .catch((err) => {
           alert("회원가입 되지 않은 이메일입니다.");
+          if (err.response.status === 401) {
+            Refresh().then(() => handleEmailCheck());
+          }
         });
     }
   };
@@ -129,6 +126,9 @@ function SetPwd() {
       .catch((err) => {
         console.log(err);
         setIsLoading(false);
+        if (err.response.status === 401) {
+          Refresh().then(() => handleSendCode());
+        }
       });
   };
 
@@ -137,6 +137,9 @@ function SetPwd() {
     if (watch("code").length !== 0 && watch("code") === isCode) {
       setEmailCode(true);
       alert("인증되었습니다.");
+      setTimeout(() => {
+        navigate(`/setpwd/3`);
+      }, 1000);
     } else {
       alert("올바른 인증코드를 입력해주세요.");
     }
@@ -164,35 +167,42 @@ function SetPwd() {
           <C.RightBox>
             <C.SetPwdTitle>Password</C.SetPwdTitle>
             {page === "1" && (
-              <C.InputWrap>
-                <C.EmailLabel>Email</C.EmailLabel>
-                <C.InputForm>
-                  <BsEnvelopeAt />
-                  {emailValid ? (
-                    <C.Input className="emailInput" disabled="disabled" />
-                  ) : (
-                    <C.Input
-                      className="emailInput"
-                      type="email"
-                      name="email"
-                      placeholder="email address"
-                      {...register("email")}
-                    />
-                  )}
-                  {emailValid ? (
-                    isCode ? (
-                      <C.Duplicate background="#d3d3d3">발송 완료</C.Duplicate>
+              <>
+                <C.InputWrap>
+                  <C.EmailLabel>Email</C.EmailLabel>
+                  <C.InputForm>
+                    <BsEnvelopeAt />
+                    {emailValid ? (
+                      <C.Input className="emailInput" disabled="disabled" />
                     ) : (
-                      <C.Code onClick={handleSendCode}>코드 받기</C.Code>
-                    )
-                  ) : (
-                    <C.Duplicate onClick={emailCheck}>중복 체크</C.Duplicate>
+                      <C.Input
+                        className="emailInput"
+                        type="email"
+                        name="email"
+                        placeholder="email address"
+                        {...register("email")}
+                      />
+                    )}
+                    {emailValid ? (
+                      isCode ? (
+                        <C.Duplicate background="#d3d3d3">
+                          발송 완료
+                        </C.Duplicate>
+                      ) : (
+                        <C.Code onClick={handleSendCode}>코드 받기</C.Code>
+                      )
+                    ) : (
+                      <C.Duplicate onClick={handleEmailCheck}>
+                        중복 체크
+                      </C.Duplicate>
+                    )}
+                  </C.InputForm>
+                  {errors.email && (
+                    <C.ErrorMsg>{errors.email.message}</C.ErrorMsg>
                   )}
-                </C.InputForm>
-                {errors.email && (
-                  <C.ErrorMsg>{errors.email.message}</C.ErrorMsg>
-                )}
-              </C.InputWrap>
+                </C.InputWrap>
+                <AiOutlineArrowRight className="next" onClick={handleNext} />
+              </>
             )}
             {page === "2" && (
               <C.InputWrap>
@@ -236,9 +246,6 @@ function SetPwd() {
                   </C.ButtonBox>
                 </C.SetPwdForm>
               </C.InputWrap>
-            )}
-            {(page === "1" || page === "2") && (
-              <AiOutlineArrowRight className="next" onClick={handleNext} />
             )}
           </C.RightBox>
         </C.SetPwdContainer>

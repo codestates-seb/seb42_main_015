@@ -7,6 +7,7 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { useInView } from "react-intersection-observer";
 import { getCookie } from "../Certified/Cookie";
 import axios from "axios";
+import Refresh from "../../util/Refresh";
 
 function TrashOutgoing({ openModal, setOpenModal, modalRef }) {
   const [getData, setGetData] = useState([]);
@@ -24,7 +25,12 @@ function TrashOutgoing({ openModal, setOpenModal, modalRef }) {
         "ngrok-skip-browser-warning": "230328",
         Authorization: getCookie("accesstoken"),
       },
-    }).then((res) => setGetData(getData.concat(res.data.data)));
+    }).then((res) => setGetData(getData.concat(res.data.data)))
+    .catch((err) => {
+      if (err.response.status === 401) {
+        Refresh().then(() => getLetters());
+      }
+    });
   }, [page]);
 
   // console.log(getData);
@@ -41,7 +47,7 @@ function TrashOutgoing({ openModal, setOpenModal, modalRef }) {
       setTimeout(() => {
         setPage((prev) => prev + 1);
         setIsLoading(false);
-        console.log("무한 스크롤 요청🥲");
+        // console.log("무한 스크롤 요청🥲");
       }, 1500);
     }
   }, [inView]);
@@ -55,8 +61,16 @@ function TrashOutgoing({ openModal, setOpenModal, modalRef }) {
         Authorization: getCookie("accesstoken"),
       },
       data: { ids: select },
+    })
+    .then(() => window.location.reload())
+    .catch((err) => {
+      if (err.response.status === 401) {
+        Refresh().then(() => handleDelete());
+      }
     });
   };
+
+  // console.log(select)
 
   const handleRestore = () => {
     axios({
@@ -67,6 +81,12 @@ function TrashOutgoing({ openModal, setOpenModal, modalRef }) {
         Authorization: getCookie("accesstoken"),
       },
       data: { ids: select },
+    })
+    .then(() => window.location.reload())
+    .catch((err) => {
+      if (err.response.status === 401) {
+        Refresh().then(() => handleRestore());
+      }
     });
   };
 

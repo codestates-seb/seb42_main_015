@@ -16,6 +16,7 @@ import { BiRefresh } from "react-icons/bi";
 import useStore from "../../store/store";
 import { getCookie } from "../Certified/Cookie";
 import axios from "axios";
+import Refresh from "../../util/Refresh";
 
 function LetterBox() {
   const {
@@ -172,6 +173,12 @@ function LetterBox() {
           Authorization: getCookie("accesstoken"),
         },
         data: { ids: selectId },
+      })
+      .then(() => window.location.reload())
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() => handleDelete());
+        }
       });
     }
     if (!isSend) {
@@ -183,6 +190,12 @@ function LetterBox() {
           Authorization: getCookie("accesstoken"),
         },
         data: { ids: selectId },
+      })
+      .then(() => window.location.reload())
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() => handleDelete());
+        }
       });
     }
   };
