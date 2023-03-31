@@ -10,6 +10,7 @@ import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
 import { Loading } from "../../components/Loading";
 import Refresh from "../../util/Refresh";
+import useStore from "../../store/store";
 
 const ReadButtons = ({
   isLogin,
@@ -23,6 +24,7 @@ const ReadButtons = ({
   const navigate = useNavigate();
   const location = useLocation();
   const { urlName } = useParams();
+
   //로딩상태
   const [isLoading, setIsLoading] = useState(false);
   //휴지통 정보
@@ -47,8 +49,8 @@ const ReadButtons = ({
     }
   };
   useEffect(() => {
+    getMailboxId();
     if (location.state) {
-      getMailboxId();
       // 만약 발신편지라면(발신아이디가 있음) -> 보관완료 상태로 뜨게
       if (isDustbin.outgoingId && !isKeeping) {
         setIsKeeping(true);
@@ -81,7 +83,7 @@ const ReadButtons = ({
       })
       .catch((err) => {
         setIsLoading(false);
-        if (err.response.status === 401) {
+        while (err.response.status === 401) {
           Refresh().then(() => handleKeeping());
         }
       });
@@ -115,7 +117,7 @@ const ReadButtons = ({
           })
           .catch((err) => {
             setIsLoading(false);
-            if (err.response.status === 401) {
+            while (err.response.status === 401) {
               Refresh().then(() => onRemove());
             }
           });
@@ -140,7 +142,7 @@ const ReadButtons = ({
           })
           .catch((err) => {
             setIsLoading(false);
-            if (err.response.status === 401) {
+            while (err.response.status === 401) {
               Refresh().then(() => onRemove());
             }
           });

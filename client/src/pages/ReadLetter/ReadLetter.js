@@ -17,7 +17,7 @@ import ShareModal from "./ShareModal";
 
 const ReadLetter = ({ isLogin }) => {
   const { urlName } = useParams();
-  const { setLetterPassword, setMessageId } = useStore();
+  const { letterPassword, setLetterPassword, setMessageId } = useStore();
   const [isLoading, setIsLoading] = useState(false);
 
   //todo useState
@@ -85,6 +85,7 @@ const ReadLetter = ({ isLogin }) => {
         },
       })
       .then((res) => {
+        setLetterPassword("");
         //편지 정보 담기
         setData(res.data);
         //messageSaved 정보 담기
@@ -102,7 +103,7 @@ const ReadLetter = ({ isLogin }) => {
         setIsLoading(false);
       })
       .catch((err) => {
-        if (err.response.status === 401) {
+        while (err.response.status === 401) {
           Refresh().then(() => getLetter());
         }
       });
@@ -111,7 +112,7 @@ const ReadLetter = ({ isLogin }) => {
   useEffect(() => {
     getLetter();
     window.scrollTo(0, 0);
-  }, [isKeeping]);
+  }, []);
 
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
   const LetterDate = `${new Date(`${data.createdAt}`).getFullYear()}.${(
@@ -146,17 +147,22 @@ const ReadLetter = ({ isLogin }) => {
                   className="pause-icon"
                 />
               </div>
-              <R.EnterSeret>
-                비밀번호
-                <p>{data.password}</p>
-              </R.EnterSeret>
+              {letterPassword ? (
+                <R.EnterSeret>
+                  비밀번호
+                  <p>{data.password}</p>
+                </R.EnterSeret>
+              ) : (
+                <></>
+              )}
             </div>
             <R.Card className={rotate ? "active-rotate" : ""}>
               <R.Triangle onClick={handleRotate} />
               <R.Letterpaper
                 className="front"
                 ref={LetterRef}
-                LetterTheme={data.themeName}>
+                LetterTheme={data.themeName}
+              >
                 <div className="letterContent" font={data.fontName}>
                   <R.To font={data.fontName}>To. {data.toName}</R.To>
                   <R.To font={data.fontName}>{LetterDate}</R.To>

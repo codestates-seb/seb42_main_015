@@ -47,15 +47,10 @@ export const Wrapper = styled.div`
 
     .top-sub {
       display: flex;
-      justify-content: space-evenly;
-      margin: 0 0 0 28.5rem;
+      width: 100%;
+      justify-content: flex-end;
+      margin: 0.2rem 0 2rem 0rem;
 
-      @media screen and (max-width: 1024px) {
-        margin: 0 0 0 42rem;
-      }
-      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-        margin: 0 0 0 13rem;
-      }
       .soundButtons {
         display: flex;
         justify-content: space-evenly;
@@ -64,7 +59,6 @@ export const Wrapper = styled.div`
         padding: 7px 5px 0px 5px;
         width: 9rem;
         height: 3.5rem;
-        margin-top: 0.3rem;
         cursor: pointer;
 
         @media screen and (max-width: 1024px) {
@@ -185,8 +179,8 @@ export const EnterSeret = styled.div`
   width: 14.5rem;
   padding: 0.7rem 0.7rem 0.7rem 0rem;
   border: 2px solid #000000;
+  margin-left: 2rem;
   ${FONT_STYLE_READ.body_14_Medium}
-  margin: 0.2rem 0 2rem 2rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     padding: 0.7rem 0rem 0.7rem 0rem;
   }
@@ -243,7 +237,7 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   }
 
   ${(props) => {
-    switch (props.currentLetterTheme) {
+    switch (props.LetterTheme) {
       case "군대":
         return css`
           background-image: url(${군대});
@@ -302,6 +296,7 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     color: ${PALETTE_V1.text_primary};
   }
 `;
+
 export const Text = styled.div`
   ${(props) => {
     switch (props.font) {
