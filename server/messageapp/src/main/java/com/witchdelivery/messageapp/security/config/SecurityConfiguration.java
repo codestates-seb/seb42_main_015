@@ -67,10 +67,11 @@ public class SecurityConfiguration {
                 .and()
 
                 .authorizeHttpRequests(authorize -> authorize
-                        // member
+                        .antMatchers(HttpMethod.POST, "/*/users/verify/password/**").hasRole("USER") // 로그인 한 사람 비밀번호 확인
                         .antMatchers(HttpMethod.POST, "/*/users/**").permitAll()
                         .antMatchers(HttpMethod.GET, "/*/users").hasRole("ADMIN")
                         .antMatchers(HttpMethod.GET, "/*/users/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.PATCH, "/*/users/password").permitAll() // 로그인 전 비밀번호 찾기
                         .antMatchers(HttpMethod.PATCH, "/*/users/**").hasRole("USER")
                         .antMatchers(HttpMethod.DELETE, "/*/users/**").hasRole("USER")
                         // message
