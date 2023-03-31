@@ -25,12 +25,13 @@ function TrashReceiving({ openModal, setOpenModal, modalRef }) {
         "ngrok-skip-browser-warning": "230328",
         Authorization: getCookie("accesstoken"),
       },
-    }).then((res) => setGetData(getData.concat(res.data.data)))
-    .catch((err) => {
-      if (err.response.status === 401) {
-        Refresh().then(() => getLetters());
-      }
-    });
+    })
+      .then((res) => setGetData(getData.concat(res.data.data)))
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() => getLetters());
+        }
+      });
   }, [page]);
 
   // console.log(getData);
@@ -62,12 +63,12 @@ function TrashReceiving({ openModal, setOpenModal, modalRef }) {
       },
       data: { ids: select },
     })
-    .then(() => window.location.reload())
-    .catch((err) => {
-      if (err.response.status === 401) {
-        Refresh().then(() => handleDelete());
-      }
-    });
+      .then(() => window.location.reload())
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() => handleDelete());
+        }
+      });
   };
 
   // console.log(select)
@@ -82,12 +83,12 @@ function TrashReceiving({ openModal, setOpenModal, modalRef }) {
       },
       data: { ids: select },
     })
-    .then(() => window.location.reload())
-    .catch((err) => {
-      if (err.response.status === 401) {
-        Refresh().then(() => handleRestore());
-      }
-    });
+      .then(() => window.location.reload())
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() => handleRestore());
+        }
+      });
   };
 
   return (
@@ -108,7 +109,10 @@ function TrashReceiving({ openModal, setOpenModal, modalRef }) {
         </Modal>
       )}
       <M.TrashContainer>
-        <M.Warning>30일 뒤에 영구 삭제 됩니다.</M.Warning>
+        <M.TextBox>
+          <M.Title>수신</M.Title>
+          <M.Warning>30일 뒤에 영구 삭제 됩니다.</M.Warning>
+        </M.TextBox>
         <M.TrashTable>
           <M.TrashTableMenu>
             <M.CheckBox

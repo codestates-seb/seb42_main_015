@@ -313,11 +313,11 @@ function LetterBox() {
       )}
       {isSend ? (
         <L.SendButton onClick={() => setIsSend(!isSend)}>
-          <RiUserSharedLine />
+          보낸 <br/> 편지
         </L.SendButton>
       ) : (
         <L.ReceiveButton onClick={() => setIsSend(!isSend)}>
-          <RiUserReceivedLine />
+          받은 <br/> 편지
         </L.ReceiveButton>
       )}
     </L.LetterBoxWrap>

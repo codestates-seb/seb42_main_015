@@ -431,7 +431,7 @@ export const DeleteButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: ${FONT_STYLE_V1.title.title_12_medium};
+  ${FONT_STYLE_V1.title.title_14_medium};
   background-color: ${PALETTE_V1.orange_dark};
   color: white;
   cursor: pointer;
@@ -444,6 +444,7 @@ export const DeleteButton = styled.div`
 `;
 
 export const ReceiveButton = styled.div`
+  ${FONT_STYLE_V1.title.title_16_medium};
   width: 60px;
   height: 60px;
   border: 3px solid ${PALETTE_V1.orange_dark};
@@ -454,7 +455,6 @@ export const ReceiveButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2.5rem;
   background-color: white;
   color: ${PALETTE_V1.orange_dark};
   cursor: pointer;
@@ -467,6 +467,7 @@ export const ReceiveButton = styled.div`
 `;
 
 export const SendButton = styled.div`
+  ${FONT_STYLE_V1.title.title_16_medium};
   width: 60px;
   height: 60px;
   border: 3px solid ${PALETTE_V1.orange_dark};
@@ -477,7 +478,6 @@ export const SendButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2.5rem;
   background-color: ${PALETTE_V1.orange_dark};
   color: white;
   cursor: pointer;

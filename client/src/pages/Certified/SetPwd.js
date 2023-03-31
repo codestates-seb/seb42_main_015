@@ -21,6 +21,8 @@ function SetPwd() {
     setNext(+page + 1);
     navigate(`/setpwd/${next}`);
   };
+  const [changePwd, setChangePwd] = useState();
+  const [email, setEmail] = useState();
   //이메일 중복검사
   const [emailValid, setEmailValid] = useState(false);
   //이메일 인증코드
@@ -145,6 +147,24 @@ function SetPwd() {
     }
   };
 
+  const handleChangePwd = () => {
+    axios({
+      method: "patch",
+      url: `/api/sendy/users/password`,
+      headers: {
+        "ngrok-skip-browser-warning": "230327",
+        Authorization: getCookie("accesstoken"),
+      },
+      data: { email: email, newPassword: changePwd },
+    })
+      .then((res) => navigate("pwdchange/3"))
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() => handleChangePwd());
+        }
+      });
+  };
+
   return (
     <C.SetPwdWrap>
       {isLoading ? <Loading /> : ""}
@@ -181,6 +201,7 @@ function SetPwd() {
                         name="email"
                         placeholder="email address"
                         {...register("email")}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     )}
                     {emailValid ? (
@@ -228,6 +249,7 @@ function SetPwd() {
                     name="password"
                     type="password"
                     {...register("password")}
+                    onChange={(e) => setChangePwd(e.target.value)}
                   />
                   {errors.password && (
                     <C.ErrorMsg>{errors.password.message}</C.ErrorMsg>
@@ -242,7 +264,7 @@ function SetPwd() {
                     <C.ErrorMsg>{errors.passwordConfirm.message}</C.ErrorMsg>
                   )}
                   <C.ButtonBox>
-                    <C.Button onClick={handleNext}>확인</C.Button>
+                    <C.Button onClick={handleChangePwd}>확인</C.Button>
                   </C.ButtonBox>
                 </C.SetPwdForm>
               </C.InputWrap>
