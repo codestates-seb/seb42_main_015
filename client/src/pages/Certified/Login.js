@@ -116,7 +116,7 @@ function Login() {
                 <div className="oauth">
                   <img
                     src={require("../../asset/구글.png")}
-                    alt="Googole"
+                    alt="Google"
                     onClick={GoogleOauthLogin}
                   />
                 </div>
@@ -130,7 +130,8 @@ function Login() {
               <div className="section1">
                 <img
                   src={require("../../asset/해바라기.png")}
-                  alt="Sunflower"></img>
+                  alt="Sunflower"
+                ></img>
                 <span className="box">sunflower</span>
               </div>
               <div className="section2">
@@ -143,7 +144,7 @@ function Login() {
               <div className="oauth">
                 <img
                   src={require("../../asset/구글.png")}
-                  alt="Googole"
+                  alt="Google"
                   onClick={GoogleOauthLogin}
                 />
               </div>
