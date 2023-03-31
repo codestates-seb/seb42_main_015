@@ -1,19 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as W from "./WriteStyled";
-import { BiMicrophone, BiFontColor } from "react-icons/bi";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { SlQuestion } from "react-icons/sl";
 import { PALETTE_V1 } from "../../style/color";
 import LetterContent from "./LetterContent";
 import SendMeModal from "./SendMeModal";
 import Modal from "../commons/Modal";
-import FontMenu from "./FontMenu";
 import ShadowButton from "../commons/ShadowButton";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
 import MakeLetter from "./MakeLetter";
 import useStore from "../../store/store";
+import MenuBar from "./MenuBar";
+import { useSpeechRecognition } from "react-speech-recognition";
 
 function WriteLetter() {
   const [openExplaination, setOpenExplaination] = useState(false);
@@ -43,47 +40,19 @@ function WriteLetter() {
     "얼룩",
     "오리",
   ];
+  const { transcript, resetTranscript, finalTranscript } =
+    useSpeechRecognition();
   const [browserSize, setBrowserSize] = useState();
 
   const { letterContents, setLetterContents } = useStore();
 
   const sendMeModalRef = useRef();
   const makeLetterModalRef = useRef();
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    finalTranscript,
-    browserSupportsSpeechRecognition,
-  } = useSpeechRecognition();
+
   const handleOpenExplanation = () => {
     setOpenExplaination(!openExplaination);
   };
-  const handleActiveIcon = (e) => {
-    if (e.currentTarget.id === "음성인식") {
-      if (activeIcon === "음성인식") {
-        SpeechRecognition.stopListening();
-        setActiveIcon("");
-      } else {
-        setActiveIcon("음성인식");
-        navigator.mediaDevices.getUserMedia({ audio: true }).catch((err) => {
-          alert(
-            "오른쪽 상단에서 마이크 허용이 필요합니다. 마이크 허용 후 페이지를 새로고침해주세요."
-          );
-        });
-        SpeechRecognition.startListening({ continuous: true, language: "ko" });
-      }
-    } else if (e.currentTarget.id === "폰트변경") {
-      if (activeIcon === "폰트변경") {
-        setActiveIcon("");
-      } else {
-        if (listening) {
-          SpeechRecognition.stopListening();
-        }
-        setActiveIcon("폰트변경");
-      }
-    }
-  };
+
   const handleModal = (e) => {
     if (openSendMe && !sendMeModalRef.current.contains(e.target)) {
       setOpenSendMe(false);
@@ -92,6 +61,7 @@ function WriteLetter() {
       !makeLetterModalRef.current.contains(e.target)
     ) {
       setOpenMakeLetter(false);
+      setLetterContents({ ...letterContents, password: null, urlName: null });
     }
   };
   const handleThemeLeft = () => {
@@ -136,7 +106,12 @@ function WriteLetter() {
   useEffect(() => {
     setBrowserSize(window.innerWidth);
     setLetterContents({
-      ...letterContents,
+      toName: null,
+      fromName: null,
+      content: null,
+      password: null,
+      urlName: null,
+      fontName: "프리텐다드",
       themeName: letterTheme[contentLength],
     });
   }, []);
@@ -169,7 +144,9 @@ function WriteLetter() {
       {openMakeLetter ? (
         <Modal
           className="make-letter-modal"
-          ContainerWidth={browserSize > 767 ? "500px" : "300px"}
+          ContainerWidth={
+            browserSize > 767 ? "500px" : browserSize < 360 ? "240px" : "300px"
+          }
           ContainerHeight={browserSize > 767 ? "800px" : "600px"}
           children={<MakeLetter makeLetterModalRef={makeLetterModalRef} />}
         />
@@ -180,48 +157,7 @@ function WriteLetter() {
         <W.FlexWrapper2 id="flex-wrapper">
           {browserSize > 767 ? (
             <W.IconWrapper>
-              <W.BallonWrapper>
-                {!browserSupportsSpeechRecognition ? (
-                  <div>음성인식이 불가능한 브라우저</div>
-                ) : (
-                  <BiMicrophone
-                    onClick={handleActiveIcon}
-                    className={
-                      listening && activeIcon === "음성인식"
-                        ? "active-icon microphone-icon"
-                        : "microphone-icon"
-                    }
-                    id="음성인식"
-                  />
-                )}
-                {openExplaination ? (
-                  <W.BallonBottom1 className="stt-button">
-                    음성인식으로 편지를 작성할 수 있습니다.
-                  </W.BallonBottom1>
-                ) : (
-                  <></>
-                )}
-              </W.BallonWrapper>
-
-              <W.BallonWrapper>
-                <BiFontColor
-                  onClick={handleActiveIcon}
-                  className={
-                    activeIcon === "폰트변경"
-                      ? "active-icon font-icon"
-                      : "font-icon"
-                  }
-                  id="폰트변경"
-                />
-                {activeIcon === "폰트변경" ? <FontMenu /> : <></>}
-                {openExplaination ? (
-                  <W.BallonTop className="ballon2">
-                    글씨체를 변경할 수 있습니다.
-                  </W.BallonTop>
-                ) : (
-                  <></>
-                )}
-              </W.BallonWrapper>
+              <MenuBar openExplaination={openExplaination} />
             </W.IconWrapper>
           ) : (
             <></>
@@ -236,54 +172,7 @@ function WriteLetter() {
             <W.LetterWrapper>
               {browserSize <= 767 ? (
                 <W.FlexRowWrapper>
-                  <W.BallonWrapper>
-                    {!browserSupportsSpeechRecognition ? (
-                      <div>음성인식이 불가능한 브라우저</div>
-                    ) : (
-                      <BiMicrophone
-                        onClick={handleActiveIcon}
-                        className={
-                          listening
-                            ? "active-icon microphone-icon"
-                            : "microphone-icon"
-                        }
-                        id="음성인식"
-                      />
-                    )}
-                    {openExplaination ? (
-                      <W.BallonTop className="stt-button">
-                        음성인식으로 편지를 작성할 수 있습니다.
-                      </W.BallonTop>
-                    ) : (
-                      <></>
-                    )}
-                  </W.BallonWrapper>
-
-                  <W.BallonWrapper>
-                    <BiFontColor
-                      onClick={handleActiveIcon}
-                      className={
-                        activeIcon === "폰트변경"
-                          ? "active-icon font-icon"
-                          : "font-icon"
-                      }
-                      id="폰트변경"
-                    />
-                    {activeIcon === "폰트변경" ? <FontMenu /> : <></>}
-                    {openExplaination ? (
-                      browserSize > 767 ? (
-                        <W.BallonTop className="ballon2">
-                          글씨체를 변경할 수 있습니다.
-                        </W.BallonTop>
-                      ) : (
-                        <W.BallonLeft className="change-font">
-                          글씨체를 변경할 수 있습니다.
-                        </W.BallonLeft>
-                      )
-                    ) : (
-                      <></>
-                    )}
-                  </W.BallonWrapper>
+                  <MenuBar openExplaination={openExplaination} />
                 </W.FlexRowWrapper>
               ) : (
                 <></>
