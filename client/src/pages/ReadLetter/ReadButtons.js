@@ -55,7 +55,6 @@ const ReadButtons = ({
       }
     }
   }, [location]);
-  // console.log(isDustbin);
 
   //todo :보관하기
   const handleKeeping = async () => {
@@ -82,7 +81,6 @@ const ReadButtons = ({
       })
       .catch((err) => {
         setIsLoading(false);
-        console.log(err);
         if (err.response.status === 401) {
           Refresh().then(() => handleKeeping());
         }
@@ -117,7 +115,6 @@ const ReadButtons = ({
           })
           .catch((err) => {
             setIsLoading(false);
-            console.log(err);
             if (err.response.status === 401) {
               Refresh().then(() => onRemove());
             }
@@ -143,7 +140,6 @@ const ReadButtons = ({
           })
           .catch((err) => {
             setIsLoading(false);
-            console.log(err);
             if (err.response.status === 401) {
               Refresh().then(() => onRemove());
             }

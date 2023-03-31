@@ -101,7 +101,6 @@ const ReadLetter = ({ isLogin }) => {
         setIsLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 401) {
           Refresh().then(() => getLetter());
         }
