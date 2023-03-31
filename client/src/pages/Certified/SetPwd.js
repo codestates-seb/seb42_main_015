@@ -59,26 +59,6 @@ function SetPwd() {
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
-  // sign up 제출 버튼
-  const onSubmit = async (data) => {
-    const { password } = data;
-
-    await axios
-      .patch(
-        `/api/sendy/users/edit/password/1`,
-        { password: password },
-        { headers }
-      )
-      .then(() => {
-        alert("비밀번호가 변경 되었습니다.");
-      })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          Refresh().then(() => handleEmailCheck());
-        }
-      });
-  };
-
   //이메일 중복체크
   const handleEmailCheck = async () => {
     if (watch("email")) {
@@ -91,13 +71,13 @@ function SetPwd() {
         data: { email: watch("email") },
       })
         .then((res) => {
-          if (res.status === 200) {
+          alert("회원가입 되지 않은 이메일입니다.");
+        })
+        .catch((err) => {
+          if (err.response.status === 409) {
             alert("회원가입 된 이메일입니다.");
           }
           setEmailValid(!emailValid);
-        })
-        .catch((err) => {
-          alert("회원가입 되지 않은 이메일입니다.");
           if (err.response.status === 401) {
             Refresh().then(() => handleEmailCheck());
           }
@@ -113,7 +93,6 @@ function SetPwd() {
       url: `/api/sendy/email/send-code-email`,
       headers: {
         "ngrok-skip-browser-warning": "230328",
-        Authorization: getCookie("accesstoken"),
       },
       data: { email: watch("email") },
     })
@@ -147,20 +126,22 @@ function SetPwd() {
     }
   };
 
-  const handleChangePwd = () => {
-    axios({
+  // sign up 제출 버튼
+  const onSubmit = async (data) => {
+    const { password } = data;
+
+    await axios({
       method: "patch",
       url: `/api/sendy/users/password`,
       headers: {
         "ngrok-skip-browser-warning": "230327",
-        Authorization: getCookie("accesstoken"),
       },
       data: { email: email, newPassword: changePwd },
     })
-      .then((res) => navigate("pwdchange/3"))
+      .then((res) => navigate("/setpwd/4"))
       .catch((err) => {
         if (err.response.status === 401) {
-          Refresh().then(() => handleChangePwd());
+          Refresh().then(() => onSubmit());
         }
       });
   };
@@ -264,7 +245,12 @@ function SetPwd() {
                     <C.ErrorMsg>{errors.passwordConfirm.message}</C.ErrorMsg>
                   )}
                   <C.ButtonBox>
-                    <C.Button onClick={handleChangePwd}>확인</C.Button>
+                    <C.Button
+                      className="btn"
+                      type="submit"
+                      value="확인"
+                      disabled={isSubmitting}
+                    />
                   </C.ButtonBox>
                 </C.SetPwdForm>
               </C.InputWrap>
