@@ -304,9 +304,9 @@ function MyPage() {
                   )}
                   <M.SignUpDate>
                     가입일 :{" "}
-                    {`${new Date(userInfo.createdAt).getFullYear()}. ${new Date(
-                      userInfo.createdAt
-                    ).getMonth()}. ${new Date(userInfo.createdAt).getDate()}`}
+                    {`${new Date(userInfo.createdAt).getFullYear()}. ${
+                      new Date(userInfo.createdAt).getMonth() + 1
+                    }. ${new Date(userInfo.createdAt).getDate()}`}
                   </M.SignUpDate>
                 </M.NameDateWrapper>
                 <M.EmailWrapper>

@@ -5,6 +5,10 @@ import SquareButton from "../commons/SquareButton";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { deleteMember } from "../commons/axios";
+import { useNavigate } from "react-router-dom";
+import { removeCookie } from "../Certified/Cookie";
 
 function ResignModal({ setOpenResignModal, modalRef }) {
   const [modalStage, setModalStage] = useState(0);
@@ -45,8 +49,25 @@ function ResignModal({ setOpenResignModal, modalRef }) {
       }
     }
   };
+
   const handleQuit = () => {
     setOpenResignModal(false);
+  };
+
+  const navigate = useNavigate();
+  const handleDeletemember = () => {
+    const memberId = sessionStorage.getItem("memberId");
+    navigate("/");
+    deleteMember(memberId)
+      .then(() => {
+        localStorage.clear();
+        removeCookie("accesstoken", {
+          path: "/",
+        });
+        navigate("/");
+        window.location.reload();
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -79,7 +100,7 @@ function ResignModal({ setOpenResignModal, modalRef }) {
       {modalStage === 2 ? (
         <M.FlexWrapper3>
           <SquareButton onClick={handleQuit}>취소</SquareButton>
-          <SquareButton>작별인사하기</SquareButton>
+          <SquareButton onClick={handleDeletemember}>작별인사하기</SquareButton>
         </M.FlexWrapper3>
       ) : (
         <></>

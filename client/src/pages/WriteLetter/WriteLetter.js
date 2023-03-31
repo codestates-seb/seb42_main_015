@@ -16,7 +16,6 @@ function WriteLetter() {
   const [openExplaination, setOpenExplaination] = useState(false);
   const [sendMeChecked, setSendMeChecked] = useState(false);
   const [openSendMe, setOpenSendMe] = useState(false);
-  const [activeIcon, setActiveIcon] = useState("");
   const [openMakeLetter, setOpenMakeLetter] = useState(false);
   const [isContentVaild, setIsContentVaild] = useState(false);
   const [startDate, setStartDate] = useState(
@@ -27,8 +26,8 @@ function WriteLetter() {
     )
   );
   const [contentLength, setContentLength] = useState(0);
-  const [currentLetterTheme, setCurrentLetterTheme] = useState("군대");
   const letterTheme = [
+    "구름",
     "군대",
     "냥냥편지",
     "리본",
@@ -40,12 +39,16 @@ function WriteLetter() {
     "얼룩",
     "오리",
   ];
+  const [currentLetterTheme, setCurrentLetterTheme] = useState(letterTheme[0]);
+
   const { transcript, resetTranscript, finalTranscript } =
     useSpeechRecognition();
   const [browserSize, setBrowserSize] = useState();
 
   const { letterContents, setLetterContents } = useStore();
-
+  useEffect(() => {
+    console.log(letterContents);
+  }, [letterContents]);
   const sendMeModalRef = useRef();
   const makeLetterModalRef = useRef();
 
@@ -66,32 +69,32 @@ function WriteLetter() {
   };
   const handleThemeLeft = () => {
     if (letterTheme.indexOf(currentLetterTheme) === 0) {
-      setCurrentLetterTheme(letterTheme[letterTheme.length - 1]);
       setLetterContents({
         ...letterContents,
         themeName: letterTheme[letterTheme.length - 1],
       });
     } else {
       setCurrentLetterTheme(
-        letterTheme[letterTheme.indexOf(currentLetterTheme) - 1]
+        letterTheme[letterTheme.indexOf(letterContents.themeName) - 1]
       );
       setLetterContents({
         ...letterContents,
-        themeName: letterTheme[letterTheme.indexOf(currentLetterTheme) - 1],
+        themeName:
+          letterTheme[letterTheme.indexOf(letterContents.themeName) - 1],
       });
     }
   };
   const handleThemeRight = () => {
-    if (letterTheme.indexOf(currentLetterTheme) === letterTheme.length - 1) {
-      setCurrentLetterTheme(letterTheme[0]);
+    if (
+      letterTheme.indexOf(letterContents.themeName) ===
+      letterTheme.length - 1
+    ) {
       setLetterContents({ ...letterContents, themeName: letterTheme[0] });
     } else {
-      setCurrentLetterTheme(
-        letterTheme[letterTheme.indexOf(currentLetterTheme) + 1]
-      );
       setLetterContents({
         ...letterContents,
-        themeName: letterTheme[letterTheme.indexOf(currentLetterTheme) + 1],
+        themeName:
+          letterTheme[letterTheme.indexOf(letterContents.themeName) + 1],
       });
     }
   };

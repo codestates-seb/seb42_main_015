@@ -206,7 +206,7 @@ const Preview = () => {
                 <W.NameInputWrapper font={fontName} className="preview">
                   to. {toName}
                 </W.NameInputWrapper>
-                <W.Date font={fontName}>2023.03.17 금</W.Date>
+                <W.Date font={fontName}></W.Date>
               </W.FlexWrapper1>
             </div>
             <W.PreviewContent font={fontName}>{content}</W.PreviewContent>
@@ -220,7 +220,7 @@ const Preview = () => {
           </W.LetterBox>
           <W.LetterBox className="back">
             <W.FlexWrapper1>
-              <W.Date font={fontName}>2023.03.17 금</W.Date>
+              <W.Date font={fontName}></W.Date>
             </W.FlexWrapper1>
             <W.BackImg src={image}></W.BackImg>
             <div className="preview-back-content">

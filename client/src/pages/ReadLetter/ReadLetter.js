@@ -13,6 +13,7 @@ import useStore from "../../store/store";
 import { Loading } from "../../components/Loading";
 import axios from "axios";
 import Refresh from "../../util/Refresh";
+import ShareModal from "./ShareModal";
 
 const ReadLetter = ({ isLogin }) => {
   const { urlName } = useParams();
@@ -155,8 +156,7 @@ const ReadLetter = ({ isLogin }) => {
               <R.Letterpaper
                 className="front"
                 ref={LetterRef}
-                LetterTheme={data.themeName}
-              >
+                LetterTheme={data.themeName}>
                 <div className="letterContent" font={data.fontName}>
                   <R.To font={data.fontName}>To. {data.toName}</R.To>
                   <R.To font={data.fontName}>{LetterDate}</R.To>

@@ -68,3 +68,13 @@ export const deleteProfileImage = (memberId) => {
     },
   });
 };
+export const deleteMember = (memberId) => {
+  return axios({
+    method: "delete",
+    url: `/api/sendy/users/delete/${memberId}`,
+    headers: {
+      "ngrok-skip-browser-warning": "230325",
+      Authorization: getCookie("accesstoken"),
+    },
+  });
+};

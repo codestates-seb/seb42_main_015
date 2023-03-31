@@ -924,7 +924,8 @@ export const UploadBox = styled.div`
       .x-icon {
         background-color: #ffffff;
         border-radius: 50%;
-        height: fit-content;
+        height: 1rem;
+        width: 1rem;
       }
     }
   }
