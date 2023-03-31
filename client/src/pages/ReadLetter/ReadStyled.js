@@ -24,6 +24,7 @@ import 클로버 from "../../asset/letterTheme/클로버-theme.png";
 import 정월대보름 from "../../asset/letterTheme/정월대보름-theme.png";
 import 얼룩 from "../../asset/letterTheme/얼룩-theme.png";
 import 오리 from "../../asset/letterTheme/오리-theme.png";
+import 구름 from "../../asset/letterTheme/구름-theme.png";
 
 //todo : 전체 편지지 wrapper
 export const Wrapper = styled.div`
@@ -242,7 +243,7 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   }
 
   ${(props) => {
-    switch (props.LetterTheme) {
+    switch (props.currentLetterTheme) {
       case "군대":
         return css`
           background-image: url(${군대});
@@ -282,6 +283,10 @@ export const Letterpaper = styled(FlexColunmWrapper)`
       case "오리":
         return css`
           background-image: url(${오리});
+        `;
+      case "구름":
+        return css`
+          background-image: url(${구름});
         `;
       default:
         break;
