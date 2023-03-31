@@ -20,12 +20,21 @@ export const TrashTable = styled.div`
   width: 80vw;
 `;
 
-export const Warning = styled.div`
+export const TextBox = styled.div`
   width: 80vw;
   display: flex;
-  justify-content: flex-end;
-  color: red;
+  justify-content: space-between;
   padding-bottom: 2rem;
+`
+
+export const Title = styled.span`
+  ${FONT_STYLE_V1.body.body_30_light}
+`;
+
+export const Warning = styled.span`
+  color: red;
+  display: flex;
+  align-items: flex-end;
 `;
 
 export const TrashTableMenu = styled.div`
@@ -101,7 +110,7 @@ export const ItemContent = styled.div`
 
 export const ItemDate = styled.div`
   width: 150px;
-  color: #cccccc;
+  color: #5f5f5f;
   text-align: end;
 `;
 
@@ -143,7 +152,7 @@ export const ModalButton = styled.div`
 export const TopButton = styled.div`
   width: 60px;
   height: 60px;
-  border: 3px solid ${PALETTE_V1.orange_dark};
+  border: 2px solid black;
   border-radius: 50%;
   position: fixed;
   bottom: 40px;
@@ -153,7 +162,7 @@ export const TopButton = styled.div`
   align-items: center;
   font-size: 2.5rem;
   background-color: white;
-  color: ${PALETTE_V1.orange_dark};
+  color: black;
   cursor: pointer;
   z-index: 99;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
@@ -167,7 +176,7 @@ export const TopButton = styled.div`
 export const ReceiveButton = styled.div`
   width: 60px;
   height: 60px;
-  border: 3px solid ${PALETTE_V1.orange_dark};
+  border: 2px solid black;
   border-radius: 50%;
   position: fixed;
   bottom: 120px;
@@ -177,7 +186,7 @@ export const ReceiveButton = styled.div`
   align-items: center;
   font-size: 2.5rem;
   background-color: white;
-  color: ${PALETTE_V1.orange_dark};
+  color: black;
   cursor: pointer;
   z-index: 99;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
@@ -191,7 +200,7 @@ export const ReceiveButton = styled.div`
 export const SendButton = styled.div`
   width: 60px;
   height: 60px;
-  border: 3px solid ${PALETTE_V1.orange_dark};
+  border: 2px solid black;
   border-radius: 50%;
   position: fixed;
   bottom: 120px;
@@ -200,7 +209,7 @@ export const SendButton = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 2.5rem;
-  background-color: ${PALETTE_V1.orange_dark};
+  background-color: black;
   color: white;
   cursor: pointer;
   z-index: 99;

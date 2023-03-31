@@ -34,10 +34,6 @@ const ReadLetter = ({ setEnterPassword }) => {
     }
   };
 
-  useEffect(() => {
-    console.log(letterPassword);
-  }, []);
-
   return (
     <>
       <S.SWrapper theme="scret">

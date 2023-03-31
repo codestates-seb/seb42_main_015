@@ -234,7 +234,7 @@ export const Button = styled.button`
   height: 40px;
   background-color: transparent;
   border: 1px solid black;
-  margin-top: 1rem;
+  margin-top: 2rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 80px;
     height: 30px;

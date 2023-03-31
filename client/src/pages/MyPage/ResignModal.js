@@ -6,9 +6,10 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { deleteMember } from "../commons/axios";
+import { checkPassword, deleteMember } from "../commons/axios";
 import { useNavigate } from "react-router-dom";
 import { removeCookie } from "../Certified/Cookie";
+import Refresh from "../../util/Refresh";
 
 function ResignModal({ setOpenResignModal, modalRef }) {
   const [modalStage, setModalStage] = useState(0);
@@ -37,6 +38,7 @@ function ResignModal({ setOpenResignModal, modalRef }) {
   });
   const {
     register,
+    watch,
     formState: { isValid, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
 
@@ -58,7 +60,7 @@ function ResignModal({ setOpenResignModal, modalRef }) {
   const handleDeletemember = () => {
     const memberId = sessionStorage.getItem("memberId");
     navigate("/");
-    deleteMember(memberId)
+    deleteMember()
       .then(() => {
         localStorage.clear();
         removeCookie("accesstoken", {
@@ -68,6 +70,31 @@ function ResignModal({ setOpenResignModal, modalRef }) {
         window.location.reload();
       })
       .catch((err) => console.log(err));
+  };
+
+  const [isRightPassword, setIsRightPassword] = useState(null);
+  const handleCheckPassword = () => {
+    checkPassword(watch("password"))
+      .then(() => {
+        setIsRightPassword(true);
+      })
+      .catch((err) => {
+        if (err.response.status === 400) {
+          setIsRightPassword(false);
+        } else if (err.response.status === 401) {
+          Refresh().then(() => {
+            checkPassword(watch("password"))
+              .then(() => {
+                setIsRightPassword(true);
+              })
+              .catch((err) => {
+                if (err.response.status === 400) {
+                  setIsRightPassword(false);
+                }
+              });
+          });
+        }
+      });
   };
 
   return (
@@ -93,6 +120,11 @@ function ResignModal({ setOpenResignModal, modalRef }) {
           {errors.password && (
             <M.PwdError>{errors.password.message}</M.PwdError>
           )}
+          {isRightPassword === false ? (
+            <M.PwdError>현재 비밀번호와 일치하지 않습니다.</M.PwdError>
+          ) : (
+            <></>
+          )}
         </div>
       ) : (
         <></>
@@ -105,7 +137,14 @@ function ResignModal({ setOpenResignModal, modalRef }) {
       ) : (
         <></>
       )}
-      <M.NextIconWrapper onClick={handleStage}>
+      <M.NextIconWrapper
+        onClick={(e) => {
+          if (modalStage === 0) {
+            handleCheckPassword();
+          } else {
+            handleStage(e);
+          }
+        }}>
         {modalStage === 2 ? (
           <></>
         ) : (

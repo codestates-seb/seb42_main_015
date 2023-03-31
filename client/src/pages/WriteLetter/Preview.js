@@ -220,7 +220,8 @@ const Preview = () => {
             <W.FromWrapper>
               <W.NameInputWrapper
                 font={fontName}
-                className="from-input preview">
+                className="from-input preview"
+              >
                 From. {fromName}
               </W.NameInputWrapper>
             </W.FromWrapper>
@@ -237,7 +238,8 @@ const Preview = () => {
                 </W.NameInputWrapper>
                 <W.NameInputWrapper
                   font={fontName}
-                  className="from-input preview">
+                  className="from-input preview"
+                >
                   {fromName}(이)가
                 </W.NameInputWrapper>
               </W.FlexWrapper1>

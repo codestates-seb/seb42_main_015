@@ -73,7 +73,7 @@ function LetterInItem({ letter, trash, selectId, setSelectId }) {
           </L.BookMark>
           <L.ItemCase>
             <L.ItemDate>{date}</L.ItemDate>
-            <L.ItemTitle>from. {outgoingNickname}</L.ItemTitle>
+            <L.ItemTitle>From. <br/> {outgoingNickname}</L.ItemTitle>
             <L.ItemContents>{content}</L.ItemContents>
           </L.ItemCase>
         </L.ItemBox>
@@ -100,7 +100,7 @@ function LetterInItem({ letter, trash, selectId, setSelectId }) {
           >
             <L.ItemCase>
               <L.ItemDate>{date}</L.ItemDate>
-              <L.ItemTitle>from. {outgoingNickname}</L.ItemTitle>
+              <L.ItemTitle>From. <br /> {outgoingNickname}</L.ItemTitle>
               <L.ItemContents>{content}</L.ItemContents>
             </L.ItemCase>
           </Link>

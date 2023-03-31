@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { formSchema } from "./formSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Refresh from "../../util/Refresh";
 import {
   getUrlNameExist,
@@ -55,16 +55,13 @@ function MakeLetter({ makeLetterModalRef }) {
       .then(() => {
         postMessageImage(imageFile, letterContents.urlName);
       })
-      .then(() => {
-        navigate(`/readletter/${letterContents.urlName}`);
-      })
       .catch((err) => {
         if (err.response.status === 401) {
           Refresh().then(() => {
             postMessage(letterContents).then(() => {
-              postMessageImage(imageFile, letterContents.urlName).then(() => {
-                navigate(`/readletter/${letterContents.urlName}`);
-              });
+              postMessageImage(imageFile, letterContents.urlName).then(
+                () => {}
+              );
             });
           });
         } else {
@@ -193,11 +190,13 @@ function MakeLetter({ makeLetterModalRef }) {
         {canUseUrl &&
         (letterContents?.password?.length === 4 ||
           letterContents.password === null) ? (
-          <ShadowButton
-            backgroundColor={PALETTE_V1.yellow_basic}
-            onClick={handleMakeLetter}>
-            완료
-          </ShadowButton>
+          <Link to={`/writeletter/complete/${letterContents?.urlName}`}>
+            <ShadowButton
+              backgroundColor={PALETTE_V1.yellow_basic}
+              onClick={handleMakeLetter}>
+              완료
+            </ShadowButton>
+          </Link>
         ) : (
           <ShadowButton disabled backgroundColor="#d9d9d9">
             완료

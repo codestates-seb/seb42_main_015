@@ -98,6 +98,7 @@ function WriteLetter() {
   };
 
   window.addEventListener("resize", getBrowserSize);
+
   useEffect(() => {
     setBrowserSize(window.innerWidth);
     setLetterContents({
