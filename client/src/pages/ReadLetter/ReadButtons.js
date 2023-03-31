@@ -55,7 +55,6 @@ const ReadButtons = ({
       }
     }
   }, [location]);
-  // console.log(isDustbin);
 
   //todo :보관하기
   const handleKeeping = async () => {
@@ -72,9 +71,6 @@ const ReadButtons = ({
       data: {},
     })
       .then((res) => {
-        while (res.status === 401) {
-          Refresh().then(handleKeeping());
-        }
         setIsLoading(false);
         setIsKeeping(true);
         alert("편지가 저장되었습니다.\n 이제 우편함에서 확인할 수 있어요!");
@@ -82,11 +78,12 @@ const ReadButtons = ({
           ...isDustbin,
           receivingId: res.data.receivingId,
         });
-        // window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
         setIsLoading(false);
+        if (err.response.status === 401) {
+          Refresh().then(() => handleKeeping());
+        }
       });
   };
 
@@ -110,18 +107,17 @@ const ReadButtons = ({
             ids: [isDustbin.receivingId],
           },
         })
-          .then((res) => {
-            if (res.status === 401) {
-              Refresh().then(onRemove());
-            }
+          .then(() => {
             setIsLoading(false);
             alert("삭제되었습니다.");
             navigate("/letterbox");
             window.location.reload();
           })
           .catch((err) => {
-            console.log(err);
             setIsLoading(false);
+            if (err.response.status === 401) {
+              Refresh().then(() => onRemove());
+            }
           });
         //outgoingId가 있다면 === 발신편지라면
       } else if (isDustbin.outgoingId) {
@@ -136,18 +132,17 @@ const ReadButtons = ({
             ids: [isDustbin.outgoingId],
           },
         })
-          .then((res) => {
-            if (res.status === 401) {
-              Refresh().then(onRemove());
-            }
+          .then(() => {
             setIsLoading(false);
             alert("삭제되었습니다.");
             navigate("/letterbox");
             window.location.reload();
           })
           .catch((err) => {
-            console.log(err);
             setIsLoading(false);
+            if (err.response.status === 401) {
+              Refresh().then(() => onRemove());
+            }
           });
       }
   };

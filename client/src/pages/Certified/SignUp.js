@@ -22,8 +22,6 @@ function SignUp() {
   //로딩상태
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(isVaild.nameValid);
-
   const FormSchema = yup.object({
     username: yup
       .string()
@@ -83,7 +81,6 @@ function SignUp() {
           navigate("/completesignup");
         })
         .catch((err) => {
-          console.log(err);
           // alert("이미 가입된 유저입니다.");
         });
     }
@@ -176,7 +173,6 @@ function SignUp() {
         console.log(res.data.code);
       })
       .catch((err) => {
-        console.log(err);
         setIsLoading(false);
       });
   };
