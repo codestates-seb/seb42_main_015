@@ -16,7 +16,6 @@ function WriteLetter() {
   const [openExplaination, setOpenExplaination] = useState(false);
   const [sendMeChecked, setSendMeChecked] = useState(false);
   const [openSendMe, setOpenSendMe] = useState(false);
-  const [activeIcon, setActiveIcon] = useState("");
   const [openMakeLetter, setOpenMakeLetter] = useState(false);
   const [isContentVaild, setIsContentVaild] = useState(false);
   const [startDate, setStartDate] = useState(
@@ -29,6 +28,7 @@ function WriteLetter() {
   const [contentLength, setContentLength] = useState(0);
   const [currentLetterTheme, setCurrentLetterTheme] = useState("군대");
   const letterTheme = [
+    "구름",
     "군대",
     "냥냥편지",
     "리본",
@@ -45,7 +45,9 @@ function WriteLetter() {
   const [browserSize, setBrowserSize] = useState();
 
   const { letterContents, setLetterContents } = useStore();
-
+  useEffect(() => {
+    console.log(letterContents);
+  }, [letterContents]);
   const sendMeModalRef = useRef();
   const makeLetterModalRef = useRef();
 
