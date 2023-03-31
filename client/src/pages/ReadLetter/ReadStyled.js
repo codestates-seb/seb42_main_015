@@ -50,7 +50,7 @@ export const Wrapper = styled.div`
       width: 100%;
       justify-content: flex-end;
       margin: 0.2rem 0 2rem 0rem;
-      z-index: 2;
+      z-index: 201;
 
       .soundButtons {
         display: flex;
@@ -61,6 +61,7 @@ export const Wrapper = styled.div`
         width: 9rem;
         height: 3.5rem;
         cursor: pointer;
+        z-index: 202;
 
         @media screen and (max-width: 1024px) {
           height: 3.6rem;
@@ -74,6 +75,7 @@ export const Wrapper = styled.div`
       .speech-icon,
       .pause-icon {
         padding: 3px;
+        z-index: 203;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           padding: 6px;
         }
@@ -100,7 +102,7 @@ export const SWrapper = styled.div`
   min-height: 100%;
   background: #ffffff00;
   position: absolute;
-  z-index: 100;
+  z-index: 300;
   &::before {
     content: "";
     backdrop-filter: blur(50px);
@@ -182,6 +184,7 @@ export const EnterSeret = styled.div`
   border: 2px solid #000000;
   margin-left: 2rem;
   ${FONT_STYLE_READ.body_14_Medium}
+  z-index: 204;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     padding: 0.7rem 0rem 0.7rem 0rem;
   }
@@ -193,7 +196,7 @@ export const EnterSeret = styled.div`
     margin-left: 10px;
     width: 4rem;
     letter-spacing: 6px;
-
+    z-index: 204;
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       width: 5rem;
       letter-spacing: 4px;

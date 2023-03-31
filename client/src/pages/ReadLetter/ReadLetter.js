@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useLocation } from "react";
+import { useState, useRef, useEffect, useLocation, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import * as R from "./ReadStyled";
 import domtoimage from "dom-to-image";
@@ -19,14 +19,11 @@ const ReadLetter = ({ isLogin }) => {
   const { urlName } = useParams();
   const { letterPassword, setLetterPassword, setMessageId } = useStore();
   const [isLoading, setIsLoading] = useState(false);
-
   //todo useState
   //비밀번호 쳤는지 안쳤는지
   const [enterPassword, setEnterPassword] = useState(false);
-  //보관하기를 클릭했을 때 비로그인(저장X)인지 로그인(저장준비 완료)아닌지
-  const [isKeeping, setIsKeeping] = useState(false);
   //편지 정보 가져오기
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   //모달 클릭
   const [isClickModal, setIsClickModal] = useState(false);
   //편지 rotate
@@ -69,9 +66,9 @@ const ReadLetter = ({ isLogin }) => {
     getSpeech(pauseSpeech());
   };
 
-  //음성 변환 목소리 preload
-  useEffect(() => {
-    window.speechSynthesis.getVoices();
+  //todo : 보관하기 상태 변경
+  const handleMessageSaved = useCallback((value) => {
+    setData((prevState) => ({ ...prevState, messageSaved: value }));
   }, []);
 
   //todo 메세지 정보 가져오기
@@ -88,8 +85,6 @@ const ReadLetter = ({ isLogin }) => {
         setLetterPassword("");
         //편지 정보 담기
         setData(res.data);
-        //messageSaved 정보 담기
-        setIsKeeping(res.data.messageSaved);
         //messageId 정보 담기
         setMessageId(res.data.messageId);
         //편지 비밀번호가 없다면(null이라면) -> setEnterPassword(true)처리해서 SecretLetter로 안가겠금
@@ -109,11 +104,6 @@ const ReadLetter = ({ isLogin }) => {
       });
   };
 
-  useEffect(() => {
-    getLetter();
-    window.scrollTo(0, 0);
-  }, []);
-
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
   const LetterDate = `${new Date(`${data.createdAt}`).getFullYear()}.${(
     "00" +
@@ -127,11 +117,22 @@ const ReadLetter = ({ isLogin }) => {
     setRotate(!rotate);
   };
 
+  //todo : useEffect
+  //음성 변환 목소리 preload
+  useEffect(() => {
+    window.speechSynthesis.getVoices();
+  }, []);
+
+  useEffect(() => {
+    getLetter();
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       {isLoading ? <Loading /> : ""}
-      {/* 비밀번호가 없거나 저장되어 있는 상태면 -> 비밀번호를 입력하지 않음  */}
-      {enterPassword || isKeeping ? (
+      {/* 비밀번호가 없거나 저장되어data.messageSaved> 비밀번호를 입력하지 않음  */}
+      {enterPassword || data.messageSaved ? (
         <R.Wrapper>
           <div className="ReadContainer" onClick={handleModal}>
             <div className="top-sub">
@@ -182,9 +183,9 @@ const ReadLetter = ({ isLogin }) => {
               </R.Letterpaper>
             </R.Card>
             <ReadButtons
+              isKeeping={data.messageSaved}
+              handleMessageSaved={handleMessageSaved}
               ModalRef={ModalRef}
-              isKeeping={isKeeping}
-              setIsKeeping={setIsKeeping}
               isLogin={isLogin}
               onDownloadBtn={onDownloadBtn}
               isClickModal={isClickModal}
