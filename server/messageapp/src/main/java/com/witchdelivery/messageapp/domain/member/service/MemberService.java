@@ -6,7 +6,7 @@ import com.witchdelivery.messageapp.domain.member.entity.MemberStatus;
 import com.witchdelivery.messageapp.infra.S3.S3Info;
 import com.witchdelivery.messageapp.infra.S3.S3Service;
 import com.witchdelivery.messageapp.security.utils.CustomAuthorityUtils;
-import com.witchdelivery.messageapp.domain.member.dto.MemberPostDto;
+import com.witchdelivery.messageapp.domain.member.dto.MemberSignupDto;
 import com.witchdelivery.messageapp.domain.member.repository.MemberRepository;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.global.utils.CustomBeanUtils;
@@ -37,17 +37,17 @@ public class MemberService {
 
     /**
      * 사용자 등록(회원가입) 메서드
-     * @param memberPostDto
+     * @param memberSignupDto
      * @return
      */
-    public void createMember(MemberPostDto memberPostDto) {
-        memberDbService.verifiedExistedEmail(memberPostDto.getEmail()); // 이메일 검증
-        memberDbService.verifiedExistedName(memberPostDto.getNickname());   // 닉네임 검증
+    public void createMember(MemberSignupDto memberSignupDto) {
+        memberDbService.verifiedExistedEmail(memberSignupDto.getEmail()); // 이메일 검증
+        memberDbService.verifiedExistedName(memberSignupDto.getNickname());   // 닉네임 검증
 
         Member member = Member.builder()
-                .email(memberPostDto.getEmail())
-                .password(memberPostDto.getPassword())
-                .nickname(memberPostDto.getNickname())
+                .email(memberSignupDto.getEmail())
+                .password(memberSignupDto.getPassword())
+                .nickname(memberSignupDto.getNickname())
 //                .memberStatus(MemberStatus.MEMBER_ACTIVE)
                 .build();
 
@@ -94,16 +94,28 @@ public class MemberService {
     }
 
     /**
-     * 사용자 패스워드 수정 메서드
-     * @param member
-     * @return
+     * 마이페이지 사용자 패스워드 수정 메서드
+     * @param memberId 사용자 식별자
+     * @param curPassword 기존 패스워드
+     * @param newPassword 새로운 패스워드
      */
-    public Member updatePassword(Member member) {
-        Member findMember = memberDbService.findVerifiedMemberId(member.getMemberId());   // 사용자 검증
-        member.passwordEncode(passwordEncoder); // 패스워드 암호화
-        Member updateMember = customBeanUtils.copyNonNullProperties(member, findMember);  // copyNonNullProperties(원본 객체, 복사 객체)
-        return memberRepository.save(updateMember);
-    }   // FIXME
+    public void updatePasswordInMyPage(Long memberId, String curPassword, String newPassword) {
+        Member findMember = memberDbService.findVerifiedMemberId(memberId); // 사용자 검증
+        memberDbService.findMatchedPassword(findMember, curPassword);   // 기존 패스워드 검증
+        findMember.setPassword(passwordEncoder.encode(newPassword));    // 새로운 패스워드 암호화
+        memberRepository.save(findMember);
+    }
+
+    /**
+     * 로그인페이지 사용자 패스워드 수정 메서드
+     * @param email
+     * @param newPassword
+     */
+    public void updatePasswordInLoginPage(String email, String newPassword) {
+        Member findMember = memberDbService.findVerifiedEmail(email); // 사용자 이메일 검증
+        findMember.setPassword(passwordEncoder.encode(newPassword));    // 새로운 패스워드 암호화
+        memberRepository.save(findMember);
+    }
 
     /**
      * 사용자 닉네임 수정 메서드
@@ -124,9 +136,7 @@ public class MemberService {
     public void deleteMember(Long memberId) {
         Member findMember = memberDbService.findVerifiedMemberId(memberId);  // 사용자 검증
         findMember.setMemberStatus(MemberStatus.MEMBER_EXITED);
-//        memberRepository.save(findMember);
-//        memberRepository.deleteById(memberId);
-        memberRepository.delete(findMember);
+        memberRepository.deleteById(memberId);
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.witchdelivery.messageapp.infra.email;
 
-import com.witchdelivery.messageapp.global.utils.RedisUtil;
+import com.witchdelivery.messageapp.security.utils.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -20,7 +20,7 @@ public class EmailService {
     private final RedisUtil redisUtil;
 
     /**
-     * 랜덤 인증코드 이메일 발송 메서드
+     * 이메일 인증코드 발송 메서드
      * @param emailInfo
      * @param type
      * @return
@@ -54,7 +54,7 @@ public class EmailService {
     }
 
     /**
-     * 랜덤 인증코드 생성 메서드
+     * 인증코드 생성 메서드
      * @return
      */
     private String createCode() {
