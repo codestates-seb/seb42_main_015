@@ -60,15 +60,13 @@ function MakeLetter({ makeLetterModalRef }) {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          Refresh()
-            .then(() => {
-              postMessage(letterContents);
-            })
-            .then(() => {
+          Refresh().then(() => {
+            postMessage(letterContents).then(() => {
               postMessageImage(imageFile, letterContents.urlName).then(() => {
                 navigate(`/readletter/${letterContents.urlName}`);
               });
             });
+          });
         } else {
           console.log(err);
         }
@@ -86,7 +84,7 @@ function MakeLetter({ makeLetterModalRef }) {
   const handleUrlReg = (e) => {
     setCanUseUrl(null);
     e.target.value = e.target.value.replace(
-      /[ㄱ-힣~!@#$%^&*()_+|<>?:{}=\\`"';\.\,\[\]/]/g,
+      /[A-Zㄱ-힣~!@#$%^&*()_+|<>?:{}=\\`"';\.\,\[\]/]/g,
       ""
     );
     setLetterContents({ ...letterContents, urlName: e.target.value });

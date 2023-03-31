@@ -26,7 +26,6 @@ function WriteLetter() {
     )
   );
   const [contentLength, setContentLength] = useState(0);
-  const [currentLetterTheme, setCurrentLetterTheme] = useState("군대");
   const letterTheme = [
     "구름",
     "군대",
@@ -40,6 +39,8 @@ function WriteLetter() {
     "얼룩",
     "오리",
   ];
+  const [currentLetterTheme, setCurrentLetterTheme] = useState(letterTheme[0]);
+
   const { transcript, resetTranscript, finalTranscript } =
     useSpeechRecognition();
   const [browserSize, setBrowserSize] = useState();
@@ -68,32 +69,32 @@ function WriteLetter() {
   };
   const handleThemeLeft = () => {
     if (letterTheme.indexOf(currentLetterTheme) === 0) {
-      setCurrentLetterTheme(letterTheme[letterTheme.length - 1]);
       setLetterContents({
         ...letterContents,
         themeName: letterTheme[letterTheme.length - 1],
       });
     } else {
       setCurrentLetterTheme(
-        letterTheme[letterTheme.indexOf(currentLetterTheme) - 1]
+        letterTheme[letterTheme.indexOf(letterContents.themeName) - 1]
       );
       setLetterContents({
         ...letterContents,
-        themeName: letterTheme[letterTheme.indexOf(currentLetterTheme) - 1],
+        themeName:
+          letterTheme[letterTheme.indexOf(letterContents.themeName) - 1],
       });
     }
   };
   const handleThemeRight = () => {
-    if (letterTheme.indexOf(currentLetterTheme) === letterTheme.length - 1) {
-      setCurrentLetterTheme(letterTheme[0]);
+    if (
+      letterTheme.indexOf(letterContents.themeName) ===
+      letterTheme.length - 1
+    ) {
       setLetterContents({ ...letterContents, themeName: letterTheme[0] });
     } else {
-      setCurrentLetterTheme(
-        letterTheme[letterTheme.indexOf(currentLetterTheme) + 1]
-      );
       setLetterContents({
         ...letterContents,
-        themeName: letterTheme[letterTheme.indexOf(currentLetterTheme) + 1],
+        themeName:
+          letterTheme[letterTheme.indexOf(letterContents.themeName) + 1],
       });
     }
   };

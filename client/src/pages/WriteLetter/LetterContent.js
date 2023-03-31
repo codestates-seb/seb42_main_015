@@ -61,7 +61,6 @@ function LetterContent({
         ...letterContents,
         toName: watch("receiverName"),
         fromName: watch("senderName"),
-        content,
       });
     } else {
       setIsContentVaild(false);
@@ -77,6 +76,7 @@ function LetterContent({
   //   setOpenSendMe(!openSendMe);
   //   setSendMeChecked(true);
   // };
+
   const handleContentLength = (e) => {
     if (e.target.value.length > 7000) {
       setContentError("최대 7000자까지 작성할 수 있습니다.");
@@ -157,7 +157,7 @@ function LetterContent({
         font={letterContents.fontName}
         name="content"
         onInput={(e) => {
-          setContent(e.target.value);
+          setLetterContents({ ...letterContents, content: e.target.value });
           handleContentLength(e);
         }}
         {...register("content")}
