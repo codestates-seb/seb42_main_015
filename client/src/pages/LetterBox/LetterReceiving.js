@@ -5,6 +5,7 @@ import useStore from "../../store/store";
 import { useInView } from "react-intersection-observer";
 import { getCookie } from "../Certified/Cookie";
 import axios from "axios";
+import Refresh from "../../util/Refresh";
 
 function LetterReceiving({
   trash,
@@ -28,7 +29,12 @@ function LetterReceiving({
       },
     })
       .then((res) => setInLetters(inLetters.concat(res.data.data)))
-      .then((res) => setIsFilterIn(inLetters));
+      .then((res) => setIsFilterIn(inLetters))
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() => getLetters());
+        }
+      });
   }, [page]);
 
   useEffect(() => {
@@ -45,7 +51,7 @@ function LetterReceiving({
       setTimeout(() => {
         setPage((prev) => prev + 1);
         setIsLoading(false);
-        console.log("무한 스크롤 요청🥲");
+        // console.log("무한 스크롤 요청🥲");
       }, 1500);
     }
   }, [inView]);

@@ -425,8 +425,9 @@ export const ResignationWrapper = styled.div`
 `;
 export const ResignLink = styled(ReadletterLink)`
   border-bottom: none;
-  margin-top: 20px;
-  margin-right: 20px;
+  margin-top: 3rem;
+  margin-right: 2.5rem;
+  margin-bottom: 3rem;
 `;
 export const ResignBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.2);

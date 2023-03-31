@@ -156,7 +156,7 @@ export const Code = styled.button`
   }
 `;
 
-export const InputForm = styled.form`
+export const InputForm = styled.div`
   border-bottom: 1px solid black;
   margin-top: 1.5rem;
   margin-bottom: 1rem;

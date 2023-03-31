@@ -5,6 +5,7 @@ import useStore from "../../store/store";
 import { useInView } from "react-intersection-observer";
 import { getCookie } from "../Certified/Cookie";
 import axios from "axios";
+import Refresh from "../../util/Refresh";
 
 function LetterOutgoing({
   trash,
@@ -12,7 +13,6 @@ function LetterOutgoing({
   isSearchOut,
   selectId,
   setSelectId,
-
 }) {
   const { outLetters, setOutLetters, isFilterOut, setIsFilterOut } = useStore();
   const [page, setPage] = useState(1);
@@ -29,7 +29,12 @@ function LetterOutgoing({
       },
     })
       .then((res) => setOutLetters(outLetters.concat(res.data.data)))
-      .then((res) => setIsFilterOut(outLetters));
+      .then((res) => setIsFilterOut(outLetters))
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() => getLetters());
+        }
+      });
   }, [page]);
 
   useEffect(() => {
@@ -46,7 +51,7 @@ function LetterOutgoing({
       setTimeout(() => {
         setPage((prev) => prev + 1);
         setIsLoading(false);
-        console.log("무한 스크롤 요청🥲");
+        // console.log("무한 스크롤 요청🥲");
       }, 1500);
     }
   }, [inView]);
@@ -69,7 +74,6 @@ function LetterOutgoing({
                     key={letter.outgoingId}
                     letter={letter}
                     trash={trash}
-               
                   />
                 );
               })
@@ -83,7 +87,6 @@ function LetterOutgoing({
                   trash={trash}
                   selectId={selectId}
                   setSelectId={setSelectId}
-              
                 />
               );
             })

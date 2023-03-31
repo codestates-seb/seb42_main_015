@@ -3,6 +3,7 @@ import * as L from "./LetterBoxStyled";
 import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
 import { Link } from "react-router-dom";
+import Refresh from "../../util/Refresh";
 
 function LetterInItem({ letter, trash, selectId, setSelectId }) {
   const {
@@ -46,6 +47,11 @@ function LetterInItem({ letter, trash, selectId, setSelectId }) {
         Authorization: getCookie("accesstoken"),
       },
       data: { bookMark: !mark },
+    })
+    .catch((err) => {
+      if (err.response.status === 401) {
+        Refresh().then(() => handleBookMark());
+      }
     });
   };
 
@@ -60,9 +66,9 @@ function LetterInItem({ letter, trash, selectId, setSelectId }) {
         >
           <L.BookMark>
             {mark ? (
-              <img src={require("../../asset/bookmark-red.png")} alt="" />
+              <img src={require("../../asset/bookmark-on.png")} alt="" />
             ) : (
-              <img src={require("../../asset/bookmark-grey.png")} alt="" />
+              <img src={require("../../asset/bookmark-off.png")} alt="" />
             )}
           </L.BookMark>
           <L.ItemCase>
@@ -80,9 +86,9 @@ function LetterInItem({ letter, trash, selectId, setSelectId }) {
         >
           <L.BookMark onClick={handleBookMark}>
             {mark ? (
-              <img src={require("../../asset/bookmark-red.png")} alt="" />
+              <img src={require("../../asset/bookmark-on.png")} alt="" />
             ) : (
-              <img src={require("../../asset/bookmark-grey.png")} alt="" />
+              <img src={require("../../asset/bookmark-off.png")} alt="" />
             )}
           </L.BookMark>
           <Link
