@@ -18,6 +18,7 @@ import {
   postMessageImage,
 } from "../commons/axios";
 import ImageInput from "./ImageInput";
+import { Loading } from "../../components/Loading";
 
 function MakeLetter({ makeLetterModalRef }) {
   const {
