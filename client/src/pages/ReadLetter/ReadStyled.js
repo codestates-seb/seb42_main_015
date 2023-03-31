@@ -47,15 +47,10 @@ export const Wrapper = styled.div`
 
     .top-sub {
       display: flex;
-      justify-content: space-evenly;
-      margin: 0 0 0 28.5rem;
+      width: 100%;
+      justify-content: flex-end;
+      margin: 0.2rem 0 2rem 0rem;
 
-      @media screen and (max-width: 1024px) {
-        margin: 0 0 0 42rem;
-      }
-      @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-        margin: 0 0 0 13rem;
-      }
       .soundButtons {
         display: flex;
         justify-content: space-evenly;
@@ -64,7 +59,6 @@ export const Wrapper = styled.div`
         padding: 7px 5px 0px 5px;
         width: 9rem;
         height: 3.5rem;
-        margin-top: 0.3rem;
         cursor: pointer;
 
         @media screen and (max-width: 1024px) {
@@ -185,8 +179,8 @@ export const EnterSeret = styled.div`
   width: 14.5rem;
   padding: 0.7rem 0.7rem 0.7rem 0rem;
   border: 2px solid #000000;
+  margin-left: 2rem;
   ${FONT_STYLE_READ.body_14_Medium}
-  margin: 0.2rem 0 2rem 2rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     padding: 0.7rem 0rem 0.7rem 0rem;
   }
@@ -210,7 +204,7 @@ export const EnterSeret = styled.div`
 export const FlexColunmWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  &.align-center {
+  &.align-ce#d1e9ae
     align-items: center;
   }
   &.letter {
@@ -243,7 +237,7 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   }
 
   ${(props) => {
-    switch (props.currentLetterTheme) {
+    switch (props.LetterTheme) {
       case "군대":
         return css`
           background-image: url(${군대});
@@ -293,6 +287,57 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     }
   }};
 
+  ${(props) => {
+    switch (props.LetterBackround) {
+      case "군대":
+        return css`
+          background: #dfeace;
+        `;
+      case "냥냥편지":
+        return css`
+          background: #f3e016;
+        `;
+      case "리본":
+        return css`
+          background: #fdf6b2;
+        `;
+      case "수박":
+        return css`
+          background: #f5c5b9;
+        `;
+      case "알록달록":
+        return css`
+          background: #a9e0ff;
+        `;
+      case "얼룩":
+        return css`
+          background: #c4c6c8;
+        `;
+      case "체리":
+        return css`
+          background: #d3e3e2;
+        `;
+      case "클로버":
+        return css`
+          background: #d0ffe6;
+        `;
+      case "정월대보름":
+        return css`
+          background: #71b2c5;
+        `;
+      case "오리":
+        return css`
+          background: #daffff;
+        `;
+      case "구름":
+        return css`
+          background: #a9e0ff;
+        `;
+      default:
+        break;
+    }
+  }};
+
   .letterContent {
     display: flex;
     justify-content: space-between;
@@ -302,6 +347,7 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     color: ${PALETTE_V1.text_primary};
   }
 `;
+
 export const Text = styled.div`
   ${(props) => {
     switch (props.font) {
@@ -591,9 +637,40 @@ export const Card = styled.div`
   transition: 0.4s;
   transform-style: preserve-3d;
   perspective: 1100px;
+
   .front,
   .back {
     backface-visibility: hidden;
+  }
+
+  .front {
+    &::after {
+      position: absolute;
+      content: "";
+      background-color: ${PALETTE_V1.background};
+      width: 10rem;
+      height: 10rem;
+      top: -1rem;
+      right: -2rem;
+    }
+    @media screen and (max-width: 590px) {
+      &::after {
+        top: -2.5rem;
+        right: -2.5rem;
+      }
+    }
+    @media screen and (max-width: 490px) {
+      &::after {
+        top: -4rem;
+        right: -4rem;
+      }
+    }
+    @media screen and (max-width: 380px) {
+      &::after {
+        top: -5.5rem;
+        right: -5.5rem;
+      }
+    }
   }
   .back {
     position: absolute;
@@ -602,11 +679,39 @@ export const Card = styled.div`
     top: 0px;
     left: 0px;
     transform: rotateY(180deg);
+    &::after {
+      position: absolute;
+      content: "";
+      background-color: ${PALETTE_V1.background};
+      width: 10rem;
+      height: 10rem;
+      top: -1rem;
+      left: -2rem;
+    }
+    @media screen and (max-width: 590px) {
+      &::after {
+        top: -2.5rem;
+        left: -2.5rem;
+      }
+    }
+    @media screen and (max-width: 490px) {
+      &::after {
+        top: -4rem;
+        left: -4rem;
+      }
+    }
+    @media screen and (max-width: 380px) {
+      &::after {
+        top: -5.5rem;
+        left: -5.5rem;
+      }
+    }
   }
   &.active-rotate {
     transform: rotateY(180deg);
   }
 `;
+
 //TODO : 편지 뒷장
 export const Date = styled(Text)`
   display: flex;
@@ -636,15 +741,86 @@ export const Triangle = styled.div`
   z-index: 100;
   &::after {
     content: "";
-    top: 0px;
-    right: 0px;
+    top: 2px;
+    right: 3px;
     width: 0;
     height: 0;
     position: absolute;
-    border: 4.35rem solid white;
-    border-top-color: transparent;
-    border-right-color: transparent;
+    /* 꼬다리 색깔 */
+    border: 4.35rem solid;
     z-index: 100;
+    ${(props) => {
+      switch (props.bordercolor) {
+        case "군대":
+          return css`
+            border-color: #81c200;
+            border-top-color: transparent;
+            border-right-color: transparent;
+          `;
+        case "냥냥편지":
+          return css`
+            border-color: #84e524;
+            border-top-color: transparent;
+            border-right-color: transparent;
+          `;
+        case "리본":
+          return css`
+            border-color: #f297b4;
+            border-top-color: transparent;
+            border-right-color: transparent;
+          `;
+        case "수박":
+          return css`
+            border-color: #ed927e;
+            border-top-color: transparent;
+            border-right-color: transparent;
+          `;
+        case "알록달록":
+          return css`
+            border-color: #ffe093;
+            border-top-color: transparent;
+            border-right-color: transparent;
+          `;
+        case "얼룩":
+          return css`
+            border-color: #fbfdd9;
+            border-top-color: transparent;
+            border-right-color: transparent;
+          `;
+        case "체리":
+          return css`
+            border-color: #b4ded6;
+            border-top-color: transparent;
+            border-right-color: transparent;
+          `;
+        case "클로버":
+          return css`
+            border-color: #64f6a0;
+            border-top-color: transparent;
+            border-right-color: transparent;
+          `;
+        case "정월대보름":
+          return css`
+            border-color: #85cbdf;
+            border-top-color: transparent;
+            border-right-color: transparent;
+          `;
+        case "오리":
+          return css`
+            border-color: #00dafb;
+            border-top-color: transparent;
+            border-right-color: transparent;
+          `;
+        case "구름":
+          return css`
+            border-color: #ffffff;
+            border-top-color: transparent;
+            border-right-color: transparent;
+          `;
+        default:
+          break;
+      }
+    }};
   }
   &::before {
     content: "";

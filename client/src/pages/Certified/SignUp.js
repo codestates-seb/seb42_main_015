@@ -198,7 +198,6 @@ function SignUp() {
                     {...register("username")}
                   />
                 )}
-
                 {isVaild.nameValid ? (
                   <button className="duplicate-check">체크완료</button>
                 ) : (
