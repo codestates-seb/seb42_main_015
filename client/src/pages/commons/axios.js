@@ -47,6 +47,9 @@ export const getUserInfo = (memberId) => {
     },
   });
 };
+// export const getUserInfo = async () => {
+//   const memberId = sessionStorage.getItem("memberId");
+// };
 export const postVerifyNickName = (nickname) => {
   return axios({
     method: "post",
@@ -68,7 +71,8 @@ export const deleteProfileImage = (memberId) => {
     },
   });
 };
-export const deleteMember = (memberId) => {
+export const deleteMember = () => {
+  const memberId = sessionStorage.getItem("memberId");
   return axios({
     method: "delete",
     url: `/api/sendy/users/delete/${memberId}`,
@@ -76,5 +80,17 @@ export const deleteMember = (memberId) => {
       "ngrok-skip-browser-warning": "230325",
       Authorization: getCookie("accesstoken"),
     },
+  });
+};
+export const checkPassword = (password) => {
+  const memberId = sessionStorage.getItem("memberId");
+  return axios({
+    method: "post",
+    url: `/api/sendy/users/verify/password/${memberId}`,
+    headers: {
+      "ngrok-skip-browser-warning": "230325",
+      Authorization: getCookie("accesstoken"),
+    },
+    data: { password },
   });
 };

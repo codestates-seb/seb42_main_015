@@ -39,16 +39,11 @@ function WriteLetter() {
     "얼룩",
     "오리",
   ];
-  const [currentLetterTheme, setCurrentLetterTheme] = useState(letterTheme[0]);
-
   const { transcript, resetTranscript, finalTranscript } =
     useSpeechRecognition();
   const [browserSize, setBrowserSize] = useState();
 
   const { letterContents, setLetterContents } = useStore();
-  useEffect(() => {
-    console.log(letterContents);
-  }, [letterContents]);
   const sendMeModalRef = useRef();
   const makeLetterModalRef = useRef();
 
@@ -68,15 +63,12 @@ function WriteLetter() {
     }
   };
   const handleThemeLeft = () => {
-    if (letterTheme.indexOf(currentLetterTheme) === 0) {
+    if (letterTheme.indexOf(letterContents.themeName) === 0) {
       setLetterContents({
         ...letterContents,
         themeName: letterTheme[letterTheme.length - 1],
       });
     } else {
-      setCurrentLetterTheme(
-        letterTheme[letterTheme.indexOf(letterContents.themeName) - 1]
-      );
       setLetterContents({
         ...letterContents,
         themeName:
@@ -106,6 +98,7 @@ function WriteLetter() {
   };
 
   window.addEventListener("resize", getBrowserSize);
+
   useEffect(() => {
     setBrowserSize(window.innerWidth);
     setLetterContents({
@@ -191,7 +184,7 @@ function WriteLetter() {
                 transcript={transcript}
                 finalTranscript={finalTranscript}
                 resetTranscript={resetTranscript}
-                currentLetterTheme={currentLetterTheme}
+                currentLetterTheme={letterContents.themeName}
                 browserSize={browserSize}
                 setIsContentVaild={setIsContentVaild}
               />
