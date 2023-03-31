@@ -157,7 +157,7 @@ const ReadLetter = ({ isLogin }) => {
               )}
             </div>
             <R.Card className={rotate ? "active-rotate" : ""}>
-              <R.Triangle onClick={handleRotate} />
+              <R.Triangle onClick={handleRotate} bordercolor={data.themeName} />
               <R.Letterpaper
                 className="front"
                 ref={LetterRef}
@@ -170,7 +170,7 @@ const ReadLetter = ({ isLogin }) => {
                 <R.Content font={data.fontName}>{data.content}</R.Content>
                 <R.From font={data.fontName}>From. {data.fromName}</R.From>
               </R.Letterpaper>
-              <R.Letterpaper className="back">
+              <R.Letterpaper className="back" LetterBackround={data.themeName}>
                 <R.Date font={data.fontName}>{LetterDate}</R.Date>
                 <R.BackImg src={data.messageImageUrl}></R.BackImg>
                 <div className="preview-back-content">
