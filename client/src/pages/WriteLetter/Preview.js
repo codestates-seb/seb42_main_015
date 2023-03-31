@@ -195,6 +195,13 @@ const Preview = () => {
   const handleRotate = () => {
     setRotate(!rotate);
   };
+  const weekday = ["일", "월", "화", "수", "목", "금", "토"];
+  const currentDate = `${new Date().getFullYear()}.${(
+    "00" +
+    (new Date().getMonth() + 1)
+  ).slice(-2)}.${("00" + new Date().getDate()).slice(-2)} ${
+    weekday[new Date().getDay()]
+  }`;
   return (
     <Container>
       <Wrapper>
@@ -206,7 +213,7 @@ const Preview = () => {
                 <W.NameInputWrapper font={fontName} className="preview">
                   to. {toName}
                 </W.NameInputWrapper>
-                <W.Date font={fontName}></W.Date>
+                <W.Date font={fontName}>{currentDate}</W.Date>
               </W.FlexWrapper1>
             </div>
             <W.PreviewContent font={fontName}>{content}</W.PreviewContent>
