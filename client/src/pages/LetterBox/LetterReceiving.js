@@ -38,9 +38,15 @@ function LetterReceiving({
   }, [page]);
 
   useEffect(() => {
+    setInLetters([])
+    console.log('리렌더링')
+  }, [])
+
+  useEffect(() => {
     setIsLoading(true);
     getLetters();
     setIsLoading(false);
+    console.log('페이지 요청')
   }, [page]);
 
   // console.log(inLetters);

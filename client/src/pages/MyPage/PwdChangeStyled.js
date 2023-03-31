@@ -65,11 +65,15 @@ export const UserBox = styled.div`
   padding-top: 1rem;
 `;
 
-export const UserImg = styled.img`
+export const UserImg = styled.div`
   width: 40px;
   height: 40px;
   border: 1px solid #ccc;
   border-radius: 50%;
+  overflow: hidden;
+  img {
+    width: 100%;
+  }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 30px;
     height: 30px;
@@ -124,13 +128,24 @@ export const ErrorMsg = styled.div`
   text-align: center;
 `;
 
-export const PwdForm = styled.form`
+export const InputCase = styled.div`
   border-bottom: 1px solid black;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
   display: flex;
   padding-bottom: 0.5rem;
+  .icon {
+    cursor: pointer;
+  }
 `;
+
+// export const PwdForm = styled.div`
+//   border-bottom: 1px solid black;
+//   margin-top: 1.5rem;
+//   margin-bottom: 1rem;
+//   display: flex;
+//   padding-bottom: 0.5rem;
+// `;
 
 export const PwdInput = styled.input`
   flex-grow: 2;
@@ -159,10 +174,10 @@ export const Button = styled.button`
   height: 40px;
   background-color: transparent;
   border: 1px solid black;
+  margin-top: 2rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 80px;
     height: 30px;
-    margin-top: 1rem;
   }
 `;
 
