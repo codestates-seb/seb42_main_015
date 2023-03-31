@@ -143,7 +143,7 @@ function Login() {
               <div className="oauth">
                 <img
                   src={require("../../asset/구글.png")}
-                  alt="Googole"
+                  alt="Google"
                   onClick={GoogleOauthLogin}
                 />
               </div>

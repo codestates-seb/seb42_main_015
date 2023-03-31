@@ -57,17 +57,18 @@ const WordWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 5rem;
   }
   @media screen and (max-width: 555px) {
   }
 `;
 const Title = styled.h1`
-  ${FONT_STYLE_V1.title.title_100_bold}
-  font-family: "White_angel";
+  font-family: "LeeSeoyun";
+  font-size: 8rem;
 `;
 const Inform = styled.div`
-  ${FONT_STYLE_V1.body.body_30_light}
-  font-family: "White_angel";
+  font-family: "LeeSeoyun";
+  font-size: 2.5rem;
 `;
 
 function NotFound() {
