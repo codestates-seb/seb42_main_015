@@ -131,8 +131,7 @@ function Login() {
               <div className="section1">
                 <img
                   src={require("../../asset/해바라기.png")}
-                  alt="Sunflower"
-                ></img>
+                  alt="Sunflower"></img>
                 <span className="box">sunflower</span>
               </div>
               <div className="section2">

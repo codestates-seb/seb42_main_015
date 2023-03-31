@@ -73,10 +73,10 @@ function LetterContent({
     resetTranscript();
   }, [finalTranscript]); //listening일 때로 바꾸기
 
-  const handleSendMe = () => {
-    setOpenSendMe(!openSendMe);
-    setSendMeChecked(true);
-  };
+  // const handleSendMe = () => {
+  //   setOpenSendMe(!openSendMe);
+  //   setSendMeChecked(true);
+  // };
   const handleContentLength = (e) => {
     if (e.target.value.length > 7000) {
       setContentError("최대 7000자까지 작성할 수 있습니다.");
@@ -117,7 +117,7 @@ function LetterContent({
         </W.BallonWrapper>
         <W.Date font={letterContents.fontName}>{currentDate}</W.Date>
       </W.FlexWrapper1>
-      <W.SendMeWrapper>
+      {/* <W.SendMeWrapper>
         <W.BallonWrapper>
           <W.SendMeCheckBox
             className={sendMeChecked ? "active" : ""}
@@ -152,12 +152,14 @@ function LetterContent({
         ) : (
           <></>
         )}
-      </W.SendMeWrapper>
+      </W.SendMeWrapper> */}
       <W.ContentTextarea
         font={letterContents.fontName}
         name="content"
-        onInput={handleContentLength}
-        onChange={(e) => setContent(e.target.value)}
+        onInput={(e) => {
+          setContent(e.target.value);
+          handleContentLength(e);
+        }}
         {...register("content")}
         ref={textarea}
         maxLength={7000}></W.ContentTextarea>
