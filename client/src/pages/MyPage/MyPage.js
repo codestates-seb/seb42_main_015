@@ -50,6 +50,7 @@ function MyPage() {
         if (err.response.status === 401) {
           Refresh().then(() => {
             getUserInfo(memberId).then((res) => {
+              console.log("성공");
               setUserInfo(res.data);
             });
           });
@@ -110,6 +111,8 @@ function MyPage() {
                 setNicknameVerify(true);
               });
             });
+          } else {
+            alert("네트워크가 불안정합니다. 다시 시도해주세요.");
           }
         });
     }

@@ -1,12 +1,62 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
+import styled, { css, keyframes } from "styled-components";
 
+const moveAnimation = keyframes`
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translateY(0);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translateY(-8.5rem);
+    opacity: 1;
+  }
+`;
+const backAnimation = keyframes`
+  0%{
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translateY(-8.5rem);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translateY(0);
+    opacity: 0;
+  }
+`;
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 3rem;
   width: 20rem;
   justify-content: space-evenly;
+  ${(props) => {
+    switch (props.state) {
+      case "active":
+        return css`
+          flex-direction: column;
+          width: fit-content;
+          position: fixed;
+          bottom: 2.4rem;
+          right: 2.4rem;
+          z-index: 99;
+          animation: ${moveAnimation} 300ms ease-in-out forwards;
+        `;
+      case "unactive":
+        return css`
+          flex-direction: column;
+          width: fit-content;
+          position: fixed;
+          bottom: 2.4rem;
+          right: 2.4rem;
+          z-index: 99;
+          display: none;
+        `;
+      default:
+        break;
+    }
+  }}
 `;
 const Button = styled.div`
   width: fit-content;
@@ -17,7 +67,8 @@ const Button = styled.div`
   }
 `;
 
-function ShareButton({ urlName }) {
+function ShareButton({ urlName, state }) {
+  const [displayNone, setDisplayNone] = useState(false);
   const pageUrl = `https://www.sendy.site/readletter/${urlName}`;
   const shareKakao = () => {
     const Kakao = window.Kakao;
@@ -60,8 +111,13 @@ function ShareButton({ urlName }) {
     window.open(`http://www.facebook.com/sharer/sharer.php?u=${pageUrl}`);
   };
 
+  window.addEventListener("animationend", (e) => {
+    if (e.target.className === "unactive") {
+      setDisplayNone(true);
+    }
+  });
   return (
-    <ButtonContainer>
+    <ButtonContainer state={state}>
       <Button className="kakao-btn" onClick={shareKakao}>
         <img src={require("../../asset/카카오.png")} alt="kakao" />
       </Button>
