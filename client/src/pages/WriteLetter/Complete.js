@@ -46,15 +46,21 @@ const Text = styled.a`
 `;
 
 function Complete() {
+  const navigate = useNavigate();
+  if (!window.location?.state?.from) {
+    navigate("/");
+  }
+
   const [doneCopy, setDoneCopy] = useState(false);
   const params = useParams();
+
   const handleCopy = () => {
     navigator.clipboard.writeText(
       `https://www.sendy.site/readletter/${params.urlName}`
     );
     setDoneCopy(true);
   };
-  const navigate = useNavigate();
+
   const handleGoLetterBox = () => {
     navigate("/letterbox");
   };
