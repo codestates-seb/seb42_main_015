@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as W from "./WriteStyled";
-import { HiOutlineCheck } from "react-icons/hi";
+// import { HiOutlineCheck } from "react-icons/hi";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,11 +8,12 @@ import useStore from "../../store/store";
 
 function LetterContent({
   openExplaination,
-  openSendMe,
-  setOpenSendMe,
-  sendMeChecked,
-  setSendMeChecked,
-  startDate,
+  //todo : 나에게 보내기
+  // openSendMe,
+  // setOpenSendMe,
+  // sendMeChecked,
+  // setSendMeChecked,
+  // startDate,
   setContentLength,
   finalTranscript,
   resetTranscript,
@@ -71,7 +72,7 @@ function LetterContent({
     textarea.current.value += " " + finalTranscript;
     resetTranscript();
   }, [finalTranscript]); //listening일 때로 바꾸기
-
+  //todo : 나에게 보내기
   // const handleSendMe = () => {
   //   setOpenSendMe(!openSendMe);
   //   setSendMeChecked(true);
@@ -117,6 +118,7 @@ function LetterContent({
         </W.BallonWrapper>
         <W.Date font={letterContents.fontName}>{currentDate}</W.Date>
       </W.FlexWrapper1>
+      {/* 나에게 보내기 */}
       {/* <W.SendMeWrapper>
         <W.BallonWrapper>
           <W.SendMeCheckBox

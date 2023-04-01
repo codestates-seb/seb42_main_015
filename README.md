@@ -10,11 +10,12 @@
 
 ## 📌 서비스 주요 기능
 
-<img src="https://user-images.githubusercontent.com/115965399/229286371-6a53b901-817a-4d31-a9d9-12b4ac0e72f0.png" />
+<img src="https://user-images.githubusercontent.com/115965399/229286768-bf2ecae8-7a2d-47a2-9a0c-4725a07799ee.png" />
 
 ## 👩‍💻 마녀배달부 팀원
-<img src="https://user-images.githubusercontent.com/115965399/229286210-521a2c35-e886-4cc6-8f6f-9836bce62547.png" />
-<img src="https://user-images.githubusercontent.com/115965399/229286185-75ffab3f-53a4-4a9f-a34b-459a5e65cc5e.png" />
+<img src="https://user-images.githubusercontent.com/115965399/229286662-b12162a8-58fe-4691-9658-bc00cbb43ba1.png" />
+<img src="https://user-images.githubusercontent.com/115965399/229286663-f095bfae-7a52-42e1-878b-39e4236f2b53.png" />
+
 
 ### 팀원 Github
 - [이진주](https://github.com/2realzoo)
@@ -25,12 +26,11 @@
 - [윤선진](https://github.com/yoonseonjin)
 
 ## ⚙ 개발 환경
-<img src="https://user-images.githubusercontent.com/115965399/229286292-480e5d29-892e-4306-baba-890025b3af9e.jpg" />
-<img src="https://user-images.gith
-ubusercontent.com/115965399/229286289-55021ea5-f765-472c-8d94-ad07ffdc5339.jpg">
+<img src="https://user-images.githubusercontent.com/115965399/229286829-2ce68890-611f-420f-854f-939c20fcd198.png" />
+<img src="https://user-images.githubusercontent.com/115965399/229286831-085f3a3b-7f27-4f92-aa53-02702312fa5b.png">
 
 
-## 🧩 커밋 메세지
+## 🧩 Git 컨벤션
 
 ### 커밋 제목
 [FE][FEAT] 커밋내용 
@@ -47,8 +47,8 @@ ubusercontent.com/115965399/229286289-55021ea5-f765-472c-8d94-ad07ffdc5339.jpg">
 |   test   |     테스트 코드 수정에 대한 커밋     |
 
 
-## 이슈 제목
+### 이슈 제목
 [FE]기능
 
-## Milestones 제목
+### Milestones 제목
 [FE] : 기능
