@@ -403,7 +403,7 @@ export const Imgbox = styled.div`
 
 export const Theme = styled.div`
   width: 500px;
-  height: 580px;
+  height: 550px;
   background-color: #fff;
   border: 2px solid black;
   display: flex;
@@ -414,7 +414,7 @@ export const Theme = styled.div`
     width: 100%;
     border-top: 2px solid black;
     border-bottom: 2px solid black;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
   .flower {
     width: 12rem;
@@ -425,9 +425,6 @@ export const Theme = styled.div`
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 280px;
     height: 320px;
-    .main {
-      margin-bottom: 2rem;
-    }
     .flower {
       width: 9rem;
       top: -3rem;

@@ -50,6 +50,7 @@ export const Wrapper = styled.div`
       width: 100%;
       justify-content: flex-end;
       margin: 0.2rem 0 2rem 0rem;
+      z-index: 201;
 
       .soundButtons {
         display: flex;
@@ -60,6 +61,7 @@ export const Wrapper = styled.div`
         width: 9rem;
         height: 3.5rem;
         cursor: pointer;
+        z-index: 202;
 
         @media screen and (max-width: 1024px) {
           height: 3.6rem;
@@ -73,6 +75,7 @@ export const Wrapper = styled.div`
       .speech-icon,
       .pause-icon {
         padding: 3px;
+        z-index: 203;
         @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
           padding: 6px;
         }
@@ -99,7 +102,7 @@ export const SWrapper = styled.div`
   min-height: 100%;
   background: #ffffff00;
   position: absolute;
-  z-index: 100;
+  z-index: 300;
   &::before {
     content: "";
     backdrop-filter: blur(50px);
@@ -181,6 +184,7 @@ export const EnterSeret = styled.div`
   border: 2px solid #000000;
   margin-left: 2rem;
   ${FONT_STYLE_READ.body_14_Medium}
+  z-index: 204;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     padding: 0.7rem 0rem 0.7rem 0rem;
   }
@@ -192,7 +196,7 @@ export const EnterSeret = styled.div`
     margin-left: 10px;
     width: 4rem;
     letter-spacing: 6px;
-
+    z-index: 204;
     @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
       width: 5rem;
       letter-spacing: 4px;
@@ -392,7 +396,6 @@ export const To = styled(Text)``;
 export const From = styled(Text)`
   display: flex;
   justify-content: flex-end;
-  font-size: 2rem;
 `;
 
 export const Content = styled.div`
@@ -638,12 +641,9 @@ export const Card = styled.div`
   transform-style: preserve-3d;
   perspective: 1100px;
 
-  .front,
-  .back {
-    backface-visibility: hidden;
-  }
-
+  /* 앞장 */
   .front {
+    backface-visibility: hidden;
     &::after {
       position: absolute;
       content: "";
@@ -653,13 +653,13 @@ export const Card = styled.div`
       top: -1rem;
       right: -2rem;
     }
-    @media screen and (max-width: 590px) {
+    @media screen and (max-width: 1024px) {
       &::after {
-        top: -2.5rem;
-        right: -2.5rem;
+        top: -1rem;
+        right: -2rem;
       }
     }
-    @media screen and (max-width: 490px) {
+    @media screen and (max-width: 767px) {
       &::after {
         top: -4rem;
         right: -4rem;
@@ -667,12 +667,14 @@ export const Card = styled.div`
     }
     @media screen and (max-width: 380px) {
       &::after {
-        top: -5.5rem;
-        right: -5.5rem;
+        top: -4rem;
+        right: -4rem;
       }
     }
   }
+  /* 뒷장 */
   .back {
+    backface-visibility: hidden;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -688,13 +690,13 @@ export const Card = styled.div`
       top: -1rem;
       left: -2rem;
     }
-    @media screen and (max-width: 590px) {
+    @media screen and (max-width: 1024px) {
       &::after {
-        top: -2.5rem;
-        left: -2.5rem;
+        top: -1rem;
+        left: -2rem;
       }
     }
-    @media screen and (max-width: 490px) {
+    @media screen and (max-width: 767px) {
       &::after {
         top: -4rem;
         left: -4rem;
@@ -702,8 +704,8 @@ export const Card = styled.div`
     }
     @media screen and (max-width: 380px) {
       &::after {
-        top: -5.5rem;
-        left: -5.5rem;
+        top: -4rem;
+        left: -4rem;
       }
     }
   }
@@ -741,14 +743,14 @@ export const Triangle = styled.div`
   z-index: 100;
   &::after {
     content: "";
-    top: 2px;
+    top: 3px;
     right: 3px;
     width: 0;
     height: 0;
     position: absolute;
+    z-index: 100;
     /* 꼬다리 색깔 */
     border: 4.35rem solid;
-    z-index: 100;
     ${(props) => {
       switch (props.bordercolor) {
         case "군대":
@@ -833,7 +835,91 @@ export const Triangle = styled.div`
     background-color: black;
     z-index: 200;
   }
-
+  @media screen and (max-width: 1024px) {
+    &::after {
+      top: 3px;
+      right: 3px;
+      border: 4.3rem solid;
+      ${(props) => {
+        switch (props.bordercolor) {
+          case "군대":
+            return css`
+              border-color: #81c200;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "냥냥편지":
+            return css`
+              border-color: #84e524;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "리본":
+            return css`
+              border-color: #f297b4;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "수박":
+            return css`
+              border-color: #ed927e;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "알록달록":
+            return css`
+              border-color: #ffe093;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "얼룩":
+            return css`
+              border-color: #fbfdd9;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "체리":
+            return css`
+              border-color: #b4ded6;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "클로버":
+            return css`
+              border-color: #64f6a0;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "정월대보름":
+            return css`
+              border-color: #85cbdf;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "오리":
+            return css`
+              border-color: #00dafb;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "구름":
+            return css`
+              border-color: #ffffff;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          default:
+            break;
+        }
+      }};
+    }
+    &::before {
+      top: -1.7rem;
+      left: 4.2rem;
+      width: 0.2rem;
+      height: 12.4rem;
+    }
+  }
   @media screen and (max-width: 767px) {
     width: 6rem;
     height: 6rem;
@@ -841,13 +927,86 @@ export const Triangle = styled.div`
     border-left: 0.2rem solid;
     border-bottom: 0.2rem solid;
     &::after {
-      border: 2.6rem solid white;
-      border-top-color: transparent;
-      border-right-color: transparent;
+      top: 5px;
+      right: 4.3px;
+      height: 0;
+      border: 2.7rem solid;
+      ${(props) => {
+        switch (props.bordercolor) {
+          case "군대":
+            return css`
+              border-color: #81c200;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "냥냥편지":
+            return css`
+              border-color: #84e524;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "리본":
+            return css`
+              border-color: #f297b4;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "수박":
+            return css`
+              border-color: #ed927e;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "알록달록":
+            return css`
+              border-color: #ffe093;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "얼룩":
+            return css`
+              border-color: #fbfdd9;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "체리":
+            return css`
+              border-color: #b4ded6;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "클로버":
+            return css`
+              border-color: #64f6a0;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "정월대보름":
+            return css`
+              border-color: #85cbdf;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "오리":
+            return css`
+              border-color: #00dafb;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "구름":
+            return css`
+              border-color: #ffffff;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          default:
+            break;
+        }
+      }};
     }
     &::before {
       top: -1.2rem;
-      left: 2.8rem;
+      left: 2.7rem;
       width: 0.1rem;
       height: 8.4rem;
     }
@@ -859,15 +1018,87 @@ export const Triangle = styled.div`
     border-left: 0.2rem solid;
     border-bottom: 0.2rem solid;
     &::after {
-      border: 2.6rem solid white;
-      border-top-color: transparent;
-      border-right-color: transparent;
+      top: 4.7px;
+      right: 2.9px;
+      border: 2.8rem solid;
+      ${(props) => {
+        switch (props.bordercolor) {
+          case "군대":
+            return css`
+              border-color: #81c200;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "냥냥편지":
+            return css`
+              border-color: #84e524;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "리본":
+            return css`
+              border-color: #f297b4;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "수박":
+            return css`
+              border-color: #ed927e;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "알록달록":
+            return css`
+              border-color: #ffe093;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "얼룩":
+            return css`
+              border-color: #fbfdd9;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "체리":
+            return css`
+              border-color: #b4ded6;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "클로버":
+            return css`
+              border-color: #64f6a0;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "정월대보름":
+            return css`
+              border-color: #85cbdf;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "오리":
+            return css`
+              border-color: #00dafb;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          case "구름":
+            return css`
+              border-color: #ffffff;
+              border-top-color: transparent;
+              border-right-color: transparent;
+            `;
+          default:
+            break;
+        }
+      }};
     }
     &::before {
-      top: -1.2rem;
+      top: -0.9rem;
       left: 2.8rem;
-      width: 0.1rem;
-      height: 8.4rem;
+      width: 0.2rem;
+      height: 8.2rem;
     }
   }
 `;

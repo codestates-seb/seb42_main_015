@@ -10,12 +10,11 @@ import axios from "axios";
 import { getCookie } from "../Certified/Cookie";
 import { Loading } from "../../components/Loading";
 import Refresh from "../../util/Refresh";
-import useStore from "../../store/store";
 
 const ReadButtons = ({
   isLogin,
-  isKeeping,
-  setIsKeeping,
+  isKeeping = false,
+  handleMessageSaved,
   ModalRef,
   onDownloadBtn,
   isClickModal,
@@ -24,7 +23,6 @@ const ReadButtons = ({
   const navigate = useNavigate();
   const location = useLocation();
   const { urlName } = useParams();
-
   //로딩상태
   const [isLoading, setIsLoading] = useState(false);
   //휴지통 정보
@@ -48,15 +46,6 @@ const ReadButtons = ({
       }
     }
   };
-  useEffect(() => {
-    getMailboxId();
-    if (location.state) {
-      // 만약 발신편지라면(발신아이디가 있음) -> 보관완료 상태로 뜨게
-      if (isDustbin.outgoingId && !isKeeping) {
-        setIsKeeping(true);
-      }
-    }
-  }, [location]);
 
   //todo :보관하기
   const handleKeeping = async () => {
@@ -74,7 +63,7 @@ const ReadButtons = ({
     })
       .then((res) => {
         setIsLoading(false);
-        setIsKeeping(true);
+        handleMessageSaved(true);
         alert("편지가 저장되었습니다.\n 이제 우편함에서 확인할 수 있어요!");
         setIsDustbin({
           ...isDustbin,
@@ -149,11 +138,16 @@ const ReadButtons = ({
       }
   };
 
+  //todo : useEffect
+  useEffect(() => {
+    getMailboxId();
+  }, [location?.state?.name]);
+
   return (
     <>
       {isLoading ? <Loading /> : ""}
       <R.Buttons>
-        {isLogin && isKeeping ? (
+        {(isLogin && isKeeping) || isDustbin?.outgoingId ? (
           // 로그인&보관하기 되어 있으면 -> 우편함, 휴지통 아이콘 보이게
           <>
             <Link to="/letterbox">
@@ -192,19 +186,18 @@ const ReadButtons = ({
           className="button"
           backgroundColor={PALETTE_V1.yellow_button}
           state="none-block"
-          onClick={onDownloadBtn}
-        >
+          onClick={onDownloadBtn}>
           이미지 저장
         </ShadowButton>
         {isLogin ? (
           //로그인 되어 있다면 -> 저장 여부 확인
-          isKeeping ? (
+          isKeeping || isDustbin?.outgoingId ? (
             // 저장되어 있다면 -> 보관완료
             <ShadowButton
               className="button"
               backgroundColor={PALETTE_V1.aready_keep_button}
               state="block"
-            >
+              display="block">
               보관완료
             </ShadowButton>
           ) : (
@@ -213,8 +206,7 @@ const ReadButtons = ({
               className="button"
               backgroundColor={PALETTE_V1.yellow_button}
               state="none-block"
-              onClick={handleKeeping}
-            >
+              onClick={handleKeeping}>
               보관하기
             </ShadowButton>
           )
@@ -224,8 +216,7 @@ const ReadButtons = ({
             className="button"
             backgroundColor={PALETTE_V1.yellow_button}
             state="none-block"
-            onClick={handleKeeping}
-          >
+            onClick={handleKeeping}>
             보관하기
           </ShadowButton>
         )}
