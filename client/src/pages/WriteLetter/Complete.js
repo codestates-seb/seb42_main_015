@@ -83,7 +83,7 @@ function Complete() {
           우편함 가기
         </ShadowButton>
       </div>
-      <ShareButton url={params.urlName} />
+      <ShareButton urlName={params.urlName} />
     </Container>
   );
 }

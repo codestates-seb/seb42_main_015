@@ -6,17 +6,33 @@ const Button = styled.div`
 `;
 
 function ShareButton({ urlName }) {
-  const shareKakao = (urlName) => {
+  const shareKakao = () => {
     const Kakao = window.Kakao;
-    Kakao.Share.sendScrap({
-      requestUrl: `http://localhost:3000/readletter/`, // 페이지 url
-      templateId: 91983, // 메시지템플릿 번호
-      templateArgs: {
-        PROFILE: "프로필 이미지 주소",
-        THUMB: "썸네일 주소", // 썸네일 주소 ${THUMB}
-        TITLE: "제목 텍스트입니다", // 제목 텍스트 ${TITLE}
-        DESC: "설명 텍스트입니다", // 설명 텍스트 ${DESC}
+    Kakao.Share.sendDefault({
+      objectType: "feed",
+      content: {
+        title: "지금 당신에게 온 편지가 있어요!",
+        description:
+          "친구가 보낸 편지를 열어보세요. 두근두근 어떤 마음이 담겨있을까요?",
+        imageUrl: "https://ifh.cc/g/ZbfmbT.png",
+        link: {
+          mobileWebUrl: `http://localhost:3000/readletter/${urlName}`,
+          webUrl: `http://localhost:3000/readletter/${urlName}`,
+        },
       },
+      itemContent: {
+        profileText: "SENDY",
+        profileImageUrl: "https://ifh.cc/g/G0xoHF.png",
+      },
+      buttons: [
+        {
+          title: "웹으로 이동",
+          link: {
+            mobileWebUrl: `http://localhost:3000/readletter/${urlName}`,
+            webUrl: `http://localhost:3000/readletter/${urlName}`,
+          },
+        },
+      ],
     });
   };
   return (
