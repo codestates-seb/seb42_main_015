@@ -177,8 +177,8 @@ const ReadLetter = ({ isLogin }) => {
               {/* 편지 뒷장 이미지 저장 */}
               <R.Letterpaper
                 className="back"
-                LetterBackround={data.themeName}
                 ref={LetterBackRef}
+                LetterBackround={data.themeName}
               >
                 <R.Date font={data.fontName}>{LetterDate}</R.Date>
                 {data.messageImageUrl ? (

@@ -349,6 +349,8 @@ export const Letterpaper = styled(FlexColunmWrapper)`
   }
   &.back {
     justify-content: space-evenly;
+    transform: rotateY(180deg);
+
     .preview-back-content {
       height: 14%;
       display: flex;
@@ -686,7 +688,7 @@ export const Card = styled.div`
     height: 100%;
     top: 0px;
     left: 0px;
-    transform: rotateY(180deg);
+    /* transform: rotateY(180deg); */
     &::after {
       position: absolute;
       content: "";
