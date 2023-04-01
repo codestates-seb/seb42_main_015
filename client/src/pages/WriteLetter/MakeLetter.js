@@ -190,7 +190,11 @@ function MakeLetter({ makeLetterModalRef }) {
         {canUseUrl &&
         (letterContents?.password?.length === 4 ||
           letterContents.password === null) ? (
-          <Link to={`/writeletter/complete/${letterContents?.urlName}`}>
+          <Link
+            to={`/writeletter/complete/${letterContents?.urlName}`}
+            state={{
+              from: "writeletter",
+            }}>
             <ShadowButton
               backgroundColor={PALETTE_V1.yellow_basic}
               onClick={handleMakeLetter}>

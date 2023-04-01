@@ -186,8 +186,7 @@ const ReadButtons = ({
           className="button"
           backgroundColor={PALETTE_V1.yellow_button}
           state="none-block"
-          onClick={onDownloadBtn}
-        >
+          onClick={onDownloadBtn}>
           이미지 저장
         </ShadowButton>
         {isLogin ? (
@@ -198,8 +197,7 @@ const ReadButtons = ({
               className="button"
               backgroundColor={PALETTE_V1.aready_keep_button}
               state="block"
-              display="block"
-            >
+              display="block">
               보관완료
             </ShadowButton>
           ) : (
@@ -208,8 +206,7 @@ const ReadButtons = ({
               className="button"
               backgroundColor={PALETTE_V1.yellow_button}
               state="none-block"
-              onClick={handleKeeping}
-            >
+              onClick={handleKeeping}>
               보관하기
             </ShadowButton>
           )
@@ -219,8 +216,7 @@ const ReadButtons = ({
             className="button"
             backgroundColor={PALETTE_V1.yellow_button}
             state="none-block"
-            onClick={handleKeeping}
-          >
+            onClick={handleKeeping}>
             보관하기
           </ShadowButton>
         )}

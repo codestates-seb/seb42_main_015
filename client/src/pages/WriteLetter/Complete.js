@@ -7,14 +7,17 @@ import useStore from "../../store/store";
 import { BsClipboard, BsFillClipboardCheckFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import ShadowButton from "../commons/ShadowButton";
+import ShareButton from "../commons/ShareButton";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
+  padding-top: 10rem;
+  padding-bottom: 10rem;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   .complete-cat {
     width: 30rem;
   }
@@ -23,7 +26,6 @@ const Container = styled.div`
     align-items: center;
     .clipboard-icon {
       margin-left: 1rem;
-      padding-bottom: 5px;
       font-size: 2.5rem;
       cursor: pointer;
     }
@@ -44,15 +46,21 @@ const Text = styled.a`
 `;
 
 function Complete() {
+  const navigate = useNavigate();
+  if (!window.location?.state?.from) {
+    navigate("/");
+  }
+
   const [doneCopy, setDoneCopy] = useState(false);
   const params = useParams();
+
   const handleCopy = () => {
     navigator.clipboard.writeText(
       `https://www.sendy.site/readletter/${params.urlName}`
     );
     setDoneCopy(true);
   };
-  const navigate = useNavigate();
+
   const handleGoLetterBox = () => {
     navigate("/letterbox");
   };
@@ -82,6 +90,7 @@ function Complete() {
           우편함 가기
         </ShadowButton>
       </div>
+      <ShareButton urlName={params.urlName} />
     </Container>
   );
 }

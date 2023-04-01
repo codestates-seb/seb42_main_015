@@ -17,8 +17,13 @@ import {
   postVerifyNickName,
 } from "../commons/axios";
 import Refresh from "../../util/Refresh";
+import { useNavigate } from "react-router-dom";
 
 function MyPage() {
+  const navigate = useNavigate();
+  if (!sessionStorage.getItem("memberId")) {
+    navigate("/");
+  }
   const { changeCurrentPage } = useStore();
   const [openResignModal, setOpenResignModal] = useState(false);
   const [isEditable, setIsEditable] = useState(false);
