@@ -68,14 +68,19 @@ export const FONT_STYLE_V1 = {
       font-size: 4.5rem;
       color: ${PALETTE_V1.text_primary};
     `,
-    title_20_thin: css`
+    title_50_medium: css`
+    font-family: "Pretendard-Medium";
+    font-size: 5rem;
+    color: ${PALETTE_V1.text_primary};
+  `,
+    title_30_thin: css`
       font-family: "Pretendard-Thin";
-      font-size: 2rem;
+      font-size: 3rem;
       color: ${PALETTE_V1.text_primary};
     `,
-    title_40_thin: css`
+    title_50_thin: css`
       font-family: "Pretendard-Thin";
-      font-size: 4rem;
+      font-size: 5rem;
       color: ${PALETTE_V1.text_primary};
     `,
     title_100_bold: css`

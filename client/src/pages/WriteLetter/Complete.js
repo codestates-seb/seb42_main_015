@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import * as W from "./WriteStyled";
 import styled from "styled-components";
-import { FONT_STYLE_V1 } from "../../style/fontStyle";
 import completeCat from "../../asset/completeCat.png";
-import useStore from "../../store/store";
 import { BsClipboard, BsFillClipboardCheckFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import ShadowButton from "../commons/ShadowButton";

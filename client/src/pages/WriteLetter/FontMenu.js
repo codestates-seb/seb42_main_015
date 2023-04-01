@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import * as W from "./WriteStyled";
 import { FONT_STYLE_CONTENT, FONT_STYLE_V1 } from "../../style/fontStyle";
 import useStore from "../../store/store";

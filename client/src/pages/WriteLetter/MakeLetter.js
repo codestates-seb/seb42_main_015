@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as W from "./WriteStyled";
 import keyIcon from "../../asset/key.png";
 import RoundButton from "../commons/RoundButton";

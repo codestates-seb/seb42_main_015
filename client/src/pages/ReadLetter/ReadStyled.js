@@ -205,7 +205,7 @@ export const EnterSeret = styled.div`
 export const FlexColunmWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  &.align-ce#d1e9ae
+  &.align-center {
     align-items: center;
   }
   &.letter {
