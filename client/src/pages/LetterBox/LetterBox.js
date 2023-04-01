@@ -295,14 +295,14 @@ function LetterBox() {
       </L.TopButton>
       {trash ? (
         <>
-          <L.DeleteButton onClick={handleDelete}>
+          <L.DeleteButtonON onClick={() => setTrash(!trash)}>
+            <HiOutlineTrash />
+          </L.DeleteButtonON>
+          <L.DeleteButton className="trash-animation" onClick={handleDelete}>
             휴지통
             <br />
             보내기
           </L.DeleteButton>
-          <L.DeleteButtonON onClick={() => setTrash(!trash)}>
-            <HiOutlineTrash />
-          </L.DeleteButtonON>
         </>
       ) : (
         <L.DeleteButtonOff onClick={() => setTrash(!trash)}>

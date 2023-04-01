@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 import { BREAKPOINTMOBILE } from "../../breakpoint";
@@ -374,6 +374,45 @@ export const TopButton = styled.div`
   }
 `;
 
+const rotateAnimation = keyframes`
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: rotate(0deg)
+  }
+  100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: rotate(360deg)
+  }
+`;
+const rotateReverseAnimation = keyframes`
+  0% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: rotate(360deg)
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: rotate(0deg)
+  }
+`;
+
+const moveAnimation = keyframes`
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translateX(0);
+    opacity: 0;
+  }
+  10% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translateX(0);
+    opacity: 0.3;
+  }
+  100% {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translateX(-70px);
+    opacity: 1;
+  }
+`;
+
 export const DeleteButtonOff = styled.div`
   width: 60px;
   height: 60px;
@@ -389,6 +428,8 @@ export const DeleteButtonOff = styled.div`
   background-color: white;
   color: ${PALETTE_V1.orange_dark};
   cursor: pointer;
+  transition: all 3s ease-in-out;
+  animation: ${rotateReverseAnimation} 500ms ease-in-out reverse;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 50px;
     height: 50px;
@@ -412,6 +453,7 @@ export const DeleteButtonON = styled.div`
   background-color: ${PALETTE_V1.orange_dark};
   color: white;
   cursor: pointer;
+  animation: ${rotateAnimation} 500ms ease-in-out;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 50px;
     height: 50px;
@@ -427,7 +469,7 @@ export const DeleteButton = styled.div`
   border-radius: 50%;
   position: fixed;
   bottom: 120px;
-  right: 100px;
+  right: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -435,6 +477,7 @@ export const DeleteButton = styled.div`
   background-color: ${PALETTE_V1.orange_dark};
   color: white;
   cursor: pointer;
+  animation: ${moveAnimation} 300ms ease-in-out forwards;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 50px;
     height: 50px;
