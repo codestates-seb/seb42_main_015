@@ -11,8 +11,13 @@ import MakeLetter from "./MakeLetter";
 import useStore from "../../store/store";
 import MenuBar from "./MenuBar";
 import { useSpeechRecognition } from "react-speech-recognition";
+import { useNavigate } from "react-router-dom";
 
 function WriteLetter() {
+  const navigate = useNavigate();
+  if (!sessionStorage.getItem("memberId")) {
+    navigate("/");
+  }
   const [openExplaination, setOpenExplaination] = useState(false);
   const [sendMeChecked, setSendMeChecked] = useState(false);
   const [openSendMe, setOpenSendMe] = useState(false);
