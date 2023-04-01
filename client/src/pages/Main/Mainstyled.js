@@ -2,7 +2,6 @@ import styled, { keyframes } from "styled-components";
 import { PALETTE_MAIN } from "../../style/color";
 import { FONT_STYLE_V1, FONT_STYLE_LOGO } from "../../style/fontStyle";
 import { BREAKPOINTMOBILE } from "../../breakpoint";
-import 정월대보름 from "../../asset/letterTheme/정월대보름-theme.png";
 
 export const MainWrap = styled.div``;
 
@@ -199,14 +198,14 @@ export const Intro = styled.div`
   justify-content: center;
   align-items: center;
   &:hover .high-light {
-    width: 500px;
+    width: 600px;
     transition: 3s;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     display: flex;
     flex-direction: column;
     &:hover .high-light {
-      width: 240px;
+      width: 310px;
       transition: 3s;
     }
   }
@@ -217,33 +216,17 @@ export const IntroTextbox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-right: 4rem;
+  padding-right: 4rem;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    margin-right: 0;
-  }
-`;
-export const IntroImgbox = styled.div`
-  background-color: #fff;
-  width: 319px;
-  height: 530px;
-  background-image: url(${정월대보름});
-  background-size: cover;
-  background-repeat: no-repeat;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 240px;
-    height: 400px;
-    margin-top: 4rem;
-  }
-  @media screen and (max-height: 667px) {
-    width: 180px;
-    height: 300px;
+    padding-right: 0;
+    padding-bottom: 10rem;
   }
 `;
 
 export const Title = styled.div`
-  ${FONT_STYLE_V1.title.title_40_thin}
+  ${FONT_STYLE_V1.title.title_50_thin}
   strong {
-    ${FONT_STYLE_V1.title.title_40_medium}
+    ${FONT_STYLE_V1.title.title_50_medium}
   }
   position: relative;
   overflow: hidden;
@@ -257,9 +240,9 @@ export const Title = styled.div`
     left: -10px;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    font-size: 3rem;
+    font-size: 4rem;
     strong {
-      font-size: 3rem;
+      font-size: 4rem;
     }
     .high-light {
       height: 10px;
@@ -268,9 +251,12 @@ export const Title = styled.div`
 `;
 
 export const Contents = styled.div`
-  ${FONT_STYLE_V1.title.title_20_thin}
+  ${FONT_STYLE_V1.title.title_30_thin}
   margin-top: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+      font-size: 2.8rem;
+    }
 `;
 
 export const Button = styled.div`
@@ -299,15 +285,39 @@ export const Button = styled.div`
   }
 `;
 
-export const Textbox = styled.div`
+export const TextboxRight = styled.div`
   /* border: 1px solid black; */
   padding: 4rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-end;
   position: relative;
-  margin: 0 2rem;
+  margin-right: 3rem;
+  text-align: right;
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    margin-right: 0;
+    align-items: center;
+    text-align: center;
+    .flower {
+      width: 50px;
+      top: -25px;
+      left: 40%;
+    }
+  }
+`;
+
+export const TextboxLeft = styled.div`
+  /* border: 1px solid black; */
+  padding: 4rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  margin-left: 3rem;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    margin-left: 0;
     align-items: center;
     text-align: center;
     .flower {
@@ -319,8 +329,8 @@ export const Textbox = styled.div`
 `;
 
 export const SubTitle = styled.span`
-  ${FONT_STYLE_V1.title.title_20_medium}
-  margin-bottom: 1rem;
+  ${FONT_STYLE_V1.title.title_30_medium}
+  margin-bottom: 2rem;
 `;
 
 export const SubContents = styled.div`
@@ -331,79 +341,9 @@ export const SubContents = styled.div`
   }
 `;
 
-export const Imgbox = styled.div`
-  width: 500px;
-  height: 510px;
-  background-color: #fff;
-  border: 2px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  .main {
-    width: 100%;
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
-    margin-bottom: 2rem;
-  }
-  .main-sticker1 {
-    width: 300px;
-    position: absolute;
-    top: -5rem;
-    left: -5rem;
-  }
-  .main-sticker2 {
-    width: 200px;
-    position: absolute;
-    bottom: -5rem;
-    left: -5rem;
-  }
-  .main-sticker3 {
-    width: 120px;
-    position: absolute;
-    bottom: -6rem;
-    right: -5rem;
-  }
-  .main-sticker4 {
-    width: 250px;
-    position: absolute;
-    top: -8rem;
-    left: -5rem;
-  }
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    width: 260px;
-    height: 270px;
-    margin-top: ${(props) => (props.margin ? props.margin : "0")};
-    .main-sticker1 {
-      width: 180px;
-      position: absolute;
-      top: -5rem;
-      left: -5rem;
-    }
-    .main-sticker2 {
-      width: 100px;
-      position: absolute;
-      bottom: -3rem;
-      left: -4rem;
-    }
-    .main-sticker3 {
-      width: 70px;
-      position: absolute;
-      bottom: -5rem;
-      right: -5rem;
-    }
-    .main-sticker4 {
-      width: 150px;
-      position: absolute;
-      top: -7rem;
-      left: -5rem;
-    }
-  }
-`;
-
-export const Theme = styled.div`
-  width: 500px;
-  height: 550px;
+export const ImgboxOne = styled.div`
+  width: 480px;
+  height: 540px;
   background-color: #fff;
   border: 2px solid black;
   display: flex;
@@ -434,6 +374,98 @@ export const Theme = styled.div`
   @media screen and (max-height: 667px) {
     width: 250px;
     height: 280px;
+  }
+`;
+
+export const ImgboxTwo = styled.div`
+  width: 480px;
+  height: 490px;
+  background-color: #fff;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  .main {
+    width: 100%;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    margin-bottom: 2rem;
+  }
+  .main-sticker1 {
+    width: 300px;
+    position: absolute;
+    top: -5rem;
+    left: -5rem;
+  }
+  .main-sticker2 {
+    width: 200px;
+    position: absolute;
+    bottom: -5rem;
+    left: -5rem;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 260px;
+    height: 270px;
+    margin-top: ${(props) => (props.margin ? props.margin : "0")};
+    .main-sticker1 {
+      width: 180px;
+      position: absolute;
+      top: -5rem;
+      left: -5rem;
+    }
+    .main-sticker2 {
+      width: 100px;
+      position: absolute;
+      bottom: -3rem;
+      left: -4rem;
+    }
+  }
+`;
+
+export const ImgboxThree = styled.div`
+  width: 480px;
+  height: 470px;
+  background-color: #fff;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  .main {
+    width: 100%;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    margin-bottom: 2rem;
+  }
+  .main-sticker3 {
+    width: 120px;
+    position: absolute;
+    bottom: -6rem;
+    right: -5rem;
+  }
+  .main-sticker4 {
+    width: 250px;
+    position: absolute;
+    top: -8rem;
+    left: -5rem;
+  }
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    width: 260px;
+    height: 260px;
+    margin-top: ${(props) => (props.margin ? props.margin : "0")};
+    .main-sticker3 {
+      width: 70px;
+      position: absolute;
+      bottom: -5rem;
+      right: -5rem;
+    }
+    .main-sticker4 {
+      width: 150px;
+      position: absolute;
+      top: -7rem;
+      left: -5rem;
+    }
   }
 `;
 
@@ -497,7 +529,7 @@ export const TrackImg = styled.span`
 `;
 
 export const TrackImgReverse = styled.span`
-  animation: ${flowAnimation} 5s linear infinite reverse;
+  animation: ${flowAnimation} 6s linear infinite reverse;
 `;
 
 export const LastTextBox = styled.div`
