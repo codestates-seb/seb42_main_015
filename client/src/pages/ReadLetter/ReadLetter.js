@@ -13,7 +13,7 @@ import useStore from "../../store/store";
 import { Loading } from "../../components/Loading";
 import axios from "axios";
 import Refresh from "../../util/Refresh";
-import ShareModal from "./ShareModal";
+import ShareButtons from "./ShareButtons";
 
 const ReadLetter = ({ isLogin }) => {
   const { urlName } = useParams();
@@ -218,7 +218,8 @@ const ReadLetter = ({ isLogin }) => {
             <ReadButtons />
           </div>
         </R.Wrapper>
-      )}
+      )}{" "}
+      <ShareButtons />
     </>
   );
 };

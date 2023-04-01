@@ -24,7 +24,7 @@ function Refresh() {
           `Bearer ${res.headers.get("Authorization").split(" ")[1]}`,
           {
             path: "/",
-            sucure: true,
+            secure: true,
             sameSite: "Strict",
             HttpOnly: " HttpOnly ",
           }
