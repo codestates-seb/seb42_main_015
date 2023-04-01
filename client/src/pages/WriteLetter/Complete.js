@@ -12,10 +12,12 @@ import ShareButton from "../commons/ShareButton";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
+  padding-top: 10rem;
+  padding-bottom: 10rem;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   .complete-cat {
     width: 30rem;
   }
@@ -24,7 +26,6 @@ const Container = styled.div`
     align-items: center;
     .clipboard-icon {
       margin-left: 1rem;
-      padding-bottom: 5px;
       font-size: 2.5rem;
       cursor: pointer;
     }
