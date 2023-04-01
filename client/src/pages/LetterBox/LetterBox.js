@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as L from "./LetterBoxStyled";
 import LetterView from "./LetterView";
 import { GrSearch } from "react-icons/gr";
@@ -8,8 +8,6 @@ import {
   RiArrowDropDownLine,
   RiArrowUpSLine,
   RiArrowDownSLine,
-  RiUserReceivedLine,
-  RiUserSharedLine,
 } from "react-icons/ri";
 import { RxThickArrowRight } from "react-icons/rx";
 import { BiRefresh } from "react-icons/bi";
@@ -24,8 +22,8 @@ function LetterBox() {
     inLetters,
     isSend,
     setIsSend,
-    setIsFilterOut,
-    setIsFilterIn,
+    setFilterOut,
+    setFilterIn,
   } = useStore();
   const [leftTab, setLeftTab] = useState(false);
   const [rightTab, setRightTab] = useState(false);
@@ -99,7 +97,7 @@ function LetterBox() {
       periodR = `${yearR}-${monthR}`;
     }
     if (isSend === true) {
-      return setIsFilterOut(
+      return setFilterOut(
         outLetters.filter(
           (letter) =>
             letter.messageCreatedAt.slice(0, 7) >= periodL &&
@@ -108,7 +106,7 @@ function LetterBox() {
       );
     }
     if (isSend === false) {
-      return setIsFilterIn(
+      return setFilterIn(
         inLetters.filter(
           (letter) =>
             letter.messageCreatedAt.slice(0, 7) >= periodL &&
@@ -124,23 +122,23 @@ function LetterBox() {
     setRightTab(false);
     // 최신순
     if (isSend === true && e.target.textContent === "최신순") {
-      return setIsFilterOut(outLetters);
+      return setFilterOut(outLetters);
     } else if (isSend === false && e.target.textContent === "최신순") {
-      return setIsFilterIn(inLetters);
+      return setFilterIn(inLetters);
     }
     // 오래된 순
     if (isSend === true && e.target.textContent === "오래된 순") {
-      return setIsFilterOut(outLetters.reverse());
+      return setFilterOut(outLetters.reverse());
     } else if (isSend === false && e.target.textContent === "오래된 순") {
-      return setIsFilterIn(inLetters.reverse());
+      return setFilterIn(inLetters.reverse());
     }
     // 북마크
     if (isSend === true && e.target.textContent === "북마크") {
-      return setIsFilterOut(
+      return setFilterOut(
         outLetters.filter((letter) => letter.bookMark === true)
       );
     } else if (isSend === false && e.target.textContent === "북마크") {
-      return setIsFilterIn(
+      return setFilterIn(
         inLetters.filter((letter) => letter.bookMark === true)
       );
     }
