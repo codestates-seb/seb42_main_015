@@ -31,18 +31,19 @@ const ReadLetter = ({ isLogin }) => {
 
   //todo 이미지 저장 기능
   //useRef로 -> DOM 선택
-  const LetterRef = useRef();
+  const LetterFrontRef = useRef();
+  const LetterBackRef = useRef();
+
   //이미지로 저장하기 버튼
   const onDownloadBtn = () => {
     setIsLoading(true);
-    const letter = LetterRef.current;
-    domtoimage.toBlob(letter).then((blob) => {
-      setTimeout(() => {
+    domtoimage
+      .toBlob(rotate ? LetterBackRef.current : LetterFrontRef.current)
+      .then((Blob) => {
+        setIsLoading(false);
         alert("편지가 저장되었어요!");
-      }, 100);
-      saveAs(blob, "letter.png");
-      setIsLoading(false);
-    });
+        saveAs(Blob, "letter.png");
+      });
   };
 
   //todo 모달 영역 밖 클릭 시 모달 닫기
@@ -158,21 +159,38 @@ const ReadLetter = ({ isLogin }) => {
               )}
             </div>
             <R.Card className={rotate ? "active-rotate" : ""}>
-              <R.Triangle onClick={handleRotate} bordercolor={data.themeName} />
+              {/* 편지 앞장 이미지 저장 */}
+              <div ref={LetterFrontRef}>
+                <R.Triangle
+                  onClick={handleRotate}
+                  bordercolor={data.themeName}
+                />
+                <R.Letterpaper className="front" LetterTheme={data.themeName}>
+                  <div className="letterContent" font={data.fontName}>
+                    <R.To font={data.fontName}>To. {data.toName}</R.To>
+                    <R.To font={data.fontName}>{LetterDate}</R.To>
+                  </div>
+                  <R.Content font={data.fontName}>{data.content}</R.Content>
+                  <R.From font={data.fontName}>From. {data.fromName}</R.From>
+                </R.Letterpaper>
+              </div>
+              {/* 편지 뒷장 이미지 저장 */}
               <R.Letterpaper
-                className="front"
-                ref={LetterRef}
-                LetterTheme={data.themeName}>
-                <div className="letterContent" font={data.fontName}>
-                  <R.To font={data.fontName}>To. {data.toName}</R.To>
-                  <R.To font={data.fontName}>{LetterDate}</R.To>
-                </div>
-                <R.Content font={data.fontName}>{data.content}</R.Content>
-                <R.From font={data.fontName}>From. {data.fromName}</R.From>
-              </R.Letterpaper>
-              <R.Letterpaper className="back" LetterBackround={data.themeName}>
+                className="back"
+                LetterBackround={data.themeName}
+                ref={LetterBackRef}
+              >
                 <R.Date font={data.fontName}>{LetterDate}</R.Date>
-                <R.BackImg src={data.messageImageUrl}></R.BackImg>
+                {data.messageImageUrl ? (
+                  // 이미지 있으면
+                  <R.BackImg src={data.messageImageUrl}></R.BackImg>
+                ) : (
+                  // 이미지 없으면
+                  <R.BackImg
+                    src={require("../../asset/completeCat.png")}
+                    border="none"
+                  ></R.BackImg>
+                )}
                 <div className="preview-back-content">
                   <R.FlexWrapper1>
                     <R.Text font={data.fontName}>{data.toName}에게</R.Text>

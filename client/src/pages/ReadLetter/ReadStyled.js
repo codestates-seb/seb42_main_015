@@ -180,14 +180,11 @@ export const EnterSeret = styled.div`
   display: flex;
   justify-content: center;
   width: 14.5rem;
-  padding: 0.7rem 0.7rem 0.7rem 0rem;
+  padding: 0.7rem 0rem 0.7rem 0rem;
   border: 2px solid #000000;
   margin-left: 2rem;
   ${FONT_STYLE_READ.body_14_Medium}
   z-index: 204;
-  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
-    padding: 0.7rem 0rem 0.7rem 0rem;
-  }
 
   p {
     ${FONT_STYLE_READ.body_14_light}
@@ -349,6 +346,15 @@ export const Letterpaper = styled(FlexColunmWrapper)`
     margin-bottom: 3rem;
     text-align: justify;
     color: ${PALETTE_V1.text_primary};
+  }
+  &.back {
+    justify-content: space-evenly;
+    .preview-back-content {
+      height: 14%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
   }
 `;
 
@@ -722,7 +728,7 @@ export const Date = styled(Text)`
 `;
 export const BackImg = styled.img`
   display: flex;
-  border: 2px solid;
+  border: ${(props) => props.border || "2px solid;"};
   margin: 1rem 0;
 `;
 export const FlexWrapper1 = styled(W.FlexRowWrapper)`
@@ -749,6 +755,7 @@ export const Triangle = styled.div`
     height: 0;
     position: absolute;
     z-index: 100;
+    background: transparent;
     /* 꼬다리 색깔 */
     border: 4.35rem solid;
     ${(props) => {
