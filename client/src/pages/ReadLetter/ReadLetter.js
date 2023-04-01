@@ -161,8 +161,7 @@ const ReadLetter = ({ isLogin }) => {
               <R.Letterpaper
                 className="front"
                 ref={LetterRef}
-                LetterTheme={data.themeName}
-              >
+                LetterTheme={data.themeName}>
                 <div className="letterContent" font={data.fontName}>
                   <R.To font={data.fontName}>To. {data.toName}</R.To>
                   <R.To font={data.fontName}>{LetterDate}</R.To>
