@@ -23,7 +23,7 @@ import Complete from "./pages/WriteLetter/Complete";
 function App() {
   const displayFooter = true;
   const { isLogin, setIsLogin } = useStore();
-
+  // ! 공백
   const initializeUserInfo = async () => {
     const loggedInfo = getCookie("accesstoken");
     if (loggedInfo) {
@@ -32,11 +32,17 @@ function App() {
       // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
     }
   };
-
+  // ! 공백
+  if (window.Kakao) {
+    const Kakao = window.Kakao;
+    if (!Kakao.isInitialized()) {
+      Kakao.init("472b9297cf551180ae66ea8d75dbc70d");
+    }
+  }
+  // ! 공백
   useEffect(() => {
     initializeUserInfo();
   }, [isLogin]);
-
   // ! 공백
   return (
     <BrowserRouter>

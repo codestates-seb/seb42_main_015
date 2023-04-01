@@ -7,6 +7,7 @@ import useStore from "../../store/store";
 import { BsClipboard, BsFillClipboardCheckFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import ShadowButton from "../commons/ShadowButton";
+import ShareButton from "../commons/ShareButton";
 
 const Container = styled.div`
   display: flex;
@@ -82,6 +83,7 @@ function Complete() {
           우편함 가기
         </ShadowButton>
       </div>
+      <ShareButton url={params.urlName} />
     </Container>
   );
 }
