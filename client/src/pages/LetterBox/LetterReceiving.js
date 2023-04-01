@@ -14,12 +14,12 @@ function LetterReceiving({
   selectId,
   setSelectId,
 }) {
-  const { inLetters, setInLetters, isFilterIn, setIsFilterIn } = useStore();
+  const { inLetters, setInLetters, filterIn, setFilterIn } = useStore();
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [ref, inView] = useInView();
 
-  const getLetters = useCallback(async () => {
+  const getLetters = useCallback(async (page) => {
     return await axios({
       method: "get",
       url: `/api/sendy/mailbox/messages/in?page=${page}`,
@@ -28,28 +28,26 @@ function LetterReceiving({
         Authorization: getCookie("accesstoken"),
       },
     })
-      .then((res) => setInLetters(inLetters.concat(res.data.data)))
-      .then((res) => setIsFilterIn(inLetters))
+      .then((res) => {
+        setInLetters(page === 1 ? res.data.data : [...inLetters, ...res.data.data])
+        setFilterIn(page === 1 ? res.data.data : [...inLetters, ...res.data.data])
+      })
       .catch((err) => {
         if (err.response.status === 401) {
           Refresh().then(() => getLetters());
         }
       });
-  }, [page]);
+  }, [inLetters]);
 
   useEffect(() => {
-    setInLetters([])
-    console.log('리렌더링')
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
-    setIsLoading(true);
-    getLetters();
-    setIsLoading(false);
-    console.log('페이지 요청')
+    // setIsLoading(true);
+    getLetters(page);
+    // setIsLoading(false);
   }, [page]);
-
-  // console.log(inLetters);
 
   useEffect(() => {
     if (inView && !isLoading) {
@@ -85,7 +83,7 @@ function LetterReceiving({
               })
             )
           ) : (
-            isFilterIn.map((letter) => {
+            filterIn.map((letter) => {
               return (
                 <LetterInItem
                   key={letter.receivingId}

@@ -35,6 +35,8 @@ function Header() {
         removeCookie("accesstoken", {
           path: "/",
         });
+        // 멤버Id 세션 삭제
+        sessionStorage.clear();
         navigate("/completeLogout");
         window.location.reload();
       })

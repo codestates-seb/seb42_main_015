@@ -229,7 +229,7 @@ export const ButtonBox = styled.div`
   }
 `;
 
-export const Button = styled.button`
+export const Button = styled.input`
   width: 100px;
   height: 40px;
   background-color: transparent;
