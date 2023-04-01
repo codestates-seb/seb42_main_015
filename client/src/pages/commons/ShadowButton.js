@@ -8,8 +8,7 @@ const StyledContainer = styled.div`
   position: relative;
 `;
 const StyledButton = styled.button`
-  ${FONT_STYLE_V1.body.body_20_light}
-  font-size: 18px;
+  ${FONT_STYLE_V1.body.body_14_light}
   background-color: ${(props) => props.backgroundColor};
   border: 2px solid ${PALETTE_V1.text_primary};
   min-width: 20px;
@@ -33,13 +32,13 @@ const StyledButton = styled.button`
     height: 35px;
   }
   @media screen and (max-width: 540px) {
-    font-size: 15px;
+    font-size: 14px;
     min-width: 80px;
     width: 80px;
     height: 35px;
   }
   @media screen and (max-width: ${BREAKPOINTMOBILE2}px) {
-    font-size: 14px;
+    font-size: 12px;
     min-width: 70px;
     width: 70px;
   }
