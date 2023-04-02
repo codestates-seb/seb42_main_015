@@ -37,6 +37,11 @@ const ReadLetter = ({ isLogin }) => {
   //이미지로 저장하기 버튼
   const onDownloadBtn = () => {
     setIsLoading(true);
+    // domtoimage.toBlob(LetterFrontRef.current).then((Blob) => {
+    //   setIsLoading(false);
+    //   alert("편지가 저장되었어요!");
+    //   saveAs(Blob, "letter.png");
+    // });
     domtoimage
       .toBlob(rotate ? LetterBackRef.current : LetterFrontRef.current)
       .then((Blob) => {

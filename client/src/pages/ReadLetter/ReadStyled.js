@@ -688,7 +688,7 @@ export const Card = styled.div`
     height: 100%;
     top: 0px;
     left: 0px;
-    /* transform: rotateY(180deg); */
+    transform: rotateY(180deg);
     &::after {
       position: absolute;
       content: "";
