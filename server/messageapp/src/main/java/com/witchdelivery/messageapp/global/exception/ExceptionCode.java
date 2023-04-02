@@ -18,7 +18,7 @@ public enum ExceptionCode {
     DUSTBIN_OUTGOING_NOT_FOUND(404, "DUSTBIN OUTGOING NOT FOUND"),
     RECEIVING_NOT_FOUND(404, "RECEIVING NOT FOUND"),
     DUSTBIN_RECEIVING_NOT_FOUND(404, "DUSTBIN RECEIVING NOT FOUND"),
-    ACCESS_TOKEN_EXPIRED(401, "Access token expired");
+    ACCESS_TOKEN_EXPIRED(401, "ACCESS TOKEN EXPIRED");
 
     private final int status;
     private  final String message;
