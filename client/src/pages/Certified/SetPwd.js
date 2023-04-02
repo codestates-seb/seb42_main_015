@@ -102,7 +102,7 @@ function SetPwd() {
           alert("인증코드가 발송되었습니다. 이메일을 확인해주세요!");
         }, 300);
         setCode(res.data.code);
-        console.log(res.data.code);
+        // console.log(res.data.code);
       })
       .catch((err) => {
         console.log(err);
@@ -127,9 +127,7 @@ function SetPwd() {
   };
 
   // sign up 제출 버튼
-  const onSubmit = async (data) => {
-    const { password } = data;
-
+  const onSubmit = async () => {
     await axios({
       method: "patch",
       url: `/api/sendy/users/password`,
@@ -138,7 +136,7 @@ function SetPwd() {
       },
       data: { email: email, newPassword: changePwd },
     })
-      .then((res) => navigate("/setpwd/4"))
+      .then(() => navigate("/setpwd/4"))
       .catch((err) => {
         if (err.response.status === 401) {
           Refresh().then(() => onSubmit());
