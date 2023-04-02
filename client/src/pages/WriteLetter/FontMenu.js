@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as W from "./WriteStyled";
 import { FONT_STYLE_CONTENT, FONT_STYLE_V1 } from "../../style/fontStyle";
 import useStore from "../../store/store";
 
-function FontMenu() {
+function FontMenu({ fontMenuRef }) {
   const { letterContents, setLetterContents } = useStore();
   const { fontName } = letterContents;
   const handleChangeContentFont = (e) => {
     setLetterContents({ ...letterContents, fontName: e.target.textContent });
   };
+
   return (
-    <W.FontContainer>
+    <W.FontContainer ref={fontMenuRef}>
       <W.FontEl
         font={FONT_STYLE_V1.body.body_18_light}
         onClick={handleChangeContentFont}

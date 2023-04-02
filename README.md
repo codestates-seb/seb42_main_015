@@ -29,6 +29,9 @@
 <img src="https://user-images.githubusercontent.com/115965399/229286829-2ce68890-611f-420f-854f-939c20fcd198.png" />
 <img src="https://user-images.githubusercontent.com/115965399/229286831-085f3a3b-7f27-4f92-aa53-02702312fa5b.png">
 
+## 유저플로우
+
+https://www.figma.com/community/file/1213394864275727705
 
 ## 🧩 Git 컨벤션
 
