@@ -6,7 +6,7 @@ spring:
     password:
   batch:
     jdbc:
-      initialize-schema: always
+      initialize-schema: always # batch 스키마 자동 생성
   jpa:
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL8Dialect
@@ -16,6 +16,18 @@ spring:
     multipart:
       max-file-size: 5MB # 단일 파일 업로드 용량 제한, default : 1mb
       max-request-size: 5MB  # 모든 파일 업로드 용량 제한, default : 1mb
+  mail:
+    host: smtp.gmail.com  # SMTP 서버 호스트, 일일 전송 제한 100개
+    port: 587 # SMTP 서버 포트
+    username: ${mail.username}  # SMTP 서버 로그인 아이디
+    password: ${mail.password}  # SMTP 서버 로그인 패스워드
+    properties:
+      mail:
+        smtp:
+          auth: true  # 사용자 인증 시도 여부, default : false
+          timeout: 5000 # Socket Read Timeout 시간(ms), default : infinity
+          starttls:
+            enable: true  # StartTLS 활성화 여부, default : false
   redis:
     host: localhost
     port: 6379
@@ -26,15 +38,15 @@ spring:
           google:
             clientId: ${google.clientid}
             clientSecret: ${google.clientsecret}
+            redirect-uri: ${google.redirect.uri}
             scope: email, profile
-            redirect-uri: http://localhost:3000/login/oauth2/code/google
 mail:
   address:
-    admin: admin@gmail.com  # 관리자 권한
+    admin: admin@gmail.com  # 관리자 권한 계정
 jwt:
   key: ${JWT_SECRET_KEY}
-  access-token-expiration-minutes: 30
-  refresh-token-expiration-minutes: 420
+  access-token-expiration-minutes: ${access.token.expired}
+  refresh-token-expiration-minutes: ${refresh.token.expired}
 cloud:
   aws:
     credentials:
@@ -43,9 +55,16 @@ cloud:
     s3.bucket: ${s3.bucket}
     region.static: ${s3.region}
     stack.auto: false
+default:
+  image:
+    address: ${default.profile.image}
 logging:
   level:
     com:
       amazonaws:
         util:
           EC2MetadataUtils: error
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG # 트랜잭션 로그 레벨 설정

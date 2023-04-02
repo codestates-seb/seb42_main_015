@@ -1,16 +1,23 @@
 package com.witchdelivery.messageapp.domain.mailbox.controller;
 
+import com.witchdelivery.messageapp.domain.mailbox.dto.*;
+import com.witchdelivery.messageapp.domain.mailbox.entity.Outgoing;
+import com.witchdelivery.messageapp.domain.mailbox.entity.Receiving;
 import com.witchdelivery.messageapp.domain.mailbox.mapper.OutgoingMapper;
 import com.witchdelivery.messageapp.domain.mailbox.mapper.ReceivingMapper;
 import com.witchdelivery.messageapp.domain.mailbox.service.OutgoingService;
 import com.witchdelivery.messageapp.domain.mailbox.service.ReceivingService;
+import com.witchdelivery.messageapp.global.response.PageResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.constraints.Positive;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/sendy/mailbox")
@@ -25,14 +32,66 @@ public class MailboxController {
     private final ReceivingMapper receivingMapper;
 
     // 발신 삭제처리 메서드 (반환할건 없을 거 같음)
-    @PatchMapping("/outgoing/{outgoing-id}") // 발신자식별번호
-    public ResponseEntity outgoingStatus(@PathVariable("outgoing-id") long outgoingId) {
-        outgoingService.updateOutgoingStatus(outgoingId);
+    @PatchMapping("/outgoing/delete") // 발신식별번호
+    public ResponseEntity outgoingStatus(@RequestBody MultiCheck multiCheck,
+                                         Authentication authentication) {
+        outgoingService.updateOutgoingStatus(multiCheck.getIds(), authentication);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // 수신 삭제처리 메서드
+    // 수신 삭제처리 메서드 (반환할건 없을 거 같음)
+    @PatchMapping("/receiving/delete") // 수신식별번호
+    public ResponseEntity receivingStatus(@RequestBody MultiCheck multiCheck,
+                                          Authentication authentication) {
+        receivingService.updateReceivingStatus(multiCheck.getIds(), authentication);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PatchMapping("/bookmark/outgoing/{outgoing-id}")              // 발신함 북마크
+    public ResponseEntity updateOutgoingBookMark(@PathVariable("outgoing-id") Long outgoingId, @RequestBody OutgoingPatchDto outgoingPatchDto) {
+        outgoingService.updatedOutgoingBookMark(outgoingId, outgoingPatchDto.isBookMark());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/messages/out")                 // 발신함 편지 조회 (Outgoing_STORE만)
+    public ResponseEntity getAllOutgoingMessages(@Positive @RequestParam(required = false, defaultValue = "1") int page,
+                                                 @Positive @RequestParam(required = false, defaultValue = "15") int size,
+                                                 Authentication authentication) {
+
+        Page<Outgoing> outgoings = outgoingService.findAllMessages(page - 1, size, authentication);
+        List<OutgoingResponseDto> outgoingResponseDtos = new ArrayList<>();
+        for (Outgoing outgoing : outgoings.getContent()) {
+            outgoingResponseDtos.add(outgoingMapper.outgoingToOutgoingResponse(outgoing));
+        }
+
+        return new ResponseEntity<>(new PageResponseDto<>(outgoingResponseDtos, outgoings), HttpStatus.OK);
+    }
+
+
+
+
+    @PatchMapping("/bookmark/receiving/{receiving-id}")    // 수신함 북마크
+    public ResponseEntity updateReceivingBookMark(@PathVariable("receiving-id") Long receivingId, @RequestBody ReceivingPatchDto receivingPatchDto) {
+        receivingService.updatedReceivingBookMark(receivingId, receivingPatchDto.isBookMark());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+
+    @GetMapping("/messages/in")     // 수신함. 회원만 조회가 가능하고 STORE 상태의 편지만 조회가 가능하다.
+    public ResponseEntity getAllReceivingMessages(@Positive @RequestParam(required = false, defaultValue = "1") int page,
+                                                  @Positive @RequestParam(required = false, defaultValue = "15") int size,
+                                                  Authentication authentication) {
+        Page<Receiving> receivings = receivingService.findAllMessages(page - 1, size, authentication);
+        List<ReceivingResponseDto> receivingResponseDtos = new ArrayList<>();
+        for (Receiving receiving : receivings.getContent()) {
+            receivingResponseDtos.add(receivingMapper.receivingToReceivingResponse(receiving));
+        }
+
+        return new ResponseEntity<>(new PageResponseDto<>(receivingResponseDtos, receivings), HttpStatus.OK);
+    }
 
 
 }
