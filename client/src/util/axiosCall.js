@@ -1,13 +1,15 @@
 import axios from "axios";
+import { getCookie } from "../pages/Certified/Cookie";
 
-const axiosCall = (method, url, data = null) => {
+const axiosCall = async (call) => {
+  const token = getCookie("accesstoken");
   return axios({
-    method,
-    url,
-    data,
+    method: call.method,
+    url: call.url,
+    data: call?.data,
     headers: {
       "ngrok-skip-browser-warning": "12",
-      Authorization: localStorage.getItem("jwtToken"),
+      Authorization: token,
     },
   })
     .then((res) => res)

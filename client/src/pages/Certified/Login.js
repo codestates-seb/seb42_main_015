@@ -1,11 +1,16 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import * as L from "./FormStyled";
+import axios from "axios";
+import { setCookie } from "./Cookie";
+import { headers, options, GoogleOauthLogin } from "./setupCertified";
 
 function Login() {
-  const formShema = yup.object({
+  const navigate = useNavigate();
+
+  const FormSchema = yup.object({
     email: yup
       .string()
       .required("이메일을 입력해주세요")
@@ -25,12 +30,39 @@ function Login() {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    console.log(data);
+  //TODO :로그인 제출 버튼
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+    await axios
+      .post(
+        `/api/sendy/auth/login`,
+        { username: email, password: password },
+        {
+          headers,
+        }
+      )
+      .then((res) => {
+        alert("로그인되었습니다.");
+        //! 멤버Id -> 세션 스토리지에 저장
+        sessionStorage.setItem("memberId", res.data.memberId);
+        if (res.headers.getAuthorization) {
+          //! refreshToken -> local storage에 저장
+          localStorage.setItem("refreshToken", res.headers.get("Refresh"));
+          //! accessToken -> cookie에 저장
+          setCookie("accesstoken", `${res.headers.get("Authorization")}`, {
+            options,
+          });
+          navigate("/");
+          window.location.reload();
+        }
+      })
+      .catch((err) => {
+        alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+      });
   };
+
   return (
     <>
       <L.Container>
@@ -46,7 +78,9 @@ function Login() {
                 name="email"
                 placeholder="email address"
               />
-              {errors.email && <p>{errors.email.message}</p>}
+              {errors.email && (
+                <div className="err">{errors.email.message}</div>
+              )}
               <input
                 className="pwdInput"
                 {...register("password")}
@@ -55,15 +89,18 @@ function Login() {
                 placeholder="Password"
                 {...register("password")}
               />
-              {errors.password && <p>{errors.password.message}</p>}
+              {errors.password && (
+                <div className="err">{errors.password.message}</div>
+              )}
               <input
                 className="btn"
                 type="submit"
                 value="Log in"
                 disabled={isSubmitting}
               />
+
               <div className="sub-form ">
-                <Link to="/setpwd">
+                <Link to="/setpwd/1">
                   <li>forget Password</li>
                 </Link>
                 <Link to="/signup">
@@ -73,8 +110,11 @@ function Login() {
               <div className="oauth-form">
                 <div className="oauth-head">Log in With</div>
                 <div className="oauth">
-                  <img src={require("../../asset/구글.png")} alt="Googole" />
-                  <img src={require("../../asset/카카오.png")} alt="Kakao" />
+                  <img
+                    src={require("../../asset/구글.png")}
+                    alt="Google"
+                    onClick={GoogleOauthLogin}
+                  />
                 </div>
               </div>
             </div>
@@ -98,8 +138,11 @@ function Login() {
             <div className="oauth-form">
               <div className="oauth-head">Log in With</div>
               <div className="oauth">
-                <img src={require("../../asset/구글.png")} alt="Googole" />
-                <img src={require("../../asset/카카오.png")} alt="Kakao" />
+                <img
+                  src={require("../../asset/구글.png")}
+                  alt="Google"
+                  onClick={GoogleOauthLogin}
+                />
               </div>
             </div>
           </div>

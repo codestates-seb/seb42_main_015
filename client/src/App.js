@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import SignUp from "./pages/Certified/SignUp";
@@ -13,33 +13,60 @@ import SetPwd from "./pages/Certified/SetPwd";
 import Layout from "./components/Layout";
 import PwdChange from "./pages/MyPage/PwdChange";
 import Trash from "./pages/MyPage/TrashList";
+import CompleteSignup from "./pages/Certified/CompleteSignup";
+import Preview from "./pages/WriteLetter/Preview";
+import { getCookie } from "./pages/Certified/Cookie";
+import useStore from "./store/store";
+import NotFound from "./pages/NotFound";
+import Complete from "./pages/WriteLetter/Complete";
 // ! 공백
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
   const displayFooter = true;
+  const { isLogin, setIsLogin } = useStore();
+  // ! 공백
+  const initializeUserInfo = async () => {
+    const loggedInfo = getCookie("accesstoken");
+    if (loggedInfo) {
+      setIsLogin(true);
+      // console.log("accesstoken : ", getCookie("accesstoken"));
+      // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
+    }
+  };
+  // ! 공백
+  if (window.Kakao) {
+    const Kakao = window.Kakao;
+    if (!Kakao.isInitialized()) {
+      Kakao.init("472b9297cf551180ae66ea8d75dbc70d");
+    }
+  }
+  // ! 공백
+  useEffect(() => {
+    initializeUserInfo();
+  }, [isLogin]);
   // ! 공백
   return (
     <BrowserRouter>
       <Header isLogin={isLogin} />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="letterbox" element={<LetterBox />} />
+        <Route path="/letterbox" element={<LetterBox />} />
+        <Route path="/trash" element={<Trash />} />
         <Route element={<Layout displayFooter={displayFooter} />}>
           <Route path="/login" element={<Login />} />
-          <Route path="/setpwd" element={<SetPwd />} />
           <Route path="/setpwd/:page" element={<SetPwd />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/trash" element={<Trash />} />
-          <Route path="/pwdchange" element={<PwdChange />} />
           <Route path="/pwdchange/:page" element={<PwdChange />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/writeletter" element={<WriteLetter />} />
           <Route path="/completeLogout" element={<CompleteLogout />} />
           <Route
-            path="/readletter"
+            path="/readletter/:urlName"
             element={<ReadLetter isLogin={isLogin} />}
           />
-          <Route path="letterbox" element={<LetterBox />} />
+          <Route path="/completeSignup" element={<CompleteSignup />} />
+          <Route path="/writeletter/preview" element={<Preview />} />
+          <Route path="/writeletter/complete/:urlName" element={<Complete />} />
+          <Route path="/*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
