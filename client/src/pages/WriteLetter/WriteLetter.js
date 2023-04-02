@@ -47,10 +47,11 @@ function WriteLetter() {
   const { transcript, resetTranscript, finalTranscript } =
     useSpeechRecognition();
   const [browserSize, setBrowserSize] = useState();
-
+  const [activeIcon, setActiveIcon] = useState("");
   const { letterContents, setLetterContents } = useStore();
   const sendMeModalRef = useRef();
   const makeLetterModalRef = useRef();
+  const fontMenuRef = useRef();
 
   const handleOpenExplanation = () => {
     setOpenExplaination(!openExplaination);
@@ -65,6 +66,11 @@ function WriteLetter() {
     ) {
       setOpenMakeLetter(false);
       setLetterContents({ ...letterContents, password: null, urlName: null });
+    } else if (
+      activeIcon === "폰트변경" &&
+      !fontMenuRef.current.contains(e.target)
+    ) {
+      setActiveIcon("");
     }
   };
   const handleThemeLeft = () => {
@@ -116,7 +122,9 @@ function WriteLetter() {
       themeName: letterTheme[contentLength],
     });
   }, []);
-
+  // useEffect(() => {
+  //   console.log(fontMenuRef);
+  // }, [fontMenuRef]);
   return (
     <W.PageContainer onClick={handleModal}>
       {openExplaination || openSendMe || openMakeLetter ? (
@@ -158,7 +166,11 @@ function WriteLetter() {
         <W.FlexWrapper2 id="flex-wrapper">
           {browserSize > 767 ? (
             <W.IconWrapper>
-              <MenuBar openExplaination={openExplaination} />
+              <MenuBar
+                openExplaination={openExplaination}
+                activeIcon={activeIcon}
+                setActiveIcon={setActiveIcon}
+              />
             </W.IconWrapper>
           ) : (
             <></>
@@ -173,7 +185,12 @@ function WriteLetter() {
             <W.LetterWrapper>
               {browserSize <= 767 ? (
                 <W.FlexRowWrapper>
-                  <MenuBar openExplaination={openExplaination} />
+                  <MenuBar
+                    openExplaination={openExplaination}
+                    activeIcon={activeIcon}
+                    setActiveIcon={setActiveIcon}
+                    fontMenuRef={fontMenuRef}
+                  />
                 </W.FlexRowWrapper>
               ) : (
                 <></>

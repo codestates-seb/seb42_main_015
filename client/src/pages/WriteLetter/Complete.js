@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import * as W from "./WriteStyled";
 import styled from "styled-components";
 import completeCat from "../../asset/completeCat.png";
 import { BsClipboard, BsFillClipboardCheckFill } from "react-icons/bs";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ShadowButton from "../commons/ShadowButton";
 import ShareButton from "../commons/ShareButton";
 
@@ -45,7 +44,8 @@ const Text = styled.a`
 
 function Complete() {
   const navigate = useNavigate();
-  if (!window.location?.state?.from) {
+  const location = useLocation();
+  if (!location?.state?.from) {
     navigate("/");
   }
 
@@ -57,11 +57,13 @@ function Complete() {
       `https://www.sendy.site/readletter/${params.urlName}`
     );
     setDoneCopy(true);
+    alert("클립보드에 복사되었습니다!");
   };
 
   const handleGoLetterBox = () => {
     navigate("/letterbox");
   };
+
   return (
     <Container>
       <Title>편지가 완성되었어요!</Title>

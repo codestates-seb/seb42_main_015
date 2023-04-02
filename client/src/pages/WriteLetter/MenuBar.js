@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import * as W from "./WriteStyled";
 import { BiMicrophone, BiFontColor } from "react-icons/bi";
 import SpeechRecognition, {
@@ -6,8 +6,7 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import FontMenu from "./FontMenu";
 
-function MenuBar({ openExplaination }) {
-  const [activeIcon, setActiveIcon] = useState("");
+function MenuBar({ openExplaination, activeIcon, setActiveIcon, fontMenuRef }) {
   const { listening, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
   const handleActiveIcon = (e) => {
@@ -72,7 +71,11 @@ function MenuBar({ openExplaination }) {
           }
           id="폰트변경"
         />
-        {activeIcon === "폰트변경" ? <FontMenu /> : <></>}
+        {activeIcon === "폰트변경" ? (
+          <FontMenu fontMenuRef={fontMenuRef} />
+        ) : (
+          <></>
+        )}
         {openExplaination ? (
           <W.BallonTop className="ballon2">
             글씨체를 변경할 수 있습니다.

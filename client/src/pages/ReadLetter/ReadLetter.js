@@ -219,7 +219,7 @@ const ReadLetter = ({ isLogin }) => {
           </div>
         </R.Wrapper>
       )}{" "}
-      <ShareButtons />
+      <ShareButtons urlName={urlName} />
     </>
   );
 };
