@@ -84,7 +84,7 @@ function Main() {
                   <div className="high-light"></div>
                 </M.Title>
                 <M.Contents>따뜻한 마음을 전해보세요.</M.Contents>
-                <M.Button onClick={() => navigate("/writeletter")}>
+                <M.Button onClick={() => navigate("/login")}>
                   <BsEnvelope className="button-icon" />
                   편지 작성하러 가기
                 </M.Button>
@@ -101,7 +101,7 @@ function Main() {
                 되었다면, 원하는 주소명으로 <br /> 만들어집니다. <br />
                 <p className="ex">예시&#41; https://sendy/letter/happy-birthday</p>
               </M.SubContents>
-              <M.Button onClick={() => navigate("/writeletter")}>
+              <M.Button onClick={() => navigate("/login")}>
                 <BsEnvelope className="button-icon" />
                 편지 작성하러 가기
               </M.Button>
@@ -146,7 +146,7 @@ function Main() {
                 원하는 시간에 편지를 받아보세요! <br />
                 스스로에게 위로와 사랑을 전해보세요.💕
               </M.SubContents>
-              <M.Button onClick={() => navigate("/writeletter")}>
+              <M.Button onClick={() => navigate("/login")}>
                 <BsEnvelope className="button-icon" />
                 편지 작성하러 가기
               </M.Button>
@@ -163,7 +163,7 @@ function Main() {
                 받은 편지와 보낸 편지를 우편함에서 확인할 수 있어요! <br />
                 (해당 서비스는 회원가입 후 이용이 가능합니다)
               </M.SubContents>
-              <M.Button onClick={() => navigate("/writeletter")}>
+              <M.Button onClick={() => navigate("/login")}>
                 <BsEnvelope className="button-icon" />
                 편지 작성하러 가기
               </M.Button>
@@ -226,7 +226,7 @@ function Main() {
                   sendy에서 편지를 작성하고, <br />
                   주고 받은 편지를 보며 추억해봐요!
                 </M.LastTitle>
-                <M.Button onClick={() => navigate("/writeletter")}>
+                <M.Button onClick={() => navigate("/login")}>
                   <BsEnvelope className="button-icon" />
                   편지 작성하러 가기
                 </M.Button>
