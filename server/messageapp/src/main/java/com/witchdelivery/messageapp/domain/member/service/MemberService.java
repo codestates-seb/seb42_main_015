@@ -3,6 +3,8 @@ package com.witchdelivery.messageapp.domain.member.service;
 import com.witchdelivery.messageapp.domain.member.dto.MemberResponseDto;
 import com.witchdelivery.messageapp.domain.member.entity.MemberImage;
 import com.witchdelivery.messageapp.domain.member.entity.MemberStatus;
+import com.witchdelivery.messageapp.global.exception.BusinessLogicException;
+import com.witchdelivery.messageapp.global.exception.ExceptionCode;
 import com.witchdelivery.messageapp.infra.S3.S3Info;
 import com.witchdelivery.messageapp.infra.S3.S3Service;
 import com.witchdelivery.messageapp.security.utils.CustomAuthorityUtils;
@@ -103,6 +105,8 @@ public class MemberService {
         Member findMember = memberDbService.findVerifiedMemberId(memberId); // 사용자 검증
         memberDbService.findMatchedPassword(findMember, curPassword);   // 기존 패스워드 검증
         findMember.setPassword(passwordEncoder.encode(newPassword));    // 새로운 패스워드 암호화
+        if (passwordEncoder.matches(curPassword, findMember.getPassword()))
+            throw new BusinessLogicException(ExceptionCode.IMPOSSIBLE_SAME_PASSWORD);   // 400
         memberRepository.save(findMember);
     }
 
@@ -115,7 +119,7 @@ public class MemberService {
         Member findMember = memberDbService.findVerifiedEmail(email); // 사용자 이메일 검증
         findMember.setPassword(passwordEncoder.encode(newPassword));    // 새로운 패스워드 암호화
         memberRepository.save(findMember);
-    }
+    }   // FIXME 빌더패턴
 
     /**
      * 사용자 닉네임 수정 메서드

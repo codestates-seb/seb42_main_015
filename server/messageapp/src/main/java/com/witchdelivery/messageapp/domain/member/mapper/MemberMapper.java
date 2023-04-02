@@ -10,6 +10,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface MemberMapper {
     Member patchNicknameDtoToMember(PatchNicknameDto patchNicknameDto);
+
     MemberResponseDto memberToMemberResponseDto(Member member);
 
     List<MemberResponseDto> membersToMemberResponseDtos(List<Member> members);

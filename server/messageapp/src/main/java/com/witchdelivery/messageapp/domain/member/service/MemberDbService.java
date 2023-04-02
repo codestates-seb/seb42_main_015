@@ -83,7 +83,7 @@ public class MemberDbService {
     public void findMatchedPassword(Member member, String password) {
         Member findMember = findVerifiedMemberId(member.getMemberId());   // 사용자 검증
         if (!passwordEncoder.matches(password, findMember.getPassword())) {
-            throw new BusinessLogicException(ExceptionCode.MEMBER_PASSWORD_MISMATCH);  // 401
+            throw new BusinessLogicException(ExceptionCode.MEMBER_PASSWORD_MISMATCH);  // 400
         }
     }
 
