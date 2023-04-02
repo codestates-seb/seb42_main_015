@@ -10,7 +10,7 @@ export const headers = {
 //set cookie options
 export const options = {
   path: "/",
-  sucure: true,
+  secure: true,
   sameSite: "Strict",
   HttpOnly: " HttpOnly ",
 };

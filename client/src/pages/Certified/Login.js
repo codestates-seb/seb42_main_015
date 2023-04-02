@@ -51,13 +51,9 @@ function Login() {
           //! refreshToken -> local storage에 저장
           localStorage.setItem("refreshToken", res.headers.get("Refresh"));
           //! accessToken -> cookie에 저장
-          setCookie(
-            "accesstoken",
-            `Bearer ${res.headers.get("Authorization").split(" ")[1]}`,
-            {
-              options,
-            }
-          );
+          setCookie("accesstoken", `${res.headers.get("Authorization")}`, {
+            options,
+          });
           navigate("/");
           window.location.reload();
         }

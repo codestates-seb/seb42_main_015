@@ -21,7 +21,7 @@ function Header() {
         "ngrok-skip-browser-warning": "12",
         Authorization: getCookie("accesstoken", {
           path: "/",
-          sucure: true,
+          secure: true,
           sameSite: "Strict",
           HttpOnly: " HttpOnly ",
         }),
@@ -41,7 +41,7 @@ function Header() {
         window.location.reload();
       })
       .catch((err) => {
-        while (err.response.status === 401) {
+        if (err.response.status === 401) {
           Refresh().then(() => onLogout());
         }
       });
