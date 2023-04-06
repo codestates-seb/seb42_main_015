@@ -31,32 +31,27 @@ const ButtonContainer = styled.div`
   margin-top: 3rem;
   width: 20rem;
   justify-content: space-evenly;
-  ${(props) => {
-    switch (props.state) {
-      case "active":
-        return css`
-          flex-direction: column;
-          width: fit-content;
-          position: fixed;
-          bottom: 2.4rem;
-          right: 2.4rem;
-          z-index: 99;
-          animation: ${moveAnimation} 300ms ease-in-out forwards;
-        `;
-      case "unactive":
-        return css`
-          flex-direction: column;
-          width: fit-content;
-          position: fixed;
-          bottom: 2.4rem;
-          right: 2.4rem;
-          z-index: 99;
-          display: none;
-        `;
-      default:
-        break;
-    }
-  }}
+  &.active {
+    flex-direction: column;
+    width: fit-content;
+    position: fixed;
+    bottom: 2.4rem;
+    right: 2.4rem;
+    z-index: 99;
+    animation: ${moveAnimation} 300ms ease-in-out forwards;
+  }
+  &.unactive {
+    flex-direction: column;
+    width: fit-content;
+    position: fixed;
+    bottom: 2.4rem;
+    right: 2.4rem;
+    z-index: 99;
+    animation: ${backAnimation} 300ms ease-in-out forwards;
+  }
+  &.display-none {
+    display: none;
+  }
 `;
 const Button = styled.div`
   width: fit-content;
@@ -67,8 +62,7 @@ const Button = styled.div`
   }
 `;
 
-function ShareButton({ urlName, state }) {
-  const [displayNone, setDisplayNone] = useState(false);
+function ShareButton({ urlName, buttonsRef, showButtons }) {
   const pageUrl = `https://www.sendy.site/readletter/${urlName}`;
   const shareKakao = () => {
     const Kakao = window.Kakao;
@@ -111,13 +105,27 @@ function ShareButton({ urlName, state }) {
     window.open(`http://www.facebook.com/sharer/sharer.php?u=${pageUrl}`);
   };
 
+  const [displayNone, setDisplayNone] = useState(null);
   window.addEventListener("animationend", (e) => {
-    if (e.target.className === "unactive") {
+    if (showButtons) {
+      setDisplayNone(false);
+    } else {
       setDisplayNone(true);
     }
   });
+
   return (
-    <ButtonContainer state={state}>
+    <ButtonContainer
+      ref={buttonsRef}
+      className={
+        showButtons
+          ? "active"
+          : showButtons !== null
+          ? displayNone
+            ? "unactive display-none"
+            : "unactive"
+          : ""
+      }>
       <Button className="kakao-btn" onClick={shareKakao}>
         <img src={require("../../asset/카카오.png")} alt="kakao" />
       </Button>

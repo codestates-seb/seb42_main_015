@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
+import React, { useRef, useState } from "react";
+import styled, { css, keyframes } from "styled-components";
 import ShareButton from "../commons/ShareButton";
 import { IoShareSocialSharp } from "react-icons/io5";
 import { PALETTE_V1 } from "../../style/color";
@@ -41,27 +41,42 @@ const SendButton = styled.div`
   color: white;
   cursor: pointer;
   z-index: 99;
-  will-change: animation;
-  transform: rota;
-  &:active {
+  &.active {
     animation: ${rotateAnimation} 600ms ease-in-out forwards;
   }
-  animation: ${backRotateAnimation} 600ms ease-in-out forwards;
+  &.unactive {
+    animation: ${backRotateAnimation} 600ms ease-in-out forwards;
+  }
 `;
 
-function ShareButtons() {
-  const [showButtons, setShowButtons] = useState(false);
+function ShareButtons({ urlName }) {
+  const [showButtons, setShowButtons] = useState(null);
   const handleShowButtons = () => {
     setShowButtons(!showButtons);
   };
+
+  const buttonsRef = useRef();
+  const sendButtonRef = useRef();
+  window.addEventListener("click", (e) => {
+    if (showButtons) {
+      sendButtonRef.current.animation = "rotateAnimation";
+    }
+  });
   return (
     <>
       <SendButton
+        ref={sendButtonRef}
         onClick={handleShowButtons}
-        className={showButtons ? "active" : "unactive"}>
+        className={
+          showButtons ? "active" : showButtons !== null ? "unactive" : ""
+        }>
         <IoShareSocialSharp />
       </SendButton>
-      <ShareButton state={showButtons ? "active" : "unactive"} />
+      <ShareButton
+        showButtons={showButtons}
+        buttonsRef={buttonsRef}
+        urlName={urlName}
+      />
     </>
   );
 }
