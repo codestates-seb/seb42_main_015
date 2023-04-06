@@ -414,6 +414,7 @@ export const Content = styled.div`
   resize: none;
   letter-spacing: 2px;
   white-space: pre-wrap;
+  overflow-y: auto;
   ${(props) => {
     switch (props.font) {
       case "프리텐다드":

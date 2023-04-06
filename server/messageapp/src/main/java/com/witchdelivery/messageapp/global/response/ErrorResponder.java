@@ -1,6 +1,7 @@
 package com.witchdelivery.messageapp.global.response;
 
 import com.google.gson.Gson;
+import com.witchdelivery.messageapp.global.exception.ExceptionCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
@@ -19,6 +20,15 @@ public class ErrorResponder {
         ErrorResponse errorResponse = ErrorResponse.of(status, message);
 
         sendError(response, status, errorResponse);
+    }
+
+    public static void sendErrorResponse(HttpServletResponse response, ExceptionCode exceptionCode) throws IOException {
+        ErrorResponse errorResponse = ErrorResponse.of(exceptionCode);
+
+        Gson gson = new Gson();
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setStatus(errorResponse.getStatus());
+        response.getWriter().write(gson.toJson(errorResponse, ErrorResponse.class));
     }
 
     private static void sendError(HttpServletResponse response, HttpStatus status, ErrorResponse errorResponse) throws IOException {

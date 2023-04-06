@@ -7,5 +7,19 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface OutgoingMapper {
 
-    OutgoingResponseDto outgoingToOutgoingResponse(Outgoing outgoing); // Entity -> DTO
+
+    default OutgoingResponseDto outgoingToOutgoingResponse(Outgoing outgoing) {
+        OutgoingResponseDto responseDto = new OutgoingResponseDto(
+                outgoing.getOutgoingId(),
+                outgoing.getMessage().getMessageId(),
+                outgoing.getUrlName(),
+                outgoing.getThemeName(),
+                outgoing.getMessage().getToName(),
+                outgoing.getContent(),
+                outgoing.getMessageCreatedAt(),
+                outgoing.isBookMark(),
+                outgoing.getMember().getMemberId()
+        );
+        return responseDto;
+    }
 }
