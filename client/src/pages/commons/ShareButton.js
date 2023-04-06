@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const moveAnimation = keyframes`
   0% {
@@ -62,7 +62,7 @@ const Button = styled.div`
   }
 `;
 
-function ShareButton({ urlName, buttonsRef, showButtons }) {
+function ShareButton({ urlName, showButtons }) {
   const pageUrl = `https://www.sendy.site/readletter/${urlName}`;
   const shareKakao = () => {
     const Kakao = window.Kakao;
@@ -116,7 +116,6 @@ function ShareButton({ urlName, buttonsRef, showButtons }) {
 
   return (
     <ButtonContainer
-      ref={buttonsRef}
       className={
         showButtons
           ? "active"

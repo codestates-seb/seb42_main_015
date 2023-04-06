@@ -55,28 +55,16 @@ function ShareButtons({ urlName }) {
     setShowButtons(!showButtons);
   };
 
-  const buttonsRef = useRef();
-  const sendButtonRef = useRef();
-  window.addEventListener("click", (e) => {
-    if (showButtons) {
-      sendButtonRef.current.animation = "rotateAnimation";
-    }
-  });
   return (
     <>
       <SendButton
-        ref={sendButtonRef}
         onClick={handleShowButtons}
         className={
           showButtons ? "active" : showButtons !== null ? "unactive" : ""
         }>
         <IoShareSocialSharp />
       </SendButton>
-      <ShareButton
-        showButtons={showButtons}
-        buttonsRef={buttonsRef}
-        urlName={urlName}
-      />
+      <ShareButton showButtons={showButtons} urlName={urlName} />
     </>
   );
 }
