@@ -168,7 +168,7 @@ function LetterBox() {
         url: `/api/sendy/mailbox/outgoing/delete`,
         headers: {
           "ngrok-skip-browser-warning": "230327",
-          Authorization: getCookie("accesstoken"),
+          Authorization: getCookie("accessToken"),
         },
         data: { ids: selectId },
       })
@@ -185,7 +185,7 @@ function LetterBox() {
         url: `/api/sendy/mailbox/receiving/delete`,
         headers: {
           "ngrok-skip-browser-warning": "230327",
-          Authorization: getCookie("accesstoken"),
+          Authorization: getCookie("accessToken"),
         },
         data: { ids: selectId },
       })

@@ -25,7 +25,7 @@ function LetterOutgoing({
       url: `/api/sendy/mailbox/messages/out?page=${page}`,
       headers: {
         "ngrok-skip-browser-warning": "230328",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accessToken"),
       },
     })
       .then((res) => {
