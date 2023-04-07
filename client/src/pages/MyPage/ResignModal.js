@@ -58,12 +58,11 @@ function ResignModal({ setOpenResignModal, modalRef }) {
 
   const navigate = useNavigate();
   const handleDeletemember = () => {
-    const memberId = sessionStorage.getItem("memberId");
     navigate("/");
     deleteMember()
       .then(() => {
         localStorage.clear();
-        removeCookie("accesstoken", {
+        removeCookie("accessToken", {
           path: "/",
         });
         navigate("/");

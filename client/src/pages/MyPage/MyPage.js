@@ -50,7 +50,6 @@ function MyPage() {
         if (err.response.status === 401) {
           Refresh().then(() => {
             getUserInfo(memberId).then((res) => {
-              console.log("성공");
               setUserInfo(res.data);
             });
           });
@@ -123,7 +122,7 @@ function MyPage() {
       method: "patch",
       headers: {
         "ngrok-skip-browser-warning": "230325",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accessToken"),
       },
       url: `/api/sendy/users/edit/nickname/${memberId}`,
       data: { nickname },
@@ -137,7 +136,7 @@ function MyPage() {
       method: "post",
       headers: {
         "ngrok-skip-browser-warning": "230325",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accessToken"),
         "Content-Type": "multipart/form-data",
       },
       url: `/api/sendy/users/edit/profile/${memberId}`,
