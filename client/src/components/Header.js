@@ -56,6 +56,7 @@ function Header() {
               <img
                 className="logo-img"
                 src={require("../asset/작은편지.png")}
+                alt="편지 그림"
               />
             </h1>
           </Link>
@@ -66,7 +67,7 @@ function Header() {
               </li>
               <li>
                 <Link to="/letterbox">
-                  <img className="postImg" src={postbox} />
+                  <img className="postImg" src={postbox} alt="우체통" />
                 </Link>
               </li>
               <li>

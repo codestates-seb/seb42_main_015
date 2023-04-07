@@ -6,7 +6,7 @@ import axios from "axios";
 import { setCookie } from "./Cookie";
 import { headers, options, GoogleOauthLogin } from "./setupCertified";
 import * as yup from "yup";
-import { FormSchema }  from "./FormSchema";
+import useStore from "../../store/store";
 
 function Login() {
   const navigate = useNavigate();
@@ -34,6 +34,7 @@ function Login() {
   } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
   //TODO :로그인 제출 버튼
+  const { isLogin, setIsLogin } = useStore();
   const onSubmit = async (data) => {
     const { email, password } = data;
     await axios
@@ -55,6 +56,7 @@ function Login() {
           setCookie("accessToken", `${res.headers.get("Authorization")}`, {
             options,
           });
+          setIsLogin(true);
           navigate("/");
           window.location.reload();
         }
@@ -127,8 +129,7 @@ function Login() {
               <div className="section1">
                 <img
                   src={require("../../asset/해바라기.png")}
-                  alt="Sunflower"
-                ></img>
+                  alt="Sunflower"></img>
                 <span className="box">sunflower</span>
               </div>
               <div className="section2">
