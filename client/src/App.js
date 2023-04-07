@@ -15,31 +15,15 @@ import PwdChange from "./pages/MyPage/PwdChange";
 import Trash from "./pages/MyPage/TrashList";
 import CompleteSignup from "./pages/Certified/CompleteSignup";
 import Preview from "./pages/WriteLetter/Preview";
-import { getCookie } from "./pages/Certified/Cookie";
-import useStore from "./store/store";
 import NotFound from "./pages/NotFound";
 import Complete from "./pages/WriteLetter/Complete";
 // ! 공백
 function App() {
   const displayFooter = true;
-  const { isLogin, setIsLogin } = useStore();
-  // // ! 공백
-  // const initializeUserInfo = async () => {
-  //   const loggedInfo = getCookie("accesstoken");
-  //   if (loggedInfo) {
-  //     setIsLogin(true);
-  //     // console.log("accesstoken : ", getCookie("accesstoken"));
-  //     // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
-  //   }
-  // };
-  // // ! 공백
-  // useEffect(() => {
-  //   initializeUserInfo();
-  // }, [isLogin]);
-  // // ! 공백
+  
   return (
     <BrowserRouter>
-      <Header isLogin={isLogin} />
+      <Header />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/letterbox" element={<LetterBox />} />
@@ -54,7 +38,7 @@ function App() {
           <Route path="/completeLogout" element={<CompleteLogout />} />
           <Route
             path="/readletter/:urlName"
-            element={<ReadLetter isLogin={isLogin} />}
+            element={<ReadLetter />}
           />
           <Route path="/completeSignup" element={<CompleteSignup />} />
           <Route path="/writeletter/preview" element={<Preview />} />

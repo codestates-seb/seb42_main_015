@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import * as L from "./FormStyled";
 import axios from "axios";
 import { setCookie } from "./Cookie";
 import { headers, options, GoogleOauthLogin } from "./setupCertified";
+import * as yup from "yup";
 import useStore from "../../store/store";
 
 function Login() {
@@ -53,7 +53,7 @@ function Login() {
           //! refreshToken -> local storage에 저장
           localStorage.setItem("refreshToken", res.headers.get("Refresh"));
           //! accessToken -> cookie에 저장
-          setCookie("accesstoken", `${res.headers.get("Authorization")}`, {
+          setCookie("accessToken", `${res.headers.get("Authorization")}`, {
             options,
           });
           setIsLogin(true);
