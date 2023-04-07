@@ -2,6 +2,7 @@ import { useState } from "react";
 import * as W from "../WriteLetter/WriteStyled";
 import styled from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
+import defaultImage from "../../asset/completeCat.png";
 
 const Container = styled.div`
   width: 100vw;
@@ -220,8 +221,7 @@ const Preview = () => {
             <W.FromWrapper>
               <W.NameInputWrapper
                 font={fontName}
-                className="from-input preview"
-              >
+                className="from-input preview">
                 From. {fromName}
               </W.NameInputWrapper>
             </W.FromWrapper>
@@ -230,7 +230,12 @@ const Preview = () => {
             <W.FlexWrapper1>
               <W.Date font={fontName}></W.Date>
             </W.FlexWrapper1>
-            <W.BackImg src={image}></W.BackImg>
+            {image ? (
+              <W.BackImg src={image}></W.BackImg>
+            ) : (
+              <W.BackImg src={defaultImage}></W.BackImg>
+            )}
+
             <div className="preview-back-content">
               <W.FlexWrapper1>
                 <W.NameInputWrapper font={fontName} className="preview">
@@ -238,8 +243,7 @@ const Preview = () => {
                 </W.NameInputWrapper>
                 <W.NameInputWrapper
                   font={fontName}
-                  className="from-input preview"
-                >
+                  className="from-input preview">
                   {fromName}(이)가
                 </W.NameInputWrapper>
               </W.FlexWrapper1>
