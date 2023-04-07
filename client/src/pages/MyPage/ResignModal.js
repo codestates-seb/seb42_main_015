@@ -61,6 +61,7 @@ function ResignModal({ setOpenResignModal, modalRef }) {
     navigate("/");
     deleteMember()
       .then(() => {
+        sessionStorage.clear();
         localStorage.clear();
         removeCookie("accessToken", {
           path: "/",
