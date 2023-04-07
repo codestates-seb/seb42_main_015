@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import { BREAKPOINTMOBILE } from "../../src/breakpoint";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,7 +9,7 @@ import Refresh from "../util/Refresh";
 
 function Header() {
   const navigate = useNavigate();
-  const { isLogin, setIsLogin } = useStore();
+  const { isLogin } = useStore();
 
   //로그아웃 제출 버튼
   const onLogout = async () => {
@@ -19,7 +18,7 @@ function Header() {
       url: `/api/sendy/auth/logout`,
       headers: {
         "ngrok-skip-browser-warning": "12",
-        Authorization: getCookie("accesstoken", {
+        Authorization: getCookie("accessToken", {
           path: "/",
           secure: true,
           sameSite: "Strict",
@@ -32,7 +31,7 @@ function Header() {
         //리프레시 토큰 삭제
         localStorage.clear();
         //액세스 토큰 삭제
-        removeCookie("accesstoken", {
+        removeCookie("accessToken", {
           path: "/",
         });
         // 멤버Id 세션 삭제

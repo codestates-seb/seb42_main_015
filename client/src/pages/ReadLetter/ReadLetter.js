@@ -37,18 +37,18 @@ const ReadLetter = ({ isLogin }) => {
   //이미지로 저장하기 버튼
   const onDownloadBtn = () => {
     setIsLoading(true);
-    // domtoimage.toBlob(LetterFrontRef.current).then((Blob) => {
-    //   setIsLoading(false);
-    //   alert("편지가 저장되었어요!");
-    //   saveAs(Blob, "letter.png");
-    // });
-    domtoimage
-      .toBlob(rotate ? LetterBackRef.current : LetterFrontRef.current)
-      .then((Blob) => {
-        setIsLoading(false);
-        alert("편지가 저장되었어요!");
-        saveAs(Blob, "letter.png");
-      });
+    domtoimage.toBlob(LetterFrontRef.current).then((Blob) => {
+      setIsLoading(false);
+      alert("편지가 저장되었어요!");
+      saveAs(Blob, "letter.png");
+    });
+    // domtoimage
+    //   .toBlob(rotate ? LetterBackRef.current : LetterFrontRef.current)
+    //   .then((Blob) => {
+    //     setIsLoading(false);
+    //     alert("편지가 저장되었어요!");
+    //     saveAs(Blob, "letter.png");
+    //   });
   };
 
   //todo 모달 영역 밖 클릭 시 모달 닫기
@@ -84,7 +84,7 @@ const ReadLetter = ({ isLogin }) => {
       .get(`/api/sendy/messages/${urlName}`, {
         headers: {
           "ngrok-skip-browser-warning": "12",
-          Authorization: `${getCookie("accesstoken")}`,
+          Authorization: `${getCookie("accessToken")}`,
         },
       })
       .then((res) => {
@@ -99,7 +99,7 @@ const ReadLetter = ({ isLogin }) => {
         }
         //편지 비밀번호가 있다면(null이 아니라면) -> setLetterPassword에 패스워드 저장
         else if (res.data.password !== null) {
-          setLetterPassword(res.data.password);
+          setLetterPassword(Number(res.data.password));
         }
         setIsLoading(false);
       })
@@ -109,6 +109,8 @@ const ReadLetter = ({ isLogin }) => {
         }
       });
   };
+
+  console.log(letterPassword)
 
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
   const LetterDate = `${new Date(`${data.createdAt}`).getFullYear()}.${(
