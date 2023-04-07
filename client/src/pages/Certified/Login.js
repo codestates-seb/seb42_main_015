@@ -34,7 +34,7 @@ function Login() {
   } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
   //TODO :로그인 제출 버튼
-  const { isLogin, setIsLogin } = useStore();
+  const { setIsLogin } = useStore();
   const onSubmit = async (data) => {
     const { email, password } = data;
     await axios

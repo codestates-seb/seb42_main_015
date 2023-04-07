@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useLocation, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import * as R from "./ReadStyled";
 import domtoimage from "dom-to-image";

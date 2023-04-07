@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import SignUp from "./pages/Certified/SignUp";
@@ -20,7 +19,7 @@ import Complete from "./pages/WriteLetter/Complete";
 // ! 공백
 function App() {
   const displayFooter = true;
-  
+
   return (
     <BrowserRouter>
       <Header />
