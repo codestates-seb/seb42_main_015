@@ -21,7 +21,7 @@ export const LetterBoxWrap = styled.div`
   ${FONT_STYLE_V1.body.body_15_light}
 `;
 
-export const FilterContainer = styled.div`
+export const LetterHeaderWrap = styled.div`
   width: 100%;
   height: 40px;
   border-bottom: 1px solid black;
@@ -350,6 +350,8 @@ export const BookMark = styled.div`
     }
   }
 `;
+
+export const FixedButtonBox = styled.div``;
 
 export const TopButton = styled.div`
   width: 60px;

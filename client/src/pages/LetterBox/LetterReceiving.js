@@ -10,11 +10,13 @@ import Refresh from "../../util/Refresh";
 function LetterReceiving({
   trash,
   isFocus,
-  isSearchIn,
+  searchIn,
+  filteredIn,
+  setFilteredIn,
   selectId,
   setSelectId,
 }) {
-  const { inLetters, setInLetters, filterIn, setFilterIn } = useStore();
+  const { inLetters, setInLetters } = useStore();
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [ref, inView] = useInView();
@@ -30,7 +32,6 @@ function LetterReceiving({
     })
       .then((res) => {
         setInLetters(page === 1 ? res.data.data : [...inLetters, ...res.data.data])
-        setFilterIn(page === 1 ? res.data.data : [...inLetters, ...res.data.data])
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -44,9 +45,7 @@ function LetterReceiving({
   }, []);
 
   useEffect(() => {
-    // setIsLoading(true);
     getLetters(page);
-    // setIsLoading(false);
   }, [page]);
 
   useEffect(() => {
@@ -69,10 +68,10 @@ function LetterReceiving({
       <L.ItemWrap>
         <L.ItemContainer>
           {isFocus ? (
-            isSearchIn.length === 0 ? (
+            searchIn.length === 0 ? (
               <L.NotSearch>해당하는 편지를 찾을 수 없어요.</L.NotSearch>
             ) : (
-              isSearchIn.map((letter) => {
+              searchIn.map((letter) => {
                 return (
                   <LetterInItem
                     key={letter.receivingId}
@@ -83,7 +82,7 @@ function LetterReceiving({
               })
             )
           ) : (
-            filterIn.map((letter) => {
+            filteredIn.map((letter) => {
               return (
                 <LetterInItem
                   key={letter.receivingId}

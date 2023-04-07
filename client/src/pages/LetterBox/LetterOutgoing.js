@@ -10,43 +10,47 @@ import Refresh from "../../util/Refresh";
 function LetterOutgoing({
   trash,
   isFocus,
-  isSearchOut,
+  searchOut,
+  filteredOut,
   selectId,
   setSelectId,
 }) {
-  const { outLetters, setOutLetters, filterOut, setFilterOut } = useStore();
+  const { outLetters, setOutLetters } = useStore();
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [ref, inView] = useInView();
 
-  const getLetters = useCallback(async (page) => {
-    return await axios({
-      method: "get",
-      url: `/api/sendy/mailbox/messages/out?page=${page}`,
-      headers: {
-        "ngrok-skip-browser-warning": "230328",
-        Authorization: getCookie("accesstoken"),
-      },
-    })
-      .then((res) => {
-        setOutLetters(page === 1 ? res.data.data : [...outLetters, ...res.data.data]);
-        setFilterOut(page === 1 ? res.data.data : [...outLetters, ...res.data.data]);
+  const getLetters = useCallback(
+    async (page) => {
+      return await axios({
+        method: "get",
+        url: `/api/sendy/mailbox/messages/out?page=${page}`,
+        headers: {
+          "ngrok-skip-browser-warning": "230328",
+          Authorization: getCookie("accesstoken"),
+        },
       })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          Refresh().then(() => getLetters());
-        }
-      });
-  }, [outLetters]);
+        .then((res) => {
+          setOutLetters(
+            page === 1 ? res.data.data : [...outLetters, ...res.data.data]
+          );
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            Refresh().then(() => getLetters());
+          }
+        });
+    },
+    [outLetters]
+  );
+  // console.log(isLoading);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
-    // setIsLoading(true);
     getLetters(page);
-    // setIsLoading(false);
   }, [page]);
 
   useEffect(() => {
@@ -69,10 +73,10 @@ function LetterOutgoing({
       <L.ItemWrap>
         <L.ItemContainer>
           {isFocus ? (
-            isSearchOut.length === 0 ? (
+            searchOut.length === 0 ? (
               <L.NotSearch>해당하는 편지를 찾을 수 없어요.</L.NotSearch>
             ) : (
-              isSearchOut.map((letter) => {
+              searchOut.map((letter) => {
                 return (
                   <LetterOutItem
                     key={letter.outgoingId}
@@ -83,7 +87,7 @@ function LetterOutgoing({
               })
             )
           ) : (
-            filterOut.map((letter) => {
+            filteredOut.map((letter) => {
               return (
                 <LetterOutItem
                   key={letter.outgoingId}
