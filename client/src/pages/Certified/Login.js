@@ -6,6 +6,7 @@ import * as L from "./FormStyled";
 import axios from "axios";
 import { setCookie } from "./Cookie";
 import { headers, options, GoogleOauthLogin } from "./setupCertified";
+import useStore from "../../store/store";
 
 function Login() {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ function Login() {
   } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
   //TODO :로그인 제출 버튼
+  const { isLogin, setIsLogin } = useStore();
   const onSubmit = async (data) => {
     const { email, password } = data;
     await axios
@@ -54,6 +56,7 @@ function Login() {
           setCookie("accesstoken", `${res.headers.get("Authorization")}`, {
             options,
           });
+          setIsLogin(true);
           navigate("/");
           window.location.reload();
         }

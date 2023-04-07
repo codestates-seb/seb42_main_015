@@ -105,7 +105,7 @@ function ShareButton({ urlName, showButtons }) {
     window.open(`http://www.facebook.com/sharer/sharer.php?u=${pageUrl}`);
   };
 
-  const [displayNone, setDisplayNone] = useState(null);
+  const [displayNone, setDisplayNone] = useState(true);
   window.addEventListener("animationend", (e) => {
     if (showButtons) {
       setDisplayNone(false);
@@ -123,6 +123,8 @@ function ShareButton({ urlName, showButtons }) {
           ? displayNone
             ? "unactive display-none"
             : "unactive"
+          : displayNone
+          ? "display-none"
           : ""
       }>
       <Button className="kakao-btn" onClick={shareKakao}>
