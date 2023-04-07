@@ -5,7 +5,6 @@ import { BsClipboard, BsFillClipboardCheckFill } from "react-icons/bs";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ShadowButton from "../commons/ShadowButton";
 import ShareButton from "../commons/ShareButton";
-import Refresh from "../../util/Refresh";
 
 const Container = styled.div`
   display: flex;

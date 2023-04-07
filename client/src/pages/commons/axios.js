@@ -6,7 +6,7 @@ export const postMessage = async (letterContents) => {
     method: "post",
     url: "/api/sendy/messages/write",
     headers: {
-      Authorization: getCookie("accesstoken"),
+      Authorization: getCookie("accessToken"),
     },
     data: letterContents,
   });
@@ -18,9 +18,8 @@ export const postMessageImage = async (imageFile, urlName) => {
     return axios({
       method: "post",
       headers: {
-        "ngrok-skip-browser-warning": "230325",
         "Content-Type": "multipart/form-data",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accessToken"),
       },
       url: `/api/sendy/messages/write/image/${urlName}`,
       data: formData,
@@ -32,8 +31,7 @@ export const getUrlNameExist = async (urlName) => {
     method: "get",
     url: `/api/sendy/messages/exists/${urlName}`,
     headers: {
-      "ngrok-skip-browser-warning": "230327",
-      Authorization: getCookie("accesstoken"),
+      Authorization: getCookie("accessToken"),
     },
   });
 };
@@ -42,21 +40,17 @@ export const getUserInfo = (memberId) => {
     method: "get",
     url: `/api/sendy/users/${memberId}`,
     headers: {
-      "ngrok-skip-browser-warning": "230325",
-      Authorization: getCookie("accesstoken"),
+      Authorization: getCookie("accessToken"),
     },
   });
 };
-// export const getUserInfo = async () => {
-//   const memberId = sessionStorage.getItem("memberId");
-// };
+
 export const postVerifyNickName = (nickname) => {
   return axios({
     method: "post",
     url: `/api/sendy/users/verify/nickname`,
     headers: {
-      "ngrok-skip-browser-warning": "230325",
-      Authorization: getCookie("accesstoken"),
+      Authorization: getCookie("accessToken"),
     },
     data: { nickname },
   });
@@ -66,8 +60,7 @@ export const deleteProfileImage = (memberId) => {
     method: "post",
     url: `/api/sendy/users/edit/reset-profile/${memberId}`,
     headers: {
-      "ngrok-skip-browser-warning": "230325",
-      Authorization: getCookie("accesstoken"),
+      Authorization: getCookie("accessToken"),
     },
   });
 };
@@ -77,8 +70,7 @@ export const deleteMember = () => {
     method: "delete",
     url: `/api/sendy/users/delete/${memberId}`,
     headers: {
-      "ngrok-skip-browser-warning": "230325",
-      Authorization: getCookie("accesstoken"),
+      Authorization: getCookie("accessToken"),
     },
   });
 };
@@ -88,8 +80,7 @@ export const checkPassword = (password) => {
     method: "post",
     url: `/api/sendy/users/verify/password/${memberId}`,
     headers: {
-      "ngrok-skip-browser-warning": "230325",
-      Authorization: getCookie("accesstoken"),
+      Authorization: getCookie("accessToken"),
     },
     data: { password },
   });

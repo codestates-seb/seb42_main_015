@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { formSchema } from "./formSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Refresh from "../../util/Refresh";
 import {
   getUrlNameExist,
@@ -18,20 +18,21 @@ import {
   postMessageImage,
 } from "../commons/axios";
 import ImageInput from "./ImageInput";
-import { Loading } from "../../components/Loading";
 
 function MakeLetter({ makeLetterModalRef }) {
   const {
     register,
     watch,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
   const [image, setImage] = useState(null);
   const { letterContents, setLetterContents } = useStore();
   const [imageFile, setImageFile] = useState();
-
   const [canUseUrl, setCanUseUrl] = useState(null);
   const handleCheckUrlName = () => {
+    if (!watch("urlName")) {
+      return;
+    }
     getUrlNameExist(letterContents.urlName)
       .then(() => {
         setCanUseUrl(true);
@@ -49,7 +50,6 @@ function MakeLetter({ makeLetterModalRef }) {
       });
   };
 
-  const navigate = useNavigate();
   const handleMakeLetter = () => {
     return postMessage(letterContents)
       .then(() => {
@@ -113,7 +113,6 @@ function MakeLetter({ makeLetterModalRef }) {
                   {...register("urlName")}
                 />
               )}
-
               {errors.urlName && (
                 <W.ErrorMessage className="make-letter">
                   {errors.urlName.message}

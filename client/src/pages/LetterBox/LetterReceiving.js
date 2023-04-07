@@ -27,7 +27,7 @@ function LetterReceiving({
       url: `/api/sendy/mailbox/messages/in?page=${page}`,
       headers: {
         "ngrok-skip-browser-warning": "230328",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accessToken"),
       },
     })
       .then((res) => {
@@ -35,7 +35,7 @@ function LetterReceiving({
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          Refresh().then(() => getLetters());
+          Refresh().then(() => window.location.reload());
         }
       });
   }, [inLetters]);

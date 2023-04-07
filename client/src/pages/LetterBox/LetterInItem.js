@@ -44,7 +44,7 @@ function LetterInItem({ letter, trash, selectId, setSelectId }) {
       url: `/api/sendy/mailbox/bookmark/receiving/${receivingId}`,
       headers: {
         "ngrok-skip-browser-warning": "230327",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accessToken"),
       },
       data: { bookMark: !mark },
     })

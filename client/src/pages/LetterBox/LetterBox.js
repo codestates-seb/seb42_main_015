@@ -88,7 +88,6 @@ function LetterBox() {
         )
       );
     }
-    console.log(periodL);
   };
 
   // 검색
@@ -112,24 +111,21 @@ function LetterBox() {
     setCurrentFilter(e.target.textContent);
     setRightTab(false);
     // 최신순
-    if (isSend) {
-      if (currentFilter === "최신순") return setFilteredOut(outLetters);
-      if (currentFilter === "오래된 순") return setFilteredOut(outLetters.reverse());
-      if (currentFilter === "북마크")
+
+      if (isSend && currentFilter === "최신순") return setFilteredOut(outLetters);
+      if (isSend && currentFilter === "오래된 순") return setFilteredOut(outLetters.reverse());
+      if (isSend && currentFilter === "북마크")
         return setFilteredOut(outLetters.filter((letter) => letter.bookMark === true));
-    }
-    if (!isSend) {
-      if (currentFilter === "최신순") return setFilteredIn(inLetters);
-      if (currentFilter === "오래된 순") return setFilteredIn(inLetters.reverse());
-      if (currentFilter === "북마크")
-        return setFilteredIn(inLetters.filter((letter) => letter.bookMark === true));
-    }
+
+      if (!isSend && currentFilter === "최신순") return setFilteredIn(inLetters);
+      if (!isSend && currentFilter === "오래된 순") return setFilteredIn(inLetters.reverse());
+      if (!isSend && currentFilter === "북마크") setFilteredIn(inLetters.filter((letter) => letter.bookMark));
   };
 
   // const filteredOut = handleFiltered(outLetters, currentFilter);
   // const filteredIn = handleFiltered(inLetters, currentFilter);
   
-  console.log(inLetters)
+  console.log(filteredIn)
 
   // 삭제
   const handleDelete = () => {
@@ -139,7 +135,7 @@ function LetterBox() {
         url: `/api/sendy/mailbox/outgoing/delete`,
         headers: {
           "ngrok-skip-browser-warning": "230327",
-          Authorization: getCookie("accesstoken"),
+          Authorization: getCookie("accessToken"),
         },
         data: { ids: selectId },
       })
@@ -156,7 +152,7 @@ function LetterBox() {
         url: `/api/sendy/mailbox/receiving/delete`,
         headers: {
           "ngrok-skip-browser-warning": "230327",
-          Authorization: getCookie("accesstoken"),
+          Authorization: getCookie("accessToken"),
         },
         data: { ids: selectId },
       })
@@ -246,4 +242,4 @@ function LetterBox() {
   );
 }
 
-export default LetterBox;
+export default LetterBox
