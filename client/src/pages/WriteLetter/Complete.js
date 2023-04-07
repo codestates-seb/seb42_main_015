@@ -5,6 +5,7 @@ import { BsClipboard, BsFillClipboardCheckFill } from "react-icons/bs";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ShadowButton from "../commons/ShadowButton";
 import ShareButton from "../commons/ShareButton";
+import Refresh from "../../util/Refresh";
 
 const Container = styled.div`
   display: flex;
@@ -63,7 +64,7 @@ function Complete() {
   const handleGoLetterBox = () => {
     navigate("/letterbox");
   };
-
+  console.log(localStorage.getItem("refreshToken"));
   return (
     <Container>
       <Title>편지가 완성되었어요!</Title>
