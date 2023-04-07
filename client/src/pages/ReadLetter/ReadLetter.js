@@ -15,9 +15,9 @@ import axios from "axios";
 import Refresh from "../../util/Refresh";
 import ShareButtons from "./ShareButtons";
 
-const ReadLetter = ({ isLogin }) => {
+const ReadLetter = () => {
   const { urlName } = useParams();
-  const { letterPassword, setLetterPassword, setMessageId } = useStore();
+  const { letterPassword, setLetterPassword, setMessageId, isLogin } = useStore();
   const [isLoading, setIsLoading] = useState(false);
   //todo useState
   //비밀번호 쳤는지 안쳤는지
