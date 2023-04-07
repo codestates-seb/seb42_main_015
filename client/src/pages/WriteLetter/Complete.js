@@ -63,7 +63,7 @@ function Complete() {
   const handleGoLetterBox = () => {
     navigate("/letterbox");
   };
-  console.log(localStorage.getItem("refreshToken"));
+
   return (
     <Container>
       <Title>편지가 완성되었어요!</Title>

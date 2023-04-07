@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as W from "./WriteStyled";
 import keyIcon from "../../asset/key.png";
 import RoundButton from "../commons/RoundButton";
@@ -56,13 +56,17 @@ function MakeLetter({ makeLetterModalRef }) {
         postMessageImage(imageFile, letterContents.urlName);
       })
       .catch((err) => {
+        console.log("if문 이전");
         if (err.response.status === 401) {
+          console.log("if문 안");
           Refresh().then(() => {
-            postMessage(letterContents).then(() => {
-              postMessageImage(imageFile, letterContents.urlName).then(
-                () => {}
-              );
-            });
+            console.log("리프레시 성공");
+            postMessage(letterContents)
+              .then(() => {
+                console.log("postMessage성공");
+                postMessageImage(imageFile, letterContents.urlName);
+              })
+              .catch((err) => console.log(err));
           });
         } else {
           console.log(err);
@@ -86,7 +90,7 @@ function MakeLetter({ makeLetterModalRef }) {
     );
     setLetterContents({ ...letterContents, urlName: e.target.value });
   };
-
+  useEffect(() => {});
   return (
     <W.ModalWrapper className="make-letter" ref={makeLetterModalRef}>
       <W.ModalTitle>편지 생성</W.ModalTitle>
@@ -156,7 +160,7 @@ function MakeLetter({ makeLetterModalRef }) {
               if (e.target.value !== "") {
                 setLetterContents({
                   ...letterContents,
-                  password: e.target.value,
+                  password: String(e.target.value),
                 });
               } else {
                 setLetterContents({
