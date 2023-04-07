@@ -1,14 +1,13 @@
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as S from "./ReadStyled";
 import * as yup from "yup";
+import * as S from "./ReadStyled";
 import useStore from "../../store/store";
 
 const ReadLetter = ({ setEnterPassword }) => {
-  const { letterPassword, setLetterPassword } = useStore();
+  const { letterPassword } = useStore();
 
-  const FormScheme = yup.object().shape({
+  const FormSchema = yup.object().shape({
     numberpassword: yup
       .string()
       .required("숫자로 이루어진 비밀번호 4자리를 입력해주세요.")
@@ -22,7 +21,7 @@ const ReadLetter = ({ setEnterPassword }) => {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(FormScheme) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
   const onSubmit = async (data) => {
     const { numberpassword } = data;

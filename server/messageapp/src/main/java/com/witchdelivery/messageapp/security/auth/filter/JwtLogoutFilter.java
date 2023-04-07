@@ -48,9 +48,9 @@ public class JwtLogoutFilter extends OncePerRequestFilter {
         // 로그아웃 된 토큰 검사도 verification filter에서 진행
 
         try {
-            String accessToken = resolveAccessToken(request, response);
-            String refreshToken = resolveRefreshToken(request, response);
-            // access token payload 뽑기
+            String accessToken = extractAccessToken(request, response);
+            String refreshToken = extractRefreshToken(request, response);
+            // access token payload 추출
             Jws<Claims> claims =
                     jwtTokenizer.getClaims(accessToken,
                             jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey()));
@@ -71,18 +71,18 @@ public class JwtLogoutFilter extends OncePerRequestFilter {
 
     }
 
-    // access token 뽑기
-    private String resolveAccessToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String bearerToken = request.getHeader("Authorization");
-        if (!StringUtils.hasText(bearerToken) || !bearerToken.startsWith("Bearer ")) {
-            log.info("Header hasn't contain access token, Authorization: {}", bearerToken);
+    // request header에서 access token 추출
+    private String extractAccessToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String accessToken = request.getHeader("Authorization");
+        if (!StringUtils.hasText(accessToken) || !accessToken.startsWith("Bearer ")) {
+            log.info("Header hasn't contain access token, Authorization: {}", accessToken);
             ErrorResponder.sendErrorResponse(response, HttpStatus.BAD_REQUEST);
         }
-        return bearerToken.replace("Bearer ", "");
+        return accessToken.replace("Bearer ", "");
     }
 
-    // refresh token 뽑기
-    private String resolveRefreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // request header에서 refresh token 추출
+    private String extractRefreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String refreshToken = request.getHeader("Refresh");
         if (!StringUtils.hasText(refreshToken)) {
             log.info("Header hasn't contain refresh token, Refresh: {}", refreshToken);

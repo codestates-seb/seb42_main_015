@@ -3,6 +3,7 @@ package com.witchdelivery.messageapp.domain.mailbox.entity;
 import com.witchdelivery.messageapp.domain.member.entity.Member;
 import com.witchdelivery.messageapp.domain.message.entity.Message;
 import com.witchdelivery.messageapp.global.audit.BaseTime;
+import com.witchdelivery.messageapp.global.utils.BooleanToYNConverter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,19 +23,24 @@ public class Outgoing extends BaseTime { // 발신 (보내는 사람)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long outgoingId; // PK 발신식별번호
 
-    @Column()
-    private Long fromId; // 받는사람식별번호, 비회원 가능
+//    @Column()
+//    private Long fromId; // 받는사람식별번호, 비회원 가능
 
     @ManyToOne
     @JoinColumn(name = "MESSAGE_ID")
     private Message message; // FK 편지식별번호
 
-    private String outgoingNickname; // 발신자 (보내는 사람) 닉네임
+    @Column(name = "URL_NAME" , nullable = false)
+    private String urlName;     // 편지 url 이름
+
+    @Column(nullable = false)
+    private String themeName;   // 테마
+
+    private String toName; // 받는사람 닉네임 (편지테이블의 toName)
 
     private String content; // 편지 내용
 
     private LocalDateTime messageCreatedAt; // 편지 생성날짜
-
     private boolean bookMark; // 북마크 여부
 
     @ManyToOne

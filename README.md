@@ -14,7 +14,7 @@
 
 ## 👩‍💻 마녀배달부 팀원
 <img src="https://user-images.githubusercontent.com/115965399/229286662-b12162a8-58fe-4691-9658-bc00cbb43ba1.png" />
-<img src="https://user-images.githubusercontent.com/115965399/229286663-f095bfae-7a52-42e1-878b-39e4236f2b53.png" />
+<img src="https://user-images.githubusercontent.com/115965399/229350802-883460ee-62b6-4ae0-a57a-823378f779ed.png" />
 
 
 ### 팀원 Github

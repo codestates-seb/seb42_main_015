@@ -16,4 +16,8 @@ public class MessageResponseDto {
     private boolean messageSaved;
     private boolean bookMark;
     private String urlName;
+    private Long password;
+    private String themeName;    // 테마 추가
+    private String fontName;      // 폰트 추가
+    private String MessageImageUrl;
 }

@@ -37,7 +37,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         // google
         String email = String.valueOf(oAuth2User.getAttributes().get("email")); // 이메일
         String nickname = String.valueOf(oAuth2User.getAttributes().get("name"));   // 닉네임
-        String profileImageUrl = String.valueOf(oAuth2User.getAttributes().get("picture")); // 프로필 이미지
+//        String profileImage = String.valueOf(oAuth2User.getAttributes().get("picture")); // 프로필 이미지
         List<String> authorities = customAuthorityUtils.createRoles(email);   // 권한 정보 생성
 
         String accessToken = delegateAccessToken(nickname, authorities);    // JWT Access Token 생성
@@ -54,17 +54,19 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
             log.info("Set refresh token in Redis");
         }
 
-        createOAuthMember(email, nickname, profileImageUrl);  // Resource Owner의 정보를 DB에 저장
+//        createOAuthMember(email, nickname, profileImageUrl);  // Resource Owner의 정보를 DB에 저장
+        createOAuthMember(email, nickname);  // Resource Owner의 정보를 DB에 저장
+
     }
 
     // Resource Owner의 정보를 DB에 저장
     // FIXME 순환참조로 인한 service 클래스 DI 불가
     // TODO 이메일, 닉네임 중복 불가 예외처리
-    public Member createOAuthMember(String email, String nickname, String profileImageUrl) {
+    public Member createOAuthMember(String email, String nickname) {
         Member oAuthMember = Member.builder()
                 .nickname(nickname)
                 .email(email)
-                .profileImageUrl(profileImageUrl)
+//                .profileImage(profileImage)
                 .build();
 
         return memberRepository.save(oAuthMember);

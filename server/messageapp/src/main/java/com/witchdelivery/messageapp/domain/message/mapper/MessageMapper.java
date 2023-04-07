@@ -4,6 +4,7 @@ import com.witchdelivery.messageapp.domain.message.dto.MessagePostDto;
 import com.witchdelivery.messageapp.domain.message.dto.MessageResponseDto;
 import com.witchdelivery.messageapp.domain.message.entity.Message;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 

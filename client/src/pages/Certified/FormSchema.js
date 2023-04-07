@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-const FormScheme = yup.object().shape({
+export const FormSchema = yup.object({
   username: yup
     .string()
     .required("한글, 영문, 숫자로 이루어진 2~10자리를 입력해주세요.")
@@ -34,5 +34,3 @@ const FormScheme = yup.object().shape({
       "숫자로 이루어진 비밀번호 4자리를 입력해주세요."
     ),
 });
-
-export default FormScheme;
