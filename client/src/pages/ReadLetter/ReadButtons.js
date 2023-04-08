@@ -72,7 +72,7 @@ const ReadButtons = ({
       })
       .catch((err) => {
         setIsLoading(false);
-        while (err.response.status === 401) {
+        if (err.response.status === 401) {
           Refresh().then(() => handleKeeping());
         }
       });
@@ -106,7 +106,7 @@ const ReadButtons = ({
           })
           .catch((err) => {
             setIsLoading(false);
-            while (err.response.status === 401) {
+            if (err.response.status === 401) {
               Refresh().then(() => onRemove());
             }
           });
@@ -131,7 +131,7 @@ const ReadButtons = ({
           })
           .catch((err) => {
             setIsLoading(false);
-            while (err.response.status === 401) {
+            if (err.response.status === 401) {
               Refresh().then(() => onRemove());
             }
           });

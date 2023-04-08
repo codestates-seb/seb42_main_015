@@ -13,6 +13,7 @@ export const options = {
   secure: true,
   sameSite: "Strict",
   HttpOnly: " HttpOnly ",
+  // maxAge: 3600
 };
 
 export const GoogleOauthLogin = () => {
