@@ -51,9 +51,9 @@ const { setIsLogin } = useStore();
         }
       )
       .then((res) => {
-        if (res.headers.getAuthorization) {
-          //! refresh token은 -> local storage에 저장
-          localStorage.setItem("refreshToken", res.headers.get("Refresh"));
+          //! 멤버Id, refreshToken -> sessionStorage에 저장;
+          sessionStorage.setItem("memberId", res.data.memberId)
+          sessionStorage.setItem("refreshToken", res.headers.get("Refresh"));
           //! access token은 -> cookie에 저장
           setCookie(
             "accesstoken",
@@ -63,15 +63,12 @@ const { setIsLogin } = useStore();
             }
           );
           //! accessToken expire  -> cookie에 저장(60분)
-          setCookie("accesstoken_expire", `${res.headers.get("Date")}`, {
-            options,
-          });
-          //! 멤버Id -> 세션 스토리지에 저장
-          sessionStorage.setItem("memberId", res.data.memberId);
-        }
+          // setCookie("accesstoken_expire", `${res.headers.get("Date")}`, {
+          //   options,
+          // });
         setIsLogin(true);
-        window.location.reload();
         CloseModal();
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);

@@ -47,20 +47,20 @@ function Login() {
       )
       .then((res) => {
         alert("로그인되었습니다.");
-        //! 멤버Id -> 세션 스토리지에 저장
+        //! 멤버Id, refreshToken -> sessionStorage에 저장
         sessionStorage.setItem("memberId", res.data.memberId);
-        if (res.headers.getAuthorization) {
-          //! refreshToken -> local storage에 저장
-          sessionStorage.setItem("refreshToken", res.headers.get("Refresh"));
+        sessionStorage.setItem("refreshToken", res.headers.get("Refresh"));
           //! accessToken -> cookie에 저장
           setCookie("accessToken", `${res.headers.get("Authorization")}`, {
             options,
           });
+          //! accessToken expire  -> cookie에 저장(60분)
+          // setCookie("accesstoken_expire", `${res.headers.get("Date")}`, {
+          //   options,
+          // });
           setIsLogin(true);
           navigate("/");
-          window.location.reload();
-          console.log(getCookie("accessToken"))
-        }
+        window.location.reload();
       })
       .catch(() => {
         alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
