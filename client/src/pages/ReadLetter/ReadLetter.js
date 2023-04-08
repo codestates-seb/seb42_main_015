@@ -99,12 +99,12 @@ const ReadLetter = () => {
         }
         //편지 비밀번호가 있다면(null이 아니라면) -> setLetterPassword에 패스워드 저장
         else if (res.data.password !== null) {
-          setLetterPassword(Number(res.data.password));
+          setLetterPassword(res.data.password);
         }
         setIsLoading(false);
       })
       .catch((err) => {
-        while (err.response.status === 401) {
+        if (err.response.status === 401) {
           Refresh().then(() => getLetter());
         }
       });

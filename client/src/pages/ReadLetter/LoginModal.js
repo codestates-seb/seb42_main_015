@@ -6,8 +6,11 @@ import * as yup from "yup";
 import axios from "axios";
 import { setCookie } from "../Certified/Cookie";
 import { GoogleOauthLogin, options } from "../Certified/setupCertified";
+import useStore from "../../store/store";
 
 const LoginModal = ({ ModalRef, setIsClickModal }) => {
+const { setIsLogin } = useStore();
+
   //로그인되면 모달 닫기
   const CloseModal = () => {
     alert("로그인되었습니다.");
@@ -48,26 +51,24 @@ const LoginModal = ({ ModalRef, setIsClickModal }) => {
         }
       )
       .then((res) => {
-        if (res.headers.getAuthorization) {
-          //! refresh token은 -> local storage에 저장
-          localStorage.setItem("refreshToken", res.headers.get("Refresh"));
+          //! 멤버Id, refreshToken -> sessionStorage에 저장;
+          sessionStorage.setItem("memberId", res.data.memberId)
+          sessionStorage.setItem("refreshToken", res.headers.get("Refresh"));
           //! access token은 -> cookie에 저장
           setCookie(
             "accesstoken",
-            `Bearer ${res.headers.get("Authorization").split(" ")[1]}`,
+            `${res.headers.get("Authorization")}`,
             {
               options,
             }
           );
           //! accessToken expire  -> cookie에 저장(60분)
-          setCookie("accesstoken_expire", `${res.headers.get("Date")}`, {
-            options,
-          });
-          //! 멤버Id -> 세션 스토리지에 저장
-          sessionStorage.setItem("memberId", res.data.memberId);
-        }
-        window.location.reload();
+          // setCookie("accesstoken_expire", `${res.headers.get("Date")}`, {
+          //   options,
+          // });
+        setIsLogin(true);
         CloseModal();
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
