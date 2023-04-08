@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as L from "./FormStyled";
 import axios from "axios";
-import { setCookie } from "./Cookie";
+import { setCookie, getCookie } from "./Cookie";
 import { headers, options, GoogleOauthLogin } from "./setupCertified";
 import * as yup from "yup";
 import useStore from "../../store/store";
@@ -51,7 +51,7 @@ function Login() {
         sessionStorage.setItem("memberId", res.data.memberId);
         if (res.headers.getAuthorization) {
           //! refreshToken -> local storage에 저장
-          localStorage.setItem("refreshToken", res.headers.get("Refresh"));
+          sessionStorage.setItem("refreshToken", res.headers.get("Refresh"));
           //! accessToken -> cookie에 저장
           setCookie("accessToken", `${res.headers.get("Authorization")}`, {
             options,
@@ -59,9 +59,10 @@ function Login() {
           setIsLogin(true);
           navigate("/");
           window.location.reload();
+          console.log(getCookie("accessToken"))
         }
       })
-      .catch((err) => {
+      .catch(() => {
         alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
       });
   };

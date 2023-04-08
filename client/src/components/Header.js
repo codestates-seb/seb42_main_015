@@ -18,12 +18,7 @@ function Header() {
       url: `/api/sendy/auth/logout`,
       headers: {
         "ngrok-skip-browser-warning": "12",
-        Authorization: getCookie("accessToken", {
-          path: "/",
-          secure: true,
-          sameSite: "Strict",
-          HttpOnly: " HttpOnly ",
-        }),
+        Authorization: `${getCookie("accessToken")}`,
         Refresh: localStorage.getItem("refreshToken"),
       },
     })
@@ -41,7 +36,7 @@ function Header() {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          Refresh().then(() => onLogout());
+          Refresh().then(() => window.location.reload().then(() => onLogout()));
         }
       });
   };
