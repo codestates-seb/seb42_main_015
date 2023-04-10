@@ -10,43 +10,53 @@ import Refresh from "../../util/Refresh";
 function LetterReceiving({
   trash,
   isFocus,
-  isSearchIn,
+  searchIn,
+  filteredIn,
   selectId,
   setSelectId,
+  setCurrentFilter,
+  isPeriod,
+  periodIn,
 }) {
-  const { inLetters, setInLetters, filterIn, setFilterIn } = useStore();
+  const { inLetters, setInLetters } = useStore();
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [ref, inView] = useInView();
 
-  const getLetters = useCallback(async (page) => {
-    return await axios({
-      method: "get",
-      url: `/api/sendy/mailbox/messages/in?page=${page}`,
-      headers: {
-        "ngrok-skip-browser-warning": "230328",
-        Authorization: getCookie("accessToken"),
-      },
-    })
-      .then((res) => {
-        setInLetters(page === 1 ? res.data.data : [...inLetters, ...res.data.data])
-        setFilterIn(page === 1 ? res.data.data : [...inLetters, ...res.data.data])
+  const getLetters = useCallback(
+    async (page) => {
+      return await axios({
+        method: "get",
+        url: `/api/sendy/mailbox/messages/in?page=${page}`,
+        headers: {
+          "ngrok-skip-browser-warning": "230328",
+          Authorization: getCookie("accessToken"),
+        },
       })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          Refresh().then(() => getLetters());
-        }
-      });
-  }, [inLetters]);
+        .then((res) => {
+          setInLetters(
+            page === 1 ? res.data.data : [...inLetters, ...res.data.data]
+          );
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            Refresh().then(() => console.log("리프레시 실행"));
+          }
+        });
+    },
+    [inLetters]
+  );
+
+  // console.log("원본 데이터", inLetters);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setCurrentFilter("최신순");
+    getLetters(1);
   }, []);
 
   useEffect(() => {
-    // setIsLoading(true);
     getLetters(page);
-    // setIsLoading(false);
   }, [page]);
 
   useEffect(() => {
@@ -62,17 +72,17 @@ function LetterReceiving({
 
   return (
     <L.ListContainer>
-      <L.ListDateContainer>
+      {/* <L.ListDateContainer>
         <L.ListDate>2023.03</L.ListDate>
         <L.ListBar></L.ListBar>
-      </L.ListDateContainer>
+      </L.ListDateContainer> */}
       <L.ItemWrap>
         <L.ItemContainer>
           {isFocus ? (
-            isSearchIn.length === 0 ? (
+            searchIn.length === 0 ? (
               <L.NotSearch>해당하는 편지를 찾을 수 없어요.</L.NotSearch>
             ) : (
-              isSearchIn.map((letter) => {
+              searchIn.map((letter) => {
                 return (
                   <LetterInItem
                     key={letter.receivingId}
@@ -82,8 +92,20 @@ function LetterReceiving({
                 );
               })
             )
+          ) : isPeriod ? (
+            periodIn.map((letter) => {
+              return (
+                <LetterInItem
+                  key={letter.receivingId}
+                  letter={letter}
+                  trash={trash}
+                  selectId={selectId}
+                  setSelectId={setSelectId}
+                />
+              );
+            })
           ) : (
-            filterIn.map((letter) => {
+            filteredIn.map((letter) => {
               return (
                 <LetterInItem
                   key={letter.receivingId}

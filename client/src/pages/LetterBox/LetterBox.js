@@ -1,103 +1,81 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import * as L from "./LetterBoxStyled";
-import LetterView from "./LetterView";
-import { GrSearch } from "react-icons/gr";
-import { AiOutlineCalendar, AiOutlineArrowUp } from "react-icons/ai";
+import { AiOutlineArrowUp } from "react-icons/ai";
 import { HiOutlineTrash } from "react-icons/hi";
-import {
-  RiArrowDropDownLine,
-  RiArrowUpSLine,
-  RiArrowDownSLine,
-} from "react-icons/ri";
-import { RxThickArrowRight } from "react-icons/rx";
-import { BiRefresh } from "react-icons/bi";
 import useStore from "../../store/store";
 import { getCookie } from "../Certified/Cookie";
 import axios from "axios";
 import Refresh from "../../util/Refresh";
+import LetterHeader from "./LetterHeader";
+import LetterOutgoing from "./LetterOutgoing";
+import LetterReceiving from "./LetterReceiving";
 
 function LetterBox() {
-  const {
-    outLetters,
-    inLetters,
-    isSend,
-    setIsSend,
-    setFilterOut,
-    setFilterIn,
-  } = useStore();
+  const { outLetters, inLetters, isSend, setIsSend } = useStore();
   const [leftTab, setLeftTab] = useState(false);
   const [rightTab, setRightTab] = useState(false);
-  const [currentTab, setCurrentTab] = useState("최신순");
+  const [currentFilter, setCurrentFilter] = useState("최신순");
   const [trash, setTrash] = useState(false);
-  const [yearL, setYearL] = useState(2023);
-  const [monthL, setMonthL] = useState(1);
-  const [yearR, setYearR] = useState(2023);
-  const [monthR, setMonthR] = useState(1);
   const [isFocus, setIsFocus] = useState(false);
-  const [isSearchOut, setIsSearchOut] = useState(outLetters);
-  const [isSearchIn, setIsSearchIn] = useState(inLetters);
+  const [searchOut, setSearchOut] = useState(outLetters);
+  const [searchIn, setSearchIn] = useState(inLetters);
+  const [filteredOut, setFilteredOut] = useState(outLetters);
+  const [filteredIn, setFilteredIn] = useState(inLetters);
+  const [periodOut, setPeriodOut] = useState(outLetters);
+  const [periodIn, setPeriodIn] = useState(inLetters);
+  const [isPeriod, setIsPeriod] = useState(false);
   const [selectId, setSelectId] = useState([]);
-  const filterItem = ["최신순", "오래된 순", "북마크"];
+  const [date, setDate] = useState({
+    startYear: 2023,
+    startMonth: 1,
+    EndYear: 2023,
+    EndMonth: 1,
+  });
 
-  // 기간 필터
-  const handleMonthLUp = () => {
-    if (+monthL > 0 && +monthL < 12) {
-      setMonthL(+monthL + 1);
-    }
-  };
-  const handleMonthLDown = () => {
-    if (+monthL > 1 && +monthL < 13) {
-      setMonthL(+monthL - 1);
-    }
-  };
-  const handleYearLUp = () => {
-    if (yearL >= 2023) {
-      setYearL(yearL + 1);
-    }
-  };
-  const handleYearLDown = () => {
-    if (yearL > 2023) {
-      setYearL(yearL - 1);
-    }
-  };
-  const handleMonthRUp = () => {
-    if (+monthR > 0 && +monthR < 12) {
-      setMonthR(+monthR + 1);
-    }
-  };
-  const handleMonthRDown = () => {
-    if (+monthR > 1 && +monthR < 13) {
-      setMonthR(+monthR - 1);
-    }
-  };
-  const handleYearRUp = () => {
-    if (yearR >= 2023) {
-      setYearR(yearR + 1);
-    }
-  };
-  const handleYearRDown = () => {
-    if (yearR > 2023) {
-      setYearR(yearR - 1);
-    }
-  };
+  const filters = ["최신순", "오래된 순", "북마크"];
 
   // 기간
-  const handleDate = () => {
-    setLeftTab(!leftTab);
+  const handleChangeDate = useCallback((name, type) => {
+    if (name === "startYear" || name === "EndYear") {
+      setDate((prev) => {
+        const copy = { ...prev };
+        copy[name] = type === "plus" ? prev[name] + 1 : prev[name] - 1;
+        return copy;
+      });
+    }
+    if (name === "startMonth" || name === "EndMonth") {
+      setDate((prev) => {
+        const copy = { ...prev };
+        copy[name] =
+          type === "plus"
+            ? prev[name] > 0 && prev[name] < 12
+              ? prev[name] + 1
+              : prev[name]
+            : prev[name] > 1 && prev[name] <= 12
+            ? prev[name] - 1
+            : prev[name];
+        return copy;
+      });
+    }
+  }, []);
+
+  const handleSubmitDate = () => {
+    setLeftTab(false);
+    setIsPeriod(true);
     let periodL;
     let periodR;
-    if (monthL < 10) {
-      periodL = `${yearL}-0${monthL}`;
+    if (date.startMonth < 10) {
+      periodL = `${date.startYear}-0${date.startMonth}`;
     } else {
-      periodL = `${yearL}-${monthL}`;
+      periodL = `${date.startYear}-${date.startMonth}`;
     }
-    if (monthL < 10) {
-      periodR = `${yearR}-0${monthR}`;
+    if (date.EndMonth < 10) {
+      periodR = `${date.EndYear}-0${date.EndMonth}`;
     } else {
-      periodR = `${yearR}-${monthR}`;
+      periodR = `${date.EndYear}-${date.EndMonth}`;
     }
     if (isSend === true) {
-      return setFilterOut(
+      return setPeriodOut(
         outLetters.filter(
           (letter) =>
             letter.messageCreatedAt.slice(0, 7) >= periodL &&
@@ -106,7 +84,7 @@ function LetterBox() {
       );
     }
     if (isSend === false) {
-      return setFilterIn(
+      return setPeriodIn(
         inLetters.filter(
           (letter) =>
             letter.messageCreatedAt.slice(0, 7) >= periodL &&
@@ -116,48 +94,26 @@ function LetterBox() {
     }
   };
 
-  // 시간순 & 북마크
-  const handleFilter = (e) => {
-    setCurrentTab(e.target.textContent);
-    setRightTab(false);
-    // 최신순
-    if (isSend === true && e.target.textContent === "최신순") {
-      return setFilterOut(outLetters);
-    } else if (isSend === false && e.target.textContent === "최신순") {
-      return setFilterIn(inLetters);
-    }
-    // 오래된 순
-    if (isSend === true && e.target.textContent === "오래된 순") {
-      return setFilterOut(outLetters.reverse());
-    } else if (isSend === false && e.target.textContent === "오래된 순") {
-      return setFilterIn(inLetters.reverse());
-    }
-    // 북마크
-    if (isSend === true && e.target.textContent === "북마크") {
-      return setFilterOut(
-        outLetters.filter((letter) => letter.bookMark === true)
-      );
-    } else if (isSend === false && e.target.textContent === "북마크") {
-      return setFilterIn(
-        inLetters.filter((letter) => letter.bookMark === true)
-      );
-    }
-  };
-
   // 검색
   const handleSearch = (e) => {
     if (isSend === true) {
-      return setIsSearchOut(
+      return setSearchOut(
         outLetters.filter((letter) => letter.toName.includes(e.target.value))
       );
     }
     if (isSend === false) {
-      return setIsSearchIn(
+      return setSearchIn(
         inLetters.filter((letter) =>
           letter.outgoingNickname.includes(e.target.value)
         )
       );
     }
+  };
+
+  // 시간순 & 북마크
+  const handleFiltered = (e) => {
+    setCurrentFilter(e.target.textContent);
+    setRightTab(false);
   };
 
   // 삭제
@@ -172,12 +128,12 @@ function LetterBox() {
         },
         data: { ids: selectId },
       })
-      .then(() => window.location.reload())
-      .catch((err) => {
-        if (err.response.status === 401) {
-          Refresh().then(() => handleDelete());
-        }
-      });
+        .then(() => window.location.reload())
+        .catch((err) => {
+          if (err.response.status === 401) {
+            Refresh().then(() => console.log("리프레시 실행"));
+          }
+        });
     }
     if (!isSend) {
       axios({
@@ -189,135 +145,122 @@ function LetterBox() {
         },
         data: { ids: selectId },
       })
-      .then(() => window.location.reload())
-      .catch((err) => {
-        if (err.response.status === 401) {
-          Refresh().then(() => handleDelete());
-        }
-      });
+        .then(() => window.location.reload())
+        .catch((err) => {
+          if (err.response.status === 401) {
+            Refresh().then(() => console.log("리프레시 실행"));
+          }
+        });
     }
   };
 
-  // console.log(selectId);
+  useEffect(() => {
+    if (isSend) {
+      if (currentFilter === "최신순") setFilteredOut(outLetters);
+      if (currentFilter === "오래된 순") setFilteredOut(outLetters.reverse());
+      if (currentFilter === "북마크")
+        setFilteredOut(outLetters.filter((letter) => letter.bookMark));
+    }
+
+    if (!isSend) {
+      if (currentFilter === "최신순") setFilteredIn(inLetters);
+      if (currentFilter === "오래된 순") setFilteredIn(inLetters.reverse());
+      if (currentFilter === "북마크")
+        setFilteredIn(inLetters.filter((letter) => letter.bookMark));
+    }
+  }, [inLetters, outLetters, currentFilter]);
+
+
+  // console.log(currentFilter)
+  console.log('필터 데이터', filteredIn);
 
   return (
     <L.LetterBoxWrap>
-      <L.FilterContainer>
-        <L.SearchContainer>
-          <GrSearch className="icon" />
-          <L.Search
-            type="text"
-            placeholder="Search..."
-            onChange={handleSearch}
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
+      <LetterHeader
+        date={date}
+        filters={filters}
+        setIsFocus={setIsFocus}
+        onSearch={handleSearch}
+        onFilter={handleFiltered}
+        onSubmitDate={handleSubmitDate}
+        onChangeDate={handleChangeDate}
+        currentFilter={currentFilter}
+        leftTab={leftTab}
+        setLeftTab={setLeftTab}
+        rightTab={rightTab}
+        setRightTab={setRightTab}
+        setIsPeriod={setIsPeriod}
+      />
+      <L.ListWrap>
+        {isSend ? (
+          <LetterOutgoing
+            trash={trash}
+            isFocus={isFocus}
+            searchOut={searchOut}
+            filteredOut={filteredOut}
+            setFilteredOut={setFilteredOut}
+            selectId={selectId}
+            setSelectId={setSelectId}
+            setCurrentFilter={setCurrentFilter}
+            isPeriod={isPeriod}
+            periodOut={periodOut}
           />
-          <AiOutlineCalendar
-            className="icon"
-            onClick={() => setLeftTab(!leftTab)}
+        ) : (
+          <LetterReceiving
+            trash={trash}
+            isFocus={isFocus}
+            searchIn={searchIn}
+            filteredIn={filteredIn}
+            setFilteredIn={setFilteredIn}
+            selectId={selectId}
+            setSelectId={setSelectId}
+            setCurrentFilter={setCurrentFilter}
+            isPeriod={isPeriod}
+            periodIn={periodIn}
           />
-          {leftTab ? (
-            <L.PeriodBox>
-              <L.Line>
-                <L.LineBtn onClick={() => window.location.reload()}>
-                  초기화 <BiRefresh className="period-btn" />
-                </L.LineBtn>
-                <L.LineBtn>
-                  <RxThickArrowRight
-                    className="period-btn"
-                    onClick={handleDate}
-                  />
-                </L.LineBtn>
-              </L.Line>
-              <L.Date>
-                <L.DateYear>
-                  <RiArrowUpSLine onClick={handleYearLUp} />
-                  {yearL}
-                  <RiArrowDownSLine onClick={handleYearLDown} />
-                </L.DateYear>
-                <L.DateMonth>
-                  <RiArrowUpSLine onClick={handleMonthLUp} />
-                  {monthL}
-                  <RiArrowDownSLine onClick={handleMonthLDown} />
-                </L.DateMonth>
-                ~
-                <L.DateYear>
-                  <RiArrowUpSLine onClick={handleYearRUp} />
-                  {yearR}
-                  <RiArrowDownSLine onClick={handleYearRDown} />
-                </L.DateYear>
-                <L.DateMonth>
-                  <RiArrowUpSLine onClick={handleMonthRUp} />
-                  {monthR}
-                  <RiArrowDownSLine onClick={handleMonthRDown} />
-                </L.DateMonth>
-              </L.Date>
-            </L.PeriodBox>
-          ) : (
-            false
-          )}
-        </L.SearchContainer>
-        <L.DropdownContainer>
-          <L.CurrentSelectBox onClick={() => setRightTab(!rightTab)}>
-            <L.CurrentSelect>{currentTab}</L.CurrentSelect>
-            <RiArrowDropDownLine className="icon" />
-          </L.CurrentSelectBox>
-          {rightTab ? (
-            <L.Dropdown>
-              {filterItem.map((el, idx) => (
-                <L.DropdownItem key={idx} onClick={handleFilter}>
-                  {el}
-                </L.DropdownItem>
-              ))}
-            </L.Dropdown>
-          ) : (
-            false
-          )}
-        </L.DropdownContainer>
-      </L.FilterContainer>
-      <L.ViewWrap>
-        <LetterView
-          trash={trash}
-          isFocus={isFocus}
-          isSearchOut={isSearchOut}
-          isSearchIn={isSearchIn}
-          selectId={selectId}
-          setSelectId={setSelectId}
-        />
-        <L.Gradient />
-      </L.ViewWrap>
-      <L.TopButton
-        onClick={() => {
-          window.scrollTo(0, 0);
-        }}
-      >
-        <AiOutlineArrowUp />
-      </L.TopButton>
-      {trash ? (
-        <>
-          <L.DeleteButtonON onClick={() => setTrash(!trash)}>
+        )}
+      </L.ListWrap>
+      <L.Gradient />
+      <L.FixedButtonBox>
+        <L.TopButton
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+        >
+          <AiOutlineArrowUp />
+        </L.TopButton>
+        {trash ? (
+          <>
+            <L.DeleteButtonON
+              className="trash-animation-on"
+              onClick={() => setTrash(!trash)}
+            >
+              <HiOutlineTrash />
+            </L.DeleteButtonON>
+            <L.DeleteButton className="trash-animation" onClick={handleDelete}>
+              휴지통
+              <br />
+              보내기
+            </L.DeleteButton>
+          </>
+        ) : (
+          <L.DeleteButtonOff
+            className="trash-animation-off"
+            onClick={() => setTrash(!trash)}
+          >
             <HiOutlineTrash />
-          </L.DeleteButtonON>
-          <L.DeleteButton className="trash-animation" onClick={handleDelete}>
-            휴지통
-            <br />
-            보내기
-          </L.DeleteButton>
-        </>
-      ) : (
-        <L.DeleteButtonOff onClick={() => setTrash(!trash)}>
-          <HiOutlineTrash />
-        </L.DeleteButtonOff>
-      )}
-      {isSend ? (
-        <L.SendButton onClick={() => setIsSend(!isSend)}>
-          보낸 <br/> 편지
-        </L.SendButton>
-      ) : (
-        <L.ReceiveButton onClick={() => setIsSend(!isSend)}>
-          받은 <br/> 편지
-        </L.ReceiveButton>
-      )}
+          </L.DeleteButtonOff>
+        )}
+        {isSend ? (
+          <L.SendButton onClick={() => setIsSend(!isSend)}>
+            보낸 <br /> 편지
+          </L.SendButton>
+        ) : (
+          <L.ReceiveButton onClick={() => setIsSend(!isSend)}>
+            받은 <br /> 편지
+          </L.ReceiveButton>
+        )}
+      </L.FixedButtonBox>
     </L.LetterBoxWrap>
   );
 }

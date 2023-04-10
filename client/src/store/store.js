@@ -25,10 +25,6 @@ const useStore = create(
       setInLetters: (inLetters) => set((state) => ({ inLetters })),
       isSend: false,
       setIsSend: (isSend) => set((state) => ({ isSend })),
-      filterOut: [],
-      setFilterOut: (filterOut) => set((state) => ({ filterOut })),
-      filterIn: [],
-      setFilterIn: (filterIn) => set((state) => ({ filterIn })),
       acessTokenExpire: false,
       setAcessTokenExpire: (token) =>
         set((state) => ({ acessTokenExpire: token })),

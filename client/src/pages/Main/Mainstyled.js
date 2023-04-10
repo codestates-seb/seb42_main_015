@@ -329,12 +329,12 @@ export const TextboxLeft = styled.div`
 `;
 
 export const SubTitle = styled.span`
-  ${FONT_STYLE_V1.title.title_30_medium}
+  ${FONT_STYLE_V1.title.title_25_medium}
   margin-bottom: 2rem;
 `;
 
 export const SubContents = styled.div`
-  ${FONT_STYLE_V1.body.body_15_light}
+  ${FONT_STYLE_V1.body.body_18_light}
   margin-bottom: 3rem;
   .ex {
     margin-top: 2rem;
