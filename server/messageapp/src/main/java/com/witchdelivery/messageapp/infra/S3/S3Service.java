@@ -25,7 +25,7 @@ public class S3Service {
      * @return
      * @throws IOException
      */
-    public S3Info s3ImageUpload(MultipartFile multipartFile, String dir) throws IOException {
+    public S3InfoDto s3ImageUpload(MultipartFile multipartFile, String dir) throws IOException {
 
         findVerifiedFile(multipartFile);    // 파일 검증
         verifiedExistedFile(multipartFile); // 용량 검증
@@ -37,14 +37,14 @@ public class S3Service {
 
         amazonS3.putObject(s3BucketName, dir + "/" + s3FileName, multipartFile.getInputStream(), objectMetadata);
 
-        S3Info s3Info = S3Info.builder()
+        S3InfoDto s3InfoDto = S3InfoDto.builder()
                 .originFileName(multipartFile.getOriginalFilename())
                 .fileName(s3FileName)
                 .filePath(amazonS3.getUrl(s3BucketName, dir + "/" + s3FileName).toString())
                 .fileSize(multipartFile.getSize())
                 .build();
 
-        return s3Info;
+        return s3InfoDto;
     }
 
     /**

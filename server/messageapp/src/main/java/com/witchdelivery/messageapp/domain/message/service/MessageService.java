@@ -13,7 +13,7 @@ import com.witchdelivery.messageapp.domain.message.repository.MessageRepository;
 import com.witchdelivery.messageapp.global.exception.BusinessLogicException;
 import com.witchdelivery.messageapp.global.exception.ExceptionCode;
 import com.witchdelivery.messageapp.domain.message.entity.Message;
-import com.witchdelivery.messageapp.infra.S3.S3Info;
+import com.witchdelivery.messageapp.infra.S3.S3InfoDto;
 import com.witchdelivery.messageapp.infra.S3.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -138,13 +138,13 @@ public class MessageService {
         Message findMessage = findMessageByUrlName(urlName);    // URL 검증
 
         String dir = "messageImage"; // 사용자 프로필 이미지 디렉토리 지정
-        S3Info s3Info = s3Service.s3ImageUpload(multipartFile, dir);    // 이미지 업로드
+        S3InfoDto s3InfoDto = s3Service.s3ImageUpload(multipartFile, dir);    // 이미지 업로드
 
         MessageImage messageImage = MessageImage.builder()
-                .originFileName(s3Info.getOriginFileName())
-                .fileName(s3Info.getFileName())
-                .filePath(s3Info.getFilePath())
-                .fileSize(s3Info.getFileSize())
+                .originFileName(s3InfoDto.getOriginFileName())
+                .fileName(s3InfoDto.getFileName())
+                .filePath(s3InfoDto.getFilePath())
+                .fileSize(s3InfoDto.getFileSize())
                 .build();
 
         findMessage.addMessageImage(messageImage);  // FK 저장
