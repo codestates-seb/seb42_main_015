@@ -3,6 +3,7 @@ package com.witchdelivery.messageapp.infra.email;
 import lombok.Getter;
 
 @Getter
-public class PostEmailDto {
+public class EmailCodeDto {
     private String email;
+    private String emailCode;
 }
