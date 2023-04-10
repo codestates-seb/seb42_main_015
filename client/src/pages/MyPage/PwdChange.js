@@ -29,7 +29,7 @@ function PwdChange() {
       url: `/api/sendy/users/${memberId}`,
       headers: {
         "ngrok-skip-browser-warning": "230327",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accessToken"),
       },
     })
       .then((res) => setUser(res.data))
@@ -46,7 +46,7 @@ function PwdChange() {
       url: `/api/sendy/users/verify/password/${memberId}`,
       headers: {
         "ngrok-skip-browser-warning": "230327",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accessToken"),
       },
       data: { password: currentPwd },
     })
@@ -64,7 +64,7 @@ function PwdChange() {
       url: `/api/sendy/users/password/${memberId}`,
       headers: {
         "ngrok-skip-browser-warning": "230327",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accessToken"),
       },
       data: { curPassword: currentPwd, newPassword: changePwd },
     })

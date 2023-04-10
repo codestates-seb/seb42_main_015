@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import * as L from "./LetterBoxStyled";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { HiOutlineTrash } from "react-icons/hi";
@@ -21,6 +21,9 @@ function LetterBox() {
   const [searchIn, setSearchIn] = useState(inLetters);
   const [filteredOut, setFilteredOut] = useState(outLetters);
   const [filteredIn, setFilteredIn] = useState(inLetters);
+  const [periodOut, setPeriodOut] = useState(outLetters);
+  const [periodIn, setPeriodIn] = useState(inLetters);
+  const [isPeriod, setIsPeriod] = useState(false);
   const [selectId, setSelectId] = useState([]);
   const [date, setDate] = useState({
     startYear: 2023,
@@ -57,7 +60,8 @@ function LetterBox() {
   }, []);
 
   const handleSubmitDate = () => {
-    setLeftTab(!leftTab);
+    setLeftTab(false);
+    setIsPeriod(true);
     let periodL;
     let periodR;
     if (date.startMonth < 10) {
@@ -71,7 +75,7 @@ function LetterBox() {
       periodR = `${date.EndYear}-${date.EndMonth}`;
     }
     if (isSend === true) {
-      return setFilteredOut(
+      return setPeriodOut(
         outLetters.filter(
           (letter) =>
             letter.messageCreatedAt.slice(0, 7) >= periodL &&
@@ -80,7 +84,7 @@ function LetterBox() {
       );
     }
     if (isSend === false) {
-      return setFilteredIn(
+      return setPeriodIn(
         inLetters.filter(
           (letter) =>
             letter.messageCreatedAt.slice(0, 7) >= periodL &&
@@ -110,22 +114,7 @@ function LetterBox() {
   const handleFiltered = (e) => {
     setCurrentFilter(e.target.textContent);
     setRightTab(false);
-    // 최신순
-
-      if (isSend && currentFilter === "최신순") return setFilteredOut(outLetters);
-      if (isSend && currentFilter === "오래된 순") return setFilteredOut(outLetters.reverse());
-      if (isSend && currentFilter === "북마크")
-        return setFilteredOut(outLetters.filter((letter) => letter.bookMark === true));
-
-      if (!isSend && currentFilter === "최신순") return setFilteredIn(inLetters);
-      if (!isSend && currentFilter === "오래된 순") return setFilteredIn(inLetters.reverse());
-      if (!isSend && currentFilter === "북마크") setFilteredIn(inLetters.filter((letter) => letter.bookMark));
   };
-
-  // const filteredOut = handleFiltered(outLetters, currentFilter);
-  // const filteredIn = handleFiltered(inLetters, currentFilter);
-  
-  console.log(filteredIn)
 
   // 삭제
   const handleDelete = () => {
@@ -142,7 +131,7 @@ function LetterBox() {
         .then(() => window.location.reload())
         .catch((err) => {
           if (err.response.status === 401) {
-            Refresh().then(() => handleDelete());
+            Refresh().then(() => console.log("리프레시 실행"));
           }
         });
     }
@@ -159,11 +148,31 @@ function LetterBox() {
         .then(() => window.location.reload())
         .catch((err) => {
           if (err.response.status === 401) {
-            Refresh().then(() => handleDelete());
+            Refresh().then(() => console.log("리프레시 실행"));
           }
         });
     }
   };
+
+  useEffect(() => {
+    if (isSend) {
+      if (currentFilter === "최신순") setFilteredOut(outLetters);
+      if (currentFilter === "오래된 순") setFilteredOut(outLetters.reverse());
+      if (currentFilter === "북마크")
+        setFilteredOut(outLetters.filter((letter) => letter.bookMark));
+    }
+
+    if (!isSend) {
+      if (currentFilter === "최신순") setFilteredIn(inLetters);
+      if (currentFilter === "오래된 순") setFilteredIn(inLetters.reverse());
+      if (currentFilter === "북마크")
+        setFilteredIn(inLetters.filter((letter) => letter.bookMark));
+    }
+  }, [inLetters, outLetters, currentFilter]);
+
+
+  // console.log(currentFilter)
+  console.log('필터 데이터', filteredIn);
 
   return (
     <L.LetterBoxWrap>
@@ -180,6 +189,7 @@ function LetterBox() {
         setLeftTab={setLeftTab}
         rightTab={rightTab}
         setRightTab={setRightTab}
+        setIsPeriod={setIsPeriod}
       />
       <L.ListWrap>
         {isSend ? (
@@ -188,8 +198,12 @@ function LetterBox() {
             isFocus={isFocus}
             searchOut={searchOut}
             filteredOut={filteredOut}
+            setFilteredOut={setFilteredOut}
             selectId={selectId}
             setSelectId={setSelectId}
+            setCurrentFilter={setCurrentFilter}
+            isPeriod={isPeriod}
+            periodOut={periodOut}
           />
         ) : (
           <LetterReceiving
@@ -200,6 +214,9 @@ function LetterBox() {
             setFilteredIn={setFilteredIn}
             selectId={selectId}
             setSelectId={setSelectId}
+            setCurrentFilter={setCurrentFilter}
+            isPeriod={isPeriod}
+            periodIn={periodIn}
           />
         )}
       </L.ListWrap>
@@ -214,7 +231,10 @@ function LetterBox() {
         </L.TopButton>
         {trash ? (
           <>
-            <L.DeleteButtonON onClick={() => setTrash(!trash)}>
+            <L.DeleteButtonON
+              className="trash-animation-on"
+              onClick={() => setTrash(!trash)}
+            >
               <HiOutlineTrash />
             </L.DeleteButtonON>
             <L.DeleteButton className="trash-animation" onClick={handleDelete}>
@@ -224,7 +244,10 @@ function LetterBox() {
             </L.DeleteButton>
           </>
         ) : (
-          <L.DeleteButtonOff onClick={() => setTrash(!trash)}>
+          <L.DeleteButtonOff
+            className="trash-animation-off"
+            onClick={() => setTrash(!trash)}
+          >
             <HiOutlineTrash />
           </L.DeleteButtonOff>
         )}
@@ -242,4 +265,4 @@ function LetterBox() {
   );
 }
 
-export default LetterBox
+export default LetterBox;

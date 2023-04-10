@@ -14,6 +14,9 @@ function LetterOutgoing({
   filteredOut,
   selectId,
   setSelectId,
+  setCurrentFilter,
+  isPeriod,
+  periodOut,
 }) {
   const { outLetters, setOutLetters } = useStore();
   const [page, setPage] = useState(1);
@@ -37,7 +40,7 @@ function LetterOutgoing({
         })
         .catch((err) => {
           if (err.response.status === 401) {
-            Refresh().then(() => window.location.reload());
+            Refresh().then(() => console.log("리프레시 실행"));
           }
         });
     },
@@ -47,6 +50,8 @@ function LetterOutgoing({
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setCurrentFilter("최신순");
+    getLetters(1);
   }, []);
 
   useEffect(() => {
@@ -66,10 +71,10 @@ function LetterOutgoing({
 
   return (
     <L.ListContainer>
-      <L.ListDateContainer>
+      {/* <L.ListDateContainer>
         <L.ListDate>2023.03</L.ListDate>
         <L.ListBar></L.ListBar>
-      </L.ListDateContainer>
+      </L.ListDateContainer> */}
       <L.ItemWrap>
         <L.ItemContainer>
           {isFocus ? (
@@ -86,6 +91,18 @@ function LetterOutgoing({
                 );
               })
             )
+          ) : isPeriod ? (
+            periodOut.map((letter) => {
+              return (
+                <LetterOutItem
+                  key={letter.outgoingId}
+                  letter={letter}
+                  trash={trash}
+                  selectId={selectId}
+                  setSelectId={setSelectId}
+                />
+              );
+            })
           ) : (
             filteredOut.map((letter) => {
               return (

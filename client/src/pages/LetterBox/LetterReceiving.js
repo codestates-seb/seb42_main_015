@@ -12,36 +12,47 @@ function LetterReceiving({
   isFocus,
   searchIn,
   filteredIn,
-  setFilteredIn,
   selectId,
   setSelectId,
+  setCurrentFilter,
+  isPeriod,
+  periodIn,
 }) {
   const { inLetters, setInLetters } = useStore();
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [ref, inView] = useInView();
 
-  const getLetters = useCallback(async (page) => {
-    return await axios({
-      method: "get",
-      url: `/api/sendy/mailbox/messages/in?page=${page}`,
-      headers: {
-        "ngrok-skip-browser-warning": "230328",
-        Authorization: getCookie("accessToken"),
-      },
-    })
-      .then((res) => {
-        setInLetters(page === 1 ? res.data.data : [...inLetters, ...res.data.data])
+  const getLetters = useCallback(
+    async (page) => {
+      return await axios({
+        method: "get",
+        url: `/api/sendy/mailbox/messages/in?page=${page}`,
+        headers: {
+          "ngrok-skip-browser-warning": "230328",
+          Authorization: getCookie("accessToken"),
+        },
       })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          Refresh().then(() => window.location.reload());
-        }
-      });
-  }, [inLetters]);
+        .then((res) => {
+          setInLetters(
+            page === 1 ? res.data.data : [...inLetters, ...res.data.data]
+          );
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            Refresh().then(() => console.log("리프레시 실행"));
+          }
+        });
+    },
+    [inLetters]
+  );
+
+  // console.log("원본 데이터", inLetters);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setCurrentFilter("최신순");
+    getLetters(1);
   }, []);
 
   useEffect(() => {
@@ -61,10 +72,10 @@ function LetterReceiving({
 
   return (
     <L.ListContainer>
-      <L.ListDateContainer>
+      {/* <L.ListDateContainer>
         <L.ListDate>2023.03</L.ListDate>
         <L.ListBar></L.ListBar>
-      </L.ListDateContainer>
+      </L.ListDateContainer> */}
       <L.ItemWrap>
         <L.ItemContainer>
           {isFocus ? (
@@ -81,6 +92,18 @@ function LetterReceiving({
                 );
               })
             )
+          ) : isPeriod ? (
+            periodIn.map((letter) => {
+              return (
+                <LetterInItem
+                  key={letter.receivingId}
+                  letter={letter}
+                  trash={trash}
+                  selectId={selectId}
+                  setSelectId={setSelectId}
+                />
+              );
+            })
           ) : (
             filteredIn.map((letter) => {
               return (

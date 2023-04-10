@@ -22,8 +22,14 @@ function LetterHeader({
   leftTab,
   setLeftTab,
   rightTab,
-  setRightTab
+  setRightTab,
+  setIsPeriod
 }) {
+
+  const handleReset = () => {
+    window.location.reload();
+    setIsPeriod(false);
+  }
 
   return (
     <L.LetterHeaderWrap>
@@ -43,7 +49,7 @@ function LetterHeader({
         {leftTab ? (
           <L.PeriodBox>
             <L.Line>
-              <L.LineBtn onClick={() => window.location.reload()}>
+              <L.LineBtn onClick={handleReset}>
                 초기화 <BiRefresh className="period-btn" />
               </L.LineBtn>
               <L.LineBtn>

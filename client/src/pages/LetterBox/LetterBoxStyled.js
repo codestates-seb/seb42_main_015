@@ -155,10 +155,6 @@ export const DropdownItem = styled.li`
 `;
 
 // 우편함 리스트
-export const ViewWrap = styled.div`
-  width: 100%;
-`;
-
 export const Gradient = styled.div`
   width: 1000px;
   height: 1000px;
@@ -223,6 +219,9 @@ export const ItemContainer = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    justify-content: center;
+  }
 `;
 
 export const NotSearch = styled.div`
@@ -297,6 +296,9 @@ export const ItemBox = styled.div`
         break;
     }
   }};
+  @media screen and (max-width: 500px) {
+    margin-left: 0;
+  }
 `;
 
 export const ItemCase = styled.div`
@@ -386,6 +388,7 @@ const rotateAnimation = keyframes`
     transform: rotate(360deg)
   }
 `;
+
 const rotateReverseAnimation = keyframes`
   0% {
     -webkit-transform: translate3d(-100%, 0, 0);
@@ -402,11 +405,6 @@ const moveAnimation = keyframes`
     -webkit-transform: translate3d(0, 0, 0);
     transform: translateX(0);
     opacity: 0;
-  }
-  10% {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translateX(0);
-    opacity: 0.3;
   }
   100% {
     -webkit-transform: translate3d(-100%, 0, 0);
@@ -430,8 +428,9 @@ export const DeleteButtonOff = styled.div`
   background-color: white;
   color: ${PALETTE_V1.orange_dark};
   cursor: pointer;
-  transition: all 3s ease-in-out;
-  animation: ${rotateReverseAnimation} 500ms ease-in-out reverse;
+  .trash-animation-off {
+    animation: ${rotateReverseAnimation} 500ms ease-in-out reverse;
+  }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 50px;
     height: 50px;
@@ -455,7 +454,9 @@ export const DeleteButtonON = styled.div`
   background-color: ${PALETTE_V1.orange_dark};
   color: white;
   cursor: pointer;
-  animation: ${rotateAnimation} 500ms ease-in-out;
+  .trash-animation-on {
+    animation: ${rotateAnimation} 500ms ease-in-out;
+  }
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 50px;
     height: 50px;
@@ -479,12 +480,14 @@ export const DeleteButton = styled.div`
   background-color: ${PALETTE_V1.orange_dark};
   color: white;
   cursor: pointer;
+
   animation: ${moveAnimation} 300ms ease-in-out forwards;
+
   @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
     width: 50px;
     height: 50px;
     bottom: 85px;
-    right: 70px;
+    right: 0;
   }
 `;
 
