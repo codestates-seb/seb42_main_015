@@ -18,6 +18,4 @@ public abstract class BaseTime {
 
     @LastModifiedDate
     private LocalDateTime modifiedAt;   // 수정 시간
-
-    private LocalDateTime deletedAt;    // 삭제 시간
 }

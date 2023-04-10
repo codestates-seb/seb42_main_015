@@ -83,9 +83,8 @@ public class MemberController {
         return new ResponseEntity<>(memberResponseDto, HttpStatus.OK);
     }
 
-    // 인터페이스 미구현 예정
     /**
-     * 전체 사용자 조회 API
+     * 전체 사용자 조회 API(인터페이스 미구현)
      * @param page
      * @param size
      * @return
@@ -135,7 +134,7 @@ public class MemberController {
         patchNicknameDto.setMemberId(memberId);
         Member response = memberService.updateNickname(memberMapper.patchNicknameDtoToMember(patchNicknameDto));
         return new ResponseEntity<>(memberMapper.memberToMemberResponseDto(response), HttpStatus.OK);
-    }   // FIXME 리팩토링
+    }
 
     /**
      * S3 사용자 프로필 이미지 업로드/수정 API
