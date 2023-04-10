@@ -1,14 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
+<head>
+    <meta charset="UTF-8">
+    <style>
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 16px;
+			color: #333;
+			background-color: #f5f5f5;
+			margin: 0;
+			padding: 0;
+		}
+		.container {
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 20px;
+			background-color: #fff;
+			border-radius: 8px;
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+		}
+		h1, h2, h3 {
+			margin-top: 0;
+			color: #333;
+		}
+		.emailCode {
+			font-size: 32px;
+			font-weight: bold;
+			color: #007bff;
+			margin: 20px 0;
+		}
+		p {
+			margin: 20px 0;
+			line-height: 1.5;
+		}
+	</style>
+</head>
 <body>
-<div>
-    <h3> 안녕하세요. 인터넷 편지 서비스 📮SENDY 입니다. </h3>
-    <h3> 회원가입을 위한 인증코드를 보내드리오니, </h3>
-    <h3> 아래 코드를 회원가입 창으로 돌아가 입력해주세요. </h3>
-    <h3 th:text="${code}"> </h3>
-    <br/>
+<div class="container">
+    <h3>안녕하세요. 인터넷 편지 서비스 📮SENDY 입니다.</h3>
+    <h3>인증 코드를 보내드리오니, SENDY로 돌아가 아래 코드를 입력해주세요.</h3>
+    <h3 class="emailCode" th:text="${emailCode}"></h3>
+    <p>만약, 문제가 생겼다면 이 이메일에 답장해주세요.</p>
 </div>
-
 </body>
 </html>
