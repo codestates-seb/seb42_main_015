@@ -172,7 +172,7 @@ function LetterBox() {
 
 
   // console.log(currentFilter)
-  console.log('필터 데이터', filteredIn);
+  // console.log('필터 데이터', filteredIn);
 
   return (
     <L.LetterBoxWrap>

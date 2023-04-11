@@ -5,7 +5,7 @@ module.exports = function (app) {
     "/api",
     createProxyMiddleware({
       target:
-        "http://ec2-43-201-114-5.ap-northeast-2.compute.amazonaws.com:8080",
+        "http://ec2-3-39-11-242.ap-northeast-2.compute.amazonaws.com:8080",
       changeOrigin: true,
       pathRewrite: {
         "^/api": "",
