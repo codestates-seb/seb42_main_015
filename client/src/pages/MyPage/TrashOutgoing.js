@@ -10,37 +10,48 @@ import axios from "axios";
 import Refresh from "../../util/Refresh";
 
 function TrashOutgoing({ openModal, setOpenModal, modalRef }) {
-  const [getData, setGetData] = useState([]);
+  const [letterList, setLetterList] = useState([]);
   const [allChecked, setAllChecked] = useState(false);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [ref, inView] = useInView();
   const [select, setSelect] = useState([]);
 
-  const getLetters = useCallback(async () => {
-    await axios({
-      method: "get",
-      url: `/api/sendy/mailbox/dustbin/outgoing?page=${page}`,
-      headers: {
-        "ngrok-skip-browser-warning": "230328",
-        Authorization: getCookie("accesstoken"),
-      },
-    })
-      .then((res) => setGetData(getData.concat(res.data.data)))
-      .catch((err) => {
-        if (err.response.status === 401) {
-          Refresh().then(() => getLetters());
-        }
+  const getLetters = useCallback(
+    async (page) => {
+      return await axios({
+        method: "get",
+        url: `/api/sendy/mailbox/dustbin/outgoing?page=${page}`,
+        headers: {
+          "ngrok-skip-browser-warning": "230328",
+          Authorization: getCookie("accessToken"),
+        },
       });
-  }, [page]);
+    },
+    [letterList]
+  );
 
   // console.log(getData);
 
   useEffect(() => {
-    setIsLoading(true);
-    getLetters();
-    setIsLoading(false);
+    getLetters(page)
+      .then((res) => setLetterList(page === 1 ? res.data.data : [...letterList, ...res.data.data]))
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() =>
+            getLetters(page).then((res) =>
+              setLetterList(page === 1 ? res.data.data : [...letterList, ...res.data.data])
+            )
+          );
+        }
+      });
   }, [page]);
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   getLetters();
+  //   setIsLoading(false);
+  // }, [page]);
 
   useEffect(() => {
     if (inView && !isLoading) {
@@ -53,20 +64,25 @@ function TrashOutgoing({ openModal, setOpenModal, modalRef }) {
     }
   }, [inView]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getLetters(1);
+  }, []);
+
   const handleDelete = () => {
     axios({
       method: "delete",
       url: `/api/sendy/mailbox/dustbin/outgoing/delete`,
       headers: {
         "ngrok-skip-browser-warning": "230327",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accessToken"),
       },
       data: { ids: select },
     })
       .then(() => window.location.reload())
       .catch((err) => {
         if (err.response.status === 401) {
-          Refresh().then(() => handleDelete());
+          Refresh().then(() => console.log("Refresh 실행"));
         }
       });
   };
@@ -79,14 +95,14 @@ function TrashOutgoing({ openModal, setOpenModal, modalRef }) {
       url: `/api/sendy/mailbox/dustbin/outgoing/restore`,
       headers: {
         "ngrok-skip-browser-warning": "230327",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accessToken"),
       },
       data: { ids: select },
     })
       .then(() => window.location.reload())
       .catch((err) => {
         if (err.response.status === 401) {
-          Refresh().then(() => handleRestore());
+          Refresh().then(() => console.log("Refresh 실행"));
         }
       });
   };
@@ -132,7 +148,7 @@ function TrashOutgoing({ openModal, setOpenModal, modalRef }) {
               </M.Button>
             </M.ButtonBox>
           </M.TrashTableMenu>
-          {getData.map((trash) => {
+          {letterList.map((trash) => {
             return (
               <TrashOutItem
                 key={trash.outgoingId}

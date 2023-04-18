@@ -32,17 +32,7 @@ function LetterReceiving({
           "ngrok-skip-browser-warning": "230328",
           Authorization: getCookie("accessToken"),
         },
-      })
-        .then((res) => {
-          setInLetters(
-            page === 1 ? res.data.data : [...inLetters, ...res.data.data]
-          );
-        })
-        .catch((err) => {
-          if (err.response.status === 401) {
-            Refresh().then(() => console.log("리프레시 실행"));
-          }
-        });
+      });
     },
     [inLetters]
   );
@@ -56,8 +46,28 @@ function LetterReceiving({
   }, []);
 
   useEffect(() => {
-    getLetters(page);
+    getLetters(page)
+      .then((res) => {
+        setInLetters(
+          page === 1 ? res.data.data : [...inLetters, ...res.data.data]
+        );
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() =>
+            getLetters(page).then((res) => {
+              setInLetters(
+                page === 1 ? res.data.data : [...inLetters, ...res.data.data]
+              );
+            })
+          );
+        }
+      });
   }, [page]);
+
+  // useEffect(() => {
+  //   getLetters(page);
+  // }, [page]);
 
   useEffect(() => {
     if (inView && !isLoading) {
