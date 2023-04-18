@@ -32,17 +32,7 @@ function LetterOutgoing({
           "ngrok-skip-browser-warning": "230328",
           Authorization: getCookie("accessToken"),
         },
-      })
-        .then((res) => {
-          setOutLetters(
-            page === 1 ? res.data.data : [...outLetters, ...res.data.data]
-          );
-        })
-        .catch((err) => {
-          if (err.response.status === 401) {
-            Refresh().then(() => console.log("리프레시 실행"));
-          }
-        });
+      });
     },
     [outLetters]
   );
@@ -55,8 +45,28 @@ function LetterOutgoing({
   }, []);
 
   useEffect(() => {
-    getLetters(page);
+    getLetters(page)
+      .then((res) => {
+        setOutLetters(
+          page === 1 ? res.data.data : [...outLetters, ...res.data.data]
+        );
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() =>
+            getLetters(page).then((res) => {
+              setOutLetters(
+                page === 1 ? res.data.data : [...outLetters, ...res.data.data]
+              );
+            })
+          );
+        }
+      });
   }, [page]);
+
+  // useEffect(() => {
+  //   getLetters(page);
+  // }, [page]);
 
   useEffect(() => {
     if (inView && !isLoading) {

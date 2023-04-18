@@ -113,6 +113,9 @@ function LetterBox() {
   // 시간순 & 북마크
   const handleFiltered = (e) => {
     setCurrentFilter(e.target.textContent);
+    if (currentFilter === "오래된 순") {
+      return;
+    }
     setRightTab(false);
   };
 
