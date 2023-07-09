@@ -1,6 +1,8 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { PALETTE_V1 } from "../../style/color";
+import { BREAKPOINTMOBILE } from "../../breakpoint";
+
 const ModalBack = styled.div`
   position: fixed;
   top: 0;
@@ -9,31 +11,48 @@ const ModalBack = styled.div`
   right: 0;
   background-color: none;
   display: flex;
-  z-index: 200;
+  z-index: 300;
   justify-content: center;
   align-items: center;
-  min-width: 963px;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
 `;
 const ModalContainer = styled.div`
   position: absolute;
   background-color: #ffffff;
-  width: ${(props) => props.ContainerWidth || "400px"};
+  width: ${(props) => props.ContainerWidth || "40%"};
   height: ${(props) => props.ContainerHeight || "600px"};
   border: 2px solid ${PALETTE_V1.text_primary};
-  z-index: 300;
+  z-index: 400;
+  @media screen and (max-width: ${BREAKPOINTMOBILE}px) {
+    /* width: 70%; */
+    min-width: 218px;
+    max-width: 299px;
+  }
 `;
 const ModalHeader = styled.div`
   position: relative;
   border-bottom: 2px solid ${PALETTE_V1.text_primary};
-  height: 2.1rem;
+  height: 3rem;
 `;
 const CircleWrapper = styled.div`
-  width: 20%;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   padding-left: 8px;
 `;
 const Circle = styled.div`
@@ -42,8 +61,8 @@ const Circle = styled.div`
   height: 50%;
   aspect-ratio: 1/1;
   background-color: ${(props) => props.backgroundColor || "none"};
+  margin-right: 2%;
 `;
-
 function Modal(props) {
   //모달 열리면 뒤에 배경 스크롤 못하게 막음
   useEffect(() => {
@@ -60,11 +79,11 @@ function Modal(props) {
   }, []);
 
   return (
-    <ModalBack>
+    <ModalBack className="modal-back">
       <ModalContainer
+        className="modal-container"
         ContainerHeight={props.ContainerHeight}
-        ContainerWidth={props.ContainerWidth}
-      >
+        ContainerWidth={props.ContainerWidth}>
         <ModalHeader>
           <CircleWrapper>
             <Circle backgroundColor={PALETTE_V1.red_modal_button} />

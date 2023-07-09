@@ -1,27 +1,83 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as M from "./PwdChangeStyled";
-import {
-  AiOutlineArrowRight,
-  AiOutlineEnter,
-  AiOutlineLock,
-} from "react-icons/ai";
+import { AiOutlineEnter, AiOutlineLock } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import GNB from "./GNB";
 import ShadowButton from "../commons/ShadowButton";
+import { getCookie } from "../Certified/Cookie";
+import axios from "axios";
+import Refresh from "../../util/Refresh";
 
 function PwdChange() {
   const navigate = useNavigate();
-  const [next, setNext] = useState(2);
   const { page } = useParams();
-  const handleNext = () => {
-    setNext(next + 1);
-    navigate(`/pwdchange/${next}`);
+  const [user, setUser] = useState();
+  const [currentPwd, setCurrentPwd] = useState();
+  const [changePwd, setChangePwd] = useState();
+  const memberId = sessionStorage.getItem("memberId");
+
+  useEffect(() => {
+    handleUser();
+  }, []);
+
+  const handleUser = () => {
+    axios({
+      method: "get",
+      url: `/api/sendy/users/${memberId}`,
+      headers: {
+        "ngrok-skip-browser-warning": "230327",
+        Authorization: getCookie("accessToken"),
+      },
+    })
+      .then((res) => setUser(res.data))
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() => handleUser());
+        }
+      });
+  };
+
+  const handleCurrentPwd = () => {
+    axios({
+      method: "post",
+      url: `/api/sendy/users/verify/password/${memberId}`,
+      headers: {
+        "ngrok-skip-browser-warning": "230327",
+        Authorization: getCookie("accessToken"),
+      },
+      data: { password: currentPwd },
+    })
+      .then((res) => navigate("/pwdchange/2"))
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() => handleCurrentPwd());
+        }
+      });
+  };
+
+  const handleChangePwd = () => {
+    axios({
+      method: "patch",
+      url: `/api/sendy/users/password/${memberId}`,
+      headers: {
+        "ngrok-skip-browser-warning": "230327",
+        Authorization: getCookie("accessToken"),
+      },
+      data: { curPassword: currentPwd, newPassword: changePwd },
+    })
+      .then((res) => navigate("/pwdchange/3"))
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() => handleChangePwd());
+        }
+      });
   };
 
   const formSchma = yup.object({
+    confirm: yup.string().required("비밀번호가 일치하지 않습니다."),
     password: yup
       .string()
       .required("영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요.")
@@ -42,11 +98,6 @@ function PwdChange() {
     formState: { isSubmitting, errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchma) });
 
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    console.log(data);
-  };
-
   return (
     <M.PwdChangeWrap>
       <GNB />
@@ -55,56 +106,64 @@ function PwdChange() {
         {page !== "3" && (
           <M.PwdChangeContents>
             <M.UserBox>
-              <M.UserImg />
-              <M.UserName>김햄찌</M.UserName>
+              <M.UserImg>
+                <img src={user?.profileImage} alt="" />
+              </M.UserImg>
+              <M.UserName>{user?.nickname}</M.UserName>
             </M.UserBox>
             <M.PwdBox>
               <M.PwdChangeTitle>Password</M.PwdChangeTitle>
-              {page === undefined && (
+              {page === "1" && (
                 <M.InputContainer>
                   <M.Explain>
                     비밀번호 변경을 위해 <br /> 기존 비밀번호 확인이 필요합니다.
                   </M.Explain>
-                  <M.PwdForm>
+                  <M.InputCase>
                     <AiOutlineLock />
                     <M.PwdInput
                       type="password"
-                      name="password"
+                      name="confirm"
                       placeholder="password"
-                      {...register("password")}
+                      {...register("confirm")}
+                      onChange={(e) => setCurrentPwd(e.target.value)}
                     />
-                    <AiOutlineEnter />
-                  </M.PwdForm>
-                  <M.ErrorMsg>비밀번호를 틀렸습니다.</M.ErrorMsg>
-                  <AiOutlineArrowRight className="next" onClick={handleNext} />
+                    <AiOutlineEnter
+                      className="icon"
+                      onClick={handleCurrentPwd}
+                    />
+                  </M.InputCase>
+                  {errors.confirm && (
+                    <M.ErrorMsg>{errors.confirm.message}</M.ErrorMsg>
+                  )}
                 </M.InputContainer>
               )}
               {page === "2" && (
                 <M.InputContainer>
                   <M.PwdLabel>Password</M.PwdLabel>
-                  <M.PwdForm>
+                  <M.InputCase>
                     <M.PwdInput
                       name="password"
                       type="password"
                       {...register("password")}
+                      onChange={(e) => setChangePwd(e.target.value)}
                     />
-                  </M.PwdForm>
-                  {errors.password && (
-                    <M.ErrorMsg>{errors.password.message}</M.ErrorMsg>
-                  )}
+                    {errors.password && (
+                      <M.ErrorMsg>{errors.password.message}</M.ErrorMsg>
+                    )}
+                  </M.InputCase>
                   <M.PwdLabel>Password Confirm</M.PwdLabel>
-                  <M.PwdForm>
+                  <M.InputCase>
                     <M.PwdInput
                       type="password"
                       name="passwordConfirm"
                       {...register("passwordConfirm")}
                     />
-                  </M.PwdForm>
+                  </M.InputCase>
                   {errors.passwordConfirm && (
                     <M.ErrorMsg>{errors.passwordConfirm.message}</M.ErrorMsg>
                   )}
                   <M.ButtonBox>
-                    <M.Button onClick={handleNext}>확인</M.Button>
+                    <M.Button onClick={handleChangePwd}>확인</M.Button>
                   </M.ButtonBox>
                 </M.InputContainer>
               )}
@@ -155,7 +214,12 @@ function PwdChange() {
                 <br />
                 로그인 페이지에서 로그인 해주세요.
               </M.SuccessContent>
-              <ShadowButton backgroundColor='#FFFB95' onClick={() => navigate('/login')}>Login</ShadowButton>
+              <ShadowButton
+                backgroundColor="#FFFB95"
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </ShadowButton>
             </M.SuccessContainer>
           </M.SuccessWrap>
         )}

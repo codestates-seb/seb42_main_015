@@ -4,7 +4,7 @@ import useStore from "../../store/store";
 import { useNavigate } from "react-router-dom";
 
 function GNB() {
-  const { currentPage, changeCurrentPage } = useStore((state) => state);
+  const { currentPage, changeCurrentPage } = useStore();
   const navigate = useNavigate();
 
   const handleClick = (e) => {
@@ -15,7 +15,7 @@ function GNB() {
         break;
       case "비밀번호 수정":
         changeCurrentPage("PwdChange");
-        navigate("/pwdchange");
+        navigate("/pwdchange/1");
         break;
       case "휴지통":
         changeCurrentPage("Trash");

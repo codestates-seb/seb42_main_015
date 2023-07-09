@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as W from "./WriteStyled";
-import { HiOutlineCheck } from "react-icons/hi";
+// import { HiOutlineCheck } from "react-icons/hi";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,34 +8,35 @@ import useStore from "../../store/store";
 
 function LetterContent({
   openExplaination,
-  openSendMe,
-  setOpenSendMe,
-  sendMeChecked,
-  setSendMeChecked,
-  startDate,
+  //todo : 나에게 보내기
+  // openSendMe,
+  // setOpenSendMe,
+  // sendMeChecked,
+  // setSendMeChecked,
+  // startDate,
   setContentLength,
   finalTranscript,
   resetTranscript,
   currentLetterTheme,
+  browserSize,
+  setIsContentVaild,
 }) {
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
-  const currentDate = `${new Date().getFullYear()}. ${(
+  const [contentError, setContentError] = useState("");
+  const [content, setContent] = useState("");
+  const currentDate = `${new Date().getFullYear()}.${(
     "00" +
     (new Date().getMonth() + 1)
   ).slice(-2)}.${("00" + new Date().getDate()).slice(-2)} ${
     weekday[new Date().getDay()]
   }`;
-  const { contentFont, changeContentFont } = useStore((state) => state);
+  const { letterContents, setLetterContents } = useStore();
   const formSchema = yup.object({
     receiverName: yup
       .string()
       .required("1 ~ 15자를 입력해주세요.")
       .min(1, "최소 1자리 이상 입력해주세요.")
       .max(15, "최대 15자까지 가능합니다."),
-    content: yup
-      .string()
-      .required("7000자 미만으로 입력해주세요.")
-      .max(7000, "최대 7000자까지 가능합니다."),
     senderName: yup
       .string()
       .required("1 ~ 15자를 입력해주세요.")
@@ -45,7 +46,7 @@ function LetterContent({
   const {
     register,
     watch,
-    formState: { isSubmitting, errors },
+    formState: { errors, isValid },
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
 
   const textarea = useRef();
@@ -55,24 +56,46 @@ function LetterContent({
   }, []);
 
   useEffect(() => {
+    if (isValid) {
+      setIsContentVaild(true);
+      setLetterContents({
+        ...letterContents,
+        toName: watch("receiverName"),
+        fromName: watch("senderName"),
+      });
+    } else {
+      setIsContentVaild(false);
+    }
+  }, [isValid, watch("senderName"), watch("receiverName")]);
+
+  useEffect(() => {
     textarea.current.value += " " + finalTranscript;
     resetTranscript();
   }, [finalTranscript]); //listening일 때로 바꾸기
+  //todo : 나에게 보내기
+  // const handleSendMe = () => {
+  //   setOpenSendMe(!openSendMe);
+  //   setSendMeChecked(true);
+  // };
 
-  const handleSendMe = () => {
-    setOpenSendMe(!openSendMe);
-    setSendMeChecked(true);
-  };
   const handleContentLength = (e) => {
+    if (e.target.value.length > 7000) {
+      setContentError("최대 7000자까지 작성할 수 있습니다.");
+    } else {
+      setContentError("");
+    }
     setContentLength(e.target.value.length);
+    setContent(e.target.value);
   };
+
   return (
     <W.LetterBox currentLetterTheme={currentLetterTheme}>
       <W.FlexWrapper1>
-        <W.BallonWrapper>
-          <W.NameInputWrapper>
+        <W.BallonWrapper className="to-wrapper">
+          <W.NameInputWrapper font={letterContents.fontName}>
             To
             <W.NameInput
+              font={letterContents.fontName}
               name="receiverName"
               type="text"
               {...register("receiverName")}
@@ -82,22 +105,27 @@ function LetterContent({
             <W.ErrorMessage>{errors.receiverName.message}</W.ErrorMessage>
           )}
           {openExplaination ? (
-            <W.BallonBottom1 id="ballon6">
-              편지를 받을 사람 이름을 적습니다.
-            </W.BallonBottom1>
+            browserSize > 767 ? (
+              <W.BallonBottom1 id="ballon6">
+                편지를 받을 사람 이름을 적습니다.
+              </W.BallonBottom1>
+            ) : (
+              <></>
+            )
           ) : (
             <></>
           )}
         </W.BallonWrapper>
-        <W.Date>{currentDate}</W.Date>
+        <W.Date font={letterContents.fontName}>{currentDate}</W.Date>
       </W.FlexWrapper1>
-      <W.SendMeWrapper>
+      {/* 나에게 보내기 */}
+      {/* <W.SendMeWrapper>
         <W.BallonWrapper>
           <W.SendMeCheckBox
             className={sendMeChecked ? "active" : ""}
             onClick={handleSendMe}></W.SendMeCheckBox>
           {sendMeChecked ? (
-            <HiOutlineCheck id="check-icon" size="25" onClick={handleSendMe} />
+            <HiOutlineCheck id="check-icon" onClick={handleSendMe} />
           ) : (
             <></>
           )}
@@ -105,43 +133,64 @@ function LetterContent({
         <W.BallonWrapper>
           <W.SendMeLabel>나에게보내기</W.SendMeLabel>
           {openExplaination ? (
-            <W.BallonLeft id="ballon1">
-              나에게 편지를 작성할 수 있습니다.
-            </W.BallonLeft>
+            browserSize > 767 ? (
+              <W.BallonLeft id="ballon1">
+                나에게 편지를 작성할 수 있습니다.
+              </W.BallonLeft>
+            ) : (
+              <W.BallonTop>나에게 편지를 작성할 수 있습니다.</W.BallonTop>
+            )
           ) : (
             <></>
           )}
         </W.BallonWrapper>
         {sendMeChecked ? (
-          <span>{`${startDate.getFullYear()}/${
-            startDate.getMonth() + 1
-          }/${startDate.getDate()} ${startDate.getHours()}:${startDate.getMinutes()}`}</span>
+          <span>{`${startDate.getFullYear()}/${(
+            "00" +
+            (startDate.getMonth() + 1)
+          ).slice(-2)}/${("00" + startDate.getDate()).slice(-2)} ${(
+            "00" + startDate.getHours()
+          ).slice(-2)}:${("00" + startDate.getMinutes()).slice(-2)}`}</span>
         ) : (
           <></>
         )}
-      </W.SendMeWrapper>
+      </W.SendMeWrapper> */}
       <W.ContentTextarea
-        font={contentFont}
+        font={letterContents.fontName}
         name="content"
-        onInput={handleContentLength}
+        onInput={(e) => {
+          setLetterContents({ ...letterContents, content: e.target.value });
+          handleContentLength(e);
+        }}
         {...register("content")}
-        ref={textarea}></W.ContentTextarea>
-      <W.FromWrapper>
-        <W.BallonWrapper>
-          <W.NameInputWrapper>
+        ref={textarea}
+        maxLength={7000}></W.ContentTextarea>
+      <W.FromWrapper font={letterContents.fontName}>
+        <W.BallonWrapper className="from-wrapper">
+          <W.NameInputWrapper
+            className="from-input"
+            font={letterContents.fontName}>
             From
             <W.NameInput
+              font={letterContents.fontName}
               type="text"
               name="senderName"
+              className="from-input"
               {...register("senderName")}></W.NameInput>
           </W.NameInputWrapper>
           {errors.senderName && (
-            <W.ErrorMessage>{errors.senderName.message}</W.ErrorMessage>
+            <W.ErrorMessage className="from-input">
+              {errors.senderName.message}
+            </W.ErrorMessage>
           )}
           {openExplaination ? (
-            <W.BallonBottom1 id="ballon7">
-              편지를 보내는 사람 이름을 적습니다.
-            </W.BallonBottom1>
+            browserSize > 767 ? (
+              <W.BallonBottom1 id="ballon7">
+                편지를 보내는 사람 이름을 적습니다.
+              </W.BallonBottom1>
+            ) : (
+              <></>
+            )
           ) : (
             <></>
           )}

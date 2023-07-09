@@ -1,21 +1,17 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import * as L from "./FormStyled";
 import axios from "axios";
-import { setCookie, getCookie } from "./Cookie";
+import { setCookie } from "./Cookie";
+import { headers, options, GoogleOauthLogin } from "./setupCertified";
+import * as yup from "yup";
+import useStore from "../../store/store";
 
 function Login() {
   const navigate = useNavigate();
 
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-    "ngrok-skip-browser-warning": "12",
-  };
-
-  const formShema = yup.object({
+  const FormSchema = yup.object({
     email: yup
       .string()
       .required("이메일을 입력해주세요")
@@ -34,10 +30,11 @@ function Login() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { isSubmitting, errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(formShema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
+  //TODO :로그인 제출 버튼
+  const { setIsLogin } = useStore();
   const onSubmit = async (data) => {
     const { email, password } = data;
     await axios
@@ -50,36 +47,24 @@ function Login() {
       )
       .then((res) => {
         alert("로그인되었습니다.");
-        if (res.headers.getAuthorization) {
-          //! refresh token은 -> local storage에 저장
-          localStorage.setItem("refreshToken", res.headers.get("Refresh"));
-          //! access token은 -> cookie에 저장
-          setCookie(
-            "accesstoken",
-            res.headers.get("Authorization").split(" ")[1],
-            {
-              path: "/",
-              sucure: true,
-              sameSite: "Strict",
-              HttpOnly: " HttpOnly ",
-            }
-          );
-          console.log("accesstoken", getCookie("accesstoken"));
-          console.log("refreshToken", localStorage.getItem("refreshToken"));
-        }
-        navigate("/");
+        //! 멤버Id, refreshToken -> sessionStorage에 저장
+        sessionStorage.setItem("memberId", res.data.memberId);
+        sessionStorage.setItem("refreshToken", res.headers.get("Refresh"));
+          //! accessToken -> cookie에 저장
+          setCookie("accessToken", `${res.headers.get("Authorization")}`, {
+            options,
+          });
+          //! accessToken expire  -> cookie에 저장(60분)
+          // setCookie("accesstoken_expire", `${res.headers.get("Date")}`, {
+          //   options,
+          // });
+          setIsLogin(true);
+          navigate("/");
+        window.location.reload();
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
       });
-  };
-
-  // console.log(watch("email"));
-
-  //로그인 버튼
-  const handle = async () => {
-    await axios.post(`/api/sendy/users/signup`);
   };
 
   return (
@@ -97,7 +82,9 @@ function Login() {
                 name="email"
                 placeholder="email address"
               />
-              {errors.email && <p>{errors.email.message}</p>}
+              {errors.email && (
+                <div className="err">{errors.email.message}</div>
+              )}
               <input
                 className="pwdInput"
                 {...register("password")}
@@ -106,15 +93,18 @@ function Login() {
                 placeholder="Password"
                 {...register("password")}
               />
-              {errors.password && <p>{errors.password.message}</p>}
+              {errors.password && (
+                <div className="err">{errors.password.message}</div>
+              )}
               <input
                 className="btn"
                 type="submit"
                 value="Log in"
                 disabled={isSubmitting}
               />
+
               <div className="sub-form ">
-                <Link to="/setpwd">
+                <Link to="/setpwd/1">
                   <li>forget Password</li>
                 </Link>
                 <Link to="/signup">
@@ -124,8 +114,11 @@ function Login() {
               <div className="oauth-form">
                 <div className="oauth-head">Log in With</div>
                 <div className="oauth">
-                  <img src={require("../../asset/구글.png")} alt="Googole" />
-                  <img src={require("../../asset/카카오.png")} alt="Kakao" />
+                  <img
+                    src={require("../../asset/구글.png")}
+                    alt="Google"
+                    onClick={GoogleOauthLogin}
+                  />
                 </div>
               </div>
             </div>
@@ -137,8 +130,7 @@ function Login() {
               <div className="section1">
                 <img
                   src={require("../../asset/해바라기.png")}
-                  alt="Sunflower"
-                ></img>
+                  alt="Sunflower"></img>
                 <span className="box">sunflower</span>
               </div>
               <div className="section2">
@@ -149,8 +141,11 @@ function Login() {
             <div className="oauth-form">
               <div className="oauth-head">Log in With</div>
               <div className="oauth">
-                <img src={require("../../asset/구글.png")} alt="Googole" />
-                <img src={require("../../asset/카카오.png")} alt="Kakao" />
+                <img
+                  src={require("../../asset/구글.png")}
+                  alt="Google"
+                  onClick={GoogleOauthLogin}
+                />
               </div>
             </div>
           </div>

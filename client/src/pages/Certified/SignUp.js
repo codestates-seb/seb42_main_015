@@ -1,19 +1,28 @@
-import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import * as S from "./FormStyled";
 import axios from "axios";
+import { headers, GoogleOauthLogin } from "./setupCertified";
+import { Loading } from "../../components/Loading";
 
 function SignUp() {
   const navigate = useNavigate();
-  //유저네임 중복검사
-  const [nameValid, setNameValid] = useState(false);
-  //이메일 중복검사
-  const [emailValid, setEmailValid] = useState(false);
+  //유저네임, 이메일 중복검사
+  const [isVaild, setIsVaild] = useState({
+    nameValid: false,
+    emailValid: false,
+  });
+  //이메일 인증코드
+  const [isCode, setCode] = useState("");
+  //이메일 인증번호 일치
+  const [isEmailCode, setEmailCode] = useState(false);
+  //로딩상태
+  const [isLoading, setIsLoading] = useState(false);
 
-  const formSchema = yup.object({
+  const FormSchema = yup.object({
     username: yup
       .string()
       .required("한글, 영문, 숫자로 이루어진 2~10자리를 입력해주세요.")
@@ -27,6 +36,7 @@ function SignUp() {
       .string()
       .required("이메일을 입력해주세요")
       .email("이메일 형식이 아닙니다."),
+    code: yup.string().required("이메일로 발송된 인증코드를 입력해주세요."),
     password: yup
       .string()
       .required("영문 소문자, 숫자, 특수문자를 포함한 8~16자리를 입력해주세요.")
@@ -44,100 +54,132 @@ function SignUp() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { isSubmitting, errors },
-  } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
-
-  const headers = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-    "ngrok-skip-browser-warning": "12",
-  };
+  } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
   //sign up 제출 버튼
   const onSubmit = async (data) => {
     const { email, username, password } = data;
 
-    if (!nameValid || !emailValid) {
+    if (!isVaild) {
       alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
       return;
-    }
-
-    await axios
-      .post(
-        `/api/sendy/users/signup`,
-        { email: email, nickname: username, password: password },
-        {
-          headers,
-        }
-      )
-      .then(() => {
-        alert("회원가입 되었습니다.");
-        navigate("/login");
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("유저네임 및 이메일 중복 체크를 진행해주세요.");
-      });
-  };
-
-  //유저네임 중복체크
-  const usernameCheck = async (data) => {
-    const { username } = data;
-    if (username) {
-      axios
+    } else if (!isEmailCode) {
+      alert("인증을 완료해주세요.");
+    } else {
+      await axios
         .post(
           `/api/sendy/users/signup`,
+          { email: email, nickname: username, password: password },
           {
-            nickname: username,
+            headers,
+          }
+        )
+        .then(() => {
+          alert("회원가입 되었습니다.");
+          navigate("/completesignup");
+        })
+        .catch(() => {
+          // alert("이미 가입된 유저입니다.");
+        });
+    }
+  };
+  //유저네임 중복체크
+  const usernameCheck = async () => {
+    if (watch("username")) {
+      axios
+        .post(
+          `/api/sendy/users/verify/nickname`,
+          {
+            nickname: watch("username"),
           },
           {
             headers,
           }
         )
         .then((res) => {
-          if (res.status === 409) {
-            alert("이미 존재하는 유저네임입니다.");
-          } else {
+          if (res.status === 200) {
             alert("사용 가능한 유저네임입니다.");
-            setNameValid(!nameValid);
           }
+          setIsVaild({
+            ...isVaild,
+            nameValid: true,
+          });
         })
-        .catch((res) => {
-          console.log(res.data);
+        .catch(() => {
+          alert("이미 존재하는 유저네임입니다.");
         });
     }
   };
 
   //이메일 중복체크
-  const emailCheck = async (data) => {
-    const { email } = data;
-    if (email) {
+  const emailCheck = async () => {
+    if (watch("email")) {
       axios
         .post(
-          `/api/sendy/users/signup`,
+          `/api/sendy/users/verify/email`,
           {
-            email: email,
+            email: watch("email"),
           },
           {
             headers,
           }
         )
         .then((res) => {
-          if (res.status === 409) {
-            alert("이미 존재하는 이메일입니다.");
-          } else {
+          if (res.status === 200) {
             alert("사용 가능한 이메일입니다.");
-            setEmailValid(!emailValid);
           }
+          setIsVaild({
+            ...isVaild,
+            emailValid: true,
+          });
         })
-        .catch((res) => {
-          console.log(res.data);
+        .catch(() => {
+          alert("이미 존재하는 이메일입니다.");
         });
     }
   };
 
+  //인증코드 확인
+  const handleCheckCode = () => {
+    if (watch("code").length !== 0 && watch("code") === isCode) {
+      setEmailCode(true);
+      alert("인증되었습니다.");
+    } else {
+      alert("올바른 인증코드를 입력해주세요.");
+    }
+  };
+
+  //인증 코드 발송
+  const handleSendCode = async () => {
+    setIsLoading(true);
+    axios
+      .post(
+        `/api/sendy/email/send-code-email`,
+        {
+          email: watch("email"),
+        },
+        {
+          headers,
+        }
+      )
+      .then((res) => {
+        setIsLoading(false);
+        setTimeout(() => {
+          alert("인증코드가 발송되었습니다. 이메일을 확인해주세요 !");
+        }, 300);
+        setCode(res.data.code);
+        console.log(res.data.code);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
+  };
+
   return (
     <>
+      {isLoading ? <Loading /> : ""}
       <S.Container>
         <S.BackgroundYellow theme="signup" />
         <S.LogForm theme="signup" onSubmit={handleSubmit(onSubmit)}>
@@ -145,43 +187,79 @@ function SignUp() {
             <ul className="login-form">
               <li className="loginText">Sign up</li>
               <label>
-                <input
-                  className="userInput"
-                  name="username"
-                  type="text"
-                  placeholder="user name"
-                  {...register("username")}
-                />
-                {nameValid ? (
-                  <button className="duplicate">체크완료</button>
+                {isVaild.nameValid ? (
+                  <input className="userInput" disabled="disabled" />
                 ) : (
-                  <button
-                    className="duplicate"
-                    onClick={usernameCheck}
-                    backgroundcolor="#ffcb12"
-                  >
+                  <input
+                    className="userInput"
+                    name="username"
+                    type="text"
+                    placeholder="user name"
+                    {...register("username")}
+                  />
+                )}
+                {isVaild.nameValid ? (
+                  <button className="duplicate-check">체크완료</button>
+                ) : (
+                  <button className="duplicate" onClick={usernameCheck}>
                     중복체크
                   </button>
                 )}
               </label>
-              {errors.nickname && <p>{errors.nickname.message}</p>}
+              {errors.nickname && (
+                <div className="err">{errors.nickname.message}</div>
+              )}
               <label>
-                <input
-                  className="emailInput"
-                  type="email"
-                  name="email"
-                  placeholder="email address"
-                  {...register("email")}
-                />
-                {emailValid ? (
-                  <button className="duplicate">체크완료</button>
+                {isVaild.emailValid ? (
+                  <input className="emailInput" disabled="disabled" />
+                ) : (
+                  <input
+                    className="emailInput"
+                    type="email"
+                    name="email"
+                    placeholder="email address"
+                    {...register("email")}
+                  />
+                )}
+                {isVaild.emailValid ? (
+                  isCode ? (
+                    <button className="duplicate-check">발송 완료</button>
+                  ) : (
+                    <button className="code-check" onClick={handleSendCode}>
+                      코드 받기
+                    </button>
+                  )
                 ) : (
                   <button className="duplicate" onClick={emailCheck}>
                     중복체크
                   </button>
                 )}
               </label>
-              {errors.email && <p>{errors.email.message}</p>}
+              {errors.email && (
+                <div className="err">{errors.email.message}</div>
+              )}
+              <label>
+                {isEmailCode ? (
+                  <input className="emailInput" disabled="disabled" />
+                ) : (
+                  <input
+                    className="emailInput"
+                    name="code"
+                    type="code"
+                    placeholder="Enter code"
+                    {...register("code")}
+                  />
+                )}
+
+                {isEmailCode ? (
+                  <button className="duplicate-check">완료</button>
+                ) : (
+                  <button className="duplicate" onClick={handleCheckCode}>
+                    확인
+                  </button>
+                )}
+              </label>
+              {errors.code && <div className="err">{errors.code.message}</div>}
               <input
                 className="pwdInput"
                 name="password"
@@ -189,16 +267,21 @@ function SignUp() {
                 placeholder="Password"
                 {...register("password")}
               />
-              {errors.password && <p>{errors.password.message}</p>}
-              <input
-                className="pwdInput"
-                type="password"
-                name="passwordConfirm"
-                placeholder="Confirm Password"
-                {...register("passwordConfirm")}
-              />
+
+              {errors.password && (
+                <div className="err">{errors.password.message}</div>
+              )}
+              <label>
+                <input
+                  className="pwdInput"
+                  type="password"
+                  name="passwordConfirm"
+                  placeholder="Confirm Password"
+                  {...register("passwordConfirm")}
+                />
+              </label>
               {errors.passwordConfirm && (
-                <p>{errors.passwordConfirm.message}</p>
+                <div className="err">{errors.passwordConfirm.message}</div>
               )}
               {/* 로그인버튼의 disabled 속성에 isSubmitting값을 부여하면 -> 제출 처리가 끝날 때까지 버튼이 비활성화 된다. */}
               <input
@@ -209,14 +292,17 @@ function SignUp() {
               />
               <div className="sub-form ">
                 <Link to="/login">
-                  <li>Log in</li>
+                  <div>Log in</div>
                 </Link>
               </div>
               <div className="oauth-form">
                 <div className="oauth-head">Sign up With</div>
                 <div className="oauth">
-                  <img src={require("../../asset/구글.png")} alt="Googole" />
-                  <img src={require("../../asset/카카오.png")} alt="Kakao" />
+                  <img
+                    src={require("../../asset/구글.png")}
+                    alt="Google"
+                    onClick={GoogleOauthLogin}
+                  />
                 </div>
               </div>
             </ul>
@@ -227,10 +313,13 @@ function SignUp() {
               <img src={require("../../asset/CatDog.png")} alt="CatandDog" />
             </div>
             <div className="oauth-form">
-              <div className="oauth-head">Log in With</div>
+              <div className="oauth-head">Sign up With</div>
               <div className="oauth">
-                <img src={require("../../asset/구글.png")} alt="Googole" />
-                <img src={require("../../asset/카카오.png")} alt="Kakao" />
+                <img
+                  src={require("../../asset/구글.png")}
+                  alt="Google"
+                  onClick={GoogleOauthLogin}
+                />
               </div>
             </div>
           </li>

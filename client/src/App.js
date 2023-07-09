@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import SignUp from "./pages/Certified/SignUp";
@@ -13,33 +12,41 @@ import SetPwd from "./pages/Certified/SetPwd";
 import Layout from "./components/Layout";
 import PwdChange from "./pages/MyPage/PwdChange";
 import Trash from "./pages/MyPage/TrashList";
+import CompleteSignup from "./pages/Certified/CompleteSignup";
+import Preview from "./pages/WriteLetter/Preview";
+import NotFound from "./pages/NotFound";
+import Complete from "./pages/WriteLetter/Complete";
+import { getCookie } from "./pages/Certified/Cookie";
+
 // ! 공백
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
   const displayFooter = true;
-  // ! 공백
+
+    console.log(getCookie("accessToken"))
+  
   return (
     <BrowserRouter>
-      <Header isLogin={isLogin} />
+      <Header />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="letterbox" element={<LetterBox />} />
+        <Route path="/letterbox" element={<LetterBox />} />
+        <Route path="/trash" element={<Trash />} />
         <Route element={<Layout displayFooter={displayFooter} />}>
           <Route path="/login" element={<Login />} />
-          <Route path="/setpwd" element={<SetPwd />} />
           <Route path="/setpwd/:page" element={<SetPwd />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/trash" element={<Trash />} />
-          <Route path="/pwdchange" element={<PwdChange />} />
           <Route path="/pwdchange/:page" element={<PwdChange />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/writeletter" element={<WriteLetter />} />
           <Route path="/completeLogout" element={<CompleteLogout />} />
           <Route
-            path="/readletter"
-            element={<ReadLetter isLogin={isLogin} />}
+            path="/readletter/:urlName"
+            element={<ReadLetter />}
           />
-          <Route path="letterbox" element={<LetterBox />} />
+          <Route path="/completeSignup" element={<CompleteSignup />} />
+          <Route path="/writeletter/preview" element={<Preview />} />
+          <Route path="/writeletter/complete/:urlName" element={<Complete />} />
+          <Route path="/*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
