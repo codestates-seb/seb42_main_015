@@ -1,5 +1,3 @@
-import { setCookie, getCookie } from "./Cookie";
-
 //axios headers
 export const headers = {
   "Access-Control-Allow-Origin": "*",

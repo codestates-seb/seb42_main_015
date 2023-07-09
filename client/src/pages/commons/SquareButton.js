@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { BREAKPOINTMOBILE } from "../../breakpoint";
-import { PALETTE_V1 } from "../../style/color";
 import { FONT_STYLE_V1 } from "../../style/fontStyle";
 
 const StyledSquareButton = styled.button`

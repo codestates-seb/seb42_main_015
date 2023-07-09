@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as L from "./LetterBoxStyled";
 import LetterInItem from "./LetterInItem";
 import useStore from "../../store/store";
@@ -23,20 +23,16 @@ function LetterReceiving({
   const [isLoading, setIsLoading] = useState(false);
   const [ref, inView] = useInView();
 
-  const getLetters = useCallback(
-    async (page) => {
-      return await axios({
-        method: "get",
-        url: `/api/sendy/mailbox/messages/in?page=${page}`,
-        headers: {
-          "ngrok-skip-browser-warning": "230328",
-          Authorization: getCookie("accessToken"),
-        },
-      });
-    },
-    [inLetters]
-  );
-
+  const getLetters = async (page) => {
+    return await axios({
+      method: "get",
+      url: `/api/sendy/mailbox/messages/in?page=${page}`,
+      headers: {
+        "ngrok-skip-browser-warning": "230328",
+        Authorization: getCookie("accessToken"),
+      },
+    });
+  };
   // console.log("원본 데이터", inLetters);
 
   useEffect(() => {

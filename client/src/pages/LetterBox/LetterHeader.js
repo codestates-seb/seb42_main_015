@@ -109,9 +109,9 @@ function LetterHeader({
           <RiArrowDropDownLine className="icon" />
         </L.CurrentSelectBox>
         {rightTab ? (
-          <L.Dropdown>
+          <L.Dropdown onClick={onFilter}>
             {filters.map((el, idx) => (
-              <L.DropdownItem key={idx} onClick={onFilter}>
+              <L.DropdownItem key={idx}>
                 {el}
               </L.DropdownItem>
             ))}

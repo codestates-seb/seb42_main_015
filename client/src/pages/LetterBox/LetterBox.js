@@ -113,11 +113,48 @@ function LetterBox() {
   // 시간순 & 북마크
   const handleFiltered = (e) => {
     setCurrentFilter(e.target.textContent);
-    if (currentFilter === "오래된 순") {
-      return;
-    }
     setRightTab(false);
+    console.log(e.target.textContent)
+    console.log(currentFilter)
   };
+
+  useEffect(() => {
+    if (isSend) {
+      if (currentFilter === "최신순") {
+        setFilteredOut(
+          outLetters.sort(
+            (a, b) =>
+              new Date(b.messageCreatedAt) - new Date(a.messageCreatedAt)
+          )
+        );
+      } else if (currentFilter === "오래된 순") {
+        setFilteredOut(
+          outLetters.sort(
+            (a, b) =>
+              new Date(a.messageCreatedAt) - new Date(b.messageCreatedAt)
+          )
+        );
+      } else if (currentFilter === "북마크")
+        setFilteredOut(outLetters.filter((letter) => letter.bookMark));
+    } else if (!isSend) {
+      if (currentFilter === "최신순")
+        setFilteredIn(
+          inLetters.sort(
+            (a, b) =>
+              new Date(b.messageCreatedAt) - new Date(a.messageCreatedAt)
+          )
+        );
+      if (currentFilter === "오래된 순")
+        setFilteredIn(
+          inLetters.sort(
+            (a, b) =>
+              new Date(a.messageCreatedAt) - new Date(b.messageCreatedAt)
+          )
+        );
+      if (currentFilter === "북마크")
+        setFilteredIn(inLetters.filter((letter) => letter.bookMark));
+    }
+  }, [currentFilter])
 
   // 삭제
   const handleDelete = () => {
@@ -156,26 +193,6 @@ function LetterBox() {
         });
     }
   };
-
-  useEffect(() => {
-    if (isSend) {
-      if (currentFilter === "최신순") setFilteredOut(outLetters);
-      if (currentFilter === "오래된 순") setFilteredOut(outLetters.reverse());
-      if (currentFilter === "북마크")
-        setFilteredOut(outLetters.filter((letter) => letter.bookMark));
-    }
-
-    if (!isSend) {
-      if (currentFilter === "최신순") setFilteredIn(inLetters);
-      if (currentFilter === "오래된 순") setFilteredIn(inLetters.reverse());
-      if (currentFilter === "북마크")
-        setFilteredIn(inLetters.filter((letter) => letter.bookMark));
-    }
-  }, [inLetters, outLetters, currentFilter]);
-
-
-  // console.log(currentFilter)
-  // console.log('필터 데이터', filteredIn);
 
   return (
     <L.LetterBoxWrap>

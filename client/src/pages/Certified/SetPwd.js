@@ -8,9 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import ShadowButton from "../commons/ShadowButton";
 import axios from "axios";
-import { headers } from "./setupCertified";
 import { Loading } from "../../components/Loading";
-import { getCookie } from "../Certified/Cookie";
 import Refresh from "../../util/Refresh";
 
 function SetPwd() {
