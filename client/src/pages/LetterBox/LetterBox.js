@@ -114,8 +114,8 @@ function LetterBox() {
   const handleFiltered = (e) => {
     setCurrentFilter(e.target.textContent);
     setRightTab(false);
-    console.log(e.target.textContent)
-    console.log(currentFilter)
+    // console.log(e.target.textContent)
+    // console.log(currentFilter)
   };
 
   useEffect(() => {
