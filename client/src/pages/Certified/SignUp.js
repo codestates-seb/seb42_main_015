@@ -1,7 +1,7 @@
-import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import * as S from "./FormStyled";
 import axios from "axios";
@@ -80,7 +80,7 @@ function SignUp() {
           alert("회원가입 되었습니다.");
           navigate("/completesignup");
         })
-        .catch((err) => {
+        .catch(() => {
           // alert("이미 가입된 유저입니다.");
         });
     }
@@ -172,7 +172,7 @@ function SignUp() {
         setCode(res.data.code);
         console.log(res.data.code);
       })
-      .catch((err) => {
+      .catch(() => {
         setIsLoading(false);
       });
   };

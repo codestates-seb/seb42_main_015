@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import SignUp from "./pages/Certified/SignUp";
@@ -15,38 +14,19 @@ import PwdChange from "./pages/MyPage/PwdChange";
 import Trash from "./pages/MyPage/TrashList";
 import CompleteSignup from "./pages/Certified/CompleteSignup";
 import Preview from "./pages/WriteLetter/Preview";
-import { getCookie } from "./pages/Certified/Cookie";
-import useStore from "./store/store";
 import NotFound from "./pages/NotFound";
 import Complete from "./pages/WriteLetter/Complete";
+import { getCookie } from "./pages/Certified/Cookie";
+
 // ! 공백
 function App() {
   const displayFooter = true;
-  const { isLogin, setIsLogin } = useStore();
-  // ! 공백
-  const initializeUserInfo = async () => {
-    const loggedInfo = getCookie("accesstoken");
-    if (loggedInfo) {
-      setIsLogin(true);
-      // console.log("accesstoken : ", getCookie("accesstoken"));
-      // console.log("refreshToken : ", localStorage.getItem("refreshToken"));
-    }
-  };
-  // ! 공백
-  if (window.Kakao) {
-    const Kakao = window.Kakao;
-    if (!Kakao.isInitialized()) {
-      Kakao.init("472b9297cf551180ae66ea8d75dbc70d");
-    }
-  }
-  // ! 공백
-  useEffect(() => {
-    initializeUserInfo();
-  }, [isLogin]);
-  // ! 공백
+
+    console.log(getCookie("accessToken"))
+  
   return (
     <BrowserRouter>
-      <Header isLogin={isLogin} />
+      <Header />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/letterbox" element={<LetterBox />} />
@@ -61,7 +41,7 @@ function App() {
           <Route path="/completeLogout" element={<CompleteLogout />} />
           <Route
             path="/readletter/:urlName"
-            element={<ReadLetter isLogin={isLogin} />}
+            element={<ReadLetter />}
           />
           <Route path="/completeSignup" element={<CompleteSignup />} />
           <Route path="/writeletter/preview" element={<Preview />} />

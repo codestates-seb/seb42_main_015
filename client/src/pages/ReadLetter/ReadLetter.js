@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useLocation, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import * as R from "./ReadStyled";
 import domtoimage from "dom-to-image";
@@ -15,9 +15,9 @@ import axios from "axios";
 import Refresh from "../../util/Refresh";
 import ShareButtons from "./ShareButtons";
 
-const ReadLetter = ({ isLogin }) => {
+const ReadLetter = () => {
   const { urlName } = useParams();
-  const { letterPassword, setLetterPassword, setMessageId } = useStore();
+  const { letterPassword, setLetterPassword, setMessageId, isLogin } = useStore();
   const [isLoading, setIsLoading] = useState(false);
   //todo useState
   //비밀번호 쳤는지 안쳤는지
@@ -37,18 +37,18 @@ const ReadLetter = ({ isLogin }) => {
   //이미지로 저장하기 버튼
   const onDownloadBtn = () => {
     setIsLoading(true);
-    // domtoimage.toBlob(LetterFrontRef.current).then((Blob) => {
-    //   setIsLoading(false);
-    //   alert("편지가 저장되었어요!");
-    //   saveAs(Blob, "letter.png");
-    // });
-    domtoimage
-      .toBlob(rotate ? LetterBackRef.current : LetterFrontRef.current)
-      .then((Blob) => {
-        setIsLoading(false);
-        alert("편지가 저장되었어요!");
-        saveAs(Blob, "letter.png");
-      });
+    domtoimage.toBlob(LetterFrontRef.current).then((Blob) => {
+      setIsLoading(false);
+      alert("편지가 저장되었어요!");
+      saveAs(Blob, "letter.png");
+    });
+    // domtoimage
+    //   .toBlob(rotate ? LetterBackRef.current : LetterFrontRef.current)
+    //   .then((Blob) => {
+    //     setIsLoading(false);
+    //     alert("편지가 저장되었어요!");
+    //     saveAs(Blob, "letter.png");
+    //   });
   };
 
   //todo 모달 영역 밖 클릭 시 모달 닫기
@@ -84,7 +84,7 @@ const ReadLetter = ({ isLogin }) => {
       .get(`/api/sendy/messages/${urlName}`, {
         headers: {
           "ngrok-skip-browser-warning": "12",
-          Authorization: `${getCookie("accesstoken")}`,
+          Authorization: `${getCookie("accessToken")}`,
         },
       })
       .then((res) => {
@@ -104,11 +104,13 @@ const ReadLetter = ({ isLogin }) => {
         setIsLoading(false);
       })
       .catch((err) => {
-        while (err.response.status === 401) {
+        if (err.response.status === 401) {
           Refresh().then(() => getLetter());
         }
       });
   };
+
+  console.log(letterPassword)
 
   const weekday = ["일", "월", "화", "수", "목", "금", "토"];
   const LetterDate = `${new Date(`${data.createdAt}`).getFullYear()}.${(

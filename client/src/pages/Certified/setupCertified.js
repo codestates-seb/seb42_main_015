@@ -1,5 +1,3 @@
-import { setCookie, getCookie } from "./Cookie";
-
 //axios headers
 export const headers = {
   "Access-Control-Allow-Origin": "*",
@@ -13,6 +11,7 @@ export const options = {
   secure: true,
   sameSite: "Strict",
   HttpOnly: " HttpOnly ",
+  // maxAge: 3600
 };
 
 export const GoogleOauthLogin = () => {

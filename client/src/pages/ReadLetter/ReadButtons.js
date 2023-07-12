@@ -57,7 +57,7 @@ const ReadButtons = ({
       url: `/api/sendy/messages/saved/${urlName}`,
       headers: {
         "ngrok-skip-browser-warning": "12",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accessToken"),
       },
       data: {},
     })
@@ -72,7 +72,7 @@ const ReadButtons = ({
       })
       .catch((err) => {
         setIsLoading(false);
-        while (err.response.status === 401) {
+        if (err.response.status === 401) {
           Refresh().then(() => handleKeeping());
         }
       });
@@ -92,7 +92,7 @@ const ReadButtons = ({
           url: `/api/sendy/mailbox/receiving/delete`,
           headers: {
             "ngrok-skip-browser-warning": "12",
-            Authorization: getCookie("accesstoken"),
+            Authorization: getCookie("accessToken"),
           },
           data: {
             ids: [isDustbin.receivingId],
@@ -106,7 +106,7 @@ const ReadButtons = ({
           })
           .catch((err) => {
             setIsLoading(false);
-            while (err.response.status === 401) {
+            if (err.response.status === 401) {
               Refresh().then(() => onRemove());
             }
           });
@@ -117,7 +117,7 @@ const ReadButtons = ({
           url: `/api/sendy/mailbox/outgoing/delete`,
           headers: {
             "ngrok-skip-browser-warning": "12",
-            Authorization: getCookie("accesstoken"),
+            Authorization: getCookie("accessToken"),
           },
           data: {
             ids: [isDustbin.outgoingId],
@@ -131,7 +131,7 @@ const ReadButtons = ({
           })
           .catch((err) => {
             setIsLoading(false);
-            while (err.response.status === 401) {
+            if (err.response.status === 401) {
               Refresh().then(() => onRemove());
             }
           });

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as W from "./WriteStyled";
 import keyIcon from "../../asset/key.png";
 import RoundButton from "../commons/RoundButton";
@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { formSchema } from "./formSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Refresh from "../../util/Refresh";
 import {
   getUrlNameExist,
@@ -18,20 +18,21 @@ import {
   postMessageImage,
 } from "../commons/axios";
 import ImageInput from "./ImageInput";
-import { Loading } from "../../components/Loading";
 
 function MakeLetter({ makeLetterModalRef }) {
   const {
     register,
     watch,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm({ mode: "onChange", resolver: yupResolver(formSchema) });
   const [image, setImage] = useState(null);
   const { letterContents, setLetterContents } = useStore();
   const [imageFile, setImageFile] = useState();
-
   const [canUseUrl, setCanUseUrl] = useState(null);
   const handleCheckUrlName = () => {
+    if (!watch("urlName")) {
+      return;
+    }
     getUrlNameExist(letterContents.urlName)
       .then(() => {
         setCanUseUrl(true);
@@ -49,20 +50,23 @@ function MakeLetter({ makeLetterModalRef }) {
       });
   };
 
-  const navigate = useNavigate();
   const handleMakeLetter = () => {
     return postMessage(letterContents)
       .then(() => {
         postMessageImage(imageFile, letterContents.urlName);
       })
       .catch((err) => {
+        console.log("if문 이전");
         if (err.response.status === 401) {
+          console.log("if문 안");
           Refresh().then(() => {
-            postMessage(letterContents).then(() => {
-              postMessageImage(imageFile, letterContents.urlName).then(
-                () => {}
-              );
-            });
+            console.log("리프레시 성공");
+            postMessage(letterContents)
+              .then(() => {
+                console.log("postMessage성공");
+                postMessageImage(imageFile, letterContents.urlName);
+              })
+              .catch((err) => console.log(err));
           });
         } else {
           console.log(err);
@@ -86,7 +90,7 @@ function MakeLetter({ makeLetterModalRef }) {
     );
     setLetterContents({ ...letterContents, urlName: e.target.value });
   };
-
+  useEffect(() => {});
   return (
     <W.ModalWrapper className="make-letter" ref={makeLetterModalRef}>
       <W.ModalTitle>편지 생성</W.ModalTitle>
@@ -113,7 +117,6 @@ function MakeLetter({ makeLetterModalRef }) {
                   {...register("urlName")}
                 />
               )}
-
               {errors.urlName && (
                 <W.ErrorMessage className="make-letter">
                   {errors.urlName.message}
@@ -157,7 +160,7 @@ function MakeLetter({ makeLetterModalRef }) {
               if (e.target.value !== "") {
                 setLetterContents({
                   ...letterContents,
-                  password: e.target.value,
+                  password: String(e.target.value),
                 });
               } else {
                 setLetterContents({

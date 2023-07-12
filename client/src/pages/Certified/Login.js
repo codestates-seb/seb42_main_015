@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import * as L from "./FormStyled";
 import axios from "axios";
 import { setCookie } from "./Cookie";
 import { headers, options, GoogleOauthLogin } from "./setupCertified";
+import * as yup from "yup";
+import useStore from "../../store/store";
 
 function Login() {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ function Login() {
   } = useForm({ mode: "onChange", resolver: yupResolver(FormSchema) });
 
   //TODO :로그인 제출 버튼
+  const { setIsLogin } = useStore();
   const onSubmit = async (data) => {
     const { email, password } = data;
     await axios
@@ -45,20 +47,22 @@ function Login() {
       )
       .then((res) => {
         alert("로그인되었습니다.");
-        //! 멤버Id -> 세션 스토리지에 저장
+        //! 멤버Id, refreshToken -> sessionStorage에 저장
         sessionStorage.setItem("memberId", res.data.memberId);
-        if (res.headers.getAuthorization) {
-          //! refreshToken -> local storage에 저장
-          localStorage.setItem("refreshToken", res.headers.get("Refresh"));
+        sessionStorage.setItem("refreshToken", res.headers.get("Refresh"));
           //! accessToken -> cookie에 저장
-          setCookie("accesstoken", `${res.headers.get("Authorization")}`, {
+          setCookie("accessToken", `${res.headers.get("Authorization")}`, {
             options,
           });
+          //! accessToken expire  -> cookie에 저장(60분)
+          // setCookie("accesstoken_expire", `${res.headers.get("Date")}`, {
+          //   options,
+          // });
+          setIsLogin(true);
           navigate("/");
-          window.location.reload();
-        }
+        window.location.reload();
       })
-      .catch((err) => {
+      .catch(() => {
         alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
       });
   };
@@ -126,8 +130,7 @@ function Login() {
               <div className="section1">
                 <img
                   src={require("../../asset/해바라기.png")}
-                  alt="Sunflower"
-                ></img>
+                  alt="Sunflower"></img>
                 <span className="box">sunflower</span>
               </div>
               <div className="section2">

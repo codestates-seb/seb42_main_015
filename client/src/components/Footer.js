@@ -73,7 +73,7 @@ const Footer = () => {
           <Link to="/">
             <div className="logo">
               Sendy
-              <img className="logo-img" src={logo} />
+              <img className="logo-img" src={logo} alt="" />
             </div>
           </Link>
           <div className="imfomation">

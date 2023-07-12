@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as L from "./LetterBoxStyled";
 import LetterOutItem from "./LetterOutItem";
 import useStore from "../../store/store";
@@ -10,44 +10,60 @@ import Refresh from "../../util/Refresh";
 function LetterOutgoing({
   trash,
   isFocus,
-  isSearchOut,
+  searchOut,
+  filteredOut,
   selectId,
   setSelectId,
+  setCurrentFilter,
+  isPeriod,
+  periodOut,
 }) {
-  const { outLetters, setOutLetters, filterOut, setFilterOut } = useStore();
+  const { outLetters, setOutLetters } = useStore();
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [ref, inView] = useInView();
 
-  const getLetters = useCallback(async (page) => {
+  const getLetters = async (page) => {
     return await axios({
       method: "get",
       url: `/api/sendy/mailbox/messages/out?page=${page}`,
       headers: {
         "ngrok-skip-browser-warning": "230328",
-        Authorization: getCookie("accesstoken"),
+        Authorization: getCookie("accessToken"),
       },
-    })
-      .then((res) => {
-        setOutLetters(page === 1 ? res.data.data : [...outLetters, ...res.data.data]);
-        setFilterOut(page === 1 ? res.data.data : [...outLetters, ...res.data.data]);
-      })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          Refresh().then(() => getLetters());
-        }
-      });
-  }, [outLetters]);
+    });
+  };
+  // console.log(isLoading);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setCurrentFilter("최신순");
+    getLetters(1);
   }, []);
 
   useEffect(() => {
-    // setIsLoading(true);
-    getLetters(page);
-    // setIsLoading(false);
+    getLetters(page)
+      .then((res) => {
+        setOutLetters(
+          page === 1 ? res.data.data : [...outLetters, ...res.data.data]
+        );
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          Refresh().then(() =>
+            getLetters(page).then((res) => {
+              setOutLetters(
+                page === 1 ? res.data.data : [...outLetters, ...res.data.data]
+              );
+            })
+          );
+        }
+      });
   }, [page]);
+
+  // useEffect(() => {
+  //   getLetters(page);
+  // }, [page]);
 
   useEffect(() => {
     if (inView && !isLoading) {
@@ -62,17 +78,17 @@ function LetterOutgoing({
 
   return (
     <L.ListContainer>
-      <L.ListDateContainer>
+      {/* <L.ListDateContainer>
         <L.ListDate>2023.03</L.ListDate>
         <L.ListBar></L.ListBar>
-      </L.ListDateContainer>
+      </L.ListDateContainer> */}
       <L.ItemWrap>
         <L.ItemContainer>
           {isFocus ? (
-            isSearchOut.length === 0 ? (
+            searchOut.length === 0 ? (
               <L.NotSearch>해당하는 편지를 찾을 수 없어요.</L.NotSearch>
             ) : (
-              isSearchOut.map((letter) => {
+              searchOut.map((letter) => {
                 return (
                   <LetterOutItem
                     key={letter.outgoingId}
@@ -82,8 +98,20 @@ function LetterOutgoing({
                 );
               })
             )
+          ) : isPeriod ? (
+            periodOut.map((letter) => {
+              return (
+                <LetterOutItem
+                  key={letter.outgoingId}
+                  letter={letter}
+                  trash={trash}
+                  selectId={selectId}
+                  setSelectId={setSelectId}
+                />
+              );
+            })
           ) : (
-            filterOut.map((letter) => {
+            filteredOut.map((letter) => {
               return (
                 <LetterOutItem
                   key={letter.outgoingId}

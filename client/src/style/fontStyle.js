@@ -380,13 +380,6 @@ export const FONT_STYLE_CONTENT = {
     color: ${PALETTE_V1.text_primary};
     text-align: justify;
   `,
-  pixel_20: css`
-    font-family: "DOSSaemmul";
-    font-size: 2rem;
-    color: ${PALETTE_V1.text_primary};
-    line-height: 3rem;
-    text-align: justify;
-  `,
   gangwonedu_10_light: css`
     font-family: "GangwonEdu_Light";
     font-size: 1rem;

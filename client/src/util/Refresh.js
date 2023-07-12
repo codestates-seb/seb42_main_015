@@ -1,11 +1,10 @@
 import axios from "axios";
-import { RiContactsBookLine } from "react-icons/ri";
 import { setCookie, removeCookie } from "../pages/Certified/Cookie";
 
 function Refresh() {
   axios.defaults.withCredentials = true;
   //기존 액세스토큰 삭제
-  removeCookie("accesstoken", {
+  removeCookie("accessToken", {
     path: "/",
   });
   return axios({
@@ -20,8 +19,8 @@ function Refresh() {
       if (res.headers.getAuthorization) {
         //액세스토큰 재발급
         setCookie(
-          "accesstoken",
-          `Bearer ${res.headers.get("Authorization").split(" ")[1]}`,
+          "accessToken",
+          `${res.headers.get("Authorization")}`,
           {
             path: "/",
             secure: true,

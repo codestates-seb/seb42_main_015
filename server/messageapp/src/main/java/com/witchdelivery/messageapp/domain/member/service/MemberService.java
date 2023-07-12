@@ -5,7 +5,7 @@ import com.witchdelivery.messageapp.domain.member.entity.MemberImage;
 import com.witchdelivery.messageapp.domain.member.entity.MemberStatus;
 import com.witchdelivery.messageapp.global.exception.BusinessLogicException;
 import com.witchdelivery.messageapp.global.exception.ExceptionCode;
-import com.witchdelivery.messageapp.infra.S3.S3Info;
+import com.witchdelivery.messageapp.infra.S3.S3InfoDto;
 import com.witchdelivery.messageapp.infra.S3.S3Service;
 import com.witchdelivery.messageapp.security.utils.CustomAuthorityUtils;
 import com.witchdelivery.messageapp.domain.member.dto.MemberSignupDto;
@@ -119,7 +119,7 @@ public class MemberService {
         Member findMember = memberDbService.findVerifiedEmail(email); // 사용자 이메일 검증
         findMember.setPassword(passwordEncoder.encode(newPassword));    // 새로운 패스워드 암호화
         memberRepository.save(findMember);
-    }   // FIXME 빌더패턴
+    }
 
     /**
      * 사용자 닉네임 수정 메서드
@@ -129,7 +129,7 @@ public class MemberService {
     public Member updateNickname(Member member) {
         Member findMember = memberDbService.findVerifiedMemberId(member.getMemberId());   // 사용자 검증
         memberDbService.verifiedExistedName(member.getNickname());  // 닉네임 검증
-        Member updateMember = customBeanUtils.copyNonNullProperties(member, findMember);
+        Member updateMember = customBeanUtils.copyNonNullProperties(member, findMember);    // FIXME 리팩토링
         return memberRepository.save(updateMember);
     }
 
@@ -141,7 +141,7 @@ public class MemberService {
         Member findMember = memberDbService.findVerifiedMemberId(memberId);  // 사용자 검증
         findMember.setMemberStatus(MemberStatus.MEMBER_EXITED);
         memberRepository.deleteById(memberId);
-    }
+    }   // FIXME 리팩토링
 
     /**
      * S3 사용자 프로필 이미지 업로드/수정 메서드
@@ -154,17 +154,17 @@ public class MemberService {
         Member findMember = memberDbService.findVerifiedMemberId(memberId);   // 사용자 검증
 
         String dir = "memberImage"; // 사용자 프로필 이미지 디렉토리 지정
-        S3Info s3Info = s3Service.s3ImageUpload(multipartFile, dir);    // 이미지 업로드
+        S3InfoDto s3InfoDto = s3Service.s3ImageUpload(multipartFile, dir);    // 이미지 업로드
 
         if (!findMember.getMemberImage().getFilePath().equals(defaultImageAddress)) {
             s3Service.s3ImageDelete(findMember.getMemberImage().getFileName(), dir);
         }
 
         MemberImage memberImage = MemberImage.builder()
-                .originFileName(s3Info.getOriginFileName())
-                .fileName(s3Info.getFileName())
-                .filePath(s3Info.getFilePath())
-                .fileSize(s3Info.getFileSize())
+                .originFileName(s3InfoDto.getOriginFileName())
+                .fileName(s3InfoDto.getFileName())
+                .filePath(s3InfoDto.getFilePath())
+                .fileSize(s3InfoDto.getFileSize())
                 .build();
 
         findMember.addMemberFile(memberImage);  // FK 저장
